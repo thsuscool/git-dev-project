@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<bean id="base.stringPool" class="com.neighborsystem.durian.pool.string.SbPool">
+		<constructor-arg index="0" type="int" value="100"/>
+	</bean>
+	
+    <bean name="httpPool" class="com.neighborsystem.durian.pool.http.HttpPool">
+        <!-- host -->
+        <constructor-arg index="0" type="String" value="localhost"/>
+        <!-- port -->
+        <constructor-arg index="1" type="int" value="80"/>
+        <!-- maxTotalCount -->
+        <constructor-arg index="2" type="int" value="100"/>
+        <!-- maxCountPerHost -->
+        <constructor-arg index="3" type="int" value="5"/>
+        <!-- protocol -->
+        <constructor-arg index="4" type="String" value="http"/>
+    </bean>
+    
+    <bean id="apsHttpClient" class="kostat.sop.ServiceAPI.common.controller.ApsHttpClient">        
+        <!-- TBS APS -->
+        <property name="apsAddress" value="http://sgis.kostat.go.kr/"/>       
+    </bean>
+    
+    <bean id="properties" class="kostat.sop.ServiceAPI.common.controller.Properties">  
+        <property name="sqlSessionFactory" ref="db.dataSource" />
+        
+        <property name="year_list" ref="stats_year_list"/>
+		<property name="area_type_list" ref="stats_area_type_list"/>
+		<property name="low_search_list" ref="stats_low_search_list"/>
+		<property name="bnd_year_list" ref="stats_bnd_year_list"/>
+		
+		<property name="gender_list" ref="stats_gender_list"/>
+		<property name="edu_level_list" ref="stats_edu_level_list"/>
+		<property name="study_level_list" ref="stats_study_level_list"/>
+		
+		<property name="household_type_list" ref="stats_household_type_list"/>
+		<property name="house_type_list" ref="stats_house_type_list"/>
+		<property name="const_year_list" ref="stats_const_year_list"/>
+		
+		<property name="odoor_crop_cd_list" ref="stats_odoor_crop_cd_list"/>
+		<property name="fac_crop_cd_list" ref="stats_fac_crop_cd_list"/>
+		
+		<property name="forestry_type_code_list" ref="stats_forestry_type_code_list"/>
+		<property name="forestry_type_det_cultivation_list" ref="stats_forestry_type_cultivation_list"/>
+		<property name="forestry_type_det_collection_list" ref="stats_forestry_type_collection_list"/>
+		
+	<!-- <property name="fishery_type_list" ref="stats_fishery_type_list"/> -->
+		<property name="oga_div_list" ref="stats_oga_div_list"/>
+		
+		<property name="defult_bnd_year" ref="stats_defult_bnd_year"/>
+		<property name="java_script_file_path" ref="java_script_file_path"/>
+		<property name="company_year_list" ref="company_year_list"/>
+		<property name="bnd_cd_list" ref="stats_bnd_cd_list"/>
+		
+		<!-- 9월 서비스 -->
+		<property name="house_area_cd_list" ref="stats_house_area_cd_list"/>
+		<property name="house_use_prid_cd_list" ref="stats_house_use_prid_cd_list"/>
+		
+    </bean>
+ 	
+</beans>

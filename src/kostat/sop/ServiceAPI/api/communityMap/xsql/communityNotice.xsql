@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityNotice">
+	<sql id="cmmntyNoticeIdWhere">
+		<choose>
+			<when test="cmmnty_map_indvdlz_notice_id != null and cmmnty_map_indvdlz_notice_id != ''">
+				CMMNTY_MAP_INDVDLZ_NOTICE_ID = #{cmmnty_map_indvdlz_notice_id}
+			</when>
+			<otherwise>
+				1!=1
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="cmmntyNoticeListWhere">
+		<where>
+			<choose>
+				<when test="cmmnty_map_id != null and cmmnty_map_id != ''">
+					CMMNTY_MAP_ID = #{cmmnty_map_id}
+					<if test="search_word != null and search_word != ''">
+						AND (
+							UPPER(TITLE) LIKE '%'||UPPER(#{search_word})||'%'
+							OR UPPER(CONTENT) LIKE '%'||UPPER(#{search_word})||'%'
+						)
+					</if>
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</sql>
+	<sql id="cmmntyNoticeItem">
+		CMMNTY_MAP_INDVDLZ_NOTICE_ID, 
+		CMMNTY_MAP_ID, 
+		TITLE, 
+		HITS, 
+		USR_ID,
+		CONTENT,
+		CASE 
+			WHEN USR_ID = #{member_id} THEN 'Y'
+			ELSE 'N'
+		END AS IS_REGISTER,
+		TO_CHAR(REG_DATE,'yyyy.mm.dd') AS REG_DATE
+	</sql>
+	<select id="selectCmmntyNotice" resultType="java.util.HashMap">
+		SELECT 
+			<include refid="cmmntyNoticeItem"/>
+		FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</select>
+	<select id="selectCmmntyNoticeCount" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<include refid="cmmntyNoticeListWhere"/>
+	</select>
+	
+	<select id="selectCmmntyNoticeList" resultType="java.util.HashMap">
+		SELECT 
+			<include refid="cmmntyNoticeItem"/>
+		FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<include refid="cmmntyNoticeListWhere"/>
+		ORDER BY REG_DATE DESC,CMMNTY_MAP_INDVDLZ_NOTICE_ID DESC
+		LIMIT ${last_num},${page_size}
+	</select>
+	<insert id="insertCmmntyNotice">
+		<selectKey keyProperty="cmmnty_map_indvdlz_notice_id" resultType="Integer" order="BEFORE">
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SELECT SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ID.nextval FROM DUAL -->       
+			SELECT MAX(CMMNTY_MAP_INDVDLZ_NOTICE_ID)+1 FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+			<!-- mng_e 20170713_주용민-->
+		</selectKey>
+		INSERT INTO SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE(
+			CMMNTY_MAP_INDVDLZ_NOTICE_ID, 
+			CMMNTY_MAP_ID, 
+			TITLE,
+			CONTENT, 
+			HITS, 
+			USR_ID, 
+			REG_DATE
+		)VALUES(
+			#{cmmnty_map_indvdlz_notice_id}, 
+			#{cmmnty_map_id}, 
+			#{title}, 
+			#{content}, 
+			0, 
+			#{member_id}, 
+			SYSDATE
+		)
+	</insert>
+	<select id="selectCmmntyNoticeFile" resultType="java.util.HashMap">
+		SELECT
+			CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID, 
+			CMMNTY_MAP_INDVDLZ_NOTICE_ID, 
+			PATH_NM,
+			ORI_FILE_NM,
+			SAVE_FILE_NM,
+			FILE_EXTN,
+			FILE_TYPE
+		FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE
+		<where>
+			<choose>
+				<when test="cmmnty_map_indvdlz_notice_atch_file_id != null and cmmnty_map_indvdlz_notice_atch_file_id != ''">
+					CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID = #{cmmnty_map_indvdlz_notice_atch_file_id}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="selectCmmntyNoticeFileList" resultType="java.util.HashMap">
+		SELECT
+			CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID, 
+			CMMNTY_MAP_INDVDLZ_NOTICE_ID, 
+			PATH_NM,
+			ORI_FILE_NM,
+			SAVE_FILE_NM,
+			FILE_EXTN,
+			FILE_TYPE
+		FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</select>
+	<insert id="insertCmmntyNoticeFile">
+		INSERT INTO SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE(
+			CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID, 
+			CMMNTY_MAP_INDVDLZ_NOTICE_ID, 
+			PATH_NM,
+			ORI_FILE_NM,
+			SAVE_FILE_NM,
+			FILE_EXTN,
+			FILE_TYPE
+		)VALUES(
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID.nextval, --> 
+			(SELECT MAX(CMMNTY_MAP_INDVDLZ_NOTICE_ID)+1 FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE),
+			<!-- mng_e 20170713_주용민-->
+			#{cmmnty_map_indvdlz_notice_id}, 
+			#{path_nm},
+			#{ori_file_nm},
+			#{save_file_nm},
+			#{file_extn},
+			#{file_type}
+		);
+	</insert>
+	<update id="updateCmmntyNoticeHits">
+		UPDATE SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<set>
+			HITS = HITS+1
+		</set>
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</update>
+	<update id="updateCmmntyNotice">
+		UPDATE SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<set>
+			TITLE = #{title},
+			CONTENT = #{content}
+		</set>
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</update>
+	<delete id="deleteCmmntyNotice">
+		DELETE FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</delete>
+	<delete id="deleteCmmntyNoticeFileForId">
+		DELETE FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE
+		<where>
+			<include refid="cmmntyNoticeIdWhere"/>
+		</where>
+	</delete>
+	<delete id="deleteCmmntyNoticeFile" parameterType="String">
+		DELETE FROM SRV_DT_CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE
+		<where>
+			<choose>
+				<when test="array != null and array != '' and array.length>0">
+					<foreach collection="array" item="item" index="index" separator="," open="CMMNTY_MAP_INDVDLZ_NOTICE_ATCH_FILE_ID IN(" close=")">
+						<if test="item != null and item != ''">
+							${item}
+						</if>
+					</foreach>
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where> 
+	</delete>
+</mapper>

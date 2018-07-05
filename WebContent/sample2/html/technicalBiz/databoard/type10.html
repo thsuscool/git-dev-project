@@ -1,0 +1,374 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- *신규* -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <script type="text/javascript" src="/sample2/include/js/technicalBiz.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<!-- <p class="dbText01">17개 주요 시도별 생활업종현황</p> -->
+				    				<div class="areaBox">경기도 성남시 수정구 - 남동 산업단지</div>
+				    				 
+				    				<dl class="dscList"> 
+					    				<dt class="mt15 botype">
+					    					<a href="javascript:void(0)">지역 현황 정보</a>
+					    				</dt> 
+					    				<dd>내용없음</dd>
+					    				<dt class="mt15 botype">
+					    					<a href="javascript:void(0)">주요지원시설 목록</a>
+					    				</dt> 
+					    				<dd>내용없음</dd>
+					    				<dt class="mt15 botype">
+					    					<a href="javascript:void(0)">산업단지 목록</a>
+					    				</dt> 
+					    				<dd>내용없음</dd>
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">[남동 산업단지] 산업단지 내 기술업종 증감현황</a>
+					    				</dt>
+					    				<dd>
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)" class="on">사업체</a>
+					    						<a href="javascript:void(0)">종사자</a>  
+					    					</div> 
+					    					<div class="chartAreaRela t01">
+					    						<div id="columCharts03" class="chartSize02"></div> 
+					    						<p class="etcRight05">출처:통계청,전국사업체조사(2014)</p>
+					    						<ul class="techLegend02">  
+					    							<li class="ico05">남동 산업단지</li>
+					    						</ul>
+					    					</div> 
+					    				</dd>
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">[남동 산업단지] 산업단지 내 기술업종 분포현황</a>
+					    				</dt> 
+					    				<dd>  
+					    					<div class="chartAreaRela">
+					    						<div id="spyCharts01" class="chartSize01"></div>
+												<div class="posb t01">
+						    						<ul class="cateSaupLegend line">
+						    							<li class="cy">산업단지 평균</li>
+						    							<li class="cb">남동산업단지</li>   
+						    						</ul>
+						    					</div>
+					    					</div>  
+					    					
+					    				</dd> 
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">[남동 산업단지] 산업단지 내 기술업종 상세현황</a>
+					    				</dt> 
+					    				<dd>  
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)" class="on">첨단기술</a>
+					    						<a href="javascript:void(0)">고기술</a>
+					    						<a href="javascript:void(0)">중기술</a>
+					    						<a href="javascript:void(0)">저기술</a>
+					    						<a href="javascript:void(0)">창의/디지털</a>
+					    						<a href="javascript:void(0)">ICT</a>
+					    						<a href="javascript:void(0)">전문서비스</a>  
+					    					</div> 
+					    					<div class="chartAreaRela">
+					    						<p class="etcText05 mt30">첨단기술 XX개</p>
+					    						<div id="columCharts01" class="chartSize02"></div>
+					    						<ul class="techLegend02">
+					    							<li class="ico03">전국 평균</li>
+					    							<li class="ico02">남동 산업단지</li>
+					    						</ul>
+					    					</div>
+					    					
+					    				</dd>
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">[남동 산업단지] 산업단지 내 주요시설 현황</a>
+					    				</dt> 
+					    				<dd>  
+					    					<div class="timeAreaCharts" id="timeAreaCharts01"></div>
+					    					<p class="etcText05">지원시설 분류</p>
+					    					<ul class="techLegend02 mb20">
+				    							<li class="ico02">산업단지 평균</li>
+				    							<li class="ico03">남동산업단지</li>
+				    						</ul>
+					    				</dd>
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents">
+				    		<img src="/img/pm/map_img.jpg" />
+				    		<a href="javascript:void(0)" class="techMaker01" style="left:100px;top:100px;">기업<br />업적</a>
+				    		<a href="javascript:void(0)" class="techMaker02" style="left:100px;top:200px;">비즈<br />니스</a>
+				    		<a href="javascript:void(0)" class="techMaker03" style="left:100px;top:300px;">창업<br />보육</a>
+				    		<a href="javascript:void(0)" class="techMaker04" style="left:100px;top:400px;">창업<br />투자</a>
+				    		 
+				    	</div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	 
+ 		
+	<script>
+	$(function () {
+		$('#timeAreaCharts01').highcharts({
+	        chart: { zoomType: 'xy' },
+	        colors: ['#ffc622','#bfbfbf','#1778cc'],
+	        title: { text: '' },
+	        subtitle: {
+	            text: ''
+	        },
+	        xAxis: [{
+	            categories: ['공공기관', '교통시설', '금융기관', '대학', '연구소', '창업지원센터'],
+	            crosshair: true
+	        }],
+	        yAxis: [{ // Primary yAxis
+	            labels: {  },
+	            title: {
+	                text: '지원시설 수(개)',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            }
+	        }, { // Secondary yAxis
+	            title: {
+	                text: '',
+	                style: {
+	                    color: Highcharts.getOptions().colors[0]
+	                }
+	            },
+	            labels: {
+	            	enabled : false 
+	            },
+	            opposite: true
+	        }],
+	        tooltip: {
+	            shared: true
+	        },
+	        legend: {
+	        	enabled : false
+	        },
+	        series: [{
+	            name: '신설법인',
+	            type: 'column',
+	            pointWidth: 40,
+	            yAxis: 1, 
+	            zIndex:2,
+	            data: [199, 115, 164, 199, 115, 164],
+	            tooltip: {
+	                valueSuffix: ' 개'
+	            }
+
+	        }, {
+	            name: '전체사업체',
+	            type: 'column',
+	            pointWidth: 40,
+	            yAxis: 1,
+	            zIndex:1,
+	            data: [299, 215, 264, 299, 215, 264],
+	            tooltip: {
+	                valueSuffix: ' 개'
+	            }
+
+	        }, {
+	            name: '증감',
+	            type: '',
+	            zIndex:3,
+	            data: [7, 6, 9, 7, 6, 9],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        }]
+	    });
+		$("#spyCharts01").highcharts({ 
+	        chart: { polar: true, type: 'line', margin:[0,60,0,60] },
+	        colors: ["#f7c200", "#0067c6"],
+	        title: {
+	            text: ''
+	        }, 
+	        pane: { size: '70%' }, 
+	        xAxis: {
+	            categories: ['첨단기술', 'ICT', '창의및디지털', '전문서비스', '저기술', '중기술', '고기술'],
+	            tickmarkPlacement: 'on', lineWidth: 0
+	        }, 
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            lineWidth: 0,
+	            min: 0,
+	            labels: { enabled: false }
+	        }, 
+	        tooltip: {
+	            shared: true,
+	            pointFormat: "<span>{series.name} : {point.y}</span><br />"
+	        },
+	        legend: {
+	        	enabled : false
+	        }, 
+	        series: [{
+	        	type: 'line',
+	        	name: '산업단지 평균',
+	            data: [13000, 19000, 60000, 35000, 17000, 17000, 17000]
+	        }, {
+	        	type: 'line',
+	        	name: '남동산업단지',
+	            data: [20000, 39000, 42000, 31000, 26000, 17000, 17000]
+	        }] 
+	    });
+		$('#columCharts01').highcharts({
+	        chart: {
+	            type: 'bar', width:500, marginLeft:270
+	        },
+	        colors: ['#f7c800','#1778cc'], tooltip: { enabled: true },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['의료용 물질 및 의약품 제조업', '전자부품, 컴퓨터, 영상, 음향 및 통신장비 제조업', '의료, 정밀, 광학기기 및 시계제조업', '항공기, 우주선 및 부품 제조업'],
+	            title: { text: null },
+	            labels: {
+	                align: 'left', x:-270
+	            }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 12,
+	            	name: '전국 평균',
+	            	data: [30, 31, 30, 30]
+	        	},
+	        	{
+	        		pointWidth: 12,
+	        		name: '남동 산업단지',
+	            	data: [30, 31, 30, 30]
+	        	}
+	        ]
+	    });
+		$('#columCharts03').highcharts({
+			chart: { zoomType: 'xy' },
+	        colors: ['#f79339'],
+	        title: { text: '' },
+	        subtitle: {
+	            text: ''
+	        },
+	        xAxis: [{
+	            categories: ['2004', '2005', '2006', '2007', '2008', '2009',
+	                '2010', '2011', '2012', '2013', '2014'],
+	            crosshair: true
+	        }],
+	        yAxis: [{ // Secondary yAxis
+	            title: {
+	                text: '사업체 수(개)'
+	            },
+	            labels: {
+	            	enabled : false 
+	            }
+	        }],
+	        tooltip: {
+	            shared: true
+	        },
+	        legend: {
+	        	enabled : false
+	        },
+	        series: [{
+	            name: '사업체',
+	            type: '',
+	            data: [7, 6, 9, 4, 12, 25, 22, 25, 23, 13, 19],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        }]
+	    });
+	}); 
+	</script>
+</body>
+</html>

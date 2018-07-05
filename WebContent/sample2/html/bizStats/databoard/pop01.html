@@ -1,0 +1,342 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script> 
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- *신규* -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/bizStats.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->  
+				    	
+				    	<div class="mapContents">
+				    		<img src="/img/pm/map_img.jpg" /> 
+				    	</div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	
+	
+	<!-- 레이어팝업 -->
+	<div class="dialogbox" style="display:block">
+		<div class="dimbox">
+			<div class="cont">
+				<div class="bar">
+					<span>지역별 상세 비교 정보</span>
+					<div class="compareBox">
+						<div class="typeBox">
+   							<a href="javascript:void(0)" class="first on">차트</a>
+   							<a href="javascript:void(0)" class="">차트</a>
+   						</div>
+   						<a href="javascript:void(0)" class="dimPrint"><img src="/img/ico/ico_print01.png" /></a>
+					</div>
+				</div>
+				<div class="dimAreaScroll">
+					<div class="charts">
+						<p>선택조건별 후보지 상세현황비교</p>
+						<div class="dimChartsBox">
+							<div class="dctb">
+								<span>생활업종 전체 사업체 수</span>
+								<div id="dcharts01"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)사업체 수</span>
+								<div id="dcharts02"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)증감률</span>
+								<div id="dcharts03"></div>
+							</div>
+						</div>
+						<div class="dimChartsBox">
+							<div class="dctb">
+								<span>생활업종 전체 사업체 수</span>
+								<div id="dcharts04"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)사업체 수</span>
+								<div id="dcharts05"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)증감률</span>
+								<div id="dcharts06"></div>
+							</div>
+						</div>
+						<div class="dimChartsBox">
+							<div class="dctb">
+								<span>둔산2동</span>
+								<div id="dcharts07"></div>
+								<div class="fb">
+		    						<ul class="cateSaupLegend line type01">
+		    							<li>대전 광역시</li>
+		    							<li>둔산2동</li> 
+		    						</ul>
+		    					</div>
+							</div>
+							<div class="dctb">
+								<span>대화동</span>
+								<div id="dcharts08"></div>
+								<div class="fb">
+		    						<ul class="cateSaupLegend line type02">
+		    							<li>대전 광역시</li>
+		    							<li>둔산2동</li> 
+		    						</ul>
+		    					</div>
+							</div>
+							<div class="dctb">
+								<span>갈마동</span>
+								<div id="dcharts09"></div>
+								<div class="fb">
+		    						<ul class="cateSaupLegend line type03">
+		    							<li>대전 광역시</li>
+		    							<li>둔산2동</li> 
+		    						</ul>
+		    					</div>
+							</div>
+						</div>
+						<p class="mt50">선택조건별 후보지 상세현황비교</p>
+						<div class="dimChartsBox">
+							<div class="dctb">
+								<span>생활업종 전체 사업체 수</span>
+								<div id="dcharts10"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)사업체 수</span>
+								<div id="dcharts11"></div>
+							</div>
+							<div class="dctb">
+								<span>(한식)증감률</span>
+								<div id="dcharts12"></div>
+							</div>
+						</div>
+					</div>
+					<div class="tables">
+						<p>지역 특성정보 비교</p>
+						<table>
+							<tr>
+								<th class="bor">구분</th>
+								<th>후보지A</th>
+								<th>후보지B</th>
+								<th>후보지C</th>
+							</tr>
+							<tr>
+								<td class="bor">거주인구</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+							<tr>
+								<td class="bor">20대인구</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+							<tr>
+								<td class="bor">65세이상인구</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+							<tr>
+								<td class="bor">1인가구</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+							<tr>
+								<td class="bor">직장인구비율</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+							<tr>
+								<td class="bor">아파트</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+								<td>점수(상세현황)</td>
+							</tr>
+						</table>
+						<p>선택 조건별 후보지 상세현황 비교</p>
+						<table>
+							<tr>
+								<th class="bor">구분</th>
+								<th>후보지A</th>
+								<th>후보지B</th>
+								<th>후보지C</th>
+							</tr>
+							<tr>
+								<td class="bor">(한식)사업체수</td>
+								<td>사업체수</td>
+								<td>사업체수</td>
+								<td>사업체수</td>
+							</tr>
+							<tr>
+								<td class="bor">(한식)증감률</td>
+								<td>증감률</td>
+								<td>증감률</td>
+								<td>증감률</td>
+							</tr>
+							<tr>
+								<td class="bor">남자인구</td>
+								<td>인구</td>
+								<td>인구</td>
+								<td>인구</td>
+							</tr>
+							<tr>
+								<td class="bor">20대인구</td>
+								<td>인구</td>
+								<td>인구</td>
+								<td>인구</td>
+							</tr> 
+							<tr>
+								<td class="bor">단독주택</td>
+								<td>주택 수</td>
+								<td>주택 수</td>
+								<td>주택 수</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<a href="javascript:void(0)" class="dimClose"><img src="/img/popup/btn_popupX.png" /></a>
+		</div>
+	</div>
+	<!-- 레이어팝업  -->
+	
+	<script>
+	$(function () { 
+		dcharts("#dcharts01");
+		dcharts("#dcharts02");
+		dcharts("#dcharts03");
+		dcharts("#dcharts04");
+		dcharts("#dcharts05");
+		dcharts("#dcharts06");
+		dcharts("#dcharts10");
+		dcharts("#dcharts11");
+		dcharts("#dcharts12");
+		
+		spyCharts("#dcharts07", "#585657", "#f7cd19");
+		spyCharts("#dcharts08", "#585657", "#e9781a");
+		spyCharts("#dcharts09", "#595758", "#a177f5");
+		
+	});
+	function dcharts(id) {
+		$(id).highcharts({
+			chart : {type : 'column', width:340, height:180 },
+			title : {text : ''	
+			},
+			colors: ['#595758','#f7cd19','#e87719','#a076f4'],
+			subtitle : {text : ''},
+			xAxis : {
+				gridLineWidth:0,
+				type : 'category',
+				labels : {rotation :0,
+					style : {fontSize : '9px'}
+				}
+			},
+			yAxis : {
+				gridLineWidth:0,
+				min : 0, title : { text : '' },
+				enabled : false,
+				labels: {enabled: false}
+			},
+			plotOptions: {
+	        },
+			legend : {enabled : false},
+			tooltip : {pointFormat : '{point.y:.1f}'},
+			series : [ {
+				pointWidth:75,
+				name : '',
+				colorByPoint: true,
+				data : [ [ '대전광역시(평균)', 11 ], [ '둔산2동', 16.1 ], [ '대화동', 14.2 ], [ '갈마동', 14.0 ]],
+				dataLabels : {enabled : false}
+			} ]
+		});
+	}
+	function spyCharts(id, color1, color2){
+		$(id).highcharts({ 
+	        chart: { polar: true, type: 'line', width:340, height:340, margin:[0,10,0,10] },
+	        colors: [color1, color2],
+	        title: {
+	            text: ''
+	        }, 
+	        pane: { size: '70%' }, 
+	        xAxis: {
+	            categories: ['거주인구', '직장인구비율', '아파트', '1인 가구', '65세 이상 인구', '20대 인구'],
+	            tickmarkPlacement: 'on', lineWidth: 0
+	        }, 
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            lineWidth: 0,
+	            min: 0,
+	            labels: { enabled: false }
+	        }, 
+	        tooltip: {
+	            shared: true,
+	            pointFormat: "<span>{series.name} : {point.y}</span><br />"
+	        },
+	        legend: {
+	        	enabled : false
+	        }, 
+	        series: [{
+	        	type: 'area',
+	        	name: '대전 광역시',
+	            data: [43000, 19000, 60000, 35000, 17000, 17000]
+	        }, {
+	        	type: 'area',
+	        	name: '둔산 2동',
+	            data: [50000, 39000, 42000, 31000, 26000, 17000]
+	        }] 
+	    });
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/gallery.css" />
+    <script type="text/javascript" src="/sample2/include/js/galleryEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+		<div class="containerBox">  
+			<p class="mpGuide">처음페이지 > 활용 서비스 > <span>통계 갤러리</span></p>
+			
+			<div class="mpSubTitle">
+				<h3>통계 갤러리</h3>
+				<p>사용자가 통계 결과를 조합하고 공유하며 함께 소통할 수 있는 서비스입니다.</p> 
+			</div>
+			
+			<div class="gallerySearchBox">
+				<div class="selectDiv">
+					<a href="javascript:void(0)" class="selectItem">해시태그</a>
+					<ul class="selectItemList">
+						<li><a href="javascript:void(0)">해시태그1</a></li>
+						<li><a href="javascript:void(0)">해시태그2</a></li>
+						<li><a href="javascript:void(0)">해시태그3</a></li>
+						<li><a href="javascript:void(0)">해시태그4</a></li>
+					</ul>
+				</div>
+				<div class="form"> 
+					<input type="text" name="" />
+					<a href="javascript:void(0)"><img src="/img/ico/ico_search01.png" /></a>
+				</div>
+				<div class="gsbRight after"><!-- before:로그인전 / after:로그인후 -->
+					<div class="cycle">My</div>
+					<div class="info">
+						<p class="p01">정재은</p>
+						<p class="p02">
+							<span class="t01">갤러리 9개</span>
+							<span class="t02">좋아요 30개</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="galleryCategory">
+				<a href="javascript:void(0)" class="on">조회순</a>
+				<a href="javascript:void(0)">추천순</a>
+				<a href="javascript:void(0)">최신순</a>
+				<select><option>종류별</option></select>
+			</div>
+			
+			<div class="galleryListTop">
+				<span>전체 100개</span>
+				<a href="javascript:void(0)">갤러리 등록</a>
+			</div>
+			
+			<ul class="galleryListItem">
+				<li>
+					<div class="rela"> 
+						<img src="/img/ico/ico_ygallery.png" alt="통계갤러리" class="etcTp" />
+						<div class="map"><img src="/img/common/testimg01.png" width="100%" height="100%" /></div>
+						<div class="maskbox">
+							<div class="cont">
+								<div class="conBar">
+									<p class="t01">경기도 복지시설 분포는?</p>
+									<p class="t02">작성일 : 2016.06.05</p>
+									<a href="javascript:void(0)" class="num">4</a>
+								</div>
+								<div class="contEtc">
+									<p class="t01">작성자 : 정재은</p>
+									<p class="t02">내가 사는 경기도는 복지시설이 성남시에만 올려 있음</p>
+								</div>
+							</div>
+							<div class="tailTxt">2016년 6월5일까지 설문완료</div>
+							<div class="tailIcon">
+								<span class="t01">50</span>
+								<span class="t02">50</span>
+								<span class="t03">50</span>
+								<span class="t04">#경기도 #복지시설</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="rela">
+						<img src="/img/ico/ico_bgallery.png" alt="활용갤러리" class="etcTp" />
+						<div class="map"><img src="/img/common/testimg01.png" width="100%" height="100%" /></div>
+						<div class="maskbox">
+							<div class="cont">
+								<div class="conBar">
+									<p class="t01">경기도 복지시설 분포는?</p>
+									<p class="t02">작성일 : 2016.06.05</p>
+									<a href="javascript:void(0)" class="num">4</a>
+								</div>
+								<div class="contEtc">
+									<p class="t01">작성자 : 정재은</p>
+									<p class="t02">내가 사는 경기도는 복지시설이 성남시에만 올려 있음</p>
+								</div>
+							</div>
+							<div class="tailTxt">2016년 6월5일까지 설문완료</div>
+							<div class="tailIcon">
+								<span class="t01">50</span>
+								<span class="t02">50</span>
+								<span class="t03">50</span>
+								<span class="t04">#경기도 #복지시설</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="on">
+					<div class="rela">
+						<img src="/img/ico/ico_ygallery.png" alt="통계갤러리" class="etcTp" />
+						<div class="map"><img src="/img/common/testimg01.png" width="100%" height="100%" /></div>
+						<div class="maskbox">
+							<div class="cont">
+								<div class="conBar">
+									<p class="t01">경기도 복지시설 분포는?</p>
+									<p class="t02">작성일 : 2016.06.05</p>
+									<a href="javascript:void(0)" class="num">4</a>
+								</div>
+								<div class="contEtc">
+									<p class="t01">작성자 : 정재은</p>
+									<p class="t02">내가 사는 경기도는 복지시설이 성남시에만 올려 있음</p>
+								</div>
+							</div>
+							<div class="tailTxt">2016년 6월5일까지 설문완료</div>
+							<div class="tailIcon">
+								<span class="t01">50</span>
+								<span class="t02">50</span>
+								<span class="t03">50</span>
+								<span class="t04">#경기도 #복지시설</span>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<div class="paging">
+				<a href="javascript:void(0)"><img src="/img/ico/ico_first01.png" alt="처음" /></a>
+				<a href="javascript:void(0)"><img src="/img/ico/ico_prev01.png" alt="이전" /></a>
+				<a href="javascript:void(0)">1</a>
+				<a href="javascript:void(0)">2</a>
+				<a href="javascript:void(0)">3</a>
+				<a href="javascript:void(0)">4</a>
+				<a href="javascript:void(0)">5</a>
+				<a href="javascript:void(0)"><img src="/img/ico/ico_next01.png" alt="다음" /></a>
+				<a href="javascript:void(0)"><img src="/img/ico/ico_last01.png" alt="마지막" /></a>
+			</div>
+			
+				 
+		</div>   
+	</div>
+	 
+</body>
+</html>

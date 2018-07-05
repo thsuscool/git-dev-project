@@ -1,0 +1,60 @@
+<%@ page import="java.util.*,java.io.*" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
+<%@ include file="/contents/include/comVarCoding.jsp" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
+<%
+
+String queryString = request.getQueryString();
+
+String filename = request.getParameter("filename");
+String path = request.getParameter("path");
+
+//filename = new String(filename.getBytes("8859_1"), "MS949");
+
+//if(queryString.contains("%")) {
+//	filename = new String(filename.getBytes("8859_1"), "UTF-8");
+//}
+
+//if(null != path) {
+//	path += new String(path.getBytes("8859_1"), "MS949");
+//}
+//File file = new File(path+filename);
+if (StringUtils.contains(path,"..") || StringUtils.contains(filename,"..") || StringUtils.contains(path,"passwd")  || StringUtils.contains(filename,"passwd")) {
+    response.setContentType("text/html; charset=utf-8");
+    out.print("<script>alert('정상적인 요청이 아닙니다!'); history.back();</script> 정상적인 요청이 아닙니다! <a href='/index.jsp'>홈으로</a>");
+}else{
+
+    File file = new File(sc_filePath + path + filename);
+    
+    
+    System.out.println("=================== sc_filePath [" + sc_filePath  + "]");
+    System.out.println("=================== path [" +  path + "]");
+    System.out.println("=================== filename [" +  filename +"]");
+	System.out.println("=================== file [" + sc_filePath + path + filename +"]");
+
+    if (file.isFile()){
+        byte b[] = new byte[10 * 1024 * 1024];
+        String strClient=request.getHeader("User-Agent");
+
+        if(strClient.indexOf("MSIE 5.5")>-1) {
+            response.setHeader("Content-Disposition", "filename=" + java.net.URLEncoder.encode(filename, "utf-8") + ";");
+        }else {
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + java.net.URLEncoder.encode(filename, "utf-8") + "\";");
+        }
+        BufferedInputStream fin = new BufferedInputStream(new FileInputStream(file));
+        BufferedOutputStream outs = new BufferedOutputStream(response.getOutputStream());
+        int read = 0;
+        while ((read = fin.read(b)) != -1){
+                    outs.write(b,0,read);
+        }
+        outs.close();
+        fin.close();
+        out.clear();
+        out = pageContext.pushBody();
+    } else {
+         response.setContentType("text/html; charset=utf-8");
+         // 2016. 03. 25 j.h.Seok 수정
+         out.print("<script>alert('선택하신 파일을 찾을 수 없습니다!');</script> 선택하신 파일을 찾을 수 없습니다. <a href='/view/newhelp/us_help_20_10'>돌아가기</a>");
+//          out.print("<script>alert('선택하신 파일을 찾을 수 없습니다!');</script> 선택하신 파일을 찾을 수 없습니다. <a href='/contents/search/search_04.jsp'>돌아가기</a>");
+    }
+}
+%>

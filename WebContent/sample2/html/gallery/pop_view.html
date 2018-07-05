@@ -1,0 +1,222 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/slick.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/gallery_pop.css" />
+    <script type="text/javascript" src="/sample2/include/js/galleryEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+		<div class="containerBox">  
+		</div>   
+	</div>
+	
+	<!--  팝업 -->
+	<div class="dialogGtype">
+		<div class="popGalleryCreateRela viewType">
+			<div class="popGalleryCreate">
+				<div class="gcLeft t01">
+					<div class="gviewMap">
+						<img src="/img/pic/pic_testmap02.jpg" width="100%" height="100%" />
+						<a href="javascript:void(0)" class="gvDownload"><img src="/img/ico/ico_down05.png" alt="다운로드" /></a>
+					</div>
+					<div class="gvSlideBox">
+						<div class="gvSlideArea">
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+							<div class="item"><a href="javascript:void(0)"><img src="/img/pic/pic_testmap01.png" /></a></div>
+						</div>
+						<div class="gvController">
+							<a href="javascript:void(0)" class="gvPlay"><img src="/img/ico/ico_play.png" alt="이전" /></a>
+							<a href="javascript:void(0)" class="gvStop"><img src="/img/ico/ico_stop.png" alt="다음" /></a>
+						</div>
+						<a href="javascript:void(0)" class="gvPrev"><img src="/img/ico/ico_left02.png" alt="이전" /></a>
+						<a href="javascript:void(0)" class="gvNext"><img src="/img/ico/ico_right02.png" alt="다음" /></a>
+					</div>
+				</div>
+				<div class="useSide t01">
+					<p class="gvTitle gwon01">경기도 복지시설 분포는?</p><!-- gwon01 ~ gwon05 -->
+					<div class="gvInfo">
+						<p class="t01">작성일:2016.06.05</p>
+						<p class="t02">작성자:정재은</p>
+						<a href="javascript:void(0)"><img src="/img/ico/ico_edit01.png" alt="수정" /></a>
+					</div> 
+					<div class="gvText">
+						내가 사는 경기도는 복지시설이 성남시에만 몰려 있음 내가 사는 경기도는 복지시설이
+						성남시에만 몰려 있음 내가 사는 경기도는내가 사는 경기도는 복지시설이 성남시에만 몰려 있음 내가 사는 경기도는 복지시설이
+						성남시에만 몰려 있음 내가 사는 경기도는내가 사는 경기도는 복지시설이 성남시에만 몰려 있음 내가 사는 경기도는 복지시설이
+						성남시에만 몰려 있음 내가 사는 경기도는
+					</div>
+					<div class="gvVote">
+						<div class="gvVoteSubj">
+							<span class="t01">복지시설 분산 필요성</span>
+							<span class="t02">2016년 8월 5일까지 설문완료</span>
+						</div>
+						<div class="gvVoteBox01" style="background-size:85% 23px">
+							<span class="t01">필요하다</span>
+							<span class="t02">5034 명(85%)</span>
+							<!-- <span class="gage" style="width:85%;"></span> -->
+						</div>
+						<div class="gvVoteBox02" style="background-size:55% 23px">
+							<span class="t01">불필요하다</span>
+							<span class="t02">5034 명(55%)</span>
+							<!--<span class="gage" style="width:55%;"></span>-->
+						</div>
+						<a href="javascript:void(0)" class="btnVote">다시 투표하기</a>
+					</div>
+					<div class="gvTag">
+						<span>#경기도</span>
+						<span>#복지시설</span>
+						<span>#성남</span>
+					</div>
+					<div class="gvIconEventBox">
+						<div class="t01">
+							<span class="s01">50</span>
+							<span class="s02">50</span>
+							<span class="s03">50</span>
+						</div>
+						<div class="t02">
+							<a href="javascript:void(0)"><img src="/img/ico/ico_share01.png" width="12" /></a>
+							<a href="javascript:void(0)"><img src="/img/ico/ico_mydown.png" width="20" /></a>
+						</div>
+					</div>
+					<div class="gvReplyForm">
+						<a href="javascript:void(0)" class="like">좋아요</a>
+						<input type="text" />
+						<a href="javascript:void(0)" class="btnGesi">게시</a>
+					</div>
+					<div class="gvReplyListBox">
+						<ul class="gvReplyList">
+							<li>
+								<span class="t01">성남시민</span>
+								<span class="t02">넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">부평시민</span>
+								<span class="t02">넘나넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">성남시민</span>
+								<span class="t02">넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">부평시민</span>
+								<span class="t02">넘나넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">성남시민</span>
+								<span class="t02">넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">부평시민</span>
+								<span class="t02">넘나넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">성남시민</span>
+								<span class="t02">넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">부평시민</span>
+								<span class="t02">넘나넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">성남시민</span>
+								<span class="t02">넘나 좋네요^^</span>
+							</li>
+							<li>
+								<span class="t01">부평시민</span>
+								<span class="t02">넘나넘나 좋네요^^</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			
+			</div>
+			<a href="javascript:void(0)" class="rightClose"><img src="/img/ico/ico_close06.png" /></a>
+		</div>
+		
+	</div>
+	
+	<div class="gcFavBox" style="display:none">
+		<div class="rela">
+			<p>즐겨찾기 목록</p>
+			<table>
+				<colgroup>
+					<col width="100" />
+					<col width="" />
+					<col width="100" />
+				</colgroup>
+				<tr>
+					<th>이미지</th>
+					<th>제목</th>
+					<th>날짜</th>
+				</tr>
+			</table>
+			<div class="fovScrollBox">
+				<table>
+					<colgroup>
+						<col width="100" />
+						<col width="" />
+						<col width="100" />
+					</colgroup>
+					<tr>
+						<td><img src="" /></td>
+						<td><a href="javascript:void(0)">경기도-65세 남자인구</a></td>
+						<td>2016.08.12</td>
+					</tr>
+				</table>
+			</div>
+			
+			<p>기존 서비스 이동<span>기존 서비스를 조회하여 갤러리 등록</span></p>
+			<ul>
+				<li><a href="javascript:void(0)">기술업종 통계지도</a></li>
+				<li><a href="javascript:void(0)">대화형 통계지도</a></li>
+				<li><a href="javascript:void(0)">살고싶은 우리동네</a></li>
+				<li><a href="javascript:void(0)">생활업종 통계지도</a></li>
+				<li><a href="javascript:void(0)">통계주제도</a></li>
+			</ul>
+			
+		</div>
+	</div>
+	 
+</body>
+</html>

@@ -1,0 +1,83 @@
+@import url("/contents/css/common/base.css");
+
+.body{background:#C8E2ED; margin:8px;}
+.body_01{background:url('/contents/images/new/private_box_middle_image.gif') repeat-y; width:522px;}
+
+/* �뜮袁⑨옙占썼린�뜇�깈 筌≪뼐由�, 占쎈툡占쎌뵠占쎈탵 筌≪뼐由�, 餓λ쵎�궗筌ｋ똾寃� */
+.popup_password {padding:8px; width:354px; background:#ffffff; text-align:center; padding-bottom:12px; float:left;}
+.popup_password h1{ width:354px; height:29px; color:#FFFFFF; background:#33698F; padding-top:8px;}
+.popup_password p {padding:10px 0 0 0; color:#33698f;}
+
+.popup_warp {border:0; clear:both;}
+.popup_warp legend {display:none;}
+.popup_box{ border:solid 1px #A3BBCC; float:left; background:#EEF4F6; width:352px; margin-top:15px; display:inline;}
+.popup_box dl, .popup_box dt, .popup_box dd { float:left;}
+.popup_box dl {padding:10px 0 0 20px;}
+.popup_box dt {padding-right:5px;}
+.popup_box dd {padding-right:5px;}
+
+/* 嚥≪뮄�젃占쎌뵥 */
+.pop_login { width:350px; height:251px; background:url('/contents/member/images/new/pop_bg.gif') no-repeat;}
+.pop_login h1 {padding:8px 0 0 22px;}
+.login_id_pa_wrap01 {border:0; clear:both;}
+.login_id_pa_wrap01 legend {display:none;}
+.login_id_pa_wrap01 .login_01 {float:left; padding-top:45px; width:180px; padding-left:50px;}
+.login_01 dt, .login_01 dd, .login_01 dl{float:left;}
+.login_01 dt { width:60px; padding-top:5px;}
+.login_01 dd {padding-top:5px;}
+
+.login_id_pa_wrap02 {border:0px solid red; clear:both;}
+.login_id_pa_wrap02 legend {display:none;}
+.login_id_pa_wrap02 .login_02 {float:left; padding-top:45px; width:200px; padding-left:50px;}
+.login_02 dt, .login_02 dd, .login_02 dl{float:left;}
+.login_02 dt { width:80px; padding-top:5px; border:0px solid red;}
+.login_02 dd {padding-top:5px; border:0px solid blue;}
+.login_id_pa_wrap02 .login_03 {float:left; padding-top:0px; width:230px; padding-left:50px;}
+.login_03 dt, .login_03 dd, .login_03 dl{float:left;}
+.login_03 dt { width:80px; padding-top:5px;}
+.login_03 dd { padding-top:5px;}
+
+
+/* 揶쏉옙占쎄맒占쎈뻼癰귢쑴�뼄筌뤿굟�넇占쎌뵥 */
+.certifiy_warp {border:0; clear:both;}
+.certifiy_warp legend {display:none;}
+.certifiy_warp h1 {color:#FFFFFF; font-size:14px; background:url('/contents/member/images/new/member_certification_bg.gif') no-repeat; height:54px; width:410px;}
+.certifiy {float:left; padding-top:60px; width:385px; padding-left:20px; height:152px;}
+.certifiy dt, .certifiy dd, .certifiy dl{float:left;}
+.certifiy dt { width:80px; padding-top:5px;}
+.certifiy dd {padding-top:5px; width:300px;}
+
+/*address-zipcode*/
+.zipcode_warp {border:0; clear:both;}
+.zipcode_warp legend {display:none;}
+.zipcode_list {width:350px; border-top:solid 2px #72AACF; }
+.zipcode_list thead {font-weight:bold; background-color:#E3F0F9;}
+.zipcode_list thead th {color:#33698f; background-color:#e3f0f9; border-right:1px solid #cbcfd2; border-bottom:1px solid #cbcfd2; text-align:center;}
+.zipcode_list tbody td {text-align:center; height:25px; border-right:1px solid #cbcfd2; border-bottom:1px solid #cbcfd2;}
+.zipcode_list .t_end {border-right:none;}
+.zipcode_list .tl {text-align:left;}
+.zipcode_list .w280 { width:280px;}
+.zipcode_list .w70 { width:70px;}
+
+/*private*/
+.private { width:530px; float:left; margin:10px; display:inline; padding:5px;}
+.private h1 { width:209px; height:50px;}
+.pop_top_bg {background:url('/contents/images/new/pop_top_bg.gif') no-repeat; width:523px; height:6px; font-size:0; clear:both;}
+.pop_bom_bg {background:url('/contents/images/new/pop_bom_bg.gif') no-repeat; width:523px; height:6px; font-size:0; clear:both;}
+.pop_cen_bg {background:url('/contents/images/new/pop_cen_bg.gif') repeat-y; width:523px; float:left;}
+
+.privatebox { width:510px; float:left; padding:5px 0 0 5px;}
+.privatebox ul, .privatebox li{ margin-top:3px;}
+.privatebox_01 { width:500px; float:left; border:solid 1px #E1E1E1; padding:5px;  margin-top:10px; margin-bottom:10px; background:#FFFFFF;}
+
+.table01_pop { width:490px; border:solid 1px #000000;}
+.table01_pop thead th { background:#CEFEFF; padding:6px; border-right:solid 1px #000000; border-top:solid 1px #000000; }
+.table01_pop tbody td {padding:5px; border-right:solid 1px #000000; background:#ffffff; border-top:solid 1px #000000;}
+
+.know_api { width:440px; height:509px; background:url('/contents/shortcut/images/new/pop_bg.gif') no-repeat; position:relative;}
+.know_api h1 { position:absolute; top:13px; left:0px;}
+.know_api h2 { padding-top:60px; padding-left:30px;}
+.know_api h3 { padding-top:10px; padding-left:30px;  width:392px;}
+.know_api .ul_box { padding-left:10px; width:372px; padding-left:30px;}
+
+

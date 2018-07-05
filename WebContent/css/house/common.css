@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* 내가 선택한 지표 */
+.indexfine { overflow:auto;}
+.indexfine li { float:left; font-size:11px; height:27px; position:relative; margin-right:3px; padding:3px 3px; margin-bottom:3px; border-radius:15px; background:#666; color:#fff;}
+.indexfine li.HML0001 { background:#7fad3e;}
+.indexfine li.HML0002 { background:#197ebf;}
+.indexfine li.HML0003 { background:#db4c60;}
+.indexfine li.HML0004 { background:#deaa00;}
+.indexfine li.HML0005 { background:#e5632f;}
+.indexfine li.HML0006 { background:#7e3874;}
+.indexfine li.HML0007 { background:#1c2c81;}
+.indexfine li span { vertical-align:middle; display:inline-block; box-sizing:border-box;margin-right:3px;}
+.indexfine li span { min-width:20px; height:20px; text-align:center; color:#fff; padding-top:4px; background:#fff; border-radius:10px; padding-left:2px;padding-right:2px; color:#666; }
+.indexfine li a {display:inline-block; vertical-align:middle; margin-left:5px;}
+
+/* 추천지역찾기 */
+.dataBoardDiv .dscList .List { display:block; height:140px; /* overflow:auto; */}
+.dataBoardDiv .dscList .List a { display:block; background:#f4f4f4; margin-bottom:5px; border-radius:14px; box-sizing:border-box; font-size:12px;}
+.dataBoardDiv .dscList .List a span { display:inline-block; width:24px; height:24px; text-align:center; background:#999; color:#fff; border-radius:14px; font-size:11px;padding-top:5px;box-sizing:border-box; margin-right:5px;}
+
+/* 차트정보 */
+.Chart_info { overflow:auto; padding:10px 0;}
+.Chart_info ul { width:46%; float:left;}
+.Chart_info ul li {font-size:11px;font-family:'나눔고딕'; padding:2px 0 2px 37px; position:relative;}
+.Chart_info ul li:before { content:''; display:block; width:3px; height:3px; border-radius:2px; background:#ccc; position:absolute; left:31px; top:8px;}
+.Chart_info ul li strong { color:#f00;}

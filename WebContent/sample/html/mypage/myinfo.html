@@ -1,0 +1,126 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>  
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/mypage.css" />
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>  
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header>
+			<!-- Top Include -->
+			<!-- <script type="text/javascript"  src="/js/common/includeSearch.js"></script> -->
+			<div class="headerEtc">
+				<a href="#">로그인</a>
+				<a href="#">회원가입</a>
+				<a href="#">도움말</a>
+			</div>
+			<div class="headerContents">
+				<h1><a href='/'><img src='/img/common/logoPlus.gif' alt='SGIS 오픈플랫폼' /></a></h1>
+				
+				<div class="searchPop">
+					<p class="subj">추천검색어</p>
+					<ul>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+					</ul>
+					<p class="subj">인기검색어</p>
+					<ol>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+						<li><a href="#">출산율</a></li>
+					</ol>
+				</div>
+				
+				<h2>주메뉴</h2>
+				<ul id="#gnb" class="gnb">
+					<li><a href="javascript:void(0)">통계주제도</a></li>
+					<li><a href="javascript:void(0)">대화형통계지도</a></li>
+					<li><a href="javascript:void(0)">활용사례</a></li>
+					<li><a href="javascript:void(0)">분석지도</a></li>
+					<li><a href="javascript:void(0)">알림마당</a></li>
+				</ul>
+				<form action="" method="post">
+					<fieldset>
+						<legend class='blind'>통합검색</legend>
+						<label for="totalSearchBox">통계정보 검색</label>
+						<input id="totalSearchBox" type="text" placeholder="통계정보를 검색해 보세요" />
+						<a href="#"><img src="/img/common/btn_search.png" alt="검색" /></a>
+					</fieldset>
+				</form>
+			</div>
+		</header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<p class="mpGuide">처음페이지 > 마이페이지 > <span>나의 정보</span></p>
+			
+			<div class="mpSubTitle">
+				<h3>나의 정보 관리</h3>
+				<p>변경된 회원정보에 따라 항목을 수정하여 주시기 바랍니다.</p>  
+			</div>
+			<div class="mpForm">
+				<ul class="mpfInput">
+					<li>
+						<label for="mpfId">회원아이디</label>
+						<input type="text" class="inp" id="mpfId" />
+					</li>
+					<li>
+						<label for="mpfName">이름</label>
+						<input type="text" class="inp" id="mpfName" />
+					</li>
+					<li>
+						<label for="mpfPhone">휴대폰</label>
+						<input type="text" class="inp" id="mpfPhone" />
+					</li>
+					<li>
+						<label for="mpfEmail">이메일</label>
+						<input type="text" class="inp" id="mpfEmail" />
+					</li>
+					<li>
+						<label for="mpfAddress">주소</label>
+						<input type="text" class="inp address" id="mpfAddress" />
+					</li>
+				</ul>
+			</div>
+			<div class="btnbox">
+				<a href="javascript:void(0)" class="btnType01">정보변경</a>
+				<a href="javascript:void(0)" class="btnType02">취소</a>
+			</div>
+			
+			<div class="mpSubTitle">
+				<h3>SGIS+plus 회원탈퇴</h3>
+				<p>홍길동님의 아이디 및 관련된 모든정보가 삭제됩니다. 회원탈퇴를 원하시면 아래의 버튼을 클릭하세요.</p>  
+			</div>  
+			
+			<div class="btnbox type01">
+				<a href="javascript:void(0)" class="btnType01">회원탈퇴</a>
+				<a href="javascript:void(0)" class="btnType02">삭제</a>
+			</div>
+				 
+		</div>  
+
+
+	</div>
+</body>
+</html>

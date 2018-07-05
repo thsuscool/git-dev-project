@@ -1,0 +1,114 @@
+<!-- 
+* 검색창에 입력한 단어와 연관되는 데이터를 보여주는 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/29  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>연관검색 | 통계지리정보서비스</title>
+    <link rel="stylesheet"  href="/js/plugins/jquery-easyui-1.4/sop.css" />
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/layout.css" />	
+	<link rel="stylesheet" type="text/css" href="/css/pm.css" />
+	<link rel="stylesheet" type="text/css" href="/css/um.css" />
+	
+    <script type="text/javascript"  src="/js/plugins/jquery-easyui-1.4/sop-src.js"></script>
+    <script type="text/javascript"  src="/js/common/includeHead.js"></script>
+	<script type="text/javascript"  src="/js/common/common.js"></script>
+	<script type="text/javascript"  src="/js/common/map.js"></script>
+	<script type="text/javascript"  src="/js/board/jquery.paging.js"></script>
+	<script type="text/javascript"  src="/js/common/searchList.js"></script>
+	<link href="/css/board/board.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+	<div class="wrapper">
+		<!-- header // -->
+		<header id="header">
+			<!-- Top Include -->
+			<script type="text/javascript"  src="/js/common/includeSearch.js"></script>
+		</header>
+		
+		<!-- body -->
+	    <div id="container">
+	    <p class="path">
+			<a href="/html/index.html"><span class="path_el">처음페이지&nbsp;&nbsp;>&nbsp;</span></a>
+			<a href="/html/common/searchList.html?searchKeyword="><span class="path_el current">검색</span></a>
+		</p>
+	    
+	    	<div id="content">
+
+				<!-- 게시판 전체 영역// -->
+				<div id="article-wrap">					
+					<div class="drop_search">					
+						<div class="drop_search_section">
+							<p>연관 검색어</p>
+							<div>								
+								<span><span id="relWordSpan1"></span></span>								
+								<span><span id="relWordSpan2"></span></span>
+								<span><span id="relWordSpan3"></span></span>
+								<span><span id="relWordSpan4"></span></span>
+								<span><span id="relWordSpan5"></span></span>																		
+							</div>
+						</div>
+					</div>				
+
+					<!-- ( drop_search_result ) -->
+					<div id="search_result"></div>					
+					<!-- //( drop_search_result ) -->
+
+					<!-- ( 지도 + POI 검색결과 ) -->
+					<div class="search_map">
+						<div class="map">							
+							<div id="miniMap"  style="width:550px; height:450px;"></div>							
+						</div>
+						<div class="map_list">
+							<div>
+								<ul>
+									<div id="poiListTable"></div>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="poiListTablePage"></div>
+					<!-- //( 지도 + POI 검색결과 ) -->
+
+					<!-- ( 인터랙티브맵 검색결과 ) -->
+					<div id="sopListTable"></div>
+					<div id="sopListTablePage"></div>										
+					<!-- //( 인터랙티브맵 검색결과) -->
+					<br><br><br><br>
+					
+					<!-- ( 통계주제도 검색결과 ) -->
+					<div id="themeListTable"></div>
+					<div id="themeListTablePage"></div>										
+					<!-- //( 통계주제도 검색결과) -->
+					<br><br><br><br>
+					
+					<!-- ( 행정구역통계 검색결과 ) -->
+					<div id="kosisListTable"></div>
+					<div id="kosisListTablePage"></div>	
+					<br/>				
+					</div>					
+					<!-- //( 행정구역통계 검색결과 ) -->
+				</div>
+				<!-- //게시판 전체 영역 -->
+			</div>			
+	    </div>
+		
+		<!-- footer// -->
+	    <footer id="footer">
+	    	<script type="text/javascript"  src="/js/common/includeBottom.js"></script>
+	    </footer>
+	</div>
+	
+</body>
+</html>

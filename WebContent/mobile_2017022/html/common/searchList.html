@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>연관검색 | SGIS+plus</title>
+    <meta name="title" content="검색"/>
+    <script src="/mobile/js/common/includeHead.js"></script>
+	<script src="/mobile/js/common/common.js"></script>
+	<script src="/mobile/js/common/searchList.js"></script>
+	<script src="/mobile/js/common/sgis-mobile.js"></script>
+</head>
+<body>
+	<div class="Wrap">
+		<div class="Content">
+		<!-- Search S -->
+			<div class="SearchBar">
+				<form id="search-form" action="" method="get">
+					<input type="text" name="searchKeyword" id="searchKeyword" autofocus="autofocus">
+					<button type="submit" class="SearchBtnSearch">검색</button>
+				</form>
+			</div>
+			<div id="article-wrap" style="padding-bottom: 50px;">
+				<div id="related-word" class="RelatedSearch" style="display:none;"></div>
+				<div id="search_result" class="SearchCount"></div>
+				<!-- 인터렉티브맵 검색 S -->
+				<dl id="sopListTable" class="Result"></dl>
+				<!-- 인터렉티브맵 검색 E -->
+				<!-- 통계주제도 검색 S -->
+				<dl id="themeListTable" class="Result"></dl>
+				<!-- 통계주제도 검색 E -->
+			</div>
+		<!-- Search E -->
+			<div class="ContFooter">@Statistics Korea. All rights reserved.</div>
+		</div>
+	</div>
+	<script src="/mobile/js/common/includeBottom.js"></script>
+</body>
+</html>

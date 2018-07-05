@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thematicMap_other">
+
+	<!-- 1인가구 증가 -->
+	<select id="getThemaSingleFamily" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+			SELECT 
+				*,
+				to_char(year_avg_irdsrate) AS rate_value,
+				<choose>
+		      		<when test ="sido_cd==null">   
+		      		   A.sido_cd
+		      		</when>
+		      		<when test ="sgg_cd == null">
+		      		   B.sido_cd  || B.sgg_cd
+		      		</when>
+		      	    <when test ="emdong_cd == null">
+		      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+		      		</when>
+		      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+		      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+		      		</when>
+		     	</choose>  
+		     	 AS adm_cd	   
+			<trim prefix ="from" prefixOverrides=",">
+				<if test ="sido_cd == null " >			
+					(
+						select * from srv_dt_themasinglefamily					 
+						where 
+							sgg_cd = #{sgg_cd} and 
+						    emdong_cd= #{emdong_cd} 
+					)A
+				</if>
+				<if test ="sgg_cd == null " >			
+					(
+						select * from srv_dt_themasinglefamily					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    emdong_cd= #{emdong_cd}  and
+					    	sgg_cd !='000' 
+					)B
+				</if>
+				<if test ="emdong_cd == null " >			
+					(
+						select * from srv_dt_themasinglefamily					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    sgg_cd= #{sgg_cd}   and
+					    	emdong_cd !='00'
+					)C
+				</if>
+				<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+					(
+						select * from srv_dt_themasinglefamily					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    sgg_cd= #{sgg_cd} and
+						    emdong_cd= #{emdong_cd}  
+						    
+					)D
+				</if>
+			</trim>
+		)
+	</select>
+	
+	<!-- 65세 이상 고령자 증감현황 -->
+	<select id="getThemaOldPPLTn" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+			SELECT 
+				*,
+				to_char(year_avg_irdsrate) AS rate_value,
+				<choose>
+		      		<when test ="sido_cd==null">   
+		      		   A.sido_cd
+		      		</when>
+		      		<when test ="sgg_cd == null">
+		      		   B.sido_cd  || B.sgg_cd
+		      		</when>
+		      	    <when test ="emdong_cd == null">
+		      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+		      		</when>
+		      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+		      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+		      		</when>
+		     	</choose>  
+		     	 AS adm_cd	   
+			<trim prefix ="from" prefixOverrides=",">
+				<if test ="sido_cd == null " >			
+					(
+						select * from srv_dt_themaoldppltn					 
+						where 
+							sgg_cd = #{sgg_cd} and 
+						    emdong_cd= #{emdong_cd}
+					)A
+				</if>
+				<if test ="sgg_cd == null " >			
+					(
+						select * from srv_dt_themaoldppltn					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    emdong_cd= #{emdong_cd}   and
+					    	sgg_cd !='000'
+					)B
+				</if>
+				<if test ="emdong_cd == null " >			
+					(
+						select * from srv_dt_themaoldppltn					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    sgg_cd= #{sgg_cd}  and
+					    	emdong_cd !='00'
+					)C
+				</if>
+				<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+					(
+						select * from srv_dt_themaoldppltn					 
+						where 
+							sido_cd = #{sido_cd} and 
+						    sgg_cd= #{sgg_cd} and
+						    emdong_cd= #{emdong_cd}  
+						    
+					)D
+				</if>
+			</trim>
+		)
+	</select>
+	
+	<!-- 다문화 가구 현황 -->
+	<select id="getThemaMultiCulture" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="tot_reg_cd == null">
+	      		   D.tot_reg_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null and tot_reg_cd != null">
+	      		  E.tot_reg_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themamulticulture					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    tot_reg_cd= #{tot_reg_cd}
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themamulticulture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    tot_reg_cd= #{tot_reg_cd}  and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themamulticulture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    tot_reg_cd= #{tot_reg_cd}  and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="tot_reg_cd == null " >			
+				(
+					select * from srv_dt_themamulticulture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd} and
+					    tot_reg_cd != '0000000000000'
+				)D
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null and tot_reg_cd != null" >			
+				(
+					select * from srv_dt_themamulticulture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd} and
+					    tot_reg_cd= #{tot_reg_cd}
+					    
+				)E
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 치킨집 1개당 인구수 (인구와 치킨전문점 현황) -->
+	<select id="getThemaPPLTnChicken" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			adm_cd, ppltn, chicken_corp_cnt,
+			ROUND((case when chicken_corp_cnt > 0 
+		    then ppltn / chicken_corp_cnt
+		    else 0 
+		    end), 1) as pop_100_per_chicken_corp_cnt FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themappltnchicken					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themappltnchicken					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd}  and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themappltnchicken					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd}  and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themappltnchicken					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 연립,다세대 주택수 감소 -->
+	<select id="getThemaMultiHouse" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+		SELECT 
+			*,
+			to_char(year_avg_irdsrate) AS rate_value,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themamultihouse					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themamultihouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd!='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themamultihouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themamultihouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 지역별 농림어가 청장년인구 변화 -->
+	<select id="getThemaYoungAdult" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+		SELECT 
+			*,
+			to_char(year_avg_irdsrate) AS rate_value,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themayoungadult					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themayoungadult					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd!='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themayoungadult					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themayoungadult					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+
+	
+	<!-- 보건시설 1개당 65세 이상 노인인구 -->
+	<select id="getThemaHealthFacOldMan" parameterType="hashmap" resultType="hashmap">
+	SELECT adm_cd, aged_psn_ppltn, corp_cnt,
+			ROUND((case when corp_no > 0 
+		    then aged_psn_ppltn / corp_cnt
+		    else 0 
+		    end), 1) as aged_pop_100_per_heal_fac_cnt FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themahealthfacoldman					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themahealthfacoldman					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd!='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themahealthfacoldman					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themahealthfacoldman					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 보건시설 1개당 65세 이상 노인인구 POI -->
+	<!--<select id="getThemaHealthFacOldManPOI" parameterType="hashmap" resultType="hashmap">                  -->
+	<!--                                                                                                       -->
+	<!--	SELECT                                                                                             -->
+	<!--	        corp_nm                                                                                    -->
+	<!--	,       tel_no                                                                                     -->
+	<!--	,       sido_cd || sgg_cd || emdong_cd AS adm_cd                                                   -->
+	<!--	,       adm_addr                                                                                   -->
+	<!--	,		naddr                                                                                      -->
+	<!--	,       tot_reg_cd                                                                                 -->
+	<!--	,       ROUND(st_x(pt)) AS x                                                                       -->
+	<!--	,       ROUND(st_y(pt)) AS y                                                                       -->
+	<!--	                                                                                                   -->
+	<!--	FROM                                                                                               -->
+	<!--	        srv_pg_corpcensus_2010                                                                     -->
+	<!--	WHERE                                                                                              -->
+	<!--	        ksic1 IN                                                                                   -->
+	<!--	        <foreach item="item" index="index" collection="ksic1" open="(" separator="," close=")">    -->
+	<!--		        #{item}                                                                                -->
+	<!--		  	</foreach>                                                                                 -->
+	<!--	AND     ksic5 IN                                                                                   -->
+	<!--			<foreach item="item" index="index" collection="ksic5" open="(" separator="," close=")">    -->
+	<!--		        #{item}                                                                                -->
+	<!--		  	</foreach>                                                                                 -->
+	<!--	AND     sido_cd = #{sido_cd}                                                                       -->
+	<!--	AND     sgg_cd = #{sgg_cd}                                                                         -->
+	<!--	AND     emdong_cd = #{emdong_cd}                                                                   -->
+	<!--	                                                                                                   -->
+	<!--</select>                                                                                              -->
+	
+	<select id="getThemaHealthFacOldManPOI" parameterType="hashmap" resultType="hashmap">
+	
+		SELECT 
+		        corp_nm
+		,       adm_cd
+		,		naddr
+		,       sufid
+		
+		FROM 
+		        srv_dt_corpcensus_9
+		WHERE 
+		        ksic1 IN
+		        <foreach item="item" index="index" collection="ksic1" open="(" separator="," close=")">
+			        #{item}
+			  	</foreach>
+		AND     ksic5 IN
+				<foreach item="item" index="index" collection="ksic5" open="(" separator="," close=")">
+			        #{item}
+			  	</foreach>
+		AND     sido_cd = #{sido_cd} 
+		AND     sgg_cd = #{sgg_cd}
+		AND     emdong_cd = #{emdong_cd}
+		AND		base_year = '2010'
+		
+	</select>
+	
+	<!-- 인구대비 문화시설 -->
+	<select id="getThemaPPLTnCulture" parameterType="hashmap" resultType="hashmap">
+
+	SELECT adm_cd, ppltn, cul_fac_cnt,
+			ROUND((case when cul_fac_cnt > 0 
+		    then ppltn / cul_fac_cnt
+		    else 0 
+		    end), 1) as pop_100_per_cul_fac_cnt FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themappltnculture					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themappltnculture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themappltnculture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themappltnculture					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 2,30대 여성 1인가구와 치안시설 분포현황 -->
+	<select id="getThemaWomanPeaceFac" parameterType="hashmap" resultType="hashmap">
+	SELECT  adm_cd, twenty_thirty_fem_ppltn, peace_fac_cnt,
+			ROUND((case when twenty_thirty_fem_ppltn > 0 
+		    then  (peace_fac_cnt / twenty_thirty_fem_ppltn)*1000
+		    else 0 
+		    end), 1) as pop_100_per_peace_fac_cnt
+   FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themawomanpeacefac					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themawomanpeacefac					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themawomanpeacefac					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themawomanpeacefac					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 30년 이상 노후주택 분포현황 -->
+	<select id="getThemeoldHouse" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themaoldhouse					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themaoldhouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themaoldhouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themaoldhouse					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- KOSIS Data -->
+	<!-- 국내여행실태, 평생교육기관, 도서관, 화학물질 -->
+	<select id="getThemeKosisData" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			sido_cd as adm_cd,
+		    private_basic_liv_recipient,
+		    public_basic_liv_recipient,
+		    (private_basic_liv_recipient + public_basic_liv_recipient) as basic_liv_recipient,
+		    personal_dom_trip_cnt1,
+		    personal_dom_trip_cnt2,
+		    (personal_dom_trip_cnt1 + personal_dom_trip_cnt2) as personal_dom_trip,
+		    lifelong_edu_inst_2013,
+		    lib_pres_condtn_2011,
+		    chemicals_discharge_2012,
+		    chemicals_discharge_1999		    
+		 FROM theme_kosisdata
+		 <if test ="adm_cd!=null" >			
+				where sido_cd = #{adm_cd}
+		</if>
+	</select>
+	
+	<!-- KOSIS Data -->
+	<!-- 기초생활수급자분포현황 -->
+	<select id="getThemeKosisData_basic_libe" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			SUM(ppltn_cnt) AS ppltn_cnt
+		, 	base_year
+			<choose>
+				<when test = "adm_cd == null">
+				,	sido_cd AS adm_cd
+				</when>
+				<otherwise>
+				,	sgg_cd AS adm_cd
+				</otherwise>
+			</choose>
+		FROM
+			SOD_BASIC_LIBELIHOOD_SECURITY_INFO
+		WHERE
+			<choose>
+				<when test = "adm_cd == null">
+				1 = 1
+				</when>
+				<otherwise>
+				sido_cd = #{adm_cd}
+				</otherwise>
+			</choose>
+		GROUP BY
+			base_year
+			<choose>
+				<when test = "adm_cd == null">
+				,	sido_cd
+				</when>
+				<otherwise>
+				,	sgg_cd
+				</otherwise>
+			</choose>
+	</select>
+	
+	<!-- KOSIS Data -->
+	<!-- 화재 사고 사망자 증감 현황 -->
+	<select id="getThemaFireAccident" parameterType="hashmap" resultType="hashmap">
+		
+		SELECT 
+			distinct sido_cd as adm_cd,
+		    to_char(annual_growth_rate) AS rate_value
+		 FROM theme_kosis_firebody_change
+		 
+	</select>
+	
+	<!-- 화재 사고 사망자 증감 현황 그래프 데이터 -->
+	<select id="getThemaFireAccidentDetail" parameterType="hashmap" resultType="hashmap">
+		
+		SELECT 
+			sido_cd as adm_cd,
+			year,
+		    fire1000_body_cnt
+		 FROM theme_kosis_firebody_change		
+		 WHERE sido_cd = #{sido_cd}
+		 
+	</select>
+	
+	<!-- 주택유지보수 업체 1개당 단독, 연릭, 다세대 주택수 -->
+	<select id="getThemaMultiCorpDist" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			adm_cd, house_no, corp_no,
+			ROUND((case when corp_no > 0 
+		    then house_no / corp_no
+		    else 0 
+		    end), 1) as house_10_corp_per FROM (
+		SELECT 
+			*,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from srv_dt_themamulticorpdist					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from srv_dt_themamulticorpdist					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd}  and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from srv_dt_themamulticorpdist					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd}  and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from srv_dt_themamulticorpdist					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 주택유지보수 업체 1개당 단독, 연릭, 다세대 주택수 POI -->
+	<select id="getThemaMultiCorpDistPOI" parameterType="hashmap" resultType="hashmap">
+	
+		SELECT 
+		        corp_nm
+		,       tel_no
+		,       sido_cd || sgg_cd || emdong_cd AS adm_cd
+		,       adm_addr
+		,		naddr
+		,       tot_reg_cd
+		,       ROUND(st_x(pt)) AS x
+		,       ROUND(st_y(pt)) AS y
+		
+		FROM 
+		        srv_pg_corpcensus_2013
+		WHERE 
+		        ksic1 IN
+		        <foreach item="item" index="index" collection="ksic1" open="(" separator="," close=")">
+			        #{item}
+			  	</foreach>
+		AND     ksic5 IN
+				<foreach item="item" index="index" collection="ksic5" open="(" separator="," close=")">
+			        #{item}
+			  	</foreach>
+		AND     sido_cd = #{sido_cd} 
+		AND     sgg_cd = #{sgg_cd}
+		AND     emdong_cd = #{emdong_cd}
+		
+	</select>
+	
+	<!-- 주요 소상공 업종 현황 -->
+	<!-- 커피전문점, 슈퍼마켓, 제과점, 치킨전문점, PC방 -->
+	<select id="getThemaSmallBizCond" parameterType="hashmap" resultType="hashmap">
+		SELECT DISTINCT adm_cd, * FROM (
+		SELECT 
+			TO_CHAR(year_avg_change_rate) AS rate_value,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from THEME_SMALLBIZ_COND					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from THEME_SMALLBIZ_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from THEME_SMALLBIZ_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from THEME_SMALLBIZ_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+		WHERE
+			corp_cd = #{corp_cd}
+	)
+	</select>
+	
+	<!-- 주요 소상공 업종 현황 그래프 데이터 -->
+	<select id="getThemaSmallBizCondDetail" parameterType="hashmap" resultType="hashmap">
+	
+		SELECT 
+			base_year,
+			corp_cnt
+		FROM THEME_SMALLBIZ_COND
+		WHERE
+			corp_cd = #{corp_cd}
+		AND sido_cd = #{sido_cd}
+		<if test ="sgg_cd != null">
+		AND sgg_cd = #{sgg_cd}
+		</if>
+		<if test ="emdong_cd != null">
+		AND emdong_cd = #{emdong_cd}
+		</if>
+		
+	</select>
+	
+	<!-- 주택유지보수 업체 변화 -->
+	<select id="getThemaHouseMaintenanceCond" parameterType="hashmap" resultType="hashmap">
+		SELECT DISTINCT adm_cd, * FROM (
+		SELECT 
+			TO_CHAR(year_avg_change_rate) AS rate_value,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      	    <when test ="emdong_cd == null">
+	      		   C.sido_cd || C.sgg_cd || C.emdong_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null and emdong_cd != null">
+	      		   D.sido_cd || D.sgg_cd || D.emdong_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from THEME_HOUSEMAINTENANCE_COND					 
+					where 
+						sgg_cd = #{sgg_cd} and 
+					    emdong_cd= #{emdong_cd} 
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from THEME_HOUSEMAINTENANCE_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    emdong_cd= #{emdong_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="emdong_cd == null " >			
+				(
+					select * from THEME_HOUSEMAINTENANCE_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd !='00'
+				)C
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null and emdong_cd != null" >			
+				(
+					select * from THEME_HOUSEMAINTENANCE_COND					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} and
+					    emdong_cd= #{emdong_cd}  
+					    
+				)D
+			</if>
+		</trim>
+	)
+	</select>
+	
+	<!-- 급감 주택 유지보수 업종 현황 그래프 -->
+	<select id="getThemaHouseMaintenanceCondDetail" parameterType="hashmap" resultType="hashmap">
+	
+		SELECT 
+			base_year,
+			corp_cnt
+		FROM THEME_HOUSEMAINTENANCE_COND
+		WHERE
+			sido_cd = #{sido_cd}
+		<if test ="sgg_cd != null">
+		AND sgg_cd = #{sgg_cd}
+		</if>
+		<if test ="emdong_cd != null">
+		AND emdong_cd = #{emdong_cd}
+		</if>
+		
+	</select>
+	
+	<!-- 결혼 10년 이하 가구의 주택 점유형태 지역별 분포 -->
+	<select id="getThemaOccupTypeUnder10year" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM (
+		SELECT 
+			TO_CHAR(self_rate) AS self_rate,
+			TO_CHAR(lease_rate) AS lease_rate,
+			<choose>
+	      		<when test ="sido_cd==null">   
+	      		   A.sido_cd
+	      		</when>
+	      		<when test ="sgg_cd == null">
+	      		   B.sido_cd  || B.sgg_cd
+	      		</when>
+	      		<when test ="sido_cd!=null and sgg_cd != null">
+	      		   C.sido_cd || C.sgg_cd
+	      		</when>
+	     	</choose>  
+	     	 AS adm_cd	   
+		<trim prefix ="from" prefixOverrides=",">
+			<if test ="sido_cd == null " >			
+				(
+					select * from THEME_OCCUP_TYPE_UNDER10YEAR					 
+					where 
+						sgg_cd = #{sgg_cd}
+				)A
+			</if>
+			<if test ="sgg_cd == null " >			
+				(
+					select * from THEME_OCCUP_TYPE_UNDER10YEAR					 
+					where 
+						sido_cd = #{sido_cd} and
+					    sgg_cd !='000'
+				)B
+			</if>
+			<if test ="sido_cd!=null and sgg_cd != null" >			
+				(
+					select * from THEME_OCCUP_TYPE_UNDER10YEAR					 
+					where 
+						sido_cd = #{sido_cd} and 
+					    sgg_cd= #{sgg_cd} 
+					    
+				)C
+			</if>
+		</trim>
+	)
+	</select>
+</mapper>

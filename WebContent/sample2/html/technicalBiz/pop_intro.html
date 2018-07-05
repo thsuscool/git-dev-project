@@ -1,0 +1,421 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/slick.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script>   
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <script type="text/javascript" src="/sample2/include/js/technicalBiz.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+		<div class="containerBox">  
+		</div>   
+	</div>
+	
+	<!--  팝업 -->
+	<div class="dialogGtype">
+		<div class="popIntroRela">
+			<div class="popIntro">
+				
+				<div class="piTotalBox">
+					<div class="iaTopbar">
+						<p class="t01">기술업종</p>
+						<p class="t02">신기술을 기반으로 수익을 창출하는 기술집약적 기업</p>
+						<p class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</p>
+						<div class="btna">
+							<a href="javascript:void(0)" class="introCommonTabs introTabs01 on">기술업종 소개 페이지</a>
+							<a href="javascript:void(0)" class="introCommonTabs introTabs02">전국 기술업종 사업체 현황</a>
+							<a href="javascript:void(0)" class="introCommonTabs introTabs03">기술업종 분류</a>
+						</div>
+						<p class="cookieCk">
+							<input type="checkbox" id="cookieCheck"/>
+							<label for="cookieCheck">일주일간 보지않기</label>
+						</p>
+					</div>
+					<div class="iadRela">
+						<!-- intro 1 -->
+						<div class="iaDefault" id="iadBox01">
+							<div class="iaLeft">
+								<p class="s01">
+									<span class="t01">기술혁신정도</span>
+									<span class="t02">연구개발집약도에 따라 제조업을 첨단기술, 
+									<br />고기술, 중기술, 저기술 등으로 
+									<br />분류하는 산업</span>
+								</p>
+								<ul class="iaIconList">
+									<li class="ico01">
+										<a href="javascript:void(0)">
+											<span class="t01">첨단기술 업종</span>
+											<span class="t02">기술집약도가 높고 제품의 수명주기가 짧으며 경제적 파급효과가 큰 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+									<li class="ico02">
+										<a href="javascript:void(0)">
+											<span class="t01">고기술 업종</span>
+											<span class="t02">진보되고 정교한 기술을 포함하는 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+									<li class="ico03">
+										<a href="javascript:void(0)">
+											<span class="t01">중기술 업종</span>
+											<span class="t02">기술이전이 용이한 성숙기술을 포함하는 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+									<li class="ico04">
+										<a href="javascript:void(0)">
+											<span class="t01">저기술 업종</span>
+											<span class="t02">사회의 다양한 세부 분야에 침투 되어 낮은 수준의 공업기술 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="iaRight">
+								<p class="s01">
+									<span class="t01">지식집약정도</span>
+									<span class="t02">기술, 정보, 지식 등 무형자삭의 활용도가 
+									<br />높은 정보 통신업, 금융 및 보험업, 사업서비스업
+									<br />등으로 분류하는 산업</span>
+								</p>
+								<ul class="iaIconList">
+									<li class="ico05">
+										<a href="javascript:void(0)">
+											<span class="t01">창의 및 디지털 업종</span>
+											<span class="t02">인간의 감성, 창의력 상상력을 기반으로 경제적 가치를 창출하는 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+									<li class="ico06">
+										<a href="javascript:void(0)">
+											<span class="t01">ICT 업종</span>
+											<span class="t02">정보통신기술을 기반으로 하는 전기통신, 컴퓨터 프로그램 등을 포함하는 정보서비스 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li>
+									<li class="ico07">
+										<a href="javascript:void(0)">
+											<span class="t01">전문서비스 업종</span>
+											<span class="t02">전문지식을 갖춘 인력자원이 주요 요소로 투입되는 산업</span>
+											<span class="t03">클릭시 해당업종 시도별 현황으로 이동합니다.</span>
+										</a>
+									</li> 
+								</ul>
+							</div>
+						</div>	 
+						<!-- intro 1 -->
+						
+						<!-- intro 2 -->
+						<div class="iaDefault" id="iadBox02">
+							<div class="iaChartLeft">
+								<p class="s01">전국 기술업종 사업체 비율</p>
+								<div class="iaChartBox01" id="iaChartBox01"></div>
+								 
+								<ul class="typelabel">
+		   							<li class="ico01">
+		   								<div class="valuebox">
+		    								<span class="tit">첨단<br />기술</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico02">
+		   								<div class="valuebox">
+		    								<span class="tit">중기술</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico03">
+		   								<div class="valuebox">
+		    								<span class="tit">창의및<br />디지털</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico04">
+		   								<div class="valuebox">
+		    								<span class="tit">전문<br />서비스</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico05">
+		   								<div class="valuebox">
+		    								<span class="tit">고기술</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico06">
+		   								<div class="valuebox">
+		    								<span class="tit">저기술</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   							<li class="ico07">
+		   								<div class="valuebox">
+		    								<span class="tit">ICT</span>
+		    								<div class="val">
+		    									<p class="t01">24%</p>
+		    									<p class="t02">12,269개</p>
+		    								</div>
+		    							</div> 
+		   							</li>
+		   						</ul> 
+							</div>
+							<div class="iaChartRight">
+								<p class="s01">전국 기술업종 사업체 증감</p>
+								<div class="iaChartBox02" id="iaChartBox02"></div>
+								<p class="s01">전국 기술업종 사업체 증감률</p>
+								<div class="iaChartBox03" id="iaChartBox03"></div>
+							</div>
+						</div>	 
+						<!-- intro 2 -->
+						
+						<!-- intro 3 -->
+						<div class="iaDefault" id="iadBox03">
+							<div class="iaTabs01">
+								<a href="javascript:void(0)" data-tabs="iaTabsContents01" class="on">기술혁신정보</a>
+								<a href="javascript:void(0)" data-tabs="iaTabsContents02">지식집약정도</a>
+							</div>
+							<div class="iaTabsContents01">
+								<div class="iaTabs02">
+									<a href="javascript:void(0)" data-tabs="iatcEtcBox01" class="on">창의 및 디지털 업종</a>
+									<a href="javascript:void(0)" data-tabs="iatcEtcBox02">ICT 업종</a>
+									<a href="javascript:void(0)" data-tabs="iatcEtcBox03">전문서비스 업종</a>
+									<a href="javascript:void(0)" data-tabs="iatcEtcBox04">공공서비스 업종</a>
+								</div>
+								<div class="iatcSrcollBox">
+									<div class="iatcEtcBox01">
+										<table class="iatcTable">
+											<colgroup>
+												<col width="120" />
+												<col width="" />
+											</colgroup>
+											<tr>
+												<th>코드</th>
+												<th>세부업종명</th>
+											</tr>
+											<tr>
+												<td>58</td>
+												<td>출발(업), 광고, 영화</td>
+											</tr>
+											<tr>
+												<td>58</td>
+												<td>출발(업), 광고, 영화</td>
+											</tr>
+										</table>
+									</div>
+									<div class="iatcEtcBox02"></div>
+									<div class="iatcEtcBox03"></div>
+									<div class="iatcEtcBox04"></div>
+								</div>
+								<div class="btnbox">
+									<a href="javascript:void(0)" class="btnType03 w200">기술업종 소개 보기</a>
+								</div>
+							</div> 
+						</div>	 
+						<!-- intro 3 -->
+					</div>
+				</div>
+			
+			</div>
+			<div class="rightBtn">
+				<a href="javascript:void(0)" class="introClose" onclick="$('.dialogGtype').hide()">닫기</a>
+			</div>
+		</div>
+		
+	</div>
+	<script>
+	$(function () {
+	    $('#iaChartBox01').highcharts({
+	        chart: {
+	            type: 'pie'
+	        },
+	        colors: ['#f0356c', '#f7c701', '#1578cb', '#454a5e', '#f89337', '#b2cb17', '#5b3eb2'], title: { text: '' },
+	        tooltip: { enabled: false },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: false, cursor: 'pointer', depth: 35,
+	                borderWidth: 0,
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        series: [{
+	            type: 'pie',
+	            name: '전국 기술업종 사업체 비율',
+	            data: [
+	                ['첨단기술', 45.0],
+	                ['중기술', 26.8],
+	                ['창의및 디지털', 26.8],
+	                ['전문 서비스', 26.8],
+	                ['고기술', 26.8],
+	                ['저기술', 26.8],
+	                ['ICT', 26.8]
+	            ]
+	        }]
+	    }); 
+	    $('#iaChartBox02').highcharts({
+	        chart: {
+	            type: 'column', margin:[50,30,60,80]
+	        },
+	        colors: ['#f0356c', '#f7c701', '#1578cb', '#454a5e', '#f89337', '#b2cb17', '#5b3eb2'], tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['2011', '2012', '2013', '2014', '2015'],
+	            title: { text: '연도' }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '사업체증감'},
+	            labels: { overflow: 'justify' }
+	        }, 
+	        plotOptions: {
+	        	series: {
+	                states: { }
+	            },
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [{
+	            name: '첨단기술',
+	            data: [49.9, 71.5, 106.4, 129.2, 144.0]
+
+	        }, {
+	            name: '중기술',
+	            data: [83.6, 78.8, 98.5, 93.4, 106.0]
+
+	        }, {
+	            name: '창의및디지털',
+	            data: [48.9, 38.8, 39.3, 41.4, 47.0]
+
+	        }, {
+	            name: '전문서비스',
+	            data: [42.4, 33.2, 34.5, 39.7, 52.6]
+
+	        }, {
+	            name: '고기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 52.6]
+
+	        }, {
+	            name: '저기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 52.6]
+
+	        }, {
+	            name: 'ICT',
+	            data: [42.4, 33.2, 34.5, 39.7, 52.6]
+
+	        }]
+	    });
+	    $('#iaChartBox03').highcharts({
+	        chart: {
+	            margin:[50,30,60,80]
+	        },
+	        colors: ['#f0356c', '#f7c701', '#1578cb', '#454a5e', '#f89337', '#b2cb17', '#5b3eb2'], tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['2011', '2012', '2013', '2014', '2015'],
+	            title: { text: '연도' }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '사업체증감률'},
+	            labels: { overflow: 'justify' }
+	        }, 
+	        plotOptions: {
+	        	series: {
+	                states: { }
+	            },
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [{
+	            name: '첨단기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 112.6]
+
+	        }, {
+	            name: '중기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 122.6]
+
+	        }, {
+	            name: '창의및디지털',
+	            data: [42.4, 33.2, 34.5, 39.7, 132.6]
+
+	        }, {
+	            name: '전문서비스',
+	            data: [42.4, 33.2, 34.5, 39.7, 142.6]
+
+	        }, {
+	            name: '고기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 152.6]
+
+	        }, {
+	            name: '저기술',
+	            data: [42.4, 33.2, 34.5, 39.7, 162.6]
+
+	        }, {
+	            name: 'ICT',
+	            data: [42.4, 33.2, 34.5, 39.7, 172.6]
+
+	        }]
+	    });
+	});
+	</script>
+</body>
+</html>

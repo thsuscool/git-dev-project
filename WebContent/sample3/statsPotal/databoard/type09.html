@@ -1,0 +1,267 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- 기존 -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <script type="text/javascript" src="/sample2/include/js/technicalBiz.js"></script>
+    
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample3/include/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/sample3/include/js/statsPotal/statsPotal.js"></script>
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				     
+				    	
+				    	
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<!-- <p class="dbText01">17개 주요 시도별 생활업종현황</p>
+				    				<div class="areaBox">시군구 지역별 정보 현황</div> -->
+				    				 
+				    				<dl class="dscList"> 
+					    				 
+					    				<dd> 
+					    					<ul class="dscTextType01">
+					    						<li>
+					    							<span>대상지역 : 서울특별시 전체, 시군구 기준</span>
+					    							<a href="javascript:void(0)" class="btnType05">통계청</a>
+					    						</li>
+					    						<li>
+					    							<span>주요지표 : 전체인구의 변화</span>
+					    						</li>
+					    						<li>
+					    							<span class="indent">통계청, 인구주택총조사 (2000, 2015)</span>
+					    						</li>
+					    					</ul>
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)">데이터 A·B</a>  
+					    					</div>
+					    					<div class="compareBox">
+					    						<div class="typeBox">
+					    							<a href="javascript:void(0)" class="first on">차트</a>
+					    							<a href="javascript:void(0)" class="">표</a>
+					    						</div>
+					    						<div class="charts">
+					    							<div id="columCharts01"></div> 
+					    						</div>
+					    						<div class="tables"><!-- 표영역 -->
+					    							<table class="wmTable mt10">
+														<colgroup>
+															<col width="30" />
+															<col width="60" />
+															<col width="" />  
+															<col width="" />
+															<col width="" /> 
+														</colgroup> 
+															<tr>
+																<th><input type="checkbox" class="ckall" onclick="checkall(this)" name="" /></th>
+																<th>컬럼1</th>
+																<th>컬럼1</th>
+																<th>컬럼1</th>
+																<th>컬럼1</th> 
+															</tr>    
+														</tbody>
+													</table>
+													<div class="popTableScrollArea">
+														<table class="wmTable">
+															<colgroup>
+																<col width="30" />
+																<col width="60" />
+																<col width="" />  
+																<col width="" />
+																<col width="" />   
+															</colgroup>         
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+															<tr>
+																<td><input type="checkbox" class="cketc" name="" /></td> 
+																<td>123</td> 
+																<td>test</td>
+																<td>명진산업</td>
+																<td>--</td>   
+															</tr>
+														</table> 
+													</div>  	
+					    						</div><!-- 표영역 -->
+					    						
+					    					</div>
+					    				</dd> 
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents">
+				    		<img src="/img/pm/map_img.jpg" />
+				    	</div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	 
+	
+	 
+ 		
+	<script>
+	$(function () { 
+		$('#columCharts01').highcharts({
+	        chart: {
+	            type: 'bar', width:500, marginLeft:100
+	        },
+	        colors: ['#002660','#ed7d31'], tooltip: { enabled: true },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '강북구', '도봉구'],
+	            title: { text: null },
+	            labels: {
+	                align: 'left', x:-100
+	            }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { 
+	        	align: 'center',
+	            verticalAlign: 'top',
+	            layout: 'horizontal',
+	            x: 0,
+	            y: 0
+	        },
+	        credits: {  enabled: false },
+	        series: [
+	            { 
+	            	name: '2000년',
+	            	data: [30, 31, 30, 30, 30, 31, 30, 30, 20]
+	        	},
+	        	{ 
+	        		name: '2015년',
+	            	data: [30, 31, 30, 30, 30, 31, 30, 30, 20]
+	        	}
+	        ]
+	    });
+	});  
+	</script>
+</body>
+</html>

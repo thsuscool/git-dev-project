@@ -1,0 +1,167 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+		<div class="containerBox">  
+		</div>   
+	</div>
+	
+	<!--  팝업 -->
+	<div class="dialogGtype">
+		<div class="popSttRela">
+			<div class="popStt">
+				<div class="sttSubj">신규 정책통계지도 작성 타입 설정</div>
+				<p class="sttText">데이터 불러오기 버튼을 통해 기준 데이터 목록과 비교 데이터 목록을 활성화 할 수 있습니다.
+				대화형통계지도와 같이 <strong>센서스통계</strong>, SGIS+에서 <strong>즐겨찾기한 데이터 목록</strong>, 직접 <strong>업로드한 지자체의 데이터</strong> 목록 혹은 <strong>LBDMS에서 
+				공개 요청하여 승인된 데이터</strong> 목록 등을 호출, 활용하여 두개 데이터의 레이어를 융합하거나 간단한 연산을  통해 지역주민에게 지역 정책방
+				향을 설명할 수 있는 합리적인 지역 정책통계지도를 만들 수 있습니다.</p>
+				
+				<div class="sttBtn">
+					<a href="javascript:void(0)">나의 데이터 만들기</a>
+					<a href="javascript:void(0)">LBDMS 활용하기</a>
+					<a href="javascript:void(0)">LBDMS 메뉴얼 다운로드</a>
+				</div>
+				
+				<div class="sttCont">
+					<div class="sttLeft">
+						<dl>
+							<dt>작성타입 선택</dt>
+							<dd>
+								<p class="slText">활용되는 데이터 특성에 따라 정책통계지도의 유형이 구분됩니다.작성하고자 하는 정책통계 지도의 유형을 선택하세요.</p>
+								<ul class="slType">
+									<li class="on">
+										<div class="t01">
+											통계연산형
+											<br />(통계+통계)
+											<br />정책통계지도 만들기
+										</div>
+										<div class="t02">
+											<strong>지표별 통계 또는 POI 데이터간 연산</strong>
+											<p>데이터 A> 아동복지시설 예산, 2015년</p>
+											<p>데이터 B>  0 ~10세 인구통계, 2015년</p>
+											<p>융합시 연산을 통해 아동 1인당 시설예산비 분석 가능</p>
+										</div>
+									</li>
+									<li>
+										<div class="t01">
+											수요변화형
+											<br />(연도별 통계변화)
+											<br />정책통계지도 만들기
+										</div>
+										<div class="t02">
+											<strong>정책 수요 대상의 연도별 통계 변화 비교</strong>
+											<p>데이터 A> 0 ~10세 인구통계, 2005년</p>
+											<p>데이터 B> 상동, 2015년</p>
+											<p>융합시 증감, 증감률 분석 가능</p>
+										</div>
+									</li>
+									<li>
+										<div class="t01">
+											시설분석형
+											<br />(통계+위치정보)
+											<br />정책통계지도 만들기
+										</div>
+										<div class="t02">
+											<strong>정책수요 통계 데이터와 시설 위치정보 분포 비교</strong>
+											<p>데이터 A> 0 ~10세 인구통계, 2015년</p>
+											<p>데이터 B> 아동복지시설 분포도</p>
+											<p>융합시 시설의 버퍼(반경) 설정 및 시각화 가능</p>
+										</div>
+									</li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<div class="sttRight">
+						<dl>
+							<dt>지역 기준 선택</dt>
+							<dd>
+								<div class="bar">대상 지역 선택</div>
+								<div class="sttForm">
+									<p>작성하고자 하는 정책통계지도의지역 범위를 선택해 주세요</p>
+									<ul class="srType">
+										<li>
+											<label class="label">시도</label>
+											<select class="select"><option>서울시</option></select>
+											<input type="checkbox" />
+											<label>비자치구</label>
+										</li>
+										<li>
+											<label class="label">시군구</label>
+											<select class="select"><option>경기도</option></select>
+										</li>
+										<li>
+											<label class="label">읍면동</label>
+											<select class="select"><option>경기도</option></select>
+										</li>
+									</ul>
+								</div>
+								<div class="bar t01">센서스 통계 데이터  집계 경계 선택</div>
+								<div class="sttForm">
+									<p>표출하고자 하는 정책통계지도의지역 경계를 선택해 주세요</p>
+									<ul class="sbType">
+										<li><a href="javascript:void(0)">시군구 경계</a></li>
+										<li><a href="javascript:void(0)">읍면동 경계</a></li>
+										<li><a href="javascript:void(0)" class="on">집계구 경계</a></li>
+										<li>
+											<a href="javascript:void(0)">격자형 경계 범위 선택</a>
+											<select class="select"><option>100m</option></select>
+										</li>
+									</ul>
+								</div>
+							</dd>
+						</dl>
+					</div>
+				</div>
+				
+				<div class="sttBttom"><a href="javascript:void(0)">선택 타입의 정책통계지도 만들기</a></div>
+				
+			</div>
+			<a href="javascript:void(0)" class="rightClose"><img src="/img/ico/ico_close06.png" /></a>
+		</div>
+		
+	</div>
+	
+	 
+	 
+</body>
+</html>

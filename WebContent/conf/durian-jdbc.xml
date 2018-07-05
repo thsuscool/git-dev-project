@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans    
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    
+<!--  <bean id="dataSource_kairos" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName" value="kr.co.realtimetech.kairos.jdbc.kairosDriver" /> -->
+<!-- 		<property name="url" value="jdbc:oracle:thin:@59.9.226.28:1521:movi" /> -->
+<!-- 		<property name="url" value="jdbc:kairos://211.41.186.177:5000:SOP_TEST" /> -->
+<!-- 		<property name="initialSize" value="5" /> -->
+<!-- 		<property name="maxActive" value="10" /> -->
+<!-- 		<property name="username" value="root" /> -->
+<!-- 		<property name="password" value="root" /> -->
+
+<!-- 		<property name="maxIdle" value="20" /> -->
+<!-- 		<property name="minIdle" value="10" /> -->
+<!-- 		<property name="minEvictableIdleTimeMillis" value="300000" />	 -->
+<!-- 		<property name="timeBetweenEvictionRunsMillis" value="300000" /> -->
+<!-- 		<property name="numTestsPerEvictionRun" value="5" /> -->
+<!-- 		<property name="testOnBorrow" value="false" /> -->
+<!-- 		<property name="testOnReturn" value="false" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSource-kairos" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+         <!-- 
+		 <property name="driverClassName" value="kr.co.realtimetech.kairos.jdbc.kairosDriver"/>
+         <property name="url" value="jdbc:kairos://211.41.186.150:5000/SGIS_TB;dbmeta=lower" />
+         <property name="username" value="root"/>
+         <property name="password" value="root"/>
+         -->
+	 	 
+	 	 <!-- start of 개발환경 -->
+		  
+		 <property name="driverClassName" value="kr.co.realtimetech.kairos.jdbc.kairosDriver"/>
+         <property name="url" value="jdbc:kairos://192.168.0.207:5000/SGIS_TB" />
+<!--          <property name="url" value="jdbc:kairos://10.184.85.23:60000/SGIS_DB" /> -->
+         <property name="username" value="root"/>
+         <property name="password" value="root"/>
+         
+		 <!-- end of 개발환경 -->
+         
+         <!-- ==================  운영 ======================= -->
+         <!-- 
+         <property name="driverClassName" value="kr.co.realtimetech.kairos.jdbc.kairosDriver"/>
+         <property name="url" value="jdbc:kairos://10.184.95.10:50002/SGIS_DB" />
+         <property name="username" value="root"/>
+         <property name="password" value="root"/>
+          -->
+         <!-- ==================  운영 ======================= -->
+         
+         
+         <!-- start of 실환경 -->
+         <!-- 
+         <property name="driverClassName" value="kr.co.realtimetech.kairos.jdbc.kairosDriver"/>
+         <property name="url" value="jdbc:kairos://10.184.95.10:50002/SGIS_DB2" />
+         <property name="username" value="root"/>
+         <property name="password" value="sopkairos2"/>
+          -->
+         <!-- end of 실환경 -->
+
+         <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+         <property name="initialSize" value="1" />
+		 <property name="maxActive" value="2" />
+		 <property name="maxIdle" value="2" />
+		 <property name="minIdle" value="1" />
+		 <property name="minEvictableIdleTimeMillis" value="300000" />	
+		 <property name="timeBetweenEvictionRunsMillis" value="300000" />
+		 <property name="numTestsPerEvictionRun" value="5" />
+		 <property name="testOnBorrow" value="true" />
+		 <property name="testWhileIdle" value="true" />
+		 <property name="testOnReturn" value="false" />
+     </bean>
+
+<!-- Oracle -->
+   	<bean id="dataSource-oracle" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+      	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      	<property name="url" value="jdbc:oracle:thin:@//211.41.186.198:1521/MOVI" />
+      	<property name="username" value="sop"/>
+      	<property name="password" value="sop1234"/> 
+      	<!--  <property name="url" value="jdbc:oracle:thin:@//10.184.71.174:1521/GISINT" />
+      	<property name="username" value="ugis"/>
+      	 <property name="password" value="tprPchlrkd"/>-->
+      	 <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+         <property name="initialSize" value="1" />
+		 <property name="maxActive" value="2" />
+		 <property name="maxIdle" value="2" />
+		 <property name="minIdle" value="1" />
+		 <property name="minEvictableIdleTimeMillis" value="300000" />	
+		 <property name="timeBetweenEvictionRunsMillis" value="300000" />
+		 <property name="numTestsPerEvictionRun" value="5" />
+		 <property name="testOnBorrow" value="true" />
+		 <property name="testWhileIdle" value="true" />
+		 <property name="testOnReturn" value="false" />
+		 
+   	</bean>
+   	
+
+	<bean id="db.dataSource" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource-kairos"/>
+		<property name="configLocation" value="/conf/dbms-config.xml"/>
+		<property name="mapperLocations" value="classpath*:kostat/**/*.xsql"/>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource-kairos"/>
+		<property name="configLocation" value="/conf/dbms-config.xml"/>
+		<property name="mapperLocations" value="classpath*:kostat/**/*.xsql"/>
+	</bean>
+	
+	
+	<bean id="sqlSession2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource-oracle"/>
+		<property name="configLocation" value="/conf/dbms-config.xml"/>
+		<property name="mapperLocations" value="classpath*:kostat/**/mypage.xsql"/>
+	</bean>
+	
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+  		<constructor-arg index="0" ref="db.dataSource" />
+	</bean>
+	
+</beans>

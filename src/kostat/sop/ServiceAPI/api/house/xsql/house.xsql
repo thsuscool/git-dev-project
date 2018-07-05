@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="house">
+	<!-- 주거지분석맵 중분류지표 조회 -->	
+	<select id="houseMlsfcLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT 	
+			m_class_idx_id, 
+			m_class_idx_nm, 
+			srv_dt_lclas_ix.b_class_idx_id, 
+			srv_dt_lclas_ix.b_class_idx_nm, 
+			idx_oput_method, 
+			source, 
+			disp_level, 
+			unit,
+			det_exp,
+			abbrev_exp,
+			recomend_area_search_exp, 
+			default_value, 
+			order_base, 
+			order_base_disp,
+			srv_dt_lclas_ix.recmd_region_search_disp_yn
+		FROM srv_dt_mlsfc_ix
+		INNER JOIN srv_dt_lclas_ix ON srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_lclas_ix.b_class_idx_id
+		order by srv_dt_lclas_ix.b_class_idx_id,m_class_idx_id
+	</select>
+	
+	<!-- 주거지분석맵 시도 순위 조회 -->	
+	<select id="houseSidoLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT <if test="borough==1">distinct</if>
+			srv_pg_sidobord.sido_nm adm_nm,
+			srv_pg_sidobord.sido_nm short_adm_nm, 
+			srv_dt_sido_ix_order.sido_cd adm_cd, 
+			srv_dt_sido_ix_order.b_class_idx_id,
+			srv_dt_sido_ix_order.m_class_idx_id,
+			order, order_no, round(value,2) AS value, round(z_score,2) AS z_score,unit
+		FROM srv_dt_sido_ix_order 
+		INNER JOIN srv_dt_mlsfc_ix ON 
+			srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_sido_ix_order.b_class_idx_id
+			AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_sido_ix_order.m_class_idx_id
+		INNER JOIN <if test="borough==1">SRV_PG_ATDRCBORD</if> srv_pg_sidobord ON 
+			srv_pg_sidobord.sido_cd = srv_dt_sido_ix_order.sido_cd 
+		AND srv_pg_sidobord.base_year=#{year}
+		WHERE srv_dt_sido_ix_order.b_class_idx_id = #{b_class_idx_id} 
+		AND srv_dt_sido_ix_order.m_class_idx_id = #{m_class_idx_id} 
+		order by srv_dt_sido_ix_order.sido_cd asc
+	</select>
+	<!-- 주거지분석맵 시군구 순위 조회 -->	
+	<select id="houseSggLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				srv_pg_sggbord.sido_nm||' '||srv_pg_sggbord.sgg_nm adm_nm,
+				srv_pg_sggbord.sgg_nm short_adm_nm,
+				srv_dt_sgg_ix_order.sido_cd||srv_dt_sgg_ix_order.sgg_cd adm_cd,
+				srv_dt_sgg_ix_order.b_class_idx_id,
+				srv_dt_sgg_ix_order.m_class_idx_id, 
+				order, order_no, round(value,2) AS value, round(z_score,2) AS z_score,unit
+		FROM srv_dt_sgg_ix_order
+		INNER JOIN srv_dt_mlsfc_ix ON 
+			srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_sgg_ix_order.b_class_idx_id
+			AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_sgg_ix_order.m_class_idx_id
+		INNER JOIN <if test="borough==1">SRV_PG_ATDRCBORD</if> srv_pg_sggbord ON
+			srv_pg_sggbord.sido_cd = srv_dt_sgg_ix_order.sido_cd 
+		AND srv_pg_sggbord.sgg_cd = srv_dt_sgg_ix_order.sgg_cd
+		AND srv_pg_sggbord.base_year=#{year} 
+		WHERE srv_dt_sgg_ix_order.b_class_idx_id = #{b_class_idx_id} 
+		AND srv_dt_sgg_ix_order.m_class_idx_id = #{m_class_idx_id}
+		<if test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+			AND srv_dt_sgg_ix_order.sido_cd = #{sido_cd}
+		</if>
+		<if test="borough==1">
+			group by 
+				srv_pg_sggbord.sido_nm,srv_pg_sggbord.sgg_nm,
+				srv_pg_sggbord.sgg_nm,
+				srv_dt_sgg_ix_order.sido_cd,srv_dt_sgg_ix_order.sgg_cd,
+				srv_dt_sgg_ix_order.b_class_idx_id,
+				srv_dt_sgg_ix_order.m_class_idx_id, 
+				order, order_no, round(value,2), round(z_score,2),unit
+		</if>
+		order by srv_dt_sgg_ix_order.sido_cd asc,srv_dt_sgg_ix_order.sgg_cd asc
+	</select>
+	<select id="houseEmdongLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				srv_pg_admbord.sido_nm||' '||srv_pg_admbord.sgg_nm||' '||srv_pg_admbord.emdong_nm adm_nm,
+				srv_pg_admbord.emdong_nm short_adm_nm, 
+				srv_dt_emdong_ix_order.sido_cd||srv_dt_emdong_ix_order.sgg_cd||srv_dt_emdong_ix_order.emdong_cd adm_cd,
+				srv_dt_emdong_ix_order.b_class_idx_id,
+				srv_dt_emdong_ix_order.m_class_idx_id, 
+				order , order_no, round(value,2) AS value, round(z_score,2) AS z_score,unit
+		FROM 	srv_dt_emdong_ix_order 
+		INNER JOIN srv_dt_mlsfc_ix ON 
+			srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_emdong_ix_order.b_class_idx_id
+			AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_emdong_ix_order.m_class_idx_id
+		INNER JOIN srv_pg_admbord ON 
+			srv_pg_admbord.sido_cd = srv_dt_emdong_ix_order.sido_cd 
+		AND srv_pg_admbord.sgg_cd = srv_dt_emdong_ix_order.sgg_cd 
+		AND srv_pg_admbord.emdong_cd = srv_dt_emdong_ix_order.emdong_cd
+		AND srv_pg_admbord.base_year=#{year}
+		WHERE 	srv_dt_emdong_ix_order.b_class_idx_id = #{b_class_idx_id} 
+		AND 	srv_dt_emdong_ix_order.m_class_idx_id = #{m_class_idx_id}
+		<if test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+			AND srv_dt_emdong_ix_order.sido_cd = #{sido_cd}
+			<if test="sgg_cd != null and sgg_cd != '' and sgg_cd != '00'">
+				AND srv_dt_emdong_ix_order.sgg_cd = #{sgg_cd}
+			</if> 
+		</if> 
+		order by srv_dt_emdong_ix_order.sido_cd asc,srv_dt_emdong_ix_order.sgg_cd asc,srv_dt_emdong_ix_order.emdong_cd asc
+	</select>
+	<select id="houseCountryAvg" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			'전국' adm_nm,
+			srv_dt_mlsfc_ix.unit,
+			nvl(round(avg_value,0),0) avg_value
+		FROM
+		    srv_dt_country_avg INNER JOIN srv_dt_mlsfc_ix
+		        ON srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_country_avg.b_class_idx_id AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_country_avg.m_class_idx_id 
+		WHERE
+		    srv_dt_country_avg.b_class_idx_id = #{b_class_idx_id}
+		    AND srv_dt_country_avg.m_class_idx_id = #{m_class_idx_id}
+	</select>
+	<select id="houseSidoAvg" parameterType="hashmap" resultType="hashmap">
+		SELECT
+	    	srv_pg_sidobord.sido_nm adm_nm,
+			srv_dt_mlsfc_ix.unit,
+			nvl(round(srv_dt_sido_ix_order.value,2),0) avg_value
+		FROM
+		    srv_dt_sido_ix_order 
+		    INNER JOIN srv_dt_mlsfc_ix 
+		    	ON srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_sido_ix_order.b_class_idx_id AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_sido_ix_order.m_class_idx_id 
+		    INNER JOIN srv_pg_sidobord
+		        ON srv_pg_sidobord.sido_cd = srv_dt_sido_ix_order.sido_cd
+		    AND srv_pg_sidobord.base_year = #{year}
+		WHERE
+		    srv_dt_sido_ix_order.b_class_idx_id = #{b_class_idx_id}
+		    AND srv_dt_sido_ix_order.m_class_idx_id = #{m_class_idx_id}
+		    AND srv_dt_sido_ix_order.sido_cd = #{sido_cd}
+	</select>
+	<select id="houseSggAvg" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		    srv_pg_sggbord.addr adm_nm,
+		    srv_dt_mlsfc_ix.unit unit,
+			nvl(round(srv_dt_sgg_ix_order.value,2),0) avg_value
+		FROM
+		    srv_dt_sgg_ix_order 
+		    INNER JOIN srv_dt_mlsfc_ix
+		        ON srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_sgg_ix_order.b_class_idx_id AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_sgg_ix_order.m_class_idx_id 
+	        INNER JOIN srv_pg_sggbord
+	        	ON srv_pg_sggbord.sido_cd = srv_dt_sgg_ix_order.sido_cd AND srv_pg_sggbord.sgg_cd = srv_dt_sgg_ix_order.sgg_cd AND srv_pg_sggbord.base_year = #{year}
+		WHERE
+		    srv_dt_sgg_ix_order.b_class_idx_id = #{b_class_idx_id}
+		    AND srv_dt_sgg_ix_order.m_class_idx_id = #{m_class_idx_id}
+		    AND srv_dt_sgg_ix_order.sido_cd = #{sido_cd}
+		    AND srv_dt_sgg_ix_order.sgg_cd = #{sgg_cd}
+	</select>	
+	<!-- 주거지분석맵 읍면동 순위 조회 -->	
+	<select id="houseEmdongAvg" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		    srv_pg_admbord.addr adm_nm,
+		    srv_dt_mlsfc_ix.unit unit,
+			nvl(round(srv_dt_emdong_ix_order.value,2),0) avg_value
+		FROM
+		    srv_dt_emdong_ix_order INNER JOIN srv_dt_mlsfc_ix
+		        ON srv_dt_mlsfc_ix.b_class_idx_id = srv_dt_emdong_ix_order.b_class_idx_id
+		    AND srv_dt_mlsfc_ix.m_class_idx_id = srv_dt_emdong_ix_order.m_class_idx_id INNER JOIN srv_pg_admbord
+		        ON srv_pg_admbord.sido_cd = srv_dt_emdong_ix_order.sido_cd
+		    AND srv_pg_admbord.sgg_cd = srv_dt_emdong_ix_order.sgg_cd
+		    AND srv_pg_admbord.emdong_cd = srv_dt_emdong_ix_order.emdong_cd
+		    AND srv_pg_admbord.base_year = #{year}
+		WHERE
+		    srv_dt_emdong_ix_order.b_class_idx_id = #{b_class_idx_id} 
+			AND	srv_dt_emdong_ix_order.m_class_idx_id = #{m_class_idx_id}
+		    AND srv_dt_emdong_ix_order.sido_cd = #{sido_cd}
+		    AND srv_dt_emdong_ix_order.sgg_cd = #{sgg_cd}
+		    AND srv_dt_emdong_ix_order.emdong_cd = #{emdong_cd}
+	</select>	
+	<!-- 기준지역 시도 지표 순위 조회 -->	
+	<select id="standardSidoAreaLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT 	m_class_idx_id, 
+				order 
+		FROM 	srv_dt_sido_ix_order 
+		WHERE 	sido_cd = #{sido_cd} 
+		order by b_class_idx_id, m_class_idx_id
+	</select>
+	
+	<!-- 기준지역 시군구 지표 순위 조회 -->	
+	<select id="standardSggAreaLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT 	m_class_idx_id, 
+				order 
+		FROM 	srv_dt_sgg_ix_order 
+		WHERE 	sido_cd = #{sido_cd} 
+		AND		sgg_cd = #{sgg_cd} 
+		order by b_class_idx_id, m_class_idx_id
+	</select>
+	
+	<!-- 추천지역 리스트 조회 -->	
+	<select id="getMaxOrder" resultType="int">
+		SELECT 
+			MAX(ORDER_NO)
+		FROM
+		<choose>
+			<when test="searchDispLev == 3">
+				SRV_DT_EMDONG_IX_ORDER
+			</when>
+			<otherwise>
+				SRV_DT_SGG_IX_ORDER
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 기준지 지표에 대한 평균값 가져오기 -->
+	<select id="getBaseWghtval" parameterType="hashmap" resultType="int">
+		SELECT 
+			ROUND(AVG(C.WGHTVAL),0) avg_wghtval
+		FROM ( 
+			SELECT 
+				CASE 
+					WHEN B.SEARCH_BASE = 1 THEN (ORDER_NO+1)*B.WGHTVAL
+					ELSE ((${max_order_no}-ORDER_NO+1)*B.WGHTVAL)
+				END wghtval
+			FROM
+			<choose>
+				<when test="searchDispLev == 3">
+					SRV_DT_EMDONG_IX_ORDER
+				</when>
+				<otherwise>
+					SRV_DT_SGG_IX_ORDER
+				</otherwise>
+			</choose>
+			A 
+			LEFT JOIN SRV_DT_IX_WGHTVAL B ON B.IX_ID = A.M_CLASS_IDX_ID AND B.RECMD_REGION_SLCTN_ID = #{slctn_id}
+			INNER JOIN SRV_PG_ADMBORD ON SRV_PG_ADMBORD.SIDO_CD = A.SIDO_CD AND SRV_PG_ADMBORD.SGG_CD = A.SGG_CD
+			<if test="searchDispLev == 3">
+				AND SRV_PG_ADMBORD.EMDONG_CD = A.EMDONG_CD 
+			</if> 
+				AND SRV_PG_ADMBORD.BASE_YEAR = #{base_year}
+			WHERE B.WGHTVAL IS NOT NULL
+			<if test="now_resid_sido_cd != 00">
+				<choose>
+					<when test="now_resid_sgg_cd == 999">
+						AND A.sido_cd = #{now_resid_sido_cd}
+					</when>
+					<otherwise>
+						AND A.sido_cd = #{now_resid_sido_cd}
+						AND A.sgg_cd = #{now_resid_sgg_cd}
+					</otherwise>
+				</choose>
+			</if>
+		) C 
+	</select>
+	<select id="recmdAreaLists" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			* 
+		FROM ( 
+				SELECT 
+					SUM(C.WGHTVAL) sum_wghtval
+					, COUNT(*) cnt
+					, C.sido_cd
+					, C.sido_nm
+					, C.sgg_cd
+					, C.sgg_nm
+					<if test="searchDispLev == 3">
+						, C.emdong_cd
+						, C.emdong_nm 
+					</if>
+				FROM ( 
+						SELECT CASE WHEN B.SEARCH_BASE = 1 THEN (ORDER_NO+1)*B.WGHTVAL_INTER
+								ELSE ((${max_order_no}-ORDER_NO+1)*B.WGHTVAL_INTER)
+								END wghtval
+								, A.order_no
+								, A.sido_cd
+								, BORD.sido_nm
+								, A.sgg_cd
+								, BORD.sgg_nm
+								<if test="searchDispLev == 3">
+									, A.emdong_cd
+									, BORD.emdong_nm
+								</if> 
+				<choose>
+					<when test="searchDispLev == 3">
+						FROM SRV_DT_EMDONG_IX_ORDER A 
+						LEFT JOIN SRV_DT_IX_WGHTVAL B ON B.IX_ID = A.M_CLASS_IDX_ID AND B.RECMD_REGION_SLCTN_ID = #{slctn_id}
+						INNER JOIN SRV_PG_ADMBORD BORD ON BORD.SIDO_CD = A.SIDO_CD 
+							AND BORD.SGG_CD = A.SGG_CD
+							AND BORD.EMDONG_CD = A.EMDONG_CD
+							AND BORD.BASE_YEAR = #{base_year}
+					</when>
+					<otherwise>
+						FROM SRV_DT_SGG_IX_ORDER A 
+						LEFT JOIN SRV_DT_IX_WGHTVAL B ON B.IX_ID = A.M_CLASS_IDX_ID AND B.RECMD_REGION_SLCTN_ID = #{slctn_id}
+						INNER JOIN SRV_PG_SGGBORD BORD ON BORD.SIDO_CD = A.SIDO_CD 
+							AND BORD.SGG_CD = A.SGG_CD
+							AND BORD.BASE_YEAR = #{base_year}
+					</otherwise>
+				</choose>
+					WHERE B.WGHTVAL IS NOT NULL 
+					<if test="inter_resid_sido_cd != 00">
+						<choose>
+							<when test="inter_resid_sgg_cd == 999">
+								AND A.sido_cd = #{inter_resid_sido_cd}
+							</when>
+							<otherwise>
+								AND A.sido_cd = #{inter_resid_sido_cd}
+								AND A.sgg_cd = #{inter_resid_sgg_cd}
+							</otherwise>
+						</choose>
+					</if>
+				) C 
+				GROUP BY C.SIDO_CD
+						, C.SIDO_NM
+						, C.SGG_CD
+						, C.SGG_NM
+						<if test="searchDispLev == 3">
+							, C.EMDONG_CD
+							, C.EMDONG_NM 
+						</if>
+			) D 
+		ORDER BY D.CNT DESC,D.SUM_WGHTVAL DESC, D.SIDO_CD ASC, D.SGG_CD ASC
+				<if test="searchDispLev == 3">
+					, D.EMDONG_CD ASC
+				</if> 
+		LIMIT 0, 10 
+	</select>
+	
+	<!-- 추천지역 결과 리스트 조회 -->	
+	<select id="recmdAreaResultLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT	
+		<choose>
+			<when test="searchDispLev == 3">
+				A.sido_cd||A.sgg_cd||A.emdong_cd AS adm_cd,
+				A.sido_cd,
+				A.sgg_cd,
+				A.emdong_cd,
+				A.recmd_region_nm AS adm_nm,
+				srv_pg_admbord.sido_nm,
+				srv_pg_admbord.sgg_nm,
+				srv_pg_admbord.emdong_nm,
+				ROUND( srv_pg_admbord.X_COOR ) AS x,
+				ROUND( srv_pg_admbord.y_COOR ) AS y,
+				st_asbinary(srv_pg_admbord.lighten_bord) geometry,
+				(select top 1 leg_cd from srv_dt_adm_leg_match where A.sido_cd||A.sgg_cd||A.emdong_cd = srv_dt_adm_leg_match.adm_cd) as leg_cd
+			</when>
+			<otherwise>
+				A.sido_cd||A.sgg_cd AS adm_cd,
+				A.sido_cd,
+				A.sgg_cd,
+				A.recmd_region_nm AS adm_nm,
+				srv_pg_sggbord.sido_nm,
+				srv_pg_sggbord.sgg_nm,
+				'' as emdong_cd,
+				'' as emdong_nm,
+				ROUND( srv_pg_sggbord.X_COOR ) AS x,
+				ROUND( srv_pg_sggbord.y_COOR ) AS y,
+				st_asbinary(srv_pg_sggbord.lighten_bord) geometry,
+				(select top 1 leg_cd from srv_dt_adm_leg_match where A.sido_cd||A.sgg_cd = srv_dt_adm_leg_match.adm_cd) as leg_cd
+			</otherwise>
+		</choose>  
+		FROM SRV_DT_RECOMEND_AREA_LIST A
+		INNER JOIN
+		<choose>
+			<when test="searchDispLev == 3">
+				srv_pg_admbord ON srv_pg_admbord.base_year = #{base_year} 
+				AND srv_pg_admbord.sido_cd = A.sido_cd 
+				AND srv_pg_admbord.sgg_cd = A.sgg_cd 
+				AND srv_pg_admbord.emdong_cd = A.emdong_cd
+			</when>
+			<otherwise>
+				srv_pg_sggbord ON srv_pg_sggbord.base_year = #{base_year} 
+				AND srv_pg_sggbord.sido_cd = A.sido_cd 
+				AND srv_pg_sggbord.sgg_cd = A.sgg_cd 
+			</otherwise>
+		</choose> 
+		WHERE A.recmd_region_slctn_id = #{slctn_id}
+		ORDER BY A.recmd_region_order
+	</select>
+	<sql id="areaSynItem">
+		nvl(round(avg(ix_order.order),2),0) avg_order,
+		nvl(round(avg(ix_order.order_no),2),0) avg_order_no,
+		nvl(round(avg(ix_order.value),2),0) avg_value,
+		nvl(round(avg(ix_order.z_score),2),0) z_score
+	</sql>
+	<sql id="areaSynDetailItem">
+		<include refid="areaSynItem"/>,
+		<if test="type=='detail'">
+			srv_dt_mlsfc_ix.m_class_idx_nm,
+			srv_dt_mlsfc_ix.m_class_idx_id,
+		</if>
+		srv_dt_lclas_ix.b_class_idx_id,
+		srv_dt_lclas_ix.b_class_idx_nm
+	</sql>
+	<sql id="areaSynCommonGroupBy">
+		<if test="type=='detail'">
+		srv_dt_mlsfc_ix.m_class_idx_nm,
+		srv_dt_mlsfc_ix.m_class_idx_id,
+		</if>
+		srv_dt_lclas_ix.b_class_idx_nm,
+		srv_dt_lclas_ix.b_class_idx_id
+	</sql>
+	<!-- 지역종합현황 시도,전국 조회 -->	
+	<select id="areaSynSidoResultLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT
+			<include refid="areaSynDetailItem"/>
+		FROM srv_dt_lclas_ix
+		LEFT OUTER JOIN srv_dt_sido_ix_order ix_order ON ix_order.b_class_idx_id=srv_dt_lclas_ix.b_class_idx_id
+		<if test='sido_yn == "Y"'>
+			and ix_order.sido_cd = #{sido_cd}
+		</if>
+		<if test="type=='detail'">
+		LEFT OUTER JOIN srv_dt_mlsfc_ix ON ix_order.m_class_idx_id=srv_dt_mlsfc_ix.m_class_idx_id
+		</if>
+		WHERE
+		<!-- 2017. 03. 23 수정 -->
+		srv_dt_lclas_ix.recmd_region_search_disp_yn = 'Y'
+		GROUP BY 
+		<include refid="areaSynCommonGroupBy"/>
+		ORDER BY SRV_DT_LCLAS_IX.B_CLASS_IDX_ID
+	</select>
+		
+	<!-- 지역종합현황 시군구 조회 -->	
+	<select id="areaSynSggResultLists" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			<include refid="areaSynDetailItem"/> 
+		FROM srv_dt_lclas_ix
+		LEFT OUTER JOIN srv_dt_sgg_ix_order ix_order ON ix_order.b_class_idx_id=srv_dt_lclas_ix.b_class_idx_id
+				and ix_order.sido_cd = #{sido_cd}
+			<if test="sgg_cd != '999'">
+				and ix_order.sgg_cd = #{sgg_cd}
+			</if> 
+		<if test="type=='detail'">
+		LEFT OUTER JOIN srv_dt_mlsfc_ix ON ix_order.m_class_idx_id=srv_dt_mlsfc_ix.m_class_idx_id
+		</if>
+		WHERE
+		<!-- 2017. 03. 23 수정 -->
+		srv_dt_lclas_ix.recmd_region_search_disp_yn = 'Y'
+		GROUP BY 
+		<include refid="areaSynCommonGroupBy"/>
+		ORDER BY SRV_DT_LCLAS_IX.B_CLASS_IDX_ID
+	</select>
+	<!-- 지역종합현황 읍면동 조회 -->	
+	<select id="areaSynEmdongResultLists" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			<include refid="areaSynDetailItem"/> 
+		FROM srv_dt_lclas_ix
+		LEFT OUTER JOIN srv_dt_emdong_ix_order ix_order ON ix_order.b_class_idx_id=srv_dt_lclas_ix.b_class_idx_id
+		and ix_order.sido_cd = #{sido_cd} 
+		<if test="sgg_cd != '999'">
+			and ix_order.sgg_cd = #{sgg_cd} 
+			<if test="emdong_cd != '00'">
+				and ix_order.emdong_cd = #{emdong_cd}
+			</if>
+		</if>
+		<if test="type=='detail'">
+		LEFT OUTER JOIN srv_dt_mlsfc_ix ON ix_order.m_class_idx_id=srv_dt_mlsfc_ix.m_class_idx_id
+		</if>
+		WHERE
+		<!-- 2017. 03. 23 수정 -->
+		srv_dt_lclas_ix.recmd_region_search_disp_yn = 'Y'
+		GROUP BY 
+		<include refid="areaSynCommonGroupBy"/>
+		ORDER BY SRV_DT_LCLAS_IX.B_CLASS_IDX_ID
+	</select>
+	<!-- 특성화학교 POI 조회 -->	
+	<select id="spclSchoolLists" parameterType="hashmap" resultType="hashmap">	
+		SELECT	spcl_school_id,
+				pnu,
+				addr,
+				aceptnc_person,
+				x,
+				y
+		FROM	SRV_PT_SPCL_SCHOOL
+		WHERE	st_contains(st_rectfromtext(#{area},0),pt) = 1
+	</select>
+	
+	<!-- 추천지역선정 등록 -->
+	<insert id="recmdAreaSlctnRegist" parameterType="hashmap">
+		INSERT INTO SRV_DT_RECOMEND_AREA_SLCTN
+			(
+					recmd_region_slctn_id
+				,	now_resid_sido_cd
+				,	now_resid_sgg_cd
+				,	inter_resid_sido_cd
+				,	inter_resid_sgg_cd
+			)
+		VALUES
+			(
+					#{slctn_id}
+				,	#{now_resid_sido_cd}
+				,	#{now_resid_sgg_cd}
+				,	#{inter_resid_sido_cd}
+				,	#{inter_resid_sgg_cd}
+			)
+	</insert>
+	
+	<!-- 지표별가중치 등록 -->
+	<insert id="indexWghtvalRegist" parameterType="hashmap">
+		INSERT INTO SRV_DT_IX_WGHTVAL
+			(
+					idx_wghtval_id
+				,	recmd_region_slctn_id
+				,	ix_id
+				,	ix_nm
+				,	wghtval
+				,	wghtval_inter
+				,	search_base
+			)
+		VALUES
+			(
+					#{wghtval_id}
+				,	#{slctn_id}
+				,	#{ix_id}
+				,	(SELECT m_class_idx_nm FROM SRV_DT_MLSFC_IX WHERE m_class_idx_id = #{ix_id})
+				,	#{wghtval}
+				,	#{wghtval_inter}
+				,	#{search_base}
+			)
+	</insert>
+	
+	<!-- 추천지역리스트 등록 -->
+	<insert id="recmdAreaListRegist" parameterType="hashmap">
+		INSERT INTO SRV_DT_RECOMEND_AREA_LIST
+			(
+					recmd_region_list_id
+				,	recmd_region_slctn_id
+				,	sido_cd
+				,	sgg_cd
+				,	emdong_cd
+				,	recmd_region_nm
+				,	wghtval_avg
+				,	recmd_region_order
+			)
+		VALUES
+			(
+					#{list_id}
+				,	#{slctn_id}
+				,	#{sido_cd}
+				,	#{sgg_cd}
+				,	#{emdong_cd}
+				,	#{recmd_region_nm}
+				,	#{wghtval_avg}
+				,	#{recmd_region_order}
+			)
+	</insert>
+	<select id="selectPastoralHousePointList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			ADDR,
+			ST_MINX(pt) AS X,
+			ST_MINY(pt) AS Y
+		FROM
+		SRV_PT_FSVGS
+	</select>
+	<select id="selectReturnToFarmingList" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			sido_cd||sgg_cd||emdong_cd as adm_cd,
+			sido_cd,
+			sgg_cd,
+			emdong_cd,
+			family_no
+		FROM srv_dt_rtrn_farmng
+	</select>
+	
+	<select id="selectSchoolPolygon" parameterType="hashmap" resultType="hashmap">
+		<!-- 2017. 12. 08 [개발팀 수정] START -->
+		SELECT
+			st_asbinary(bord) geometry  
+		FROM 
+			srv_pg_schoolzone
+		WHERE
+			school_type = #{type}
+		AND ST_INTERSECTS(bord, st_rectfromtext(#{area},0))=1
+		<!-- 2017. 12. 08 [개발팀 수정] END -->
+	</select>	
+	<select id="selectSchoolPoint" parameterType="hashmap" resultType="hashmap">
+		<!-- 2017. 12. 08 [개발팀 수정] START -->
+		SELECT
+			x_coor AS X,
+			y_coor AS Y,
+			school_nm as sch_nm
+		FROM 
+			srv_pt_schoolzone
+		WHERE
+			school_type = #{type}
+		AND ST_INTERSECTS(st_rectfromtext(#{area},0), pt)=1
+		<!-- 2017. 12. 08 [개발팀 수정] END -->
+	</select>
+	
+	<select id="selectSido" resultType="hashmap">
+		SELECT 
+			SIDO_CD,
+			SIDO_NM,
+			SIDO_NM ADDR
+		FROM SRV_PG_SIDOBORD 
+		<where>
+				BASE_YEAR = #{bnd_year}
+			AND SIDO_CD = #{sido_cd} 
+		</where>
+	</select>
+	<select id="selectSgg" resultType="hashmap">
+		SELECT 
+			SIDO_CD,
+			SIDO_NM,
+			SGG_CD,
+			SGG_NM,
+			ADDR
+		FROM SRV_PG_SGGBORD 
+		<where>
+				BASE_YEAR = #{bnd_year}
+			AND SIDO_CD = #{sido_cd}
+			AND SGG_CD = #{sgg_cd} 
+		</where>
+	</select>
+	<select id="selectEmdong" resultType="hashmap">
+		SELECT 
+			SIDO_CD,
+			SIDO_NM,
+			SGG_CD,
+			SGG_NM,
+			EMDONG_CD,
+			EMDONG_NM,
+			ADDR
+		FROM SRV_PG_ADMBORD 
+		<where>
+				BASE_YEAR = #{bnd_year}
+			AND SIDO_CD = #{sido_cd} 
+			AND SGG_CD = #{sgg_cd} 
+			AND EMDONG_CD = #{emdong_cd} 
+		</where>
+	</select>	
+	<select id="selectResIdLists" resultType="hashmap">
+		SELECT 
+			SERIAL,
+			NM
+		FROM SRV_DT_RESID_CASE
+		ORDER BY SERIAL
+	</select>
+	<select id="selectResIdCaseLists" resultType="hashmap">
+		SELECT 
+			SERIAL,
+			B_CLASS_IDX_ID,
+			SRV_DT_RESID_CASE_IDX.M_CLASS_IDX_ID,
+			SRV_DT_RESID_CASE_IDX.M_CLASS_IDX_NM,
+			WGHTVAL,
+			DEFAULT_VALUE,
+			ORDER_BASE,
+			ORDER_BASE_DISP 
+		FROM SRV_DT_RESID_CASE_IDX
+		INNER JOIN SRV_DT_MLSFC_IX ON SRV_DT_RESID_CASE_IDX.M_CLASS_IDX_ID = SRV_DT_MLSFC_IX.M_CLASS_IDX_ID
+		ORDER BY SERIAL
+	</select>
+	<select id="selectLclasSearchList" resultType="hashmap">
+		SELECT 
+			B_CLASS_SEARCH_SERIAL,
+			B_CLASS_SEARCH_NM,
+			MUST_SLCTN_YN,
+			SEARCH_TYPE,
+			ORDER
+		FROM SRV_DT_LCLAS_SEARCH
+		ORDER BY ORDER
+	</select>
+	<select id="selectMclasSearchList" resultType="hashmap">
+		SELECT 
+			B_CLASS_SEARCH_SERIAL,
+			M_CLASS_SEARCH_SERIAL,
+			M_CLASS_SEARCH_NM,
+			BASE_SLCTN_YN,
+			DET_EXP
+		FROM SRV_DT_MCLAS_SEARCH
+		ORDER BY M_CLASS_SEARCH_SERIAL
+	</select>
+	<select id="selectSclasSearchList" resultType="hashmap">
+		SELECT
+			SRV_DT_MLSFC_IX.B_CLASS_IDX_ID,
+			SRV_DT_MLSFC_IX.M_CLASS_IDX_ID,
+			SRV_DT_SCLAS_SEARCH.B_CLASS_SEARCH_SERIAL,
+			SRV_DT_SCLAS_SEARCH.M_CLASS_SEARCH_SERIAL,
+			SRV_DT_SCLAS_SEARCH.S_CLASS_SEARCH_SERIAL,
+			SRV_DT_SCLAS_SEARCH.TYPE,
+			SRV_DT_SCLAS_SEARCH.DET_EXP,
+			SRV_DT_SCLAS_SEARCH.ORDER_BASE
+		FROM SRV_DT_SCLAS_SEARCH
+		INNER JOIN SRV_DT_MLSFC_IX ON SRV_DT_SCLAS_SEARCH.M_CLASS_IDX_ID = SRV_DT_MLSFC_IX.M_CLASS_IDX_ID
+		ORDER BY S_CLASS_SEARCH_SERIAL
+	</select>
+	<delete id="deleteIxWghtval">
+		DELETE FROM SRV_DT_IX_WGHTVAL WHERE RECMD_REGION_SLCTN_ID = #{slctn_id}
+	</delete>
+	<delete id="deleteRecomendAreaList">
+		DELETE FROM SRV_DT_RECOMEND_AREA_LIST WHERE RECMD_REGION_SLCTN_ID = #{slctn_id}
+	</delete>
+	<delete id="deleteRecomendAreaSlctn">
+		DELETE FROM SRV_DT_RECOMEND_AREA_SLCTN WHERE RECMD_REGION_SLCTN_ID = #{slctn_id}
+	</delete>
+	
+	<!-- 2017.11.06 [개발팀] 정책통계지도 LBDMS 연계 START -->
+	<!-- 지역별 LBDMS 목록조회 -->
+	<select id="selectCheckLbdmsList" resultType="hashmap">
+		SELECT 
+				SEQ,
+				BORD_LEVEL,
+				OPEN_DATA_NM,
+				SPACIAL_DATA_TYPE_CD,
+				INFO_LINK_SRV_REALM_CD
+		FROM 	SRV_DT_INNER_OPEN_HIST
+		WHERE	INFO_LINK_SRV_NM_CD = '02'
+		AND		OPEN_YN = '1'
+	</select>
+	
+	<!-- 지역별 LBDMS 목록조회 -->
+	<select id="selectLbdmsDataList" resultType="hashmap">
+		SELECT
+				COUNT(*) as cnt
+		FROM	
+			<choose>
+				<when test="type == 1 and data_type != '01'">
+					SRV_DT_OPEN_DATA_SIDO_TOT
+					WHERE SEQ = #{seq}
+					AND SIDO_CD = #{sido_cd}
+				</when>
+				<when test="type == 2 and data_type != '01'">
+					SRV_DT_OPEN_DATA_SGG_TOT
+					WHERE SEQ = #{seq}
+						<choose>
+							<when test="sgg_cd != null">
+								AND SIDO_CD = #{sido_cd}
+								AND SGG_CD = #{sgg_cd}
+							</when>
+							<otherwise>
+								AND SIDO_CD = #{sido_cd}
+							</otherwise>
+						</choose>
+				</when>
+				<when test="type == 3 and data_type != '01'">
+					SRV_DT_OPEN_DATA_EMDONG_TOT
+					WHERE SEQ = #{seq}
+						<choose>
+							<when test="sgg_cd != null">
+								AND SIDO_CD = #{sido_cd}
+								AND SGG_CD = #{sgg_cd}
+							</when>
+							<otherwise>
+								AND SIDO_CD = #{sido_cd}
+							</otherwise>
+						</choose>
+				</when>
+				<when test="data_type == '01'">
+					SRV_PT_OPEN_DATA
+					WHERE ADM_DR_CD LIKE #{adm_cd}|| '%'
+					AND SEQ = #{seq}
+				</when>
+			</choose>
+	</select>
+	
+	<!-- LBDMS 집계조회 -->
+	<select id="selectLbdmsPolygonDataList" resultType="hashmap">
+		SELECT  DISTINCT
+				SEQ,
+				CNT,
+			<choose>
+				<when test="type == 1">
+					SIDO_CD as adm_cd
+				</when>
+				<when test="type == 2">
+					SIDO_CD || SGG_CD as adm_cd
+				</when>
+				<when test="type == 3">
+					SIDO_CD || SGG_CD || EMDONG_CD as adm_cd
+				</when>
+			</choose>
+		FROM 
+			<choose>
+				<when test="type == 1">
+					SRV_DT_OPEN_DATA_SIDO_TOT
+				</when>
+				<when test="type == 2">
+					SRV_DT_OPEN_DATA_SGG_TOT
+				</when>
+				<when test="type == 3">
+					SRV_DT_OPEN_DATA_EMDONG_TOT
+				</when>
+			</choose>
+		WHERE SEQ = #{seq}	
+	</select>
+	
+	<!-- LBDMS POI 조회 -->
+	<select id="selectLbdmsPoiDataList" resultType="hashmap">
+		SELECT 
+				DIV_CD,
+				SEQ, 
+				TRIM(DIV_NM) as div_nm,
+				TOT_OA_CD as tot_reg_cd,
+				ADM_DR_CD as adm_cd,
+				ST_X(PT) AS coor_x,
+				ST_Y(PT) AS coor_y
+		FROM	SRV_PT_OPEN_DATA	
+		WHERE 	SEQ = #{seq}
+		AND		ADM_DR_CD LIKE #{adm_cd} || '%'
+	</select>
+	<!-- 2017.11.06 [개발팀] 정책통계지도 LBDMS 연계 END -->
+</mapper>

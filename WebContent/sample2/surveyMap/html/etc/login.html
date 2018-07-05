@@ -1,0 +1,66 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>조사업무지원서비스</title>  
+	<link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="../../include/css/research.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="../../include/css/ui.easytree_new.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/colpick.css" />
+    <script type="text/javascript" src="../../include/js/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="../../include/js/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="../../include/js/colpick.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/colResizable-1.5.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/reserchEtc.js"></script> 
+</head>
+
+<body class="login">   
+	<p class="loginLogo"><img src='../../include/img/common/logoPlus.gif' alt='SGIS 오픈플랫폼' /></p>
+	<div class="form"> 
+		 
+		<div class="item">
+			<label for="fst" class="flabel">사용자구분</label>
+			<select class="select" id="fst" name="" onchange="loginChg(this)";>
+				<option value="1">UBIS</option>
+				<option value="2">임시조사원</option>
+			</select>
+		</div>
+		<div class="item">
+			<label for="fid" class="flabel">아이디</label>
+			<input type="text" name="" id="fid" class="inp">
+		</div>
+		<div class="item">
+			<label for="fpw" class="flabel">비밀번호</label>
+			<input type="password" name="" id="fpw" class="inp">
+		</div> 
+		<div class="item" id="josabox">
+			<label for="tst" class="flabel">조사통계명</label>
+			<select class="select" id="tst" name="">
+				<option value="1">가계동향조사</option> 
+			</select>
+		</div>
+		<div class="item ar">
+			<a href="javascript:void(0)" class="boxBtn red">로그인</a> 
+		</div> 
+	</div> 
+
+ 
+ 
+</body>
+</html>

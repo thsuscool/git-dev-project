@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>보고서</title>
+	
+	<link rel="stylesheet" href="/css/jquery-ui-1.10.4.custom.css"/>
+	<link rel="stylesheet" href="/js/plugins/jquery-easyui-1.4/sop.css" />
+	<link rel="stylesheet" href="/css/reportForm.css"/>
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/wheelcolorpicker.css"/>
+	<link rel="stylesheet" href="/css/house/common.css"/>
+	<script src="/js/plugins/jquery-1.11.1.min.js"></script>
+	<script src="/js/plugins/btoa.js"></script>
+	<script src="/js/plugins/highcharts/highcharts.js"></script>
+	<script src="/js/plugins/html2canvas/html2canvas.min.js"></script>
+	<script src="/js/plugins/html2canvas/html2canvas.svg.min.js"></script>
+	<script src="/js/plugins/highcharts/modules/exporting.js"></script>
+	<script src="/js/plugins/jquery-easyui-1.4/sop-src.js"></script>
+	<script src="/js/plugins/jquery.sha256.js"></script>
+	<script src="/js/plugins/durian-v2.0.js"></script>
+	<script src="/js/common/sop.portal.absAPI.js"></script>
+	<script src="/js/common/common.js"></script>		
+	<script src="/js/common/map.js"></script>
+	<script src="/js/common/mapInfo/legendInfo.js"></script>
+	<script src="/js/house/report/houseAnalysis.report.js"></script>
+	<script src="/js/house/report/houseAnalysis.report.event.js"></script>
+	<script src="/js/house/report/houseAnalysis.report.util.js"></script>
+	<style media="print">@page{size:auto;margin:10mm;}body{margin:0;}</style> 
+	
+	<style>
+		#AlertMessage {
+			width : 400px;
+			overflow : hidden;
+			border : 3px solid #656972;
+			barder-radius : 5px;
+			padding : 20px 20px 20px 70px;
+			font-size : 20px;
+			color : #333333;
+			box-shadow : 1px 1px 3px #cccccc;
+			word-break : break-all;
+			position : absolute;
+			top : 45%;
+			left : 20%;
+		}
+		.loading{height:100vh;overflow: hidden;}
+		.pntLeft,.pntRight,.pntChart, .pntLegend{height:310px;}
+		#pntIndicator{width:100%;height:auto;margin-bottom:40px;margin-left:10px;}
+		#pntList{width:100%;height:285px;margin:20px auto;}
+		#pntDetailChart1{width:100%;height:285px;margin:20px auto;}
+		table{width: 100%;max-width: 100%;}
+		th{text-align: left;}
+		table>thead>tr>th{vertical-align: bottom;border-bottom: 2px solid #ddd;padding: 8px;line-height: 1.42857143;}
+		table>tbody>tr:nth-of-type(odd){background-color: #f9f9f9;}
+		table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th{padding: 8px;line-height: 1.42857143;vertical-align: top;border-top: 1px solid #ddd}
+		
+	</style>
+</head>
+<body class="loading">
+	<div id="mask" style="background:#ffffff;z-index:10000;width:100%;height:100%;">
+		<div id="AlertMessage">보고서 생성중입니다. 잠시만 기다려주세요.</div>
+	</div>
+	<div id="wrap">
+		<div class="printArea">
+			<div class="pntPage">
+		 		<h1 class="pntHeader"><img src="/img/common/logo.gif" alt="SGIS 오픈플랫폼"></h1>	 
+		 		<div class="pntBtn"><a href="javascript:$houseAnalysisMap.report.event.reportPrint();">인쇄</a><a href="javascript:self.close();">닫기</a></div>
+		 		<p class="pntURI">통계지리정보서비스 (https://sgis.kostat.go.kr)</p> 
+
+		 		<div class="pntNewCenter" style="margin-top:10px;"><h3 style="height:40px;line-height:40px;">보고서명</h3><div style="width:677px;height:40px;float:left;"><textarea cols="60" rows="1">살고싶은 우리동네</textarea></div></div>
+		 		<div class="pntNewCenter"><h3 style="height:60px;">지역선택</h3><div id="stand-location" class="pntNewRight"></div><div id="inter-location" class="pntNewRight"></div></div>
+		 		<div class="pntNewCenter"><h3>작성일자</h3><div id="date" class="pntNewRight"></div></div>
+		 		
+		 		<div id="mainMapDiv_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('mainMapDiv');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div id="pntLegend_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('pntLegend');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div id="mainMapDiv" class="pntCenter" style="position:relative;">
+		 			<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+		 			<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('mainMapDiv');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+		 			<div id="pntLegend" style="width:220px;height:270px;border-right:1px solid #ccc;position:absolute; top:240px;z-index:10;background-color:#fff;">
+		 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+		 				<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('pntLegend');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 			<div id="legend_1" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+		 			</div>
+		 			<div style="width:798px;height:472px;float:right;">
+		 				<div class="pntMap">
+		 					<div id="reportMapDiv"></div>
+		 				</div>
+		 			</div>
+		 		</div>
+			</div>
+	 		<div class="pntPage">
+		 		<div id="memoDiv_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('memoDiv');"><img src="/img/im/btn_plus.png" alt="보이기"/></a></div>
+		 		<div class="pntCenter" id="memoDiv" style="position:relative;">
+		 			 <h3>메모</h3> 
+		 			 <textarea id="memo"></textarea>
+		 			 <div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('memoDiv');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+		 		</div>
+		 	</div>
+		 	<div class="pntPage">
+		 		<div id="setIndicator_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('setIndicator')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="setIndicator" style="position:relative;">
+				 		<h3>설정된 지표</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('setIndicator')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="pntIndicator"></div>
+				 	</div>
+		 		</div>
+	 		</div>
+		 	<div class="pntPage">
+		 		<div id="recommendAreaList_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('recommendAreaList')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle dataBoardDiv" id="recommendAreaList" style="position:relative;display:block;height: auto;">
+				 		<h3>추천지역 리스트</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('recommendAreaList')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart dscList" id="pntList" style="height:auto;">
+				 			<div class="List" style="height:auto;padding-top: 20px;"></div>
+			 			</div>
+				 	</div>
+		 		</div>
+	 		</div>
+		 	<div class="pntPage">
+		 		<div id="areaStatus_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('areaStatus')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="areaStatus" style="position:relative;">
+				 		<h3>지역 종합현황 보기 - 차트</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('areaStatus')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="pntDetailChart1" style="height: 450px;"></div>
+				 	</div>
+		 		</div>
+	 		</div>
+	 		<div class="pntPage">
+		 		<div id="areaStatusTable_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('areaStatusTable')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="areaStatusTable" style="position:relative;">
+				 		<h3>지역 종합현황 보기 - 표</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('areaStatusTable')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" style="height: auto;">
+				 			<table id="pntDetailChart1_Table">
+				 				<thead>
+					 				<tr>
+					 					<th>지표</th>
+					 					<th id="standardArea">기준지역</th>
+					 					<th id="recommendArea">추천지역</th>
+					 				</tr>
+				 				</thead>
+				 				<tbody>
+				 				</tbody>
+				 			</table>
+				 		</div>
+				 	</div>
+		 		</div>
+	 		</div>
+		 	<div class="pntPage">
+		 		<div id="indicatorName_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('indicatorName')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="indicatorName" style="position:relative;">
+				 		<h3>지표 현황 : </h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('indicatorName')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="pntDetailChart5"></div>
+				 	</div>
+		 		</div>
+	 		</div>
+	 		<div class="pntPage">
+		 		<div id="indicatorNameTable_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('indicatorNameTable')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="indicatorNameTable" style="position:relative;">
+				 		<h3>지표 현황 : </h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('indicatorNameTable')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" style="height: auto;">
+				 			<table id="pntDetailChart5_Table">
+				 				<thead>
+					 				<tr>
+					 					<th>지역</th>
+					 					<th id="indicatorValue"></th>
+					 				</tr>
+				 				</thead>
+				 				<tbody>
+				 				</tbody>
+				 			</table>
+				 		</div>
+				 	</div>
+		 		</div>
+	 		</div>
+		 	<div class="pntPage">
+		 		<div id="areaData_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('areaData')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="areaData" style="position:relative;">
+				 		<h3>소지역 정보 : </h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('areaData')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="pntDetailChart4"></div>
+				 	</div>
+		 		</div>
+	 		</div>
+	 		<div class="pntPage">
+		 		<div id="smallLocationTable_show" class="pntShowBtn"><a href="javascript:$houseAnalysisMap.report.event.show('smallLocationTable')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 		<div class="pntCenter">
+				 	<div class="pntNewCenterTitle" id="smallLocationTable" style="position:relative;">
+				 		<h3>소지역 정보 : </h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$houseAnalysisMap.report.event.hide('smallLocationTable')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" style="height:350px;">
+				 			<table id="pntDetailChart4_Table">
+				 				<thead>
+					 				<tr>
+					 					<th>값</th>
+					 					<th id="small_recommendArea">추천지역</th>
+					 					<th id="small_standardArea">기준지역</th>
+					 				</tr>
+				 				</thead>
+				 				<tbody>
+				 				</tbody>
+				 			</table>
+				 		</div>
+				 	</div>
+		 		</div>
+	 		</div>
+		</div>
+	</div>
+	<div id="hiddenReport"></div>
+</body>
+</html>

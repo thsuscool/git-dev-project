@@ -1,0 +1,211 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>조사업무지원서비스</title>  
+	<link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="../../include/css/research.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="../../include/css/ui.easytree_new.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/colpick.css" />
+    <script type="text/javascript" src="../../include/js/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="../../include/js/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="../../include/js/colpick.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/colResizable-1.5.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/reserchEtc.js"></script> 
+</head>
+
+<body>   
+	<div id="wrap"></div> 
+
+
+<div class="dialogbox" id="pdw" style="display:block;">
+	<div class="popBox t5">
+		<div class="topbar">
+			<span>조사원 사항 입력</span>
+			<a href="javascript:void(0)" class="close01">닫기</a>
+		</div>
+		<div class="popContents">
+			<div class="popNorBox">  
+				<ul class="dwListBox t01">
+					<li>
+						<p class="t01">조사원 ID</p>
+						<p class="t02">TEST90</p>
+					</li>
+					<li>
+						<p class="t01">조사원성명</p>
+						<p class="t02">김표본</p>
+					</li> 
+				</ul> 
+				<p class="wSubj">조사담당자 관련사항</p>
+				<table class="wTable">
+					<colgroup>
+						<col width="170" />
+						<col width="230" />
+						<col width="" /> 
+					</colgroup>
+					<tr>
+						<th>1. 성별</th>
+						<td><select class="select w200"><option>선택</option></select></td>
+						<td rowspan="5">
+							<span>(</span>
+							<input type="text" class="inp w40" />
+							<span>년</span>
+							<input type="text" class="inp w40" />
+							<span>개월)</span>
+						</td> 
+					</tr>
+					<tr>
+						<th>2. 연령대</th>
+						<td><select class="select w200"><option>선택</option></select></td> 
+					</tr>
+					<tr>
+						<th>3. 해당 조사 경험</th>
+						<td><select class="select w200"><option>선택</option></select></td> 
+					</tr>
+					<tr>
+						<th>4. 현재 업무량의 적정성</th>
+						<td><select class="select w200"><option>선택</option></select></td> 
+					</tr>
+					<tr>
+						<th>5. 업무 스트레스</th>
+						<td><select class="select w200"><option>선택</option></select></td> 
+					</tr>
+				</table> 
+			</div>
+			<div class="btnBox">  
+				<div class="fr">
+					<a href="javascript:void(0)" class="btnType01">저장</a>
+					<a href="javascript:void(0)" class="btnType02" onclick="popCloseTarget('dataWrite')">닫기</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div class="popBox t01" id="popList">
+		<div class="topbar">
+			<span>조사통계 목록</span>
+			<a href="javascript:void(0)" class="close02">닫기</a>
+		</div>
+		<div class="popContents">
+			<div class="popNorBox"> 
+				<table class="wmTable">
+					<colgroup>
+						<col width="81" />
+						<col width="150" />
+						<col width="150" />  
+						<col width="" />    
+					</colgroup> 
+						<tr>
+							<th>번호</th>
+							<th>통계명</th>
+							<th>담당자ID</th>
+							<th>조사부분</th> 
+						</tr>    
+					</tbody>
+				</table>
+				<div class="popTableScrollArea">
+					<table class="wmTable">
+						<colgroup>
+							<col width="80" />
+							<col width="150" />
+							<col width="150" /> 
+							<col width="" />  
+						</colgroup>         
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+						<tr>
+							<td>41</td> 
+							<td class="al"><a href="javascript:void(0)" onclick="insertValue(this, 'resultName')">농가경제조사</a></td>
+							<td class="tname">kasos011 외 2명</td>
+							<td>농업</td> 
+						</tr>
+					</table>
+				</div>  
+			</div> 
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- 기존 -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <script type="text/javascript" src="/sample2/include/js/technicalBiz.js"></script>
+    
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	 
+				    	
+				    	
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<!-- <p class="dbText01">17개 주요 시도별 생활업종현황</p> -->
+				    				<div class="areaBox">시군구 지역별 정보 현황</div>
+				    				 
+				    				<dl class="dscList"> 
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">조건설정 목록</a>
+					    				</dt>
+					    				<dd>
+					    					<div class="btListBox">
+					    						<a href="javascript:void(0)">
+			    									<span class="t01">업종선택</span>
+			    									<span class="t02">미선택</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">사업체 수</span>
+			    									<span class="t02 n2">상위지역<br />(5%~10%)</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">사업체 증강률</span>
+			    									<span class="t02 n2">상위지역<br />(10%~20%)</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">사업체 입지계수</span>
+			    									<span class="t02 n2">상위지역<br />(5%~10%)</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">창업 지원시설</span>
+			    									<span class="t02">유</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">산업단지</span>
+			    									<span class="t02">유</span>
+			    								</a>
+					    					</div>
+					    				</dd>
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">비교지역 선택목록(최대 3개 선택가능)</a> 
+					    				</dt>
+					    				<dd>
+					    					<div class="dbTabs type01">
+					    						<a href="javascript:void(0)" class="on">검색지역 리스트</a>
+					    						<a href="javascript:void(0)">수</a>
+					    						<a href="javascript:void(0)">증감률</a>
+					    						<a href="javascript:void(0)">증감률</a>
+					    						<a href="javascript:void(0)">창업지원시설</a>
+					    						<a href="javascript:void(0)">산업단지</a> 
+					    					</div>
+					    					<div class="chartAreaRela full cellType">  
+					    						<div class="carRight">
+					    							<p>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    							</p>
+					    						</div>
+					    					</div>
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)" class="c01">첨단기술</a>
+					    						<a href="javascript:void(0)" class="c02">고기술</a>
+					    						<a href="javascript:void(0)" class="c03">중기술</a>
+					    						<a href="javascript:void(0)" class="c04">저기술</a>
+					    						<a href="javascript:void(0)" class="c05">창의 및 디지털</a>
+					    						<a href="javascript:void(0)" class="c06">ICT</a>
+					    						<a href="javascript:void(0)" class="c07">전문서비스</a>  
+					    					</div> 
+					    					<p class="nTitle">총 21개 지역 찾기 완료</p>
+					    					<a href="javascript:void(0)" class="selSslBtn">선택지역 비교하기</a>
+					    					<div class="chartAreaRela">
+					    						<!-- <p class="etcText05 mt30">기술혁신 평균</p> -->
+					    						<div id="columCharts01" class="chartSize02 auto"></div> 
+					    						<div id="columCharts02" class="chartSize02 auto"></div> 
+					    						<div id="columCharts03" class="chartSize02 auto"></div> 
+					    						<div id="columCharts04" class="chartSize02 auto"></div> 
+					    						<div id="columCharts05" class="chartSize02 auto"></div> 
+					    					</div>  
+					    					
+					    				</dd>  
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents">
+				    		<img src="/img/pm/map_img.jpg" />
+				    	</div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	 
+	
+	 
+ 		
+	<script>
+	$(function () {
+		$("#bubbleCharts01").highcharts({ 
+	        chart: { type: 'bubble', plotBorderWidth: 1 },
+	        legend: {enabled: false},
+	        title: {text: ''},
+	        subtitle: {text: ''},
+	        xAxis: {
+	            gridLineWidth: 1,
+	            title: {text: ''},
+	            labels: {
+	                format: '{value}'
+	            },
+	            plotLines: [{
+	                color: 'red',
+	                dashStyle: 'solid',
+	                width: 2,
+	                value: 65,
+	                label: {
+	                    rotation: 0,
+	                    y: 15,
+	                    style: {
+	                        fontStyle: 'italic'
+	                    },
+	                    text: '종사자'
+	                },
+	                zIndex: 3
+	            }]
+	        },
+
+	        yAxis: {
+	            startOnTick: false,
+	            endOnTick: false,
+	            title: {
+	                text: ''
+	            },
+	            labels: {
+	                format: '{value}'
+	            },
+	            maxPadding: 0.2,
+	            plotLines: [{
+	                color: 'red',
+	                dashStyle: 'solid',
+	                width: 2,
+	                value: 50,
+	                label: {
+	                    align: 'right',
+	                    style: {
+	                        fontStyle: 'italic'
+	                    },
+	                    text: '사업체',
+	                    x: -10
+	                },
+	                zIndex: 3
+	            }]
+	        },
+
+	        tooltip: {
+	            useHTML: true,
+	            headerFormat: '<table>',
+	            pointFormat: '<tr><th colspan="2"><h3 style="font-size:13px;">{point.name}</h3></th></tr>' +
+	                '<tr><th style="font-size:13px;font-weight:normal;">사업체:</th><td style="font-size:13px;">{point.x}</td></tr>' +
+	                '<tr><th style="font-size:13px;font-weight:normal;"">종사자:</th><td style="font-size:13px;">{point.y}</td></tr>',// +
+	                //'<tr><th>z:</th><td>{point.z}%</td></tr>',
+	            footerFormat: '</table>',
+	            followPointer: true
+	        },
+
+	        plotOptions: {
+	            series: {
+	                dataLabels: {
+	                    enabled: true,
+	                    format: '{point.name}'
+	                }
+	            }
+	        },
+
+	        series: [{
+            	data: [{ x: 73.5, y: 83.1, z: 50, name: '첨단기술'}],
+	            color: "#ff0000"
+	        },{
+            	data: [{ x: 69.2, y: 120, z: 50, name: '고기술'}],
+	            color: "#f79339"
+	        },{
+            	data: [{ x: 69.2, y: 57.6, z: 50, name: '중기술'}],
+	            color: "#ffc000"
+	        },{
+            	data: [{ x: 68.6, y: 20, z: 50, name: '저기술'}],
+	            color: "#92d050"
+	        },{
+            	data: [{ x: 65.5, y: 126.4, z: 50, name: '창의및디지털'}],
+	            color: "#002060"
+	        },{
+	        	data: [{ x: 65.4, y: 50.8, z: 50, name: 'ICT'}],
+	            color: "#00b0f0"
+	        },{
+	        	data: [{ x: 63.4, y: 51.8, z: 50, name: '전문서비스'}],
+	            color: "#7030a0"
+	        }]
+	    });
+		$("#columCharts01").highcharts({
+	        chart: {
+	            type: 'bar', width:500, height:75, margin:[0,0,0,150]
+	        },
+	        colors:['#ff0000','#006fbf','#ffc000'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['첨단기술', '고기술', '중기술'],
+	            title: { text: '경기도<br />화성시',  x:-130, y:0, offset:0, rotation: 0 },
+	            labels: { x:-30 }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 15,
+	            	colorByPoint: true,
+	            	name: '경기도 화성시',
+	            	data: [50,40,30]
+	        	}
+	        ]
+	    });
+		$("#columCharts02").highcharts({
+	        chart: {
+	            type: 'bar', width:500, height:50, margin:[0,0,0,150]
+	        },
+	        colors:['#ff0000','#006fbf'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['첨단기술', '고기술'],
+	            title: { text: '경기도<br />군산시',  x:-130, y:0, offset:0, rotation: 0 },
+	            labels: { x:-30 }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 15,
+	            	colorByPoint: true,
+	            	name: '경기도 군산시',
+	            	data: [50,40]
+	        	}
+	        ]
+	    });
+		$("#columCharts03").highcharts({
+	        chart: {
+	            type: 'bar', width:500, height:50, margin:[0,0,0,150]
+	        },
+	        colors:['#ff0000','#006fbf'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['첨단기술', '고기술'],
+	            title: { text: '경기도<br />고양시',  x:-130, y:0, offset:0, rotation: 0 },
+	            labels: { x:-30 }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 15,
+	            	colorByPoint: true,
+	            	name: '경기도 고양시',
+	            	data: [50,40]
+	        	}
+	        ]
+	    });
+		$("#columCharts04").highcharts({
+	        chart: {
+	            type: 'bar', width:500, height:50, margin:[0,0,0,150]
+	        },
+	        colors:['#ff0000'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['전문서비스'],
+	            title: { text: '서울시<br />강남구',  x:-130, y:0, offset:0, rotation: 0 },
+	            labels: { x:-30 }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 15,
+	            	colorByPoint: true,
+	            	name: '서울시 강남구',
+	            	data: [50]
+	        	}
+	        ]
+	    });
+		$("#columCharts05").highcharts({
+	        chart: {
+	            type: 'bar', width:500, height:50, margin:[0,0,0,150]
+	        },
+	        colors:['#00b0f0','#7030a0'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['ICT', '전문서비스'],
+	            title: { text: '대전시<br />유성구',  x:-130, y:0, offset:0, rotation: 0 },
+	            labels: { x:-30 }
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            {
+	            	pointWidth: 15,
+	            	colorByPoint: true,
+	            	name: '대전시 유성구',
+	            	data: [50,40]
+	        	}
+	        ]
+	    });
+		
+	});  
+	</script>
+</body>
+</html>

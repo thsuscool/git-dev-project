@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Folder>
+    <Placemark>
+      <name>폴더에 포함된 첫번째 마커</name>
+      <Point>
+        <coordinates>961818,1931645</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>폴더에 포함된 두번째 마커</name>
+      <Point>
+        <coordinates>970458,1931965</coordinates>
+      </Point>
+    </Placemark>
+  </Folder>
+  <Placemark>
+    <name>첫번째 마커</name>
+    <description>첫번째 마터는 서하남 IC를 표시하고 있습니다.</description>
+    <Style>
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pal3/icon19.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Point>
+      <coordinates>969962,1946213</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>두번째 마커</name>
+    <Point>
+      <coordinates>975210,1942909</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>세번째 마커</name>
+    <description><![CDATA[
+                     Click on the blue link!<br><br>
+                     Placemark descriptions can be enriched by using many standard HTML tags.<br>
+                     For example:
+                     <hr>
+                     Styles:<br>
+                     <i>Italics</i>,
+                     <b>Bold</b>,
+                     <u>Underlined</u>,
+                     <s>Strike Out</s>,
+                     subscript<sub>subscript</sub>,
+                     superscript<sup>superscript</sup>,
+                     <big>Big</big>,
+                     <small>Small</small>,
+                     <tt>Typewriter</tt>,
+                     <em>Emphasized</em>,
+                     <strong>Strong</strong>,
+                     <code>Code</code>
+                     <hr>
+                     Fonts:<br>
+                     <font color="red">red by name</font>,
+                     <font color="#408010">leaf green by hexadecimal RGB</font>
+                     <br>
+                     <font size=1>size 1</font>,
+                     <font size=2>size 2</font>,
+                     <font size=3>size 3</font>,
+                     <font size=4>size 4</font>,
+                     <font size=5>size 5</font>,
+                     <font size=6>size 6</font>,
+                     <font size=7>size 7</font>
+                     <br>
+                     <font face=times>Times</font>,
+                     <font face=verdana>Verdana</font>,
+                     <font face=arial>Arial</font><br>
+                     <hr>
+                     Simple Tables:<br>
+                     <table border="1" padding="1">
+                     <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                     <tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>
+                     </table>
+                     ]]>
+    </description>
+    <Point>
+      <coordinates>964810,1943117</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Absolute</name>
+    <visibility>1</visibility>
+    <description>Transparent purple line</description>
+    <styleUrl>#transPurpleLineGreenPoly</styleUrl>
+    <LineString>
+      <coordinates>
+                969962,1946213
+                975210,1942909
+                964810,1943117
+                974074,1946573
+                971402,1940317
+                969962,1946213
+
+      </coordinates>
+    </LineString>
+  </Placemark>
+  <Placemark>
+    <name>Building 40</name>
+    <styleUrl>#transRedPoly</styleUrl>
+    <Polygon>
+      <extrude>1</extrude>
+      <altitudeMode>relativeToGround</altitudeMode>
+      <outerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            962208,1951274
+            962348,1951206
+            962314,1951128
+            962297,1951088
+            962277,1951043
+            961923,1950261
+            961638,1949635
+            960936,1948101
+            960819,1947847
+            960816,1947849
+            960799,1947862
+            960744,1947900
+            960095,1948279
+            959750,1948297
+            959608,1948370
+            959440,1948455
+            959287,1948534
+            959166,1948595
+            958465,1948941
+            958437,1948934
+            958330,1948906
+            958326,1948905
+            958022,1948809
+            957755,1948595
+            957674,1948530
+            957345,1948787
+            957127,1948952
+            957048,1948976
+            956966,1948999
+            956901,1948982
+            956867,1948969
+            956846,1948963
+            956704,1949007
+            956664,1949030
+            956651,1949041
+            956565,1949283
+            956574,1949395
+            956588,1949508
+            956591,1949518
+            956617,1949720
+            956641,1949858
+            956648,1949881
+            956679,1949964
+            956682,1949970
+            956732,1949973
+            956767,1949971
+            956785,1949973
+            956793,1949977
+            956847,1950009
+            956863,1950020
+            957170,1950363
+            957852,1951153
+            958060,1951567
+            957990,1951854
+            957958,1951857
+            957928,1951862
+            957915,1952365
+            957916,1952382
+            957910,1952592
+            957976,1952567
+            958173,1952494
+            958470,1952387
+            958499,1952381
+            958527,1952375
+            958595,1952376
+            958613,1952378
+            958635,1952384
+            958647,1952388
+            958672,1952396
+            958708,1952415
+            958736,1952433
+            958738,1952434
+            958808,1952490
+            958838,1952517
+            958842,1952521
+            958844,1952523
+            958860,1952540
+            958916,1952588
+            958946,1952611
+            958956,1952617
+            958977,1952629
+            959059,1952666
+            959073,1952672
+            959196,1952714
+            959202,1952714
+            959203,1952714
+            959260,1952720
+            959572,1952726
+            960013,1952466
+            960148,1952370
+            960730,1951817
+            960944,1951609
+            960959,1951596
+            960976,1951580
+            960982,1951576
+            961026,1951547
+            961057,1951530
+            961087,1951521
+            961088,1951521
+            961114,1951516
+            961234,1951493
+            961394,1951464
+            961474,1951450
+            961543,1951438
+            961967,1951359
+            961995,1951353
+            962085,1951334
+            962090,1951333
+            962093,1951331
+            962208,1951274
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>SF Marina Harbor Master</name>
+    <visibility>0</visibility>
+    <MultiGeometry>
+      <LineString>
+        <coordinates>
+            938778,1945597 948762,1945085
+        </coordinates>
+      </LineString>
+      <LineString>
+        <coordinates>
+            938234,1940957 952634,1938749
+        </coordinates>
+      </LineString>
+    </MultiGeometry>
+  </Placemark>
+  <Placemark>
+    <name>The Pentagon</name>
+    <LookAt>
+      <longitude>-77.05580139178142</longitude>
+      <latitude>38.870832443487</latitude>
+      <heading>59.88865561738225</heading>
+      <tilt>48.09646074797388</tilt>
+      <range>742.0552506670548</range>
+    </LookAt>
+    <Polygon>
+      <extrude>1</extrude>
+      <altitudeMode>relativeToGround</altitudeMode>
+      <outerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            997658,1942525 991194,1934909 996826,1925437 1006362,1926205 1010138,1936829 999258,1943869
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+      <innerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            999962,1938109 996314,1934269 998746,1928573 1004762,1928893 1005594,1935997
+          </coordinates>
+        </LinearRing>
+      </innerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</kml>

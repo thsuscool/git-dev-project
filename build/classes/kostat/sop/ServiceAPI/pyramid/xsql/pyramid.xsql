@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pyramid">
+
+	<!-- test -->
+	<select id="pyramid1" parameterType="hashmap" resultType="hashmap">	
+		    select years, age, sum(m) male, sum(f)female 
+			 from 
+					( select years, age, decode(gender,'남',sum(population)) m, decode(gender,'여',sum(population)) f 
+			     from ( 
+			             select years,age,gender,population from estimate_country_tmp 
+			             where years = #{years} and types = #{strType}
+			             ) group by years, age, gender 
+			 ) group by years, age 
+			    order by to_number(replace(replace(age, '세'),'이상')) desc 
+	</select>
+	
+	<select id="yearRatioData" parameterType="hashmap" resultType="hashmap">	
+   			select --nvl(sum(manbirpopu), 0), nvl(sum(womabirnpopu), 0), nvl(sum(manpopu), 0), nvl(sum(womanpopu), 0), nvl(sum(manfupopu), 0), nvl(sum(womanfupopu), 0), 
+                    nvl(round((sum(manfupopu)/sum(manbirpopu))*100,2), 0) as manbir,  
+                    nvl(round((sum(manfupopu)/sum(manpopu))*100,2), 0)  as mannow,   
+                    nvl(round((sum(womanfupopu)/sum(womanbirpopu))*100,2), 0) as wobir,
+                    nvl(round((sum(womanfupopu)/sum(womanpopu))*100,2), 0)    wonow 
+            from ( 
+           select   years,  
+                    sum(manbirpopu) manbirpopu,  
+                    sum(womabirnpopu) womanbirpopu, 
+                    sum(manpopu) manpopu,  
+                    sum(womanpopu) womanpopu, 
+                    sum(manfupopu) manfupopu,  
+                    sum(womanfupopu) womanfupopu 
+            from 
+                    ( 
+                        select  
+                            years, 
+                            case when gender ='남' and age =  '0세' and years = #{birYear} then population end manbirpopu, 
+                            case when gender ='여' and age =  '0세' and years = #{birYear}  then population end womabirnpopu, 
+                            case when gender ='남' and age = to_char(sysdate, 'YYYY') - #{birYear}  ||'세' and years = to_char(sysdate, 'YYYY') then population end manpopu, 
+                            case when gender ='여' and age = to_char(sysdate, 'YYYY') - #{birYear}  ||'세' and years = to_char(sysdate, 'YYYY') then population end womanpopu, 
+                            case when gender ='남' and age = #{years} - #{birYear} ||'세' and years = #{years} then population end manfupopu, 
+                            case when gender ='여' and age = #{years} - #{birYear} ||'세' and years = #{years} then population end womanfupopu 
+                        from estimate_country_tmp  
+                        where  types = #{strType} 
+                    ) 
+            group by years 
+            )
+        order by years
+	</select>
+	
+	<select id="pyramid2" parameterType="hashmap" resultType="hashmap">	
+		    select 
+			    a.years, a.ages, m as male, f female, ms, fs 
+			from  
+			    ( 
+			        select years, ages, sum(m) m, sum(f) f  
+			        from  
+			            ( 
+			                select years, ages, decode(gender,'남',sum_population) m  
+			                        , decode(gender,'여', sum_population) f  
+			                from  
+			                    (  select years, ages, gender ,sum(population) as sum_population  
+			                       from estimate_sido  
+			                       where years= #{years} 
+			                     	<if  test = "code1 != 0">
+			                        and region_code = #{code1}  
+			                        </if>
+			                        <!-- code1 -->
+			                        group by years, ages, gender  
+			                    )
+			            )  
+			        group by years, ages  
+			    ) a,  
+			    ( 
+			        select years, ages, sum(m) ms, sum(f) fs  
+			        from  
+			            ( select years, ages, decode(gender,'남',population) m  
+			                   , decode(gender,'여', population) f  
+			              from  
+			                ( 
+			                    select years, region, gender,ages,population  
+			                    from estimate_sido  
+			                    where years = #{years}
+			                    <if  test = "code2 != 0">
+			                    and region_code = #{code2}  
+			                    </if>
+			                )
+			            )  
+			        group by years, ages  
+			    ) b  
+			where a.years = b.years(+)
+			and a.ages = b.ages(+)
+			order by to_number(replace(substr(ages,0,2),'-')) desc  
+	</select>
+	
+	<select id="pyramidSidoData" resultType="hashmap">	
+	 select region_code, region 
+	 from estimate_sido 
+ 	 group by region_code, region 
+	 order by region_code	 
+	</select>
+	
+	<select id="pyramidAddData" resultType="hashmap">	
+			select 
+			year, type, total, male, female, sexratio, avrage
+		from pyramid_add_data_2016
+		where
+			year = #{years}
+		and type = #{strType}   
+	</select>
+	
+	
+</mapper>

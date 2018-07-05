@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8" />  
+<meta name="format-detection" content="telephone=no" /> 
+<title>샘플</title>         
+<script type="text/javascript" src="../../js/plugins/jquery.min.js"></script> 
+<script type="text/javascript" src="../../js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+<script type="text/javascript" src="../../js/plugins/jquery.highlight.js"></script> 
+<script>
+$(function(){/* code highlight js */
+	$('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
+});
+</script>
+<style>
+body, div, dl, dt, dd, h1, h2, h3, p, a, ul, li{margin:0;padding:0;}
+a{text-decoration:none;}
+
+/* code highlight css */
+div.highlight{background:#FFF;border:1px solid #E0E0E0;font-family:"Courier New",Courier,monospace;overflow:hidden;border-radius:4px;margin:0}div.highlight pre{width:100%;overflow:auto;padding:0;margin:0;font-size:13px;clear:both;border-radius:0;border:none}div.highlight ul.tabs{overflow:hidden;padding:5px 0;margin:0;list-style:none;border-bottom:1px solid #E0E0E0;width:100%;position:relative}div.highlight ul.tabs li{padding:0;margin:0 5px;float:left;background:0 0;border-bottom:1px dashed #CCC;line-height:1em;color:#CCC;cursor:pointer}div.highlight ul.tabs li.active{border-bottom:none;cursor:default}div.highlight pre.code ol{margin:0;padding:0 0 0 45px;background:#e7e5dc}div.highlight pre.code ul{margin:0;padding:0}div.highlight pre.code ol li,div.highlight pre.code ul li{padding:0 0 0 5px;border-left:3px solid #CCC;background:#F8F8F8}div.highlight pre.code ul li{border-left:none}div.highlight pre.code ol li.even,div.highlight pre.code ul li.even{background-color:#FFF}div.highlight pre.source{display:none;padding:0 0 0 5px}pre.code .str{color:#0d0}pre.code .var{color:#d00}pre.code .kwd,pre.code .kwd span{color:#070}pre.code .com,pre.code .com span{color:#008;font-style:italic;font-weight:400}pre.code .typ{color:#606}pre.code .lit{color:#066}pre.code .pun{color:#660}pre.code .pln{color:#000}pre.code .tag{color:#008;font-weight:700}pre.code .atn{color:#606}pre.code .atv{color:#080}pre.code .dec{color:#606}pre.code .fnc,pre.code .fnc span{color:#00b}.css pre.code .kwd,.css pre.code .kwd span{color:#008;font-weight:700}.php pre.code .str,.php pre.code .str span{color:#0d0}.php pre.code .var,.php pre.code .var span{color:#b00}.php pre.code .com span,; .php pre.code .com{color:#008;font-style:italic;font-weight:400}
+pre.code ol{list-style:decimal;}
+
+/* api css */
+html, body{width:100%;height:100%;overflow:hidden;}
+.guideContainer{position:relative;width:100%;height:100%;overflow:hidden;}
+.topItem{width:245px;height:auto;overflow:hidden;margin:20px auto;}
+.topItem .searchBox{width:243px;height:38px;overflow:hidden;border:1px solid #dcdcdc;background:#fff;}
+.topItem .searchBox input{outline:none;font-size:15px;width:calc( 223px - 38px );border:0;float:left;height:38px;line-height:38px;padding:0 10px;}
+.topItem .searchBox a{float:left;width:38px;height:38px;overflow:hidden;}
+.topItem .searchBox a img{width:38px;}
+.guideList{width:245px;height:auto;overflow:hidden;margin:30px auto;}
+.guideList li{width:100%;height:auto;overflow:hidden;margin-bottom:10px;}
+.guideList li>a{font-size:18px;font-weight:bold;color:#191919;}
+.guideList li>a.on{color:#cd4b4b;}
+.guideList li .etcList{margin-top:12px;width:235px;height:auto;overflow:hidden;margin-left:10px;}
+.guideList li .etcList li{width:100%;height:auto;overflow:hidden;margin-bottom:2px;padding:5px 0;}
+.guideList li .etcList li a{font-size:14px;color:#191919;}
+.guideList li .etcList li a:hover{opacity:1;}
+.guideList li .etcList li a:hover,
+.guideList li .etcList li a.on{padding-left:10px;color:#cd4b4b;background:url(../../img/developer/ico_arr01.png) no-repeat left center;}
+.guideMenu{position:absolute;left:0;top:0;float:left;width:305px;height:100%;overflow:hidden;overflow-y:auto;background:#f2f4f7;}
+.apiContents{width:calc( 100% - 305px );height:100%;overflow:hidden;overflow-y:auto;float:right;}
+
+
+.apiItem{width:100%;height:auto;overflow:hidden;margin-bottom:30px;}
+.apiItem *{font-family:'Malgun Gothic', sans-serif;}
+.itemList{width:100%;height:auto;overflow:hidden;}
+.itemList.t01{margin-top:30px;}
+.itemList dt{font-weight:bold;font-size:25px;color:#191919;width:calc( 100% - 10px );padding-left:10px;height:50px;line-height:50px;overflow:hidden;border-bottom:1px solid #d4d4d4;}
+.itemList.t01 dt{font-size:20px;}
+.itemList dd{width:calc( 100% - 10px );padding-left:10px;margin-top:10px;height:auto;overflow:hidden;font-size:15px;color:#191919;}
+.itemSet{margin:20px auto 0 auto;width:100%;height:60px;overflow:hidden;}
+.itemSet h3{margin-top:10px;margin-left:10px;font-size:20px;color:#cd4b4b;float:left;}
+.itemSet.t01{margin-bottom:0;}
+.itemSet.t01 h3{margin:0;}
+.itemSet h3 span{display:block;font-size:15px;color:#cd4b4b;}
+.itemSet a{text-decoration:none;float:right;margin-right:10px;display:block;width:170px;height:47px;line-height:47px;text-align:center;border-radius:5px;background:#4bae4f;color:#fff;font-size:15px;}
+.itemSet a:hover{opacity:.5;}
+.itemSet a strong{font-weight:bold;font-size:15px;color:#fff;}
+.exmpMaker{max-height:200px;background:#f1f1f1;width:calc( 100% - 22px );margin:0 10px;height:auto;overflow:hidden;overflow-y:auto;border:1px solid #d4d4d4;}
+.normalBox{width:calc( 100% - 20px );height:auto;overflow:hidden;margin:20px 10px 0 10px;}
+.normalBox .btnbox{float:left;height:47px;}
+.normalBox .txtbox{float:left;margin-top:5px;margin-left:20px;height:auto;overflow:hidden;} 
+.normalBox .txtbox .t01{width:100%;height:auto;overflow:hidden;color:#cd4b4b;font-size:15px;}
+.normalBox .txtbox .t02{width:100%;height:auto;overflow:hidden;color:#191919;font-size:15px;} 
+
+/* 기존 table css */
+.apiItem table { border-collapse: collapse; width:calc( 100% - 12px ); border-top: 1px solid #bfc3d2;}
+.apiItem table caption { display: none;}
+.apiItem table thead tr th { text-align: left; border-bottom: 1px solid #1e2b5f; background: #f0f0f2; color: #1e2b5f; font-size: 14px; font-weight: normal; padding: 10px 20px;}
+.apiItem table tbody tr td { line-height: 18px; padding: 10px 20px; border-bottom: 1px solid #e1e1e1; letter-spacing: -.5px; font-size: 12px;}
+.apiItem table tbody tr td.left { border-right: 1px solid #e1e1e1;} 
+</style> 
+</head> 
+<body>      
+ 
+ 
+<div class="guideContainer">
+	<div class="guideMenu">
+		<div class="topItem">
+			<div class="searchBox">
+				<input type="text" name="" placeholder="검색어를 입력하세요" />
+				<a href="javascript:void(0)"><img src="../../img/developer/ico_search.png" alt="검색" /></a>
+			</div>
+		</div>
+		
+		<ul class="guideList">
+			<li><a href="#contStart">준비하기</a></li>
+			<li><a href="javascript:void(0)">주요기능 소개</a></li>
+			<li>
+				<a href="javascript:void(0)">기능별 사용예제 보기</a>
+				<ul class="etcList">
+					<li><a href="#test1" class="on">시작하기</a></li>
+					<li><a href="#test2">HTML5앱으로 선언하기</a></li>
+					<li><a href="#test3">SOP JavaScript 로딩하기</a></li>
+					<li><a href="#test4">맵 DOM 엘리먼트</a></li>
+					<!-- 
+					<li><a href="javascript:void(0)">지도객체(Map Object) 생성및 옵션</a></li>
+					<li><a href="javascript:void(0)">지도의 확대/축소</a></li>
+					<li><a href="javascript:void(0)">지도이벤트</a></li>
+					<li><a href="javascript:void(0)">기본 컨트롤</a></li>
+					<li><a href="javascript:void(0)">컨트롤 추가 및 삭제 옵션</a></li>
+					<li><a href="javascript:void(0)">마커생성</a></li>
+					<li><a href="javascript:void(0)">마커아이콘 변경하기</a></li>
+					<li><a href="javascript:void(0)">폴리라인</a></li>
+					<li><a href="javascript:void(0)">폴리곤</a></li>
+					<li><a href="javascript:void(0)">폴리곤옵션</a></li>
+					<li><a href="javascript:void(0)">원</a></li>
+					<li><a href="javascript:void(0)">사각형</a></li>
+					<li><a href="javascript:void(0)">인포윈도우</a></li>
+					<li><a href="javascript:void(0)">GeoJSON</a></li>
+					<li><a href="javascript:void(0)">KML</a></li>
+					<li><a href="javascript:void(0)">히트맵</a></li>
+					 --> 
+				</ul>
+			</li>
+		</ul> 
+	</div>
+	
+	<div class="apiContents">		
+		<div class="apiItem">
+			<dl class="itemList">
+				<dt id="test1">시작하기</dt>
+				<dd>좌표변환을 제공</dd>
+			</dl> 
+			
+			<dl class="itemList t01"> 
+				<dt>요청주소</dt>
+				<dd>https://sgisapi.kostat.go.kr/OpenAPI3/transformation/transcoord.json</dd>
+			</dl>  
+		 
+		
+			<dl class="itemList t01">
+				<dt>요청정보(Body)</dt>
+				<dd>
+					<table>
+						<caption>요청정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 175px;">
+							<col style="width: 110px;">
+							<col style="width: ;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">요청변수</th>
+								<th scope="col">값</th>
+								<th scope="col">Optional</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">accessToken</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>엑세스토큰</td>
+							</tr>
+							<tr>
+								<td class="left">src</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>현재 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">dst</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer; ">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>변환할 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>   
+		
+			<div class="itemSet">
+				<h3>호출결과 예제</h3>
+				<a href="javascript:void(0)"><strong>&#60;/&#62;</strong> 소스 예제 실행</a>
+			</div> 
+			<div class="exmpMaker"><pre class="code" lang="js">{
+			"id": "API_0201", 
+		}</pre></div>
+		</div>
+		<div class="apiItem">
+			<dl class="itemList">
+				<dt id="test2">HTML5앱으로 선언하기</dt>
+				<dd>좌표변환을 제공</dd>
+			</dl> 
+			 
+		 
+		
+			<dl class="itemList t01">
+				<dt>요청정보(Body)</dt>
+				<dd>
+					<table>
+						<caption>요청정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 175px;">
+							<col style="width: 110px;">
+							<col style="width: ;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">요청변수</th>
+								<th scope="col">값</th>
+								<th scope="col">Optional</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">accessToken</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>엑세스토큰</td>
+							</tr>
+							<tr>
+								<td class="left">src</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>현재 좌표체계</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+			
+			<dl class="itemList t01">
+				<dt>응답정보</dt>
+				<dd>
+					<table>
+						<caption>응답정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 150px;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">출력 변수</th>
+								<th scope="col">값</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">toSrs</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td>변환된 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td>변환된좌표 X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td>변환된좌표 Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+		
+			<div class="itemSet">
+				<h3>호출결과 예제</h3>
+				<a href="javascript:void(0)"><strong>&#60;/&#62;</strong> 소스 예제 실행</a>
+			</div> 
+			<div class="exmpMaker"><pre class="code" lang="js">{
+			"id": "API_0201",
+			"result": {
+				"toSrs": "EPSG:5179",
+				"posY": 1816238.1323095055,
+				"posX": 990391.6062050104
+			},
+			"errMsg": "Success",
+			"errCd": 0,
+			"trId": "vmqW_API_0201_1419228087205"
+		}</pre></div>
+		</div>
+		<div class="apiItem">
+			<dl class="itemList">
+				<dt id="test3">SOP JavaScript 로딩하기</dt>
+				<dd>좌표변환을 제공</dd>
+			</dl> 
+			
+			<dl class="itemList t01"> 
+				<dt>요청주소</dt>
+				<dd>https://sgisapi.kostat.go.kr/OpenAPI3/transformation/transcoord.json</dd>
+			</dl>  
+		 
+		
+			<dl class="itemList t01">
+				<dt>요청정보(Body)</dt>
+				<dd>
+					<table>
+						<caption>요청정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 175px;">
+							<col style="width: 110px;">
+							<col style="width: ;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">요청변수</th>
+								<th scope="col">값</th>
+								<th scope="col">Optional</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">accessToken</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>엑세스토큰</td>
+							</tr>
+							<tr>
+								<td class="left">src</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>현재 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">dst</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer; ">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>변환할 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+			
+			<dl class="itemList t01">
+				<dt>응답정보</dt>
+				<dd>
+					<table>
+						<caption>응답정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 150px;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">출력 변수</th>
+								<th scope="col">값</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">toSrs</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td>변환된 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td>변환된좌표 X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td>변환된좌표 Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+		
+			<div class="itemSet">
+				<h3>호출결과 예제</h3>
+				<a href="javascript:void(0)"><strong>&#60;/&#62;</strong> 소스 예제 실행</a>
+			</div> 
+			<div class="exmpMaker"><pre class="code" lang="js">{
+			"id": "API_0201",
+			"result": {
+				"toSrs": "EPSG:5179",
+				"posY": 1816238.1323095055,
+				"posX": 990391.6062050104
+			},
+			"errMsg": "Success",
+			"errCd": 0,
+			"trId": "vmqW_API_0201_1419228087205"
+		}</pre></div>
+		</div>
+		<div class="apiItem">
+			<dl class="itemList">
+				<dt id="test4">맵 DOM 엘리먼트</dt>
+				<dd>좌표변환을 제공</dd>
+			</dl> 
+			
+			<dl class="itemList t01"> 
+				<dt>요청주소</dt>
+				<dd>https://sgisapi.kostat.go.kr/OpenAPI3/transformation/transcoord.json</dd>
+			</dl>  
+		 
+		
+			<dl class="itemList t01">
+				<dt>요청정보(Body)</dt>
+				<dd>
+					<table>
+						<caption>요청정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 175px;">
+							<col style="width: 110px;">
+							<col style="width: ;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">요청변수</th>
+								<th scope="col">값</th>
+								<th scope="col">Optional</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">accessToken</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>엑세스토큰</td>
+							</tr>
+							<tr>
+								<td class="left">src</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>현재 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">dst</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer; ">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td class="left">필수</td>
+								<td>변환할 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td class="left">필수</td>
+								<td>Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+			
+			<dl class="itemList t01">
+				<dt>응답정보</dt>
+				<dd>
+					<table>
+						<caption>응답정보</caption>
+						<colgroup>
+							<col style="width: 179px;">
+							<col style="width: 150px;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">출력 변수</th>
+								<th scope="col">값</th>
+								<th scope="col">설명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="left">toSrs</td>
+								<td class="left"><a onclick="popup('CoordCode',350,300)" style="cursor: pointer;">좌표계코드표 참고 <img src="../../../images/api/searchbox_button.png"> </a></td>
+								<td>변환된 좌표체계</td>
+							</tr>
+							<tr>
+								<td class="left">posX</td>
+								<td class="left">String</td>
+								<td>변환된좌표 X값</td>
+							</tr>
+							<tr>
+								<td class="left">posY</td>
+								<td class="left">String</td>
+								<td>변환된좌표 Y값</td>
+							</tr>
+						</tbody>
+					</table>
+				</dd>
+			</dl>  
+		
+			<div class="itemSet">
+				<h3>호출결과 예제</h3>
+				<a href="javascript:void(0)"><strong>&#60;/&#62;</strong> 소스 예제 실행</a>
+			</div> 
+			<div class="exmpMaker"><pre class="code" lang="js">{
+			"id": "API_0201",
+			"result": {
+				"toSrs": "EPSG:5179",
+				"posY": 1816238.1323095055,
+				"posX": 990391.6062050104
+			},
+			"errMsg": "Success",
+			"errCd": 0,
+			"trId": "vmqW_API_0201_1419228087205"
+		}</pre></div>
+		</div>
+	</div>
+</div>
+
+<script>
+var $menu     = $('.etcList li a');
+var $contents = $('.apiItem');
+$(function(){
+	$("body").on("click",".etcList li a",function(){
+		$(".etcList li a").removeClass("on");
+		$(this).addClass("on");
+	});
+	$(".apiContents").scroll(function(){ 
+		var scltop = $(this).scrollTop();
+		
+		$.each($contents, function(idx, item){ 
+			var	$target   = $contents.eq(idx),
+                i         = $target.index(),
+                targetTop = $target.offset().top;
+            if (targetTop < 0) {
+                $menu.removeClass('on');
+                $menu.eq(idx+1).addClass('on');
+            }else if (targetTop == 0){
+            	$menu.removeClass('on');
+                $menu.eq(idx).addClass('on');
+            }
+            /*
+            if (!(200 <= scltop)) {
+                $menu.removeClass('on');
+            }*/
+        })
+        /*
+		$(".etcList li").each(function(i){
+			var _target = $(this).find("a").attr("href");
+			var t1 = $(_target).offset().top;
+			var wh = $(window).height();
+			if(t1 == h1){
+				$(".etcList li a").removeClass("on");
+				$(this).find("a").addClass("on");
+			}
+		});*/
+	});
+});
+</script>
+ 
+</body>
+</html> 

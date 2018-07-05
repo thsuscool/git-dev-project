@@ -1,0 +1,358 @@
+/* 16.08.24 고도화 퍼블리싱 스타일 추가 */
+
+.containerBox{position:absolute;left:0;top:104px;width:100%;height:calc(100% - 104px);background:#f1f1f1;}
+.quickBox{width:279px;height:100%;overflow:hidden;position:absolute;left:0;top:0;background:#fff;border-right:1px solid #ccc}
+.quickBox.step01{left:-280px;z-index:1800;}
+.quickBox.step02{left:-280px;z-index:1700;}
+.quickBox.step03{left:-280px;z-index:1600;}
+.quickBox.step04{left:-280px;z-index:1500;}
+.quickBox.join{width:950px;left:-950px;z-index:15;}
+.quickBox .subj{position:relative;width:100%;height:32px;line-height:32px;overflow:hidden;border-bottom:1px solid #dcdcdc;background:#f5f5f5;}
+.quickBox .subj span{display:block;margin-left:10px}
+.quickBox .subj a{opacity:.4;display:block;width:32px;height:32px;overflow:hidden;position:absolute;right:0;top:0;background:url(/img/ico/ico_close01.png) no-repeat center center;text-indent:-2000px;  transition-duration: .3s; transition-property: transform; transition-timing-function: ease-in-out;}
+.quickBox .subj a:hover{transform: rotate(90deg);opacity:1;}
+.scrollBox, .normalBox{width:280px;height:calc( 100% - 82px );overflow:hidden;position:relative;border-bottom:1px solid #ccc;} 
+.qmdl{width:100%;height:auto;overflow:hidden;border-bottom:1px solid #ccc;padding:10px 0}
+.qmdl dt{width:100%;height:30px;line-height:30px;overflow:hidden;text-indent:10px;font-size:13px;font-weight:bold;}
+.qmdl dd{width:100%;height:auto;overflow:hidden;}
+.qmdl dd ul{width:260px;height:auto;overflow:hidden;margin:0 auto;}
+.qmdl dd ul>li{position:relative;width:100%;height:45px;line-height:45px;overflow:hidden;}
+.qmdl dd ul>li.on{color:#f1f1f1;background-color:#f1f1f1;border-radius:8px;}
+.qmdl dd ul>li>a{display:block;margin-left:45px;}
+.qmdl dd ul li:before{content:"";position:absolute;left:10px;top:11px;display:block;width:24px;height:24px;overflow:hidden;opacity:.2;background:url(/img/ico/ico_changupLnb01.png);} 
+.qmdl dd ul li.on:before{opacity:1;}
+.qmdl dd ul>li.on>a{color:#fff;}
+.qmlist{width:260px;height:auto;overflow:hidden;margin:0 auto;border-bottom:1px solid #ccc;padding:10px} 
+.qmlist.botn{border-bottom:0}
+.qmlist>li{width:100%;height:25px;line-height:25px;overflow:hidden;}
+.qmlist>li>a{font-size:13px;display:block;margin-left:10px;}
+
+.helperText{background:none;}
+.interactiveBar .helperText{ float:left; padding-right:25px;} 
+.sideQuick span{margin:0 0 0 5px}
+.sideQuick{z-index:13;display:block;width:90px;height:28px;border-radius:3px;line-height:28px;font-size:11px;text-align:center;overflow:hidden;background:#28425d;color:#fff;position:absolute;left:0}
+.sideQuick img, .sideQuick span{vertical-align:middle;}
+.sideQuick span{padding:0 10px 0 0}
+.sideQuick:hover,.sideQuick.on{background:#21b699}
+.sideQuick.sq01, .sqListBox.sq01{top:0;}
+.sideQuick.sq02, .sqListBox.sq02{top:37px;z-index:90;}
+.sideQuick.sq03{top:90px;}
+.sqListBox.sq03{top:85px;}
+.sideQuick.sq04{top:150px;}
+.sideQuick.sq05{top:191px;}
+.sideQuick.sq06{top:232px;background:#999;}
+.scrollBox, .normalBox{border-bottom:0;}
+.qmdl.pt0{padding-top:0}
+.qmdl dt{background:url(/img/ico/ico_up03.png) no-repeat 260px center;height:45px;background-size:10px 6px;}
+.qmdl dt.on{background:url(/img/ico/ico_down04.png) no-repeat 260px center;background-size:10px 6px;}
+.qmdl dt a{display:block;height:45px;line-height:45px;}
+.qmdl dd ul{width:100%;}
+.qmdl dd ul>li.on{background:#21b69a;border-radius:0;}
+.qmdl dd ul>li.on>a{color:#fff;}
+.qmdl dd ul li.icon01:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon01.png);width:30px;height:30px;}
+.qmdl dd ul li.icon02:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon02.png);width:30px;height:30px;}
+.qmdl dd ul li.icon03:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon03.png);width:30px;height:30px;}
+.qmdl dd ul li.icon04:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon04.png);width:30px;height:30px;}
+.qmdl dd ul li.icon05:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon05.png);width:30px;height:30px;}
+.qmdl dd ul li.icon06:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon06.png);width:30px;height:30px;}
+.qmdl dd ul li.icon07:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon07.png);width:30px;height:30px;}
+.qmdl dd ul li.icon08:before{top:8px;opacity:1;background:url(/img/ico/ico_bizsIcon08.png);width:30px;height:30px;} /*mng_s*/
+/* mng_s 업종별 뜨는 지역*/
+/* style_housemap */
+.HouseMap h2, .HouseMap li, .HouseMap a, .HouseMap div, .HouseMap dt {box-sizing:border-box; font-family:'굴림', san-serif;}
+.HouseMap select { font-family: dotum,"돋움", sans-serif;border:#ddd solid 1px; height:26px;-webkit-appearance: none;  padding:0 20px 0 0; 
+ background:#fff url(/img/house/select_arrow.png) no-repeat right center; cursor:pointer; font-size:12px;}
+.HouseMap select::-ms-expand {display: none;}
+.HouseMap { padding:20px 15px; box-sizing:border-box;}
+.HouseMap h2 { font-family: "나눔고딕";display:block; position:relative; height:28px; background:#00bcd4; color:#fff; font-size:14px; font-weight:normal; padding:7px 0 0 10px; border-radius:15px; margin-bottom:15px; }
+.HouseMap input[type=checkbox] { position:absolute; right:10px; top:7px;}
+
+.SetArea { overflow:auto; margin-bottom:20px;}
+.SetArea dt { font-family: "나눔고딕";width:25%; float:left; font-size:12px; padding:7px 0 0 5px;}
+.SetArea dd { width:75%; float:left;}
+.SetArea dd select { width:48%;}
+/* mng_e 업종별 뜨는 지역*/
+.quickBox .subj a{opacity:1;background:url(/img/ico/ico_close04.png) no-repeat center center;background-size:25px 25px}
+.dataSideBox .bar{background:#e8771a;}
+#dataSlider .ui-widget-header{background:#218b70;}
+#dataSlider.ui-slider:before{background:#eea66b;}
+.dscList.bob dt{height:auto}
+.dscList.bob dt>a{height:36px;line-height:32px;border-radius:0;border-bottom:1px solid #b7b6b6;}
+.dscList.bob dt.bon>a.on{border-bottom:0;height:30px;} 
+.dscList dt>a{color:#595757;background:url(/img/ico/ico_up03.png) no-repeat 505px center;}
+.dscList dt>a.on{background:url(/img/ico/ico_down04.png) no-repeat 505px center;}
+.dbTabs{display:table;table-layout:fixed;border-collapse:collapse;width:100%;}
+.dbTabs a{letter-spacing:-1px;font-size:12px;border-top:1px solid #e8771a;display:table-cell;vertical-align:middle;text-align:center;height:30px;background:#e8771a;color:#fff;}
+.dbTabs a.on{border-top:1px solid #b7b6b6;background:#fff;color:#595757;}
+.dbTabs.type01 a{background:#019878;border-top:1px solid #019878;}
+.dbTabs.type01 a.on{background:#fff;border-top:1px solid #b7b6b6;}
+.dbTabs.type02 a{background:#313333;border-top:1px solid #313333;} 
+.dbTabs.type02 a.on{background:#fff;border-top:1px solid #b7b6b6;}
+.compareBox .typeBox{margin:10px 0 10px auto;}
+.compareBox .typeBox a.first.on{background:#e8771a url(/img/ico/ico_chars.png) no-repeat center center;}
+.compareBox .typeBox a.on{background:#e8771a}
+#typeCharts01{width:256px;float:left;height:110px;overflow:hidden;}
+#typeCharts02{width:256px;height:110px;overflow:hidden;float:left;}
+#typeCharts03{width:530px;height:300px;overflow:hidden;margin:0 auto;}
+#typeCharts04{width:530px;height:800px;overflow:hidden;margin:0 auto;}
+.horizontalTitle span, .horizontalTitle strong,.horizontalTitle a, .horizontalTitle img{vertical-align:middle}
+.horizontalTitle span{font-size:16px; font-weight:bold;}
+.horizontalTitle img{height:25px;margin-left:5px}
+.chartAreaType02{width:100%;height:auto;overflow:hidden;}
+.chartAreaType02 #typeCharts01{width:200px;height:200px}
+.chartAreaType02 #typeCharts02{width:200px;height:200px}
+.chartAreaType02 .typelabel{width:330px;height:160px}
+.compareBox .charts{height:auto;}
+.dscList dd.view{display:block;margin-top:15px;}
+.dbTabs01 a{letter-spacing:-1px;}
+.dbTabs01 li>a{margin:0;color:#c8c9ca;background:#fff;padding:0 8px}
+.dbTabs01 li>a.on{margin:0;color:#fff;background:#019878;}
+.etcTabs{width:140px;height:25px;overflow:hidden;border:1px solid #d6d7d7;background:#fff;position:absolute;right:0;top:15px;}
+.etcTabs a{float:left;width:70px;height:25px;line-height:25px;overflow:hidden;color:#727171;text-align:center;font-size:12px;}
+.etcTabs a.on{color:#313333;background:#ffc622;}
+.etcRight{float:right;margin:5px 40px 0 0;}
+.horizontalTitle.mt20{position:relative;margin-top:20px;margin-bottom:3px;}
+.horizontalTitle a{position:absolute;right:0;top:0;}
+.horizontalTitle *{vertical-align:baseline !important}
+.horizontalTitle.t01{margin-top:0;font-size:15px}
+.seoulBox, .areaBox{font-size:20px;}
+.areaEtcTextBox{font-size:12px;width:530px;margin:0 auto 10px auto;height:auto;overflow:hidden;color:#848485}
+.lineTextBox{font-size:15px;width:530px;padding-bottom:10px;margin:30px auto 10px auto;height:auto;overflow:hidden;color:#848485;border-bottom:1px solid #848485;}
+.timeTitle{background:#e8771a;width:530px;margin:0 auto;}
+.ysettingList{width:525px;margin:0 auto;height:auto;overflow:hidden;}
+.ysettingList li{float:left;width:75px;height:67px;overflow:hidden;margin-top:10px;}
+.ysettingList li a{display:block;border-radius:50%;color:#878787;border:1px solid #e3e3e3;width:65px;height:65px;overflow:hidden;text-align:center;line-height:64px;}
+.ysettingList li a.on{background:#019878;border:1px solid #019878;color:#fff;}
+.clickMiniMap:before{content:"후보지역";background:#019878;}
+.dscList dd .fb{position:relative;}
+.dscList dd .fb .gtxt{position:absolute;left:0;top:4px;width:100%;height:auto;overflow:hidden;text-align:right;color:#ddd;font-size:12px;}
+.dscList dd .fb .gtxt.ar{text-align:right;}
+.dbTabs02 li>a{color:#595757;}
+.dbTabs02 li>a.on{background:#017967;color:#fff}
+.dbTabs02 li>a:before{left:-2000px;}
+.compareBox{position:relative;}
+.mt20{margin-top:20px}
+.tailTextBox{width:530px;margin:0 auto;height:auto;overflow:hidden;font-size:12px;color:#c8c9ca;text-align:right;}
+.cateSaupLegend.line{width:100%;}
+.cateSaupLegend.line li{width:80px;margin:5px;}
+.cateSaupLegend.line li:nth-child(1):before{background:#bee51c;}
+.cateSaupLegend.line li:nth-child(2):before{background:#e8771a;}
+.cateSaupLegend.line li:nth-child(3):before{background:#738ef5;}
+.cateSaupLegend.line li:nth-child(4):before{background:#a176f4;}
+.cateSaupLegend.line li.blue:before{background:#738ef5;}
+.clickListBox.bon{width:530px;border-bottom:0;}
+.cslBtn{display:block;width:110px;background:#eeecec;height:28px;text-align:center;line-height:28px;font-size:12px;color:#717171;background:#f8f8f8;border:1px solid #d6d6d6;border-radius:14px;margin-left:210px;}
+.cslBtn:hover{background:#333;color:#fff;border:1px solid #333;}
+.tlStype .highcharts-tooltip>span, #spyTypeCharts01 .highcharts-tooltip>span,
+.dimChartsBox .highcharts-tooltip>span{ 
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #888;
+    padding: 0;
+}
+.tooltipTitle{display:block;font-size:12px;margin-bottom:10px;background:#313333;width:100%;height:30px;line-height:30px;text-align:center;color:#fff}
+.tooltipBlock{position:relative;height:25px;overflow:hidden;padding:0 10px 10px 10px;display:block;}
+.tooltipBlock span,
+.tooltipBlock a,
+.tooltipBlock img{font-size:12px;vertical-align:middle;}
+.tooltipBlock span{float:left;height:25px;line-height:25px;padding-right:110px;}
+.tooltipBlock img{position:absolute;right:10px;top:0;height:25px;}
+.interactiveDataBoard:hover{background-color:#e87719}
+#spyTypeCharts01 .tooltipBlock span{padding-right:0;}
+.dimChartsBox .tooltipBlock span{padding-right:0;}
+.optionListInfo{width:100%;height:auto;overflow:hidden;}
+.optionListInfo .condition{float: left;}
+.optionListInfo .condition p{width:101px;height:25px;line-height:25px;font-size:12px;margin-right:5px;text-align:center;background:#f8f8f8;color:#737373;}
+.optionListInfo .condition p.on{background:#019879;color:#fff;}
+.dscList dd .rela{width:100%;height:auto;overflow:hidden;position:relative;}
+.helpPosition{position:absolute;left:330px;top:10px;z-index:90;}
+.dialogbox{position:absolute;left:-20000px;width:100%;height:100%;overflow:hidden;z-index:2100;background:rgba(0,0,0,.5);}
+.dialogbox .dimbox{width:1100px;height:600px;position:absolute;left:50%;top:50%;margin:-300px 0 0 -500px;overflow:hidden;}
+.dialogbox .dimbox .cont{float:left;width:1070px;height:600px;overflow:hidden;background:#fff;}
+.dialogbox .dimbox .cont .bar{width:100%;height:50px;overflow:hidden;background:#019879;}
+.dialogbox .dimbox .cont .bar span{height:50px;line-height:50px;color:#fff;font-size:15px;float:left;margin-left:20px;}
+.dialogbox .dimbox .cont .bar .compareBox{width:100px;height:50px;float:right;margin-right:20px;}
+.dialogbox .dimbox .cont .bar .compareBox .typeBox{float:left;margin-top:12px;}
+.dialogbox .dimbox .cont .bar .compareBox .dimPrint{float:left;margin:7px 0 0 10px}
+.dialogbox .dimClose{float:right;margin-top:5px;}
+.dimAreaScroll{width:100%;height:550px;overflow:hidden;margin:0 auto;}
+.dimAreaScroll .charts{position:static;left:-20000px;width:1030px;height:auto;overflow:hidden;margin:0 auto 50px auto;}
+.dimAreaScroll .tables{position:absolute;left:-20000px;width:1030px;height:auto;overflow:hidden;margin:0 auto 50px auto;}
+.dimAreaScroll p{float:left;width:100%;height:auto;overflow:hidden;font-size:15px;font-weight:bold;color:#4f4f4f;margin-top:30px;}
+.dimAreaScroll table{float:left;margin-top:10px;table-layout:fixed;width:100%;}
+.dimAreaScroll table th{padding-left:15px;font-size:12px;text-align:left;background:#ededed;height:30px;color:#4f4f4f;border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8;}
+.dimAreaScroll table td{padding-left:15px;font-size:12px;text-align:left;height:30px;color:#4f4f4f;border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8;}
+.dimAreaScroll table th.bor, .dimAreaScroll table td.bor{border-right:1px solid #c8c8c8;}
+.dimAreaScroll .dimChartsBox{width:100%;height:auto;overlfow:hidden;}
+.dimAreaScroll .dimChartsBox .dctb{width:340px;height:auto;overflow:hidden;float:left;}
+.dimAreaScroll .dimChartsBox .dctb span{margin:20px auto 0 auto;color:#333;display:block;height:25px;line-height:25px;font-size:11px;text-align:center;width:290px;height:auto;overflow:hidden;border-bottom:1px solid #ccc;}
+.mt10{margin-top:10px !important}
+.mt20{margin-top:20px !important}
+.mt30{margin-top:30px !important}
+.mt40{margin-top:40px !important}
+.mt50{margin-top:50px !important}
+.dimChartsBox .cateSaupLegend{margin-top:20px;}
+.dimChartsBox .cateSaupLegend.line li{width:100%;}
+.cateSaupLegend.line.type01 li:nth-child(1):before{background:#585657;}
+.cateSaupLegend.line.type01 li:nth-child(2):before{background:#f7cd19;}
+.cateSaupLegend.line.type01 li:nth-child(3):before{background:#e9781a;}
+.cateSaupLegend.line.type01 li:nth-child(4):before{background:#a177f5;}
+.cateSaupLegend.line.type02 li:nth-child(1):before{background:#585657;}
+.cateSaupLegend.line.type02 li:nth-child(2):before{background:#e9781a;}
+.cateSaupLegend.line.type03 li:nth-child(1):before{background:#595758;}
+.cateSaupLegend.line.type03 li:nth-child(2):before{background:#a177f5;}
+.mb0{margin-bottom:0 !important}
+.wmTable{width:100%;font-size:13px;table-layout:fixed;}
+.wmTable caption{display:none}
+.wmTable th{border:1px solid #555;background:#ccc;color:#333;height:34px;}
+.wmTable td{text-align:center;height:34px;border:1px solid #555;}
+.wmTable td.al{text-align:left;padding:0 10px;}
+.wmTable td a{text-decoration:underline;}
+.wmTable td a.btn{text-decoration:none;border:1px solid #ccc;background:#f1f1f1;padding:3px 5px;}
+.popTableScrollArea{width:100%;height:200px;overflow:hidden;position:relative;border-bottom:1px solid #333;}
+.inp.crud{border:1px solid #fff;width:70%;width:calc( 100% - 32px );height:25px;line-height:25px;text-align:center;}
+.inp.crud.on{border:1px solid #21b69a;background:#21b69a;color:#fff;}
+.chartAreaType02.t01{height:170px}
+
+.popAreaResult {width:400px; height: 294px;}
+.popAreaResult .bar{border-radius:5px;color:#fff;background:#019878;text-align:center;padding:5px 0px;width:100%;}
+.popAreaResult .txt01{width:238px;height:auto;overflow:hidden;margin:0 auto;font-size:12px;color:#666;margin-top:5px;}
+.popAreaResult .parScroll{border-top:1px solid #b6b5b5;border-bottom:1px solid #b6b5b5;width:100%;height:131px;overflow:auto;margin:20px auto 0 auto;}
+.popAreaResult .parScroll table{table-layout:fixed;width:100%;}
+.popAreaResult .parScroll table td{text-align:center;height:25px;font-size:12px;cursor:pointer;}
+.popAreaResult .parScroll table td.on{background:#019878;}
+.popAreaResult .parScroll table td.on a{color:#fff;}
+
+
+.ysettingBox{position:relative;width:100%;height:300px;overflow:hidden;}
+.ysettingList{width:525px;margin:0 auto;height:auto;overflow:hidden;}
+.ysettingList li{float:left;width:75px;height:67px;overflow:hidden;margin-top:10px;}
+.ysettingList li a{display:block;border-radius:50%;color:#878787;border:1px solid #e3e3e3;width:65px;height:65px;overflow:hidden;text-align:center;line-height:64px;}
+.ysettingList li a.on{background:#019878;border:1px solid #019878;color:#fff;}
+.ysettingList li input{display:none;}
+
+.typeCharts01{width:256px;float:left;height:110px;overflow:hidden;}
+.typeCharts02{width:256px;height:110px;overflow:hidden;float:left;}
+.typeCharts03{width:530px;height:300px;overflow:hidden;margin:0 auto;}
+.typeCharts04{width:530px;height:450px;overflow:hidden;margin:0 auto;}
+.typeCharts05{width:530px;overflow:hidden;margin:0 auto;}
+.typeCharts06{width:180px;float:left;height:180px;overflow:hidden;}
+
+.typelabel{float:right;width:50%;height:110px;overflow:hidden;}
+.typelabel.hideable{display:none;}
+.typelabel .txtSubj{margin-top:10px;font-size:12px;font-weight:bold;color:#6b6c6b;width:100%;height:auto;overflow:hidden;}
+.typelabel .valuebox{margin-top:5px;width:100%;height:auto;}
+.typelabel .valuebox .tit{float:left;width:60px;height:auto;font-size:12px;color:#595757;padding-left:15px;background:url(/img/ico/ico_won01.png) no-repeat left center;}
+.typelabel .valuebox .tit.co{background:url(/img/ico/ico_won02.png) no-repeat left center;}
+.typelabel .valuebox .tit.cg{background:url(/img/ico/ico_won03.png) no-repeat left center;}
+.typelabel .valuebox .tit.cp{background:url(/img/ico/ico_won04.png) no-repeat left center;}
+.typelabel .valuebox .title{float:left;width:60px;height:auto;font-size:12px;}
+.typelabel .valuebox .title .icon{float:left;width:10px;height:10px;border-radius:5px;}
+.typelabel .valuebox .title .text{padding-left:5px;}
+.typelabel .btn-more a{float:right;font-size:12px;padding:5px 20px 0px 5px;}
+.typelabel .valuebox .val{margin-right:20px;float:left;border-left:1px solid #cbcaca;padding-left:10px;}
+.typelabel .valuebox .val .t01{width:100%;height:auto;overflow:hidden;font-size:16px;color:#595757;}
+.typelabel .valuebox .val .t02{margin-top:5px;width:100%;height:auto;overflow:hidden;font-size:12px;color:#888;}
+.typelabel .valuebox .values:last-child{float: right; width:50%;}
+.typelabel .valuebox .values:first-child{float: left; width:50%;}
+
+.compareSelectList{width:100%;height:auto;overflow:hidden;}
+.compareSelectList li{margin-top:5px;width:100%;height:40px;overflow:hidden;}
+.compareSelectList li .rela{width:100%;height:40px;overflow:hidden;position:relative;}
+.compareSelectList li a.round{width:490px;padding-left:30px;height:38px;line-height:38px;font-size:12px;color:#878787 ;border:1px solid #e5e5e6;border-radius:20px;float:left;}
+.compareSelectList li a.round.on{border:1px solid #019878;background:#019878 url(/img/ico/ico_ck02.png) no-repeat 15px center;color:#fff;}
+.compareSelectList li a.round .ss{float:left;}
+.compareSelectList li a.round .es{float:right;height:28px;line-height:28px;text-align:center;width:110px;overflow:hidden;background:#f7f9f8;border:1px solid #d7d9d8;border-radius:14px;margin:4px 5px;color:#727272;}
+.compareSelectList li a.round.on .es{background:#02997a;border:1px solid #41b199;color:#fff;}
+.compareSelectList li a.del{position:absolute;right:10px;top:13px;}
+.compareSelectList li:first-child{margin-top:0;}
+.compareSelectList li:last-child{margin-bottom:10px;}
+.clickListBox.bon{width:530px;border-bottom:0;}
+
+.areaInfoChangeTab{display: none;}
+.chartsTitleBox{width:150px;height:45px;line-height:40px;color:#727171;position:absolute;left:220px;font-weight:bold;font-size:13px;top:0;overflow:hidden;}
+.chartsTitleBox span{margin-left: 50px;padding-left: 10px;border-left: 2px solid #727171;}
+.chartsTitleBox img{position:absolute;}
+
+#compareChartDiv{text-align:center;}
+#compareChartDiv .dctb{display:inline-block;text-align:center;}
+#compareChartDiv .dctb span.dTitle{margin:20px auto 0 auto;color:#333;display:block;height:25px;line-height:25px;font-size:11px;text-align:center;width:95%;height:auto;overflow:hidden;border-bottom:1px solid #ccc;}
+
+
+.bizLegendBox {float:right;width:140px;height:30px;margin-top:-90px;margin-right:5px;border:1px solid #ccc;}
+.bizLegend_color {float:left;width:69px;line-height:30px;text-align:center;display:table-cell;vertical-align:middle;font-size:12px;cursor:pointer;}
+.bizLegend_bubble {float:right;width:69px;line-height:30px;text-align:center;display:table-cell;vertical-align:middle;font-size:12px;cursor:pointer;}
+.bizLegendBox > .on {background-color:#ffe146;}
+
+/* 상권정보 css 추가 */
+.toolBar .tb_right .tb_radio.on{margin-top:2px;display:inline-block;width:49px;height:26px;overflow:hidden;background:url(/img/bg/bg_tbradio_on.png);border-radius:10px;}
+.toolBar .tb_right .tb_radio.off{margin-top:2px;display:inline-block;width:49px;height:26px;overflow:hidden;background:url(/img/bg/bg_tbradio_off.png);border-radius:10px;}
+.toolBar .tb_right .tb_radio a{width:49px;height:26px;display:block;}
+
+.MapBefore {position:absolute; top:45px;left:-2px;float: left;background: #00bcd4 url(../../img/house/icon_arrow_left.png) no-repeat center center;margin: 6px -7px 0 6px;height: 23px;width: 23px; text-indent: -1000px;overflow: hidden;border-radius: 12px; border:none; outline:none;}
+
+/* 161220 추가 */
+.areaInfoChartTitle{text-align:center;}
+.areaInfoChartTitle .chartTitle{display:inline-block;color:#ffffff;font-size:12px;background-color:#e8771a;widith:110px;text-align:center;padding:4px 10px 4px 10px;border-radius:11px;}
+.areaInfoChartTitle .chartTooltip{display:inline-block;width:14px;height:15px;margin:5px 0 0 5px;}
+
+.tooltipTitle-sm{font-size:12px;padding:5px;height:20px;line-height:20px;text-align:center;color:#fff;background-color:#555;}
+.tooltipBlock-sm{font-size:12px;margin:5px;height:30px;line-height:30px;text-align:center;}
+
+/* 2017-02-09 출처  */
+.etcRight05{width:100%;height:auto;overflow:hidden;text-align:right;color:#c8c9ca;font-size:11px;}
+
+
+/*===========  2017.06.26 [개발팀] kcu 공공데이터 추가 - 대전-세종간 통행정보  START ========*/
+.dbTabs03, .dbTabs02 {display:table;table-layout:fixed;border-collapse:collapse;width:100%;}
+.dbTabs03 a{letter-spacing:-1px;font-size:12px;/* border-bottom:1px solid #1778cc; */display:table-cell;vertical-align:middle;text-align:center;height:30px;background:#fff;color:#595757;cursor:pointer;}
+.dbTabs03 .yellow{background:/* #ec8f25; */rgba(238,143,37,0.9);color:#fff;}
+.dbTabs03 .yellow2{background:/* #ee6926; */rgba(238,105,38,0.9); color:#fff;}
+.dbTabs03 .blue{background:/* #1778cc; */rgba(23,120,204,0.9);color:#fff;}
+.dbTabs03 .blue2{background:/* #17aecd; */rgba(23,174,205,0.9);color:#fff;}
+.dbTabs03 .yellow.on{background:rgba(238,143,37,1);color:#fff;border-top:1px solid #ec8f25;}
+.dbTabs03 .yellow2.on{background:rgba(238,105,38,1); color:#fff;border-top:1px solid #ee6926;}
+.dbTabs03 .blue.on{background:rgba(23,120,204,1);color:#fff;border-top:1px solid #1778cc}
+.dbTabs03 .blue2.on{background:rgba(23,174,205,1);color:#fff;border-top:1px solid #17aecd;}
+
+.dbTabs02 a{letter-spacing:-1px;font-size:12px;display:table-cell;vertical-align:middle;text-align:center;height:25px;background:#fff;color:#595757;cursor:pointer;}
+.dbTabs02 .all.on{background-color:#019878;;color:#fff;}
+.dbTabs02 .in.on{background-color:rgba(40, 40, 205, 0.7);color:#fff;}
+.dbTabs02 .out.on{background-color:rgba(255, 50, 50, 0.7);color:#fff;}
+.chartAreaRela{width:527px;height:auto;overflow:hidden;position:relative;/* padding-bottom:10px; */}
+.techList {width:510px; padding-left:10px; padding-right:10px;}
+.techList li {width: 100%;height: auto;overflow: hidden;}
+.techList li .rela{width:475px;border:1px solid #e6e6e6;margin-top:5px;/* border-radius:5px; */padding:12px;height:0px;overflow:hidden;position:relative;}
+.techList li .rela .img{width:20px;height:20px;float:left;overflow:hidden;}
+.techList li .rela .txt{text-align:left;margin:0 0 0 10px;width:350px;height:auto;overflow:hidden;float:left;margin-top:-7px;}
+.techList li .rela .txt .t01{width:100%;height:auto;overflow:hidden;font-size:12px;color:#444b5b;font-weight:bold;}
+.techList li .rela .txt .t02{/* margin-top:5px; */width:100%;height:auto;overflow:hidden;font-size:12px;color:#999;}
+.techList li .rela .txt .t02 span{display:inline-block;width:65px;color:#666;font-size:12px;}
+.techList li .rela .more{position:absolute;right:15px;bottom:15px;color:#999;font-size:11px;}
+.techList li .rela .txt .t02 .td01{display:inline-block;width:40px;color:#666;font-size:12px;}
+.techList li .rela .txt .t02 .td02{display:inline-block;width:280px;color:#666;font-size:12px;}
+.cctvMode{width:510px;margin-top:5px;}
+.cctvMode input{vertical-align:middle;position:absolute;left:-2000px;}
+.cctvMode label{width:20%;padding:15px;background:url(/img/ico/ico_rdbox.gif) no-repeat left center;padding-left:25px;line-height:20px;display:inline-block;}
+.cctvMode label.on{background:url(/img/ico/ico_rdbox_on.gif) no-repeat left center;}
+.cctvTooltip {text-align:left;white-space: nowrap;word-break:break-all;padding:5px;}
+.brtMode{width:510px;margin-top:5px;}
+.brtMode input{vertical-align:middle;position:absolute;left:-2000px;}
+.brtMode label{width:20%;padding:15px;background:url(/img/ico/ico_rdbox.gif) no-repeat left center;padding-left:25px;line-height:20px;display:inline-block;}
+.brtMode label.on{background:url(/img/ico/ico_rdbox_on.gif) no-repeat left center;}
+.cctvTooltip {text-align:left;white-space: nowrap;word-break:break-all;padding:5px;margin-left:10px;}
+.cctvTooltip .t01{height:auto;overflow:hidden;font-size:13px;color:#444b5b;}
+.cctvTooltip .t02{width:13px;height:13px;margin-right:5px;}
+.cctvTooltip .t02.out{background-color:rgba(255, 50, 50, 0.7);}
+.cctvTooltip .t02.in{background-color:rgba(40, 40, 205, 0.7);}
+.cctvTooltip .t03{/* text-align:right; */width:120px;font-size:15px;}
+.cctvTooltip .t04{text-align:center;width:30px;}
+.cctvTopbar{width:220px;margin:0 auto;/* border-radius:10px; */ color:#fff; background:#019878;text-align:center; height:30px;padding-top:10px;padding-left:10px;padding-right:10px;font-size:16px;}
+.cctvTooltipAddr{text-align:center;margin-top:10px;font-size:14px;}
+.cctvSource{text-align:right;margin-top:10px;}
+.cctvSource span{font-size:11px;}
+.cctvSelectBox{font-size:14px;width:80px;margin-top:10px;}
+.timeSeiresBoxArea, .monthBoxArea {width:527px;height:auto;overflow:hidden;}
+.cctvAllTextTip {position:absolute;top:47px;left:270px;font-size:11px;color:#ff0000;}
+.cctvGrapTooltip{position:absolute;margin-top:-42px;margin-left:370px;}
+.brtGrapTooltip {position:absolute;margin-top:-42px;margin-left:440px;}
+/*===========  2017.06.26 [개발팀] kcu 공공데이터 추가 - 대전-세종간 통행정보  END ========*/

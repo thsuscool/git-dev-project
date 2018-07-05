@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityApproval">
+	<sql id="cmmntyApprovalListWhere">
+		<choose>
+			<when test="cmmnty_map_id != null and cmmnty_map_id != ''">
+				CMMNTY_MAP_ID = #{cmmnty_map_id}
+				<if test="search_member_type != null and search_member_type != '' and search_member_type != 'all'">
+					AND APPROVAL_DISTINCT = #{search_member_type}
+				</if>
+			</when>	
+			<otherwise>
+				1!=1
+			</otherwise>
+		</choose>
+	</sql>
+	<select id="selectCmmntyApprovalCount" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM SRV_DT_CMMNTY_APPROVAL
+		<where>
+			<include refid="cmmntyApprovalListWhere"/>
+		</where>
+	</select>
+	<select id="selectCmmntyApprovalList" resultType="java.util.HashMap">
+		SELECT
+			CMMNTY_APPROVAL_ID,
+			CMMNTY_MAP_ID,
+			TO_CHAR(APPROVAL_DATE,'yyyy.mm.dd') AS APPROVAL_DATE,
+			TO_CHAR(APPROVAL_WATIE_DATE,'yyyy.mm.dd') AS APPROVAL_WATIE_DATE,
+			TO_CHAR(SSCESSION_WATIE_DATE,'yyyy.mm.dd') AS SSCESSION_WATIE_DATE,
+			TO_CHAR(SSCESSION_DATE,'yyyy.mm.dd') AS SSCESSION_DATE,
+			TO_CHAR(RESTORATION_DATE,'yyyy.mm.dd') AS RESTORATION_DATE,
+			APPROVAL_DISTINCT,
+			USR_ID,
+			FN_GET_MEMBERNM( USR_ID ) AS MEMBER_NM
+		FROM SRV_DT_CMMNTY_APPROVAL
+		<where>
+			<include refid="cmmntyApprovalListWhere"/>
+		</where>
+		ORDER BY APPROVAL_WATIE_DATE DESC,CMMNTY_APPROVAL_ID DESC
+		LIMIT ${last_num},${page_size}
+	</select>
+	<select id="selectCmmntyApproval" resultType="java.util.HashMap">
+		SELECT
+			CMMNTY_APPROVAL_ID,
+			CMMNTY_MAP_ID,
+			TO_CHAR(APPROVAL_DATE,'yyyy.mm.dd') AS APPROVAL_DATE,
+			TO_CHAR(APPROVAL_WATIE_DATE,'yyyy.mm.dd') AS APPROVAL_WATIE_DATE,
+			TO_CHAR(SSCESSION_WATIE_DATE,'yyyy.mm.dd') AS SSCESSION_WATIE_DATE,
+			TO_CHAR(SSCESSION_DATE,'yyyy.mm.dd') AS SSCESSION_DATE,
+			TO_CHAR(RESTORATION_DATE,'yyyy.mm.dd') AS RESTORATION_DATE,
+			APPROVAL_DISTINCT,
+			USR_ID
+		FROM SRV_DT_CMMNTY_APPROVAL
+		<where>
+			<include refid="cmmntyApprovalListWhere"/>
+			AND USR_ID = #{member_id}
+		</where>
+		ORDER BY APPROVAL_WATIE_DATE DESC,CMMNTY_APPROVAL_ID DESC
+	</select>
+	<insert id="insertCmmntyApprovalAccessWait">
+		INSERT INTO SRV_DT_CMMNTY_APPROVAL(
+			CMMNTY_APPROVAL_ID,
+			CMMNTY_MAP_ID,
+			APPROVAL_WATIE_DATE,
+			APPROVAL_DISTINCT,
+			USR_ID
+		)VALUES(
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SRV_DT_CMMNTY_APPROVAL_ID.nextval, -->
+			(SELECT MAX(CMMNTY_APPROVAL_ID)+1 FROM SRV_DT_CMMNTY_APPROVAL),
+			<!-- mng_e 20170713_주용민-->
+			#{cmmnty_map_id},
+			SYSDATE,
+			'WA',
+			#{member_id}
+		)
+	</insert>
+	<update id="updateCmmntyApprovalDistinct">
+		UPDATE SRV_DT_CMMNTY_APPROVAL
+		<set>
+			<choose>
+				<when test='approval_distinct == "A"'>
+					APPROVAL_DATE = SYSDATE,
+				</when>
+				<when test='approval_distinct == "WA"'>
+					APPROVAL_WATIE_DATE = SYSDATE,
+				</when>
+				<when test='approval_distinct == "S"'>
+					SSCESSION_DATE = SYSDATE,
+				</when>
+				<when test='approval_distinct == "WS"'>
+					SSCESSION_WATIE_DATE = SYSDATE,
+				</when>
+				<when test='approval_distinct == "D"'>
+					RESTORATION_DATE = SYSDATE,
+				</when>
+			</choose>
+			APPROVAL_DISTINCT = #{approval_distinct}
+		</set>
+		<where>
+			<choose>
+				<when test="cmmnty_approval_id != null and cmmnty_approval_id != ''">
+					CMMNTY_APPROVAL_ID = #{cmmnty_approval_id}
+				</when>
+				<when test="member_id != null and member_id != ''">
+					<choose>
+						<when test="cmmnty_map_id != null and cmmnty_map_id != ''">
+							USR_ID = #{member_id}
+							AND CMMNTY_MAP_ID = #{cmmnty_map_id}
+						</when>
+						<otherwise>
+							1!=1
+						</otherwise>
+					</choose>
+				</when>
+			</choose>
+		</where>
+	</update>
+	<insert id="insertCmmntyapp">
+		INSERT INTO SRV_DT_CMMNTY_APPROVAL(
+			CMMNTY_APPROVAL_ID,
+			CMMNTY_MAP_ID,
+			APPROVAL_DATE,
+			APPROVAL_WATIE_DATE,
+			APPROVAL_DISTINCT,
+			USR_ID
+		)VALUES(
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SRV_DT_CMMNTY_APPROVAL_ID.nextval, -->
+			(SELECT MAX(CMMNTY_APPROVAL_ID)+1 FROM SRV_DT_CMMNTY_APPROVAL),
+			<!-- mng_e 20170713_주용민-->
+			#{cmmnty_map_id},
+			SYSDATE,
+			SYSDATE,
+			'A',
+			#{member_id}
+		)
+	</insert>
+	<select id="selectApprovalDistinctList" resultType="java.util.HashMap">
+		SELECT 
+			COUNT(1) AS CNT,
+			CASE
+				WHEN APPROVAL_DISTINCT = 'WA' THEN 'wait_access'--승인대기
+				WHEN APPROVAL_DISTINCT = 'WS' THEN 'wait_secede'--탈퇴대기
+				WHEN APPROVAL_DISTINCT = 'A' THEN 'access'--승인
+				WHEN APPROVAL_DISTINCT = 'S' THEN 'secede'--탈퇴
+				WHEN APPROVAL_DISTINCT = 'D' THEN 'return'--반려
+			END AS APPROVAL_DISTINCT
+		FROM SRV_DT_CMMNTY_APPROVAL
+		<where>
+			<choose>
+				<when test="cmmnty_map_id != null and cmmnty_map_id != ''">
+					CMMNTY_MAP_ID = #{cmmnty_map_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+		 GROUP BY APPROVAL_DISTINCT
+	</select>
+</mapper>

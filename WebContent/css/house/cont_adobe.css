@@ -1,0 +1,354 @@
+@charset "utf-8";
+/* style_housemap */
+.HouseMap h2, .HouseMap li, .HouseMap a, .HouseMap div, .HouseMap dt {box-sizing:border-box; font-family:'굴림', san-serif;}
+.HouseMap select { font-family: dotum,"돋움", sans-serif;border:#ddd solid 1px; height:26px;-webkit-appearance: none;  padding:0 20px 0 0; 
+ background:#fff url(/img/house/select_arrow.png) no-repeat right center; cursor:pointer; font-size:12px;}
+.HouseMap select::-ms-expand {display: none;}
+.HouseMap { padding:20px 15px; box-sizing:border-box;}
+.HouseMap h2 { font-family: "나눔고딕";display:block; position:relative; height:28px; background:#00bcd4; color:#fff; font-size:14px; font-weight:normal; padding:7px 0 0 10px; border-radius:15px; margin-bottom:15px; }
+.HouseMap input[type=checkbox] { position:absolute; right:10px; top:7px;}
+
+.SetArea { overflow:auto; margin-bottom:20px;}
+.SetArea dt { font-family: "나눔고딕";width:20%; float:left; font-size:12px; padding:7px 0 0 5px;}
+.SetArea dd { width:80%; float:left;}
+.SetArea dd select { width:48%;}
+
+.IndexSelect { position:relative; height:350px;}
+.IndexSelect a { font-family: "나눔고딕";display:inline-block; font-size:12px; position:relative;}
+.IndexSelect a:hover { color:#000;}
+.IndexSelect ul { position:absolute; left:140px; padding:10px 10px 5px 10px; border:#21b69a solid 2px; border-radius:4px; background:#fff; width:310px; visibility:hidden; box-sizing:border-box;}
+.IndexSelect ul:before { content:''; display:block; background:url(/img/house/icon_box_arrow.png) no-repeat left top; width:9px; height:17px; position:absolute; left:-9px;}
+.IndexSelect li { margin-bottom:20px;}
+/* .IndexSelect li.M_on:after { content:''; display:block; background:url(/img/house/icon_check.png) no-repeat left top; width:16px; height:14px; position:absolute; left:25px; top:5px;} */ 
+.IndexSelect li li { margin-bottom:15px;}
+.IndexSelect ul a { display:inline-block; font-size:11px; letter-spacing:-1px;}
+.IndexSelect ul span { display:inline-block; font-size:11px; position:absolute; left:auto; top:auto; padding:2px 2px; background:#999; color:#fff; border-radius:4px; }
+.IndexSelect ul span.bagic { font-family:'나눔고딕'; font-size:11px; color:#fff; background:#666; width:84px; height:17px; border-radius:9px;display:inline-block; vertical-align:middle; text-align:center; padding-top:3px; box-sizing:border-box; margin-left:4px; line-height:1; }
+.IndexSelect ul span.bagic strong { color:#ff0;}
+.IndexSelect ul span.SetStart { display:inline-block; width:120px; height:19px; border:#ddd solid 1px; border-radius:10px; box-sizing:border-box;font-family:'나눔고딕'; font-size:11px; color:#666; padding:1px 1px 1px 5px; line-height:1.4; vertical-align:middle; position:absolute; left:37px; top:20px;box-shadow:inset 3px 3px 3px #f4f4f4; background-color:#fff;}
+.IndexSelect ul span.SetStart button { width:30px; height:15px; font-size:11px; vertical-align:middle; background:#ececec; border:#ddd solid 1px; border-radius:8px; box-sizing:border-box; padding:0 !important; text-align:center; margin-left:2px; line-height:1; margin-top:-1px;}
+.IndexSelect ul span.SetStart button.M_on {background: linear-gradient(#0abfd6, #0d9caf); color:#fff; border:none;}
+.IndexSelect ul span.SetStepBar1 { display:inline-block; width:131px; height:19px; border:#ddd solid 1px; border-radius:10px; box-sizing:border-box;font-family:'나눔고딕'; font-size:11px; color:#666; padding:1px 1px 1px 5px; line-height:1.4; vertical-align:middle; position:absolute; left:156px; top:20px;box-shadow:inset 3px 3px 3px #f4f4f4; background-color:#fff;}
+.IndexSelect ul span.SetStepBar1 span { display:inline-block; width:78px; height:7px; background:url(/img/house/setstep_bg.png) no-repeat center center; vertical-align:middle; position:relative; margin-left:3px;}
+.IndexSelect ul span.SetStepBar1 span span.SetStopPoint { width:7px; height:7px; background: linear-gradient(#0abfd6, #0d9caf); position:absolute; top:0; margin-left:-3.5px; border-radius:4px;}
+
+.IndexSelect ul a.indecator-item { width:100%;}
+.IndexSelect img { vertical-align:middle; margin-right:5px;}
+.IndexSelect a img { opacity:0.4;}
+.IndexSelect a:hover img { opacity:1;}
+.IndexSelect .M_on a.indexL { color:#000;}
+.IndexSelect .M_on a.indexL img { opacity:1;}
+.IndexSelect .M_on a.indexL:after { content:''; display:block; background:url(/img/house/icon_check.png) no-repeat left top; width:16px; height:14px; position:absolute; left:22px; top:2px;}
+
+.IndexSelect.SetStep ul img { vertical-align:text-top !important; margin-right:8px;}
+
+
+.IndexSelect .M_on ul { visibility:visible;}
+.IndexSelect ul .M_on a { color:#000;}
+.IndexSelect ul .M_on a img { opacity:1;}
+.IndexSelect ul .M_on a:after { content:''; display:block; background:url(/img/house/icon_check.png) no-repeat left top; width:16px; height:14px; position:absolute; left:20px; top:2px;}
+.IndexSelect ul li { position:relative;}
+.IndexSelect .index1 ul {top:-10px;}
+.IndexSelect .index2 ul {top:0px;}
+.IndexSelect .index3 ul {top:70px;}
+.IndexSelect .index4 ul {top: -5px;}
+.IndexSelect .index5 ul {top:35px;}
+.IndexSelect .index6 ul {top:170px;}
+.IndexSelect .index7 ul {top:30px;}
+.IndexSelect .index1 ul:before { top:10px;}
+.IndexSelect .index2 ul:before { top:50px;}
+.IndexSelect .index3 ul:before { top:30px;}
+.IndexSelect .index4 ul:before { top:155px;}
+.IndexSelect .index5 ul:before { top:165px;}
+.IndexSelect .index6 ul:before { top:80px;}
+.IndexSelect .index7 ul:before { top:265px;}
+
+.IndexSelect.UnSelect a:hover { color:#666;}
+.IndexSelect.UnSelect a:hover img { opacity:0.4;}
+.IndexSelect.UnSelect .M_on a { color:#666;}
+.IndexSelect.UnSelect .M_on a img { opacity:0.4;}
+.IndexSelect.UnSelect .M_on ul li span { opacity:0.4;}
+.IndexSelect .UnSelect .bagic { opacity:0.5;}
+.IndexSelect .UnSelect .SetStart { opacity:0.5;}
+.IndexSelect .UnSelect .SetStepBar1 { opacity:0.5;}
+.IndexSelect.UnSelect li.sub-class.M_on span.MapKind { opacity: 0.4;}
+
+
+/* 설정된지표 
+.indexfine { overflow:auto;}
+.indexfine li { float:left; border:#ddd solid 1px; font-size:11px; height:29px; position:relative; margin-right:3px; padding:4px 5px; margin-bottom:3px;}
+.indexfine li span { vertical-align:middle; display:inline-block; box-sizing:border-box;margin-right:3px;}
+.indexfine li span.step { width:20px; height:20px; text-align:center; color:#fff; padding-top:4px; background:#999; border-radius:10px; }
+.indexfine li a {display:inline-block; vertical-align:middle; margin-left:5px;}*/
+
+.Btn_delete_all { font-size:11px; color:#333; background:url(/img/house/set_delete_all.png) no-repeat right center; padding-right:15px; position:absolute; right:10px; top:7px; }
+
+/* 중요도설정 바 */
+.SetStepBar { display:block; box-sizing:border-box; background:#fff; width:95px; height:20px; position:absolute; left:38px; top:17px; }
+.SetStepBar:before { content:''; display:block; box-sizing:border-box; background:#fff; border:#eee solid 1px; width:100%; height:5px; position:absolute; left:0px; top:7px; border-radius:3px;}
+.IndexSelect ul .M_on .SetStepBar:before {border-color:#999;}
+.IndexSelect ul .SetStepBar a.SetStopPoint { background:url(/img/house/setsep_point_off.png) no-repeat left top; width:11px; height:11px; top:4px;content:''; display:block; position:absolute; opacity:0.5; margin-left:-5px;}
+.IndexSelect ul .M_on .SetStepBar a.SetStopPoint { background:url(/img/house/setsep_point.png) no-repeat left top; width:11px; height:11px; opacity:1;left:0;}
+.IndexSelect ul .M_on .SetStepBar { border-color:#aaa;}
+
+.IndexSelect ul .SetStepBar a:after {display:none;}
+
+/* 지표별상세현황 */
+.IndexStatusBar { overflow:auto; margin-bottom:15px;}
+.IndexStatusBar .Depth1 { position:relative; float:left; height:25px; width:30%; border:#ccc solid 1px; border-top-left-radius:5px; border-bottom-left-radius:5px; background:-webkit-linear-gradient(#f1f1f1, #e2e1e0);  background:-ms-linear-gradient(#f1f1f1, #e2e1e0); text-align:center; font-size:14px; font-weight:bold; padding-top:7px;}
+
+.IndexStatusBar .Depth1 button{position:absolute;  top:10px;  text-indent:-1000px; overflow:hidden; width:12px; height:12px; border-left:#333 solid 1px; border-bottom:#333 solid 1px; outline: 0;}
+.IndexStatusBar .Depth1 button.ListFoward {left:15px; -webkit-transform:rotate(45deg);
+ -ms-transform:rotate(45deg);}
+ .IndexStatusBar .Depth1 button.ListNext {right:15px; -webkit-transform:rotate(-135deg);
+ -ms-transform:rotate(-135deg);
+
+}
+.IndexStatusBar .Depth2 { float:left; height:22px; width:65%;border:#ccc solid 1px; border-left:none;border-top-right-radius:5px; border-bottom-right-radius:5px; padding:5px 10px;overflow: hidden;}
+.IndexStatusBar .Depth2 a { color:#999; display:inline-block; padding:4px 3px; margin:0 3px;font-size:12px;}
+.IndexStatusBar .Depth2 a:hover {color:#666;}
+.IndexStatusBar .Depth2 a.M_on { color:#333; font-weight:bold;}
+
+.IndexSelect li.sub-class.M_on span.MapKind { opacity: 1;}
+.IndexSelect ul span.MapKind { font-family: dotum,"돋움", sans-serif;display:inline-block; font-size:11px; position:absolute; left:37px; top:20px; padding:2px 4px; color:#fff; border-radius:4px;opacity: 0.5;} /* 2017.11.06 [개발팀] css수정 */
+.IndexSelect ul span.MapKind.type1 { background: #597188;}
+.IndexSelect ul span.MapKind.type2 { background:#619bb6;}
+.IndexSelect ul span.MapKind.type3 { background:#2f4d6a;}
+.IndexSelect ul img {vertical-align:top;margin-right:7px;}
+
+/* 소지역정보 탭 */
+
+.ThisAreaInfo { width:100%;height:300px; margin-bottom:15px; border:#ccc solid 1px; border-radius:5px;}
+.ThisAreaInfo ul { position:relative;}
+.ThisAreaInfo ul li { float:left; width:33.3%;}/* 25% -> 33.3%로 변경 */
+.ThisAreaInfo ul li a { display:block; text-align:center; font-size:12px; border-left:#ccc solid 1px;border-bottom:#ccc solid 1px; background:#f2f2f2; height:22px; padding-top:5px; color:#999;}
+.ThisAreaInfo ul li:first-child a { border-left:none; border-top-left-radius:5px;}
+.ThisAreaInfo ul li:last-child a { border-top-right-radius:5px;}
+
+.ThisAreaInfo ul li a:hover {color:#333;}
+.ThisAreaInfo ul li.M_on a.Title { background:#fff; border-bottom:none; color:#333;}
+.ThisAreaInfo ul li .chart { position:absolute; width:100%; height:240px; left:0; top:35px; background:#fff; padding:0 15px; box-sizing:border-box; display:none;}
+.ThisAreaInfo ul li .chart .radio { border-bottom: 1px solid #e1e1e1;padding-bottom: 10px;padding-top:5px;font-size: 11px;}
+.ThisAreaInfo ul li.M_on .chart { display:block;}
+
+/* 데이터보드에서 아산시 고유정보 */
+.RadioTab {width: 530px;height: auto;overflow: hidden;margin: 10px auto 0 auto;padding: 0 20px;}
+.RadioTab li {width:45%;float: left;height: 40px;overflow: hidden;margin-bottom: 5px;}
+.RadioTab li>a {display: block;height: 40px;padding: 0 10px;overflow: hidden;border-radius: 10px;line-height: 40px;border: #ccc solid 1px;background: #f4f4f4;margin: 0 0 0 5px;font-size: 12px;text-align: center;box-sizing: border-box; position:relative; box-shadow:2px 2px 2px #f4f4f4;}
+.RadioTab li>a.on {background: #00bcd4;color: #fff;border: none;}
+.RadioTab li>a.on:after { content:''; display:block; width:8px; height:5px; border-left:#ffea01 solid 2px; border-bottom:#ffea01 solid 3px; -webkit-transform:rotate(-45deg); -ms-transform:rotate(-45deg); position:absolute; left:10px; top:3px;}
+
+.RadioTab li a img { vertical-align:middle;}
+.RadioTab li a img:first-child { position:absolute; left:5px; top:3px;}
+.RadioTab li a:nth-child(2n) { margin-right:0%;}
+.RadioTab li a img:last-child { position:absolute; right:5px; top:8px;}
+
+/* 주거현황보기, 추천지역찾기 버튼 */
+.sideQuick.sq01_01,
+.sideQuick.sq01_02,
+.sideQuick.sq01_03{top:36px;z-index:2000;width:auto; padding:0 7px;}
+.sideQuick.sq01_01{left:5px;}
+.sideQuick.sq01_02{left:115px;}
+.sideQuick.sq01_03{left:225px;}
+.sideQuick span {padding:0 5px 0 0;}
+
+.quickBox,.quickBox .scrollBox{width:478px;}/*20160721 .quickBox,.quickBox .scrollBox{width:345px;}*/
+.quickBox.step01{top:68px;left:-478px;}/*20160721 .quickBox.step01{top:68px;left:-478px;}*/
+
+.flower-chart{overflow: hidden;position: relative;height: 265px;width: 100%;float:left;}
+
+/*차트 통계 값*/
+.ChartStats { padding-right:15px; margin-top: -30px;}
+.ChartStats div { margin-bottom: 10px; padding-left:10px; position:relative; font-size:12px;}
+.ChartStats div span { color:#c33;}
+.ChartStats div:first-child {margin-left:0;}
+.ChartStats div:before { content:''; display:block; width:4px; height:4px; position:absolute; left:0; top:7px; background:#999; border-radius:3px;}
+
+/*상위 지역 이동 버튼*/
+.MapBefore {float: left;background: #00bcd4 url(../../img/house/icon_arrow_left.png) no-repeat center center;margin: 6px -7px 0 6px;height: 23px;width: 23px; text-indent: -1000px;overflow: hidden;border-radius: 12px;}
+.rqListBox li>ol>li>a>img,.rqListBox li>ol.other>li>img{position: static;float: left;margin-right: 5px;}
+.rqListBox li>ol.other {margin-left: 90px;margin-top: -20px;z-index: 100;width: 110px;padding: 5px;}
+
+.rqListBox li>ol.other:before {content: '';display: block;width: 15px;height: 15px;position: absolute;background: url(../../img/ico/ico_arr02.png);transform: rotate(-90deg);left: -15px;margin: 0;z-index: 101;}
+.rqListBox li>ol.other>li {width: auto;margin: 2px 0;float:none;}
+.rqListBox li>ol.other>li>a {text-indent: 0;padding: 0 5px;line-height: 24px;height: 24px;text-align:left; }
+.rqListBox li>ol.other>li>a:hover {text-decoration: underline;}
+.interactiveDataBoard.disabled,.interactiveDataBoard.disabled:hover{background-color: #999;opacity: 0.5 !important;cursor: Default;}
+
+.interactiveBar a > img {vertical-align:top !important; margin:6px 0 0 0 !important;} 
+
+
+/* 지표현황 */
+.House_Index_Info { position:fixed; width:100%; height:100%; z-index:10000; top:0;box-sizing:border-box; min-width:900px;}
+.House_Index_Info .Blackbg { position:fixed; width:100%; height:100%; background:#000; opacity:0.5;}
+.House_Index_Info .ContBox { position:absolute; width:95%; width:calc(100% - 40px); height:95%; height:calc(100% - 40px); background:#fff; box-sizing:border-box; left:20px; top:20px; z-index:10001; padding:20px; border-radius:10px; overflow:auto;}
+.House_Index_Info .ContBox .BtnClose { position:absolute; right:15px; top:15px; background:url(../../img/house/icon_index_close.png) no-repeat left top; display:block; width:16px; height:16px; text-indent:-1000px; overflow:hidden; }
+.House_Index_Info .ContBox h1 {font-weight:normal; font-family:"나눔고딕B";  font-size:18px; color:#333; background:url(../../img/house/icon_index_title.png) no-repeat left 3px; padding-left:25px; padding-bottom:5px; margin-bottom:15px; } 
+.House_Index_Info .ContBox .Tab { overflow:auto; margin-bottom:20px;}
+.House_Index_Info .ContBox .Tab li { float:left; width:14%;}
+.House_Index_Info .ContBox .Tab li:first-child { width:15%;}
+.House_Index_Info .ContBox .Tab li:last-child { width:15%;}
+.House_Index_Info .ContBox .Tab li a { display:block; text-align:center; border:#ccc solid 1px; border-left:none; padding-top:8px; background:#f2f2f2; font-size:14px; height:36px; box-sizing:border-box;}
+
+.House_Index_Info .ContBox .Tab li:first-child a { border-left:#ccc solid 1px; border-top-left-radius:5px;border-bottom-left-radius:5px; }
+.House_Index_Info .ContBox .Tab li:last-child a { border-top-right-radius:5px;border-bottom-right-radius:5px; }
+.House_Index_Info .ContBox .Tab li a.M_on {background:#fff; font-family:"나눔고딕B"; background:#036; color:#fff;padding-top:7px; border:none; position:relative;}
+
+.House_Index_Info .ContBox table { width:100%; width:calc(100% - 40px); height:calc(100% - 130px); border-collapse:collapse; position:absolute; left:20px; top:110px; }
+.House_Index_Info .ContBox table thead { height:34px; position:relative;}
+.House_Index_Info .ContBox table thead th { background:#369; color:#fff; font-weight:bold; text-align:center; padding:10px; font-family:dutum,"돋움",sans-serif; font-size:12px; box-sizing:border-box; white-space:nowrap; position:relative;}
+.House_Index_Info .ContBox table thead th:before { content:''; display:block; width:1px; height:15px; background:#fff; position:absolute; left:0; top:9px; opacity:0.5;}
+
+.House_Index_Info .ContBox table thead th:first-child:before { width:0; height:0;}
+.House_Index_Info .ContBox table tbody {width:100%; max-height:calc(100% - 34px);overflow-y:auto;position:absolute; left:0px; top:34px; border-bottom:#ddd solid 1px; }
+.House_Index_Info .ContBox table tbody td { border-left: #ddd solid 1px;border-bottom:#ddd solid 1px; padding:10px; font-family:dutum,"돋움",sans-serif; font-size:12px; box-sizing:border-box; line-height:1.8;/* word-break: keep-all; */ }
+.House_Index_Info .ContBox table tbody tr:last-child td { border-bottom:none;}
+
+.House_Index_Info .ContBox table thead th:first-child { border-left:none; width:125px;  }
+.House_Index_Info .ContBox table thead th:nth-child(2) { width:130px; }
+.House_Index_Info .ContBox table thead th:nth-child(3) { width:100px; }
+.House_Index_Info .ContBox table thead th:nth-child(4) { width:130px; }
+.House_Index_Info .ContBox table thead th:nth-child(5) { width:140px; }
+.House_Index_Info .ContBox table thead th:nth-child(6) { width:auto; }
+.House_Index_Info .ContBox table tbody td:first-child { border-left:none;text-align:center; width:125px;}
+.House_Index_Info .ContBox table tbody td:nth-child(2) { width: 130px; text-align:center;}
+.House_Index_Info .ContBox table tbody td:nth-child(3) { width: 100px; text-align:center; }
+.House_Index_Info .ContBox table tbody td:nth-child(4) { width: 130px; text-align:center; }
+.House_Index_Info .ContBox table tbody td:nth-child(5) { width: 140px; text-align:center; }
+.House_Index_Info .ContBox table tbody td:nth-child(6) { width:auto; }
+
+@media only all and (min-width:1300px) {
+	.House_Index_Info .ContBox { width:1260px; left:50%; margin-left:-630px;}
+}
+
+/* 데이타보드 추가분 2016-0719 */
+.IndexStatusBar1 {  position:relative; height:50px; background:url(/img/house/IndexStatusBar1_bg.png) no-repeat left 28px; display:inline-block;}
+.IndexStatusBar1 ul { overflow:auto;padding-left:1px; width:100%;}
+.IndexStatusBar1 li { float:left; width:75px; margin-left:-1px; font-family:'나눔고딕';}
+.IndexStatusBar1 li.M_on a {background: linear-gradient(#0abfd6, #0d9caf);border:#0d9caf solid 1px;color:#fff; position:relative; height:28px;}
+.IndexStatusBar1 li:nth-child(5) { width:76px;}
+.IndexStatusBar1 li a { display:block; background: linear-gradient(#e4e4e4, #ccc); border:#ccc solid 1px; text-align:center; height:28px; font-size:11px; color:#444;font-family:'나눔고딕'; padding-top:5px; box-sizing: border-box;}
+.IndexStatusBar1 li:first-child a { border-top-left-radius:5px;}
+.IndexStatusBar1 li:last-child a { border-top-right-radius:5px;}
+.IndexStatusBar1 li ul { position:absolute; left:0; top:30px; display:none;}
+/* .IndexStatusBar1 li:nth-child(1) ul { left:10px;} */
+/* .IndexStatusBar1 li:nth-child(2) ul { left:10px;} */
+/* .IndexStatusBar1 li:nth-child(3) ul { left:10px;} */
+/* .IndexStatusBar1 li:nth-child(4) ul { left:200px;} */
+/* .IndexStatusBar1 li:nth-child(5) ul { left:160px;} */
+/* .IndexStatusBar1 li:nth-child(6) ul { left:300px;} */
+/* .IndexStatusBar1 li:nth-child(7) ul { left:120px;} */
+.IndexStatusBar1 li.M_on ul { display:block;}
+.IndexStatusBar1 li.M_on ul li { display:inline-block; width:auto; margin-right:10px;}
+.IndexStatusBar1 li.M_on ul li a { font-size:11px; color:#666; background:none; display:inline-block; text-align:left; height:auto; border:none;}
+.IndexStatusBar1 li.M_on ul li.M_on a { color:#000; font-family:'나눔고딕B';}
+
+
+/* 방사형 차트 종합정보 */
+.TotalInfo { font-family:'나눔고딕'; color:#555; margin-bottom:10px;}
+.TotalInfo ul { text-align:center; border:#ccc solid 1px; border-bottom:none; border-top-left-radius:5px;border-top-right-radius:5px; padding:4px 0;}
+.TotalInfo ul li { display:inline-block; font-size:11px;}
+.TotalInfo p { background:#efefef; text-align:center; border:#ccc solid 1px; border-bottom-left-radius:5px;border-bottom-right-radius:5px; font-size:12px;padding:4px 0;}
+.TotalInfo p span { font-family:'나눔고딕B'; color:#336699;}
+.TotalInfo p strong { font-family:'나눔고딕B'; color:#c30; font-size:14px;}
+
+
+/* 지역별 지표 */
+.AreaIndex { overflow:visible;}
+.AreaIndex a { display:inline-block; float:left; border:#ddd solid 1px; width:49%; margin-right:2%; box-sizing:border-box; border-radius:18px; font-size:12px;font-family:'나눔고딕B'; padding:3px; position:relative; box-shadow:2px 2px 2px #f4f4f4; overflow:auto;}
+.AreaIndex a img { vertical-align:middle;}
+.AreaIndex a img:first-child { margin-right:5px;}
+.AreaIndex a:nth-child(2n) { margin-right:0%;}
+.AreaIndex a img:last-child { position:absolute; right:10px; top:10px;}
+.AreaIndex a.Select:before { content:''; display:block; background:url(/img/house/icon_check.png) no-repeat left top; width:16px; height:14px; position:absolute; left:25px; top:5px;}
+
+/*차트 카테고리*/
+.Spider_default {cursor:pointer; text-align:center;}
+.spider_on {border-radius: 25px; font-size: 13px; color: #fff; padding: 6px 5px 0px 5px;
+			display: block; height: 50px; width: 50px; text-align: center; white-space: normal;
+			line-height: 1; box-sizing: border-box; }
+.Spider_HML0001 {background-color:#7fad3e; padding-top: 19px; margin-top: -25px;margin-left: -12px;}
+.Spider_HML0002 {background-color:#197ebf; padding-top: 19px; margin-top: -15px; margin-left: -15px;}
+.Spider_HML0003 {background-color:#db4c60; padding-top: 12px; margin-top: 5px; margin-left: -12px;}
+.Spider_HML0004 {background-color:#deaa00; padding-top: 19px; margin-top: -15px; margin-left: -3px;}
+.Spider_HML0005 {background-color:#e5632f; margin-top: -10px;}
+.Spider_HML0006 {background-color:#7e3874; padding-top: 19px; margin-top: -15px; margin-left: -15px;}
+.Spider_HML0007 {background-color:#1c2c81; padding-top: 12px; margin-top: -15px; margin-left: 10px;}
+
+/*차트 툴팁*/
+.label { z-index: 1!important;}
+.highcharts-tooltip span { background-color:#ffF; padding: 0px; z-index:9999!important;}
+.tooltip { padding:0px;}
+
+#detailChart5>.highcharts-container{overflow:visible !important;}
+
+/* 라이프스타일 가이드 지표 설정 */
+.Btn_lifestyle { background:#fff; padding-left:5px; padding-right:12px; padding-top:1px; color:#066; font-size:11px; box-sizing:border-box; position:absolute; right:30px; height:16px; border-radius:8px; line-height:16px;}
+.Btn_lifestyle:after { content:''; display:block; background:url(/img/house/life_btn_open.png) no-repeat center center; width:5px; height:3px; position:absolute; right:5px; top:7px;}
+.Btn_lifestyle.close:after { background-image:url(/img/house/life_btn_open.png);}
+.Btn_lifestyle.open:after { background-image:url(/img/house/life_btn_close.png);}
+.LifeStyleGuide { overflow:hidden; width:100%; height:0px;} 
+.LifeStyleGuide.open { height:auto; overflow:auto;margin-top:-26px; margin-bottom:10px;}
+.LifeStyleGuide li { float:left; width:64px;  }
+.LifeStyleGuide li:nth-child(1) a { background-image:url(/img/house/life_icon_1.png);}
+.LifeStyleGuide li:nth-child(2) a { background-image:url(/img/house/life_icon_2.png);}
+.LifeStyleGuide li:nth-child(3) a { background-image:url(/img/house/life_icon_3.png);}
+.LifeStyleGuide li:nth-child(4) a { background-image:url(/img/house/life_icon_4.png);}
+.LifeStyleGuide li:nth-child(5) a { background-image:url(/img/house/life_icon_5.png);}
+.LifeStyleGuide li:nth-child(6) a { background-image:url(/img/house/life_icon_6.png);}
+.LifeStyleGuide li:nth-child(7) a { background-image:url(/img/house/life_icon_7.png);}
+.LifeStyleGuide li:first-child a { margin-left:0; border-bottom-left-radius:10px;}
+.LifeStyleGuide li:last-child a { border-bottom-right-radius:10px;}
+.LifeStyleGuide li a {height:77px; display:block; border:#00bcd4 solid 1px; margin-left:-1px; font-size:11px; font-family:'돋움', dotum, sans-serif; box-sizing:border-box; text-align:center;-webkit-transition-duration:0.1s; transition-duration:0.1s;overflow:hidden; background:#bedfe3 no-repeat center bottom;}
+.LifeStyleGuide li a span {background:rgba(0, 0, 0, 0);-webkit-transition-duration:0.1s; transition-duration:0.1s; padding-top:80px; display:block; text-align:center; height:77px;}
+.LifeStyleGuide li a:hover { border-color:#333; position:relative;}
+.LifeStyleGuide li a:hover span {padding-top:25px; word-break:keep-all; background:rgba(0, 0, 0, 0.5); color:#fff;}
+.LifeStyleGuide li.M_on a { border-color:#333; position:relative;}
+.LifeStyleGuide li.M_on a span {padding-top:80px; word-break:keep-all; background:rgba(0, 0, 0, 0.5); }
+.LifeStyleGuide li.M_on a span:after { content:''; background:url(/img/house/life_icon_select.png) no-repeat left top; width:21px; height:21px; display:block; position:absolute; left:calc(50% - 10px); top:35px;-webkit-transition-duration:0.1s; transition-duration:0.1s;}
+.LifeStyleGuide li.M_on a:hover span {padding-top:35px;}
+.LifeStyleGuide li.M_on a:hover span:after {top:12px;}
+
+.btnBottom{height:41px;}
+.ui-tooltip {z-index: 10001;}
+.dataBoardDiv .dscList .List a{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+
+/*========== 2017.11.01 [개발팀] LBDMS 데이터연계 START ==========*/
+/* 타이틀 및 관리자버튼 */
+.SearhTitle { font-size:14px; color:#666; position:absolute; left:50%; top:42px; width:500px; margin-left:-250px; z-index:1000; text-align:center;}
+.dataManageBtn { height:27px; border:#ccc solid 1px; border-radius:3px; font-size:12px; font-family:'나눔고딕B'; color:#333; padding:0 5px;}
+.dataManageBtn img { vertical-align:middle; margin-right:5px;}
+
+.FuseResult { width:1300px; height:670px; background:#fff; position:absolute; left:calc(50% - 650px); top:calc(50% - 325px);}
+.FuseResult h3 {width:100%; height:43px; box-sizing:border-box;color:#fff;background:#444b5b; font-size:16px; padding-top:10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align:center;border-bottom: 1px solid #666;}
+.FuseResult h3 span { display:inline-block; background:url(/img/policyStatic/fusion_title_bg.png) no-repeat left top; width:81px; height:32px; box-sizing:border-box; color:#fff; margin-left:-3px; padding:7px 0 0 13px; font-size:14px;font-family:'나눔고딕'; vertical-align:middle; margin-right:10px;}
+.FuseResult .btn_close { display:block; background:url(/img/policyStatic/fusion_btn_close.png) no-repeat center center; width:15px; height:15px; border:none; position:absolute; right:15px; top:13px; text-indent:-1000px; overflow:hidden;}
+.FuseResult .ContArea {margin:10px 15px 0 15px;}
+.FuseResult tr {height:25px; line-height:30px;}
+.FuseResult fieldset {border:none; height:50px; text-align:center; margin-top:15px;}
+.FuseResult .Btn_Group { text-align:center;}
+.FuseResult .Btn_Group button {min-width:150px;padding:0 10px; height:40px; box-sizing:border-box; background:#666; font-size:14px; color:#fff;}
+.FuseResult .Btn_Group button:hover {opacity:0.7}
+.FuseResult .searchBtn {width:60px;padding:0 10px; height:30px; box-sizing:border-box; background:#4f87b6; font-size:14px; color:#fff;}
+.FuseResult_Layer {display:block; width:100%; height:100%; left:0; top:0; position:fixed; background:rgba(0, 0, 0, 0.7); z-index: 10001; }
+.FuseResult_layer {display:block; width:0%; height:0%; left:-1000px; top:-1000px; position:fixed; background:rgba(0, 0, 0, 0.7); z-index:1001; }
+.FuseResult_layer.M_on {width:100%; height:100%; left:0; top:0;}
+.FuseResult_Layer .relationMapArea {width:740px;height:400px;background:#fff;position:absolute;margin:0 auto;left:calc(50% - 370px);top:calc(50% - 150px);}
+.relationMapArea h3 {width:100%; height:43px; box-sizing:border-box;color:#fff;background:#444b5b; font-size:16px; padding-top:10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align:center;border-bottom: 1px solid #666; }
+.relationMapArea h3 span { display:inline-block;height:32px; box-sizing:border-box; color:#fff; margin-left:-3px; padding:7px 15px 0 13px; font-size:14px;vertical-align:middle; margin-right:10px; position:relative;}
+.relationMapArea .btn_close { display:block; background:url(/img/policyStatic/fusion_btn_close.png) no-repeat center center; width:15px; height:15px; border:none; position:absolute; right:15px; top:13px; text-indent:-1000px; overflow:hidden;}
+.relationMapArea .contents{height:270px;padding: 10px 10px 0 20px;}
+.pagenation1{position: relative;margin: 0 auto;text-align: center;overflow: hidden;padding-bottom: 20px; padding-top:20px;}
+.pagenation1 a{display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation1 a.page.data{background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+.pagenation1 a.page{border-left: none;color: #666;}
+
+.inp{width:calc( 100% - 22px );height:28px;overflow:hidden;padding:0 10px;border:1px solid #ccc;font-size:13px;color:#333;}
+
+.TB_02 { width:100%; margin-bottom:20px;}
+.TB_02 caption { position:absolute; height:0; width:0; overflow:hidden; }
+.TB_02 thead th { font-weight: normal;  font-family: "나눔고딕B"; background: #f4f4f4; border: #ddd solid 1px; font-size: 14px;  padding: 5px;}
+.TB_02 thead th:first-child label { position:absolute; width:0; height:0; overflow:hidden;}
+.TB_02 tbody th { font-weight: normal; background: #f4f4f4; border: #ddd solid 1px; font-size: 14px;  padding: 4px;}
+.TB_02 tbody td { font-weight: normal; border: #ddd solid 1px; font-size: 14px;  padding: 4px; text-align:center;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;}
+/*========== 2017.11.01 [개발팀] LBDMS 데이터연계 END ==========*/

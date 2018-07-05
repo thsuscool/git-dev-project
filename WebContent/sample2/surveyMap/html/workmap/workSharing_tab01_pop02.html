@@ -1,0 +1,158 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="../../include/css/research.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="../../include/css/ui.easytree_new.css" />
+    <link rel="stylesheet" type="text/css" href="../../include/css/colpick.css" />
+    <script type="text/javascript" src="../../include/js/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="../../include/js/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="../../include/js/colpick.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="../../include/js/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="../../include/js/colResizable-1.5.min.js"></script>
+	<script type="text/javascript" src="../../include/js/highcharts.js"></script> 
+    <script type="text/javascript" src="../../include/js/reserchEtc.js"></script> 
+</head>
+
+<body>   
+<div id="wrap">  
+</div>
+ 
+<!-- 조사원 목록 -->
+<div class="dialogbox" id="dialogAuto" style="display:block"> 
+	<div class="popBox wsType01">
+		<div class="topbar">
+			<span>조사원 목록</span>
+			<a href="javascript:void(0)" class="close01">닫기</a>
+		</div>
+		<div class="popContents">
+			<div class="popNorBox"> 
+				<div class="mpForm t01">
+					<select class="select w80" name="">
+						<option>사무소</option> 
+					</select>
+					<select class="select w80" name="">
+						<option>권한</option> 
+					</select>
+					<select class="select w80" name="">
+						<option>ID</option> 
+					</select>
+					<input type="text" class="inp w80" name="">
+					<a href="javascript:void(0)">검색</a>
+				</div> 
+				<table class="wmTable">
+					<colgroup>
+						<col width="31" />
+						<col width="60" />
+						<col width="" />  
+						<col width="" />
+						<col width="" />
+						<col width="" />
+					</colgroup> 
+						<tr>
+							<th><input type="checkbox" class="ckall" onclick="checkall(this)" name="" /></th>
+							<th>이름</th>
+							<th>ID</th>
+							<th>소속</th>
+							<th>컬럼1</th>
+							<th>컬럼2</th>
+						</tr>    
+					</tbody>
+				</table> 
+				<div class="popTableScrollArea h250">
+					<table class="wmTable">
+						<colgroup>
+							<col width="30" />
+							<col width="60" />
+							<col width="" />  
+							<col width="" />
+							<col width="" />
+							<col width="" />  
+						</colgroup>         
+						<tr>
+							<td><input type="checkbox" class="cketc" name="" /></td>   
+							<td class="al"><a href="javascript:void(0)">김영호</a></td>
+							<td>kairos123</td>
+							<td>서울사무소</td>
+							<td>3333</td> 
+							<td>010-3159-1515</td> 
+						</tr> 
+					</table> 
+				</div>  
+			</div>
+		</div>
+		<div class="topbar t01">
+			<span>변동 조사원 목록</span> 
+		</div>
+		<div class="popContents">
+			<div class="popNorBox"> 
+ 
+				<table class="wmTable">
+					<colgroup>
+						<col width="31" />
+						<col width="60" />
+						<col width="" />  
+						<col width="" />
+						<col width="" />
+						<col width="" />
+					</colgroup> 
+						<tr>
+							<th><input type="checkbox" class="ckall" onclick="checkall(this)" name="" /></th>
+							<th>이름</th>
+							<th>ID</th>
+							<th>소속</th>
+							<th>컬럼1</th>
+							<th>컬럼2</th>
+						</tr>    
+					</tbody>
+				</table>
+				<div class="popTableScrollArea h150">
+					<table class="wmTable">
+						<colgroup>
+							<col width="30" />
+							<col width="60" />
+							<col width="" />  
+							<col width="" />
+							<col width="" />
+							<col width="" />  
+						</colgroup>         
+						<tr>
+							<td><input type="checkbox" class="cketc" name="" /></td>   
+							<td class="al"><a href="javascript:void(0)">김영호</a></td>
+							<td>kairos123</td>
+							<td>서울사무소</td>
+							<td>3333</td> 
+							<td>010-3159-1515</td> 
+						</tr> 
+					</table> 
+				</div> 
+				<div class="btnbox">  
+					<div class="fr">
+						<a href="javascript:void(0)" class="btnType06" onclick="">선택</a>
+						<a href="javascript:void(0)" class="btnType06" onclick="">닫기</a>
+					</div> 
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+	 
+</body>
+</html>

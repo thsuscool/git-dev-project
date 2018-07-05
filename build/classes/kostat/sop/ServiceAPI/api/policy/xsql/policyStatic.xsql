@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="policyStatic">
+	
+	<!-- 메뉴별 시작, 종료, 년도 사이틀 조회 -->
+	<select id="menuYearInfo" parameterType="hashmap" resultType="hashmap">	
+		select 
+			start_year, 
+			end_year, 
+			year_cycle 
+		from 
+		SRV_DT_REGION_DMAND_MLSFC_IX
+			where lclas_id = #{lclas_id}
+			and mlsfc_id = #{mlsfc_id}
+	</select>
+	
+	<!-- 대메뉴 정보-->
+	<select id="lclasList" parameterType="hashmap" resultType="hashmap">	
+		select 
+			to_int(lclas_id) as lclas_type,
+			lclas_id,
+			ix_nm,
+			ix_exp
+		from 
+		SRV_DT_REGION_DMAND_LCLAS_IX
+		order by lclas_id;
+	</select>
+	
+	<!-- 대메뉴별 중메뉴 정보 -->
+	<select id="mlsfcList" parameterType="hashmap" resultType="hashmap">	
+		select 
+			lclas_id,
+			mlsfc_id,
+			ix_nm, 
+			b_menu_nm,
+			b_menu_id,
+			menu_type,
+			api_id,
+			input_nm,
+			param as filter_param,
+			nvl(value, '') as value,
+			start_age,
+			end_age,
+			call_url
+		from 
+		SRV_DT_REGION_DMAND_MLSFC_IX
+			where use_yn  = '1'
+			and lclas_id = #{lclas_id}
+		order by lclas_id, order, to_int(mlsfc_id)
+	</select>
+	<insert id="insertWrite">
+		<selectKey keyProperty="policy_stat_map_serial" resultType="Integer" order="BEFORE">
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SELECT SRV_DT_POLICY_STAT_MAP_ID.NEXTVAL FROM DUAL -->       
+			SELECT MAX(POLICY_STAT_MAP_SERIAL)+1 FROM SRV_DT_POLICY_STAT_MAP
+			<!-- mng_e 20170713_주용민-->
+		</selectKey>
+		INSERT INTO SRV_DT_POLICY_STAT_MAP(
+			POLICY_STAT_MAP_SERIAL, 
+			DIV_CD, 
+			REGION_CD, 
+			TITLE, 
+			EXP, 
+			URL, 
+			NOMFRM, 
+			SRV_DISTANCE, 
+			REG_MEMBER_ID, 
+			REG_TS
+		)VALUES(
+			#{policy_stat_map_serial}, 
+			#{div_cd}, 
+			#{region_cd}, 
+			#{title}, 
+			#{exp}, 
+			#{url},
+			#{nomfrm},
+			#{srv_distance},
+			#{reg_member_id},
+			SYSDATE
+		)
+	</insert>
+	<insert id="insertCommunity">
+		INSERT INTO SRV_DT_POLICY_COMMUNITY(
+			policy_stat_map_serial, 
+			cmmnty_map_id
+		)VALUES(
+			#{policy_stat_map_serial}, 
+			#{cmmnty_map_id}
+		)
+	</insert>
+	<insert id="insertApiInfo">
+		<selectKey keyProperty="api_info_serial" resultType="Integer" order="BEFORE">
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SELECT SRV_DT_POLICY_STAT_MAP_API_INFO_ID.NEXTVAL FROM DUAL -->       
+			SELECT MAX(API_INFO_SERIAL)+1 FROM SRV_DT_POLICY_STAT_MAP_API_INFO
+			<!-- mng_e 20170713_주용민-->
+		</selectKey>
+		INSERT INTO SRV_DT_POLICY_STAT_MAP_API_INFO(
+			API_INFO_SERIAL,
+			POLICY_STAT_MAP_SERIAL, 
+			DATA_DIV_CD, 
+			API_ID, 
+			CALL_URL, 
+			DISP_TYPE, 
+			DISP_VALUE,
+			DISP_NM, 
+			DISP_UNIT,
+			BND_YEAR
+		)VALUES(
+			#{api_info_serial}, 
+			#{policy_stat_map_serial}, 
+			#{data_div_cd}, 
+			#{api_id}, 
+			#{call_url}, 
+			#{disp_type}, 
+			#{disp_value},
+			#{disp_nm}, 
+			#{disp_unit},
+			#{bnd_year}
+		)
+	</insert>
+	<insert id="insertApiParam">
+		INSERT INTO SRV_DT_POLICY_STAT_MAP_API_PARAM(
+			API_INFO_SERIAL, 
+			POLICY_STAT_MAP_SERIAL, 
+			VALUE, 
+			PARAM
+		)VALUES(
+			#{api_info_serial}, 
+			#{policy_stat_map_serial}, 
+			#{value}, 
+			#{param}
+		)
+	</insert>
+	<sql id="sql_policy_stat_map_serial">
+		<choose>
+			<when test="policy_stat_map_serial!=null and policy_stat_map_serial!=''">
+				POLICY_STAT_MAP_SERIAL = #{policy_stat_map_serial}
+			</when>
+			<otherwise>
+				1!=1
+			</otherwise>
+		</choose>
+	</sql>
+	<delete id="deleteWrite">
+		DELETE FROM SRV_DT_POLICY_STAT_MAP
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</delete>
+	<delete id="deleteCommunity">
+		DELETE FROM SRV_DT_POLICY_COMMUNITY
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</delete>
+	<delete id="deleteApiInfo">
+		DELETE FROM SRV_DT_POLICY_STAT_MAP_API_INFO
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</delete>
+	<delete id="deleteApiParam">
+		DELETE FROM SRV_DT_POLICY_STAT_MAP_API_PARAM
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</delete>
+	<sql id="where_policy_list_search">
+		<where>
+			<trim prefixOverrides="AND">
+				<if test="region_cd!=null and region_cd!=''">
+					<choose>
+						<when test="region_cd_type == 'list'">
+							<foreach collection="region_cd_list" separator="AND" item="item" open="AND (" close=")">
+								REGION_CD LIKE '%'||#{item}||'%'
+							</foreach>
+						</when>
+						<otherwise>
+							AND REGION_CD LIKE #{region_cd}||'%'
+						</otherwise>
+					</choose>
+				</if>
+				<if test="search_word!=null and search_word!=''">
+					AND UPPER(TITLE) LIKE '%'||UPPER(#{search_word})||'%'
+				</if>
+			</trim>
+		</where>
+	</sql>
+	<select id="selectPolicyCount" resultType="int">
+		SELECT COUNT(1) FROM SRV_DT_POLICY_STAT_MAP
+		<include refid="where_policy_list_search"/>
+	</select>
+	<select id="selectPolicyList" resultType="hashmap">
+		SELECT 
+			POLICY_STAT_MAP_SERIAL, 
+			DIV_CD, 
+			REGION_CD, 
+			TITLE, 
+			EXP, 
+			URL, 
+			NOMFRM, 
+			SRV_DISTANCE, 
+			REG_MEMBER_ID,
+			CASE 
+				WHEN REG_MEMBER_ID = ''||#{member_id} THEN 'Y'
+				ELSE 'N'END
+			AS IS_WRITER,
+			TO_CHAR(REG_TS,'yyyy.mm.dd') AS REG_TS
+		FROM SRV_DT_POLICY_STAT_MAP
+		<include refid="where_policy_list_search"/>
+		ORDER BY REG_TS DESC, POLICY_STAT_MAP_SERIAL DESC
+		LIMIT ${last_num},${page_size}
+	</select>
+	<select id="selectPolicy" resultType="hashmap">
+		SELECT 
+			POLICY_STAT_MAP_SERIAL, 
+			DIV_CD, 
+			REGION_CD, 
+			TITLE, 
+			EXP, 
+			URL, 
+			NOMFRM, 
+			SRV_DISTANCE, 
+			REG_MEMBER_ID,
+			CASE 
+				WHEN REG_MEMBER_ID = ''||#{member_id} THEN 'Y'
+				ELSE 'N'END
+			AS IS_WRITER, 
+			TO_CHAR(REG_TS,'yyyy.mm.dd') AS REG_TS
+		FROM SRV_DT_POLICY_STAT_MAP
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</select>
+	<select id="selectPolicyApiInfo" resultType="hashmap">
+		SELECT 
+			API_INFO_SERIAL, 
+			POLICY_STAT_MAP_SERIAL, 
+			DATA_DIV_CD, 
+			API_ID, 
+			CALL_URL, 
+			DISP_TYPE, 
+			DISP_VALUE, 
+			DISP_NM, 
+			DISP_UNIT,
+			BND_YEAR
+		FROM SRV_DT_POLICY_STAT_MAP_API_INFO
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</select>
+	<select id="selectPolicyApiParam" resultType="hashmap">
+		SELECT 
+			PARAM,
+			VALUE 
+		FROM SRV_DT_POLICY_STAT_MAP_API_PARAM
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+			AND API_INFO_SERIAL = #{api_info_serial}
+		</where>
+	</select>
+	<select id="selectPolicyCommunity" resultType="hashmap">
+		SELECT CMMNTY_MAP_ID,CMMNTY_MAP_NM FROM SRV_DT_CMMNTY_MAP
+		<where>
+				CMMNTY_MAP_ID IN (SELECT CMMNTY_MAP_ID FROM SRV_DT_POLICY_COMMUNITY <where><include refid="sql_policy_stat_map_serial"/></where>)
+			AND LOCK_YN = 'N'
+		</where>
+	</select>
+	<select id="selectOpenDataNm" resultType="hashmap">
+		<!-- 2017.10.31 [개발팀] -->
+		SELECT 
+				div_cd,
+				div_nm 
+		FROM SRV_DT_OPEN_DATA_NM
+		WHERE div_cd != '99'
+		<choose>
+			<when test="data_type == 1">
+				AND TRIM(data_type) = '01' or TRIM(data_type) = '03'
+			</when>
+			<otherwise>
+				AND TRIM(data_type) = '02' or TRIM(data_type) = '03'
+			</otherwise>
+		</choose>
+		ORDER BY div_cd ASC
+	</select>
+	<update id="updatePolicy">
+		UPDATE 
+			SRV_DT_POLICY_STAT_MAP 
+		SET 
+			TITLE = #{title},
+			EXP = #{exp},
+			URL = #{url}
+		<where>
+			<include refid="sql_policy_stat_map_serial"/>
+		</where>
+	</update>
+	<sql id="sql_open_data_poi_join">
+		<choose>
+			<when test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+				<choose>
+					<when test="sgg_cd != null and sgg_cd != '' and sgg_cd != '999'">
+						<choose>
+							<when test="emdong_cd != null and emdong_cd != '' and emdong_cd != '00'">
+								INNER JOIN SRV_PG_ADMBORD
+								ON 
+									ST_INTERSECTS(SRV_PG_ADMBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+								AND SRV_PG_ADMBORD.BASE_YEAR = #{base_year}
+								AND SIDO_CD=#{sido_cd}
+								AND SGG_CD=#{sgg_cd}
+								AND EMDONG_CD=#{emdong_cd}
+							</when>
+							<!-- 2018.01.08 [개발팀] 비자치구 조회 -->
+							<when test="atdrc_type != null and atdrc_type == 1">
+								INNER JOIN SRV_PG_ATDRCBORD
+								ON 
+									ST_INTERSECTS(SRV_PG_ATDRCBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+								AND SRV_PG_ATDRCBORD.BASE_YEAR = #{base_year}
+								AND SIDO_CD=#{sido_cd}
+								AND SGG_CD=#{sgg_cd}
+							</when>
+							<otherwise>
+								INNER JOIN SRV_PG_SGGBORD
+								ON 
+									ST_INTERSECTS(SRV_PG_SGGBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+								AND SRV_PG_SGGBORD.BASE_YEAR = #{base_year}
+								AND SIDO_CD=#{sido_cd}
+								AND SGG_CD=#{sgg_cd}
+							</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						INNER JOIN SRV_PG_SIDOBORD
+						ON 
+							ST_INTERSECTS(SRV_PG_SIDOBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+						AND SRV_PG_SIDOBORD.BASE_YEAR = #{base_year}
+						AND SIDO_CD=#{sido_cd}
+					</otherwise>
+				</choose>
+			</when>
+		</choose>
+		<where>
+			div_cd = #{div_cd}
+		</where>
+	</sql>
+	<select id="selectOpenDataPoiCount" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM SRV_PT_OPEN_DATA
+		<include refid="sql_open_data_poi_join"/>
+	</select>
+	<select id="selectOpenDataPoiList" resultType="hashmap">
+		SELECT 
+			DIV_CD,
+			TRIM(DIV_NM) as div_nm,  <!-- 2017-09-22 [개발팀] -->
+			TOT_OA_CD as tot_reg_cd, <!-- 2017-09-22 [개발팀] -->
+			ADM_DR_CD as adm_cd,     <!-- 2017-09-22 [개발팀] -->
+			ST_X(PT) AS COOR_X,
+			ST_Y(PT) AS COOR_Y
+		FROM SRV_PT_OPEN_DATA
+		<include refid="sql_open_data_poi_join"/>
+		LIMIT ${last_num},${page_size}
+	</select>
+	
+	<!-- 2017-12-14 [개발팀] ERD변경으로 인한 쿼리수정 -->
+	<sql id="sql_open_data_sido">
+		SELECT 
+			a.DIV_CD,
+			a.DIV_NM,
+			a.CNT, 
+			a.SIDO_CD, 
+			a.SIDO_CD AS ADM_CD,
+			SRV_PG_SIDOBORD.SIDO_NM AS ADM_NM,
+			b.DATA_UNIT as UNIT
+		FROM SRV_DT_OPEN_DATA_SIDO_TOT a, SRV_DT_OPEN_DATA_NM b
+		INNER JOIN SRV_PG_SIDOBORD ON a.SIDO_CD = SRV_PG_SIDOBORD.SIDO_CD
+		<where>
+			a.DIV_CD = #{div_cd}
+			AND BASE_YEAR = #{bnd_year}
+			AND a.DIV_CD = b.DIV_CD
+		</where>
+	</sql>
+	
+	<!-- 2017-12-14 [개발팀] ERD변경으로 인한 쿼리수정 -->
+	<sql id="sql_open_data_sgg">
+		SELECT 
+			a.DIV_CD,
+			a.DIV_NM,
+			a.CNT, 
+			a.SIDO_CD,
+			a.SGG_CD, 
+			a.SIDO_CD||a.SGG_CD AS ADM_CD,
+			SRV_PG_SGGBORD.SGG_NM AS ADM_NM,
+			b.DATA_UNIT as UNIT
+		FROM SRV_DT_OPEN_DATA_SGG_TOT a, SRV_DT_OPEN_DATA_NM b
+		INNER JOIN SRV_PG_SGGBORD ON 
+			a.SIDO_CD = SRV_PG_SGGBORD.SIDO_CD
+			AND a.SGG_CD = SRV_PG_SGGBORD.SGG_CD
+		<where>
+			a.DIV_CD = #{div_cd}
+			AND BASE_YEAR = #{bnd_year}
+			AND a.DIV_CD = b.DIV_CD
+			<if test="type == null or type == ''">
+				AND a.SIDO_CD = #{sido_cd}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 2017-12-14 [개발팀] ERD변경으로 인한 쿼리수정 -->
+	<sql id="sql_open_data_emdong">
+		SELECT 
+			a.DIV_CD,
+			a.DIV_NM,
+			a.CNT, 
+			a.SIDO_CD,
+			a.SGG_CD, 
+			a.EMDONG_CD,
+			a.SIDO_CD||a.SGG_CD||a.EMDONG_CD AS ADM_CD,
+			SRV_PG_ADMBORD.EMDONG_NM AS ADM_NM,
+			b.DATA_UNIT as UNIT
+		FROM SRV_DT_OPEN_DATA_EMDONG_TOT a, SRV_DT_OPEN_DATA_NM b
+		INNER JOIN SRV_PG_ADMBORD ON 
+			a.SIDO_CD = SRV_PG_ADMBORD.SIDO_CD
+			AND a.SGG_CD = SRV_PG_ADMBORD.SGG_CD
+			AND a.EMDONG_CD = SRV_PG_ADMBORD.EMDONG_CD
+		<where>
+			a.DIV_CD = #{div_cd}
+			AND BASE_YEAR = #{bnd_year}
+			AND a.DIV_CD = b.DIV_CD 
+			<if test="type == null or type == ''">
+				<!-- 2017.09.10 [개발팀] 2단계 조회 추가-->
+				<if test="low_search == 1">
+					AND a.SGG_CD = #{sgg_cd}
+				</if>
+				AND a.SIDO_CD = #{sido_cd}
+			</if>
+		</where>
+	</sql>
+	<select id="selectOpenDataPolygonList" resultType="hashmap">
+		<choose>
+			<when test="type != null and type != ''">
+				<choose>
+					<when test="type==1">
+						<include refid="sql_open_data_sido"/>
+					</when>
+					<when test="type==2">
+						<include refid="sql_open_data_sgg"/>
+					</when>
+					<when test="type==3">
+						<include refid="sql_open_data_emdong"/>
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+						<choose>
+							<when test="sgg_cd != null and sgg_cd != '' and sgg_cd != '999'">
+								<include refid="sql_open_data_emdong"/>
+							</when>
+							<otherwise>
+								<!-- 2017.09.10 [개발팀] 2단계 조회 추가 -->
+								<choose>
+									<when test="low_search == 1">
+										<include refid="sql_open_data_sgg"/>
+									</when>
+									<when test="low_search == 2">
+										<include refid="sql_open_data_emdong"/>
+									</when>
+								</choose>
+							</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						<include refid="sql_open_data_sido"/>
+					</otherwise>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 대메뉴 정보-->
+	<sql id="select_inner_open_page">
+		<where>
+			<trim prefixOverrides="AND">
+				<if test="from != null and from != ''">
+					TO_DATE(open_dt) >= TO_DATE(#{from})
+				</if>
+				<if test="to != null and to != ''">
+					AND TO_DATE(open_dt) &lt;= TO_DATE(#{to})
+				</if>
+				<if test="nm != null and nm != ''">
+					AND upper(info_link_srv_nm) like '%'||upper(#{nm})||'%'
+				</if>
+				
+				<!-- 2017.10.30 [개발팀] -->
+				<if test="grade == 'PM'">
+					AND usr_id = #{member_id}
+					AND usr_nm = #{member_nm}
+				</if>
+				AND info_link_srv_nm_cd = #{type}
+			</trim>
+		</where>
+	</sql>
+	<select id="selectInnerOpenHistCount" resultType="int">	
+		select 
+			count(*) as page
+		from 
+		SRV_DT_INNER_OPEN_HIST
+		<include refid="select_inner_open_page"/>
+	</select>
+	<select id="selectInnerOpenHistList" resultType="hashmap">	
+		select 
+			seq,
+			open_dt,
+			open_data_nm,
+			open_inst_nm,
+			usr_nm,
+			spacial_data_type,
+			info_link_srv_nm,
+			info_link_srv_realm,
+			open_yn,
+			
+			<!-- 2017.10.30 [개발팀] -->
+			trim(usr_id) as usr_id,
+			trim(spacial_data_type_cd) as spacial_data_type_cd,
+			trim(info_link_srv_nm_cd) as info_link_srv_nm_cd,
+			trim(info_link_srv_realm_cd) as info_link_srv_realm_cd
+		from 
+		SRV_DT_INNER_OPEN_HIST
+		<include refid="select_inner_open_page"/>
+		order by open_dt desc
+		limit #{policy_data_page}, 10
+	</select>
+	<update id="updateInnerOpenHist">
+		update 
+			SRV_DT_INNER_OPEN_HIST 
+		set 
+			open_yn = #{open_yn} <!-- 2017.10.31 [개발팀] -->
+		where 
+			seq = #{data_chk}
+	</update>
+	<delete id="deleteSrvDtInnerOpenHist">
+		delete from 
+			SRV_DT_INNER_OPEN_HIST
+		where
+			seq=#{data_chk}
+	</delete>
+	<delete id="deleteSrvPtOpenData">
+		delete from 
+			srv_pt_open_data
+		where
+			seq=#{data_chk}
+	</delete>
+	<delete id="deleteSrvPgOpenData">
+		delete from 
+			srv_pg_open_data
+		where
+			seq=#{data_chk}
+	</delete>
+	<delete id="deleteSrvDtOpenDataSidoTot">
+		delete from 
+			srv_dt_open_data_sido_tot
+		where
+			seq=#{data_chk}
+	</delete>
+	<delete id="deleteSrvDtOpenDataSggTot">
+		delete from 
+			srv_dt_open_data_sgg_tot
+		where
+			seq=#{data_chk}
+	</delete>
+	<delete id="deleteSrvDtOpenDataEmdongTot">
+		delete from 
+			srv_dt_open_data_emdong_tot
+		where
+			seq=#{data_chk}
+	</delete>
+	
+	<!-- 2017.08.10 [개발팀] 정책통계지도 카테고리조회  START -->
+	<!-- 정책통계지도 카테고리조회  -->
+	<select id="policyCategoryList" resultType="hashmap">
+		SELECT	CATEGORY_ID
+		              , CATEGORY_NM
+		   FROM	SRV_DT_POLICYMAP_CATEGORY
+		 ORDER BY DISP_RANK
+	</select>
+	<!-- 2017.08.10 [개발팀] 정책통계지도 카테고리조회  END -->
+	
+	<!-- 2017.08.10 [개발팀] 정책통계지도 카테고리별 갯수조회  START -->
+	<!-- 지역에 따른 카테고리 갯수 조회 -->
+	<select id="selectCategoryCnt" parameterType="hashmap" resultType="hashmap">	
+		SELECT CATEGORY_ID, COUNT(*) AS CNT
+		    FROM SRV_DT_POLICYMAP_LIST
+		 WHERE (REGION_CD IN ( '00' )
+		         OR REGION_CD LIKE #{region_cd} || '%')
+		       <if test="srv_yn != null">
+		      	 AND SRV_YN = #{srv_yn}
+		      </if> 
+		GROUP BY CATEGORY_ID;
+	</select>
+	<!-- 2017.08.10 [개발팀] 정책통계지도 카테고리별 갯수조회  END -->
+	
+	<!-- 2017.08.11 [개발팀] 정책통계지도 세부지표조회  START -->
+	<!-- 세부지표 조회 -->
+	<select id="selectDetailCategoryList" parameterType="hashmap" resultType="hashmap">	
+		SELECT *
+		   FROM SRV_DT_POLICYMAP_LIST
+		WHERE CATEGORY_ID = #{category_id}
+		      AND (     REGION_CD IN ( '00' )
+		                OR REGION_CD LIKE #{region_cd} || '%' 
+		                 )
+		      <if test="srv_yn != null">
+		      	 AND SRV_YN = #{srv_yn}
+		      </if>
+		     
+	</select>
+	
+	<!-- 파라미터 조회 -->
+	<select id="selectPolicyStaticApiParam" parameterType="hashmap" resultType="hashmap">	
+		SELECT *
+		   FROM SRV_DT_POLICYMAP_APIPARAM
+		WHERE IDX_ID = #{idx_id}
+		ORDER BY CALL_INFO_SERIAL
+	</select>
+	
+	<!-- 연관정책통계지도 가져오기 -->
+	<select id="selectRelationPolicyMapList" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				  a.idx_id
+				, a.category_id
+				, b.category_nm
+				, a.policy_idx_nm
+				, a.idx_type
+				, a.source_inst_cd
+		FROM SRV_DT_POLICYMAP_LIST a,
+		     SRV_DT_POLICYMAP_CATEGORY b
+		WHERE a.category_id = b.category_id;
+	</select>
+	
+	<!-- 정책통계지도 등록 -->
+	<insert id="insertPolicyMap" parameterType="hashmap">
+		INSERT INTO  SRV_DT_POLICYMAP_LIST
+		(
+			  idx_id
+			, category_id
+			, policy_idx_nm
+			, policy_idx_content
+			, idx_type
+			, region_cd
+			, source_inst_cd
+		<if test="disp_nm != null">
+			, disp_nm
+		</if>
+		<if test="disp_unit != null">
+			, disp_unit
+		</if>
+		<if test="nomfrm_cd != null">
+			, nomfrm_cd
+		</if>
+			, bord_level
+			, bord_year
+			, non_atdrc_yn
+			, srv_yn
+			, usr_id
+			, reg_ts
+			, disp_rank
+		<if test="nomfrm_base_map_div != null">
+			, nomfrm_base_map_div
+		</if>
+		)
+		VALUES (
+			  #{idx_id}
+			, #{category_id}
+			, #{policy_idx_nm}
+			, #{policy_idx_content}
+			, #{idx_type}
+			, #{region_cd}
+			, #{source_inst_cd}
+		<if test="disp_nm != null">
+			, #{disp_nm}
+		</if>
+		<if test="disp_unit != null">
+			, #{disp_unit}
+		</if>
+		<if test="nomfrm_cd != null">
+			, #{nomfrm_cd}
+		</if>
+			, #{bord_level}
+			, #{bord_year}
+			, #{non_atdrc_yn}
+			, #{srv_yn}
+			, #{member_id}
+			, SYSDATE
+			, #{disp_rank}
+		<if test="nomfrm_base_map_div != null">
+			, #{nomfrm_base_map_div}
+		</if>
+		);
+		 
+	</insert>
+	
+	<!-- 정책통계지도 파라미터정보 등록 -->
+	<insert id="insertPolicyParamInfo" parameterType="hashmap">
+		INSERT INTO SRV_DT_POLICYMAP_APIPARAM (
+			  category_id
+			, idx_id
+			, call_info_serial
+			, call_url
+			, call_param
+			, map_param
+			, data_type
+			, data_div
+			, source
+			, map_div
+		)
+		VALUES (
+			  #{category_id}
+			, #{idx_id}
+			, #{call_info_serial}
+			, #{call_url}
+			, #{call_param}
+			, #{map_param}
+			, #{data_type}
+			, #{data_div}
+			, #{source}
+			, #{map_div}
+		);
+	</insert>
+	
+	<!-- 연관정책통계지도 등록 -->
+	<insert id="insertRelPolicyMapInfo" parameterType="hashmap">
+		INSERT INTO SRV_DT_POLICYMAP_REL_LIST (
+			  category_id
+			, idx_id
+			, rel_policy_stat_map_id
+		)
+		VALUES (
+			  #{category_id}
+			, #{idx_id}
+			, #{rel_policy_stat_map_id}
+		);
+	</insert>
+	
+	<!-- 파라미터 조회 -->
+	<select id="selectPolicyRelList" parameterType="hashmap" resultType="hashmap">	
+		SELECT *
+		   FROM SRV_DT_POLICYMAP_LIST
+		WHERE IDX_ID IN (   SELECT REL_POLICY_STAT_MAP_ID
+		                                           FROM SRV_DT_POLICYMAP_REL_LIST
+		                                        WHERE IDX_ID = #{idx_id}
+		                                              AND CATEGORY_ID = #{category_id}
+		                                   )
+	</select>
+	
+	<!-- 정책통계지도 삭제 -->
+	<delete id="deletePolicyMap" parameterType="hashmap">
+		DELETE FROM  SRV_DT_POLICYMAP_LIST
+		WHERE category_id = #{category_id}
+		AND	idx_id = #{idx_id}
+	</delete>
+	
+	<!-- 정책통계지도 수정 -->
+	<delete id="updateOpenYnPolicyMap" parameterType="hashmap">
+		UPDATE SRV_DT_POLICYMAP_LIST
+		SET srv_yn = #{srv_yn}
+		WHERE category_id = #{category_id}
+		AND	idx_id = #{idx_id}
+	</delete>
+	
+	<!-- 연관정책통계지도 삭제 -->
+	<delete id="deleteRelPolicyMapInfo" parameterType="hashmap">
+		DELETE FROM  SRV_DT_POLICYMAP_REL_LIST
+		WHERE category_id = #{category_id}
+		AND	idx_id = #{idx_id}
+	</delete>
+	
+	<!-- 연관정책통계지도 파라미터정보 삭제 -->
+	<delete id="deletePolicyParamInfo" parameterType="hashmap">
+		DELETE FROM SRV_DT_POLICYMAP_APIPARAM
+		WHERE category_id = #{category_id}
+		AND	idx_id = #{idx_id}
+	</delete>
+	
+	<!-- 산업분류코드 조회 -->
+	<select id="selectIndustryCode" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+				  ksic_1_cd
+				, ksic_1_nm
+				, ksic_5_cd
+				, ksic_5_nm
+				, theme_cd
+		FROM	CMM_CD_CORPCLASS
+		WHERE	class_deg = #{class_deg}
+		AND		ksic_1_cd != '0'		
+	</select>
+	
+	<!-- 테마코드 조회 -->
+	<select id="selectThemeCode" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+				  theme_cd
+				, b_theme_cd_nm
+				, s_theme_cd_nm
+		FROM	CMM_CD_THEME
+		WHERE	theme_cd != '9900'		
+	</select>
+	
+	<!-- 사업체 POI 조회 -->
+	<select id="selectCompanyPoiList" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+					 corp.corp_nm
+	       			,corp.naddr
+	       			,bd.tot_reg_cd
+	       			,st_x(bd.pt) as coor_x
+	       			,st_y(bd.pt) as coor_y
+			FROM 
+	    		(SELECT   
+	    				 a.sufId
+	            		,a.corp_nm
+	            		,b.naddr 
+		    	FROM SRV_DT_CORPCENSUS_9 a, SRV_PG_CENSUSBD b
+		    	WHERE 
+		    			a.base_year = #{base_year}
+		    		<if test="type == 'company'">
+			    		AND a.ksic_1_cd = #{ksic_1_cd}
+			    		AND a.ksic_5_cd = #{ksic_5_cd}
+			    	</if>
+			    	<if test="type == 'theme'">
+			    		AND a.theme_cd = #{theme_cd}
+			    	</if>
+			    	AND a.sufId = b.sufId
+	    		) corp
+			INNER JOIN SRV_PT_BD bd
+			ON 
+	   			 bd.sufId = corp.sufId
+			AND  bd.tot_reg_cd like #{adm_cd} || '%'
+	</select>
+	
+	<!-- 정책통계지도 내용 수정 -->
+	<update id="updatePolicyStaticMap">
+		UPDATE 
+					SRV_DT_POLICYMAP_LIST 
+		SET 
+					POLICY_IDX_NM = #{policy_idx_nm},
+					CATEGORY_ID = #{category_id},
+					POLICY_IDX_CONTENT = #{policy_idx_content},
+					DISP_UNIT = #{disp_unit},
+					DISP_NM = #{disp_nm}
+		WHERE IDX_ID = #{idx_id}
+	</update>
+
+	<!-- 정책통계지도 APIPARAM 수정 -->
+	<update id="updatePolicyMapApiParam">
+		UPDATE 
+					SRV_DT_POLICYMAP_APIPARAM 
+		SET 
+					CATEGORY_ID = #{category_id}
+		WHERE IDX_ID = #{idx_id}
+	</update>
+	
+	<!-- 정책통계지도 정보 조회 -->
+	<select id="selectPolicyMapInfoByIdxId" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+				         *
+		   FROM	SRV_DT_POLICYMAP_LIST
+		WHERE	IDX_ID = #{idx_id}
+	</select>
+	<!-- 2017.08.11 [개발팀] 정책통계지도 세부지표조회  END -->
+	
+	<!-- 2017.10.31 [개발팀] 정책통계지도 LBDMS 목록조회  START -->
+	<select id="selectLbdmsList" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+				 open_data_nm
+				,seq
+				,spacial_data_type_cd
+				,info_link_srv_nm_cd
+				
+		FROM	SRV_DT_INNER_OPEN_HIST
+		WHERE 	
+				<if test="grade == 'PM'">
+					(usr_id = #{member_id}
+				and usr_nm = #{member_nm}
+				or open_yn='1')
+				</if>
+				<if test="grade == 'MM'">
+					 open_yn='1'
+				</if>
+				and spacial_data_type_cd = #{spacial_data_type_cd}
+				and info_link_srv_nm_cd = #{info_link_srv_nm_cd}
+	</select>
+	<!-- 2017.10.31 [개발팀] 정책통계지도 LBDMS 목록조회  END -->
+	
+	<!-- 2017.10.31 [개발팀] 정책통계지도 LBDMS 데이터조회(집계)  START -->
+	<select id="selectLbdmsPolygonList" resultType="hashmap">
+		<choose>
+			<when test="type != null and type != ''">
+				<choose>
+					<when test="type==1">
+						<include refid="sql_lbdms_data_sido"/>
+					</when>
+					<when test="type==2">
+						<include refid="sql_lbdms_data_sgg"/>
+					</when>
+					<when test="type==3">
+						<include refid="sql_lbdms_data_emdong"/>
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+						<choose>
+							<when test="sgg_cd != null and sgg_cd != '' and sgg_cd != '999'">
+								<include refid="sql_lbdms_data_emdong"/>
+							</when>
+							<otherwise>
+								<choose>
+									<when test="low_search == 1">
+										<include refid="sql_lbdms_data_sgg"/>
+									</when>
+									<when test="low_search == 2">
+										<include refid="sql_lbdms_data_emdong"/>
+									</when>
+								</choose>
+							</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						<include refid="sql_lbdms_data_sido"/>
+					</otherwise>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+	<sql id="sql_lbdms_data_sido">
+		SELECT 
+			SRV_DT_OPEN_DATA_SIDO_TOT.DIV_CD,
+			SRV_DT_OPEN_DATA_SIDO_TOT.SEQ,
+			SRV_DT_OPEN_DATA_SIDO_TOT.DIV_NM,
+			SRV_DT_OPEN_DATA_SIDO_TOT.CNT, 
+			SRV_DT_OPEN_DATA_SIDO_TOT.SIDO_CD, 
+			SRV_DT_OPEN_DATA_SIDO_TOT.SIDO_CD AS ADM_CD,
+			SRV_PG_SIDOBORD.SIDO_NM AS ADM_NM
+		FROM SRV_DT_OPEN_DATA_SIDO_TOT
+		INNER JOIN SRV_PG_SIDOBORD ON SRV_DT_OPEN_DATA_SIDO_TOT.SIDO_CD = SRV_PG_SIDOBORD.SIDO_CD
+		<where>
+			SEQ = #{seq}
+			AND DIV_CD = '99'
+			AND BASE_YEAR = #{bnd_year}
+		</where>
+	</sql>
+	<sql id="sql_lbdms_data_sgg">
+		SELECT 
+			SRV_DT_OPEN_DATA_SGG_TOT.DIV_CD,
+			SRV_DT_OPEN_DATA_SGG_TOT.SEQ,
+			SRV_DT_OPEN_DATA_SGG_TOT.DIV_NM,
+			SRV_DT_OPEN_DATA_SGG_TOT.CNT, 
+			SRV_DT_OPEN_DATA_SGG_TOT.SIDO_CD,
+			SRV_DT_OPEN_DATA_SGG_TOT.SGG_CD, 
+			SRV_DT_OPEN_DATA_SGG_TOT.SIDO_CD||SRV_DT_OPEN_DATA_SGG_TOT.SGG_CD AS ADM_CD,
+			SRV_PG_SGGBORD.SGG_NM AS ADM_NM
+		FROM SRV_DT_OPEN_DATA_SGG_TOT
+		INNER JOIN SRV_PG_SGGBORD ON 
+			SRV_DT_OPEN_DATA_SGG_TOT.SIDO_CD = SRV_PG_SGGBORD.SIDO_CD
+			AND SRV_DT_OPEN_DATA_SGG_TOT.SGG_CD = SRV_PG_SGGBORD.SGG_CD
+		<where>
+			DIV_CD = '99'
+			AND SEQ = #{seq}
+			AND BASE_YEAR = #{bnd_year}
+			<if test="type == null or type == ''">
+				AND SRV_DT_OPEN_DATA_SGG_TOT.SIDO_CD = #{sido_cd}
+			</if>
+		</where>
+	</sql>
+	<sql id="sql_lbdms_data_emdong">
+		SELECT 
+			SRV_DT_OPEN_DATA_EMDONG_TOT.DIV_CD,
+			SRV_DT_OPEN_DATA_EMDONG_TOT.SEQ,
+			SRV_DT_OPEN_DATA_EMDONG_TOT.DIV_NM,
+			SRV_DT_OPEN_DATA_EMDONG_TOT.CNT, 
+			SRV_DT_OPEN_DATA_EMDONG_TOT.SIDO_CD,
+			SRV_DT_OPEN_DATA_EMDONG_TOT.SGG_CD, 
+			SRV_DT_OPEN_DATA_EMDONG_TOT.EMDONG_CD,
+			SRV_DT_OPEN_DATA_EMDONG_TOT.SIDO_CD||SRV_DT_OPEN_DATA_EMDONG_TOT.SGG_CD||SRV_DT_OPEN_DATA_EMDONG_TOT.EMDONG_CD AS ADM_CD,
+			SRV_PG_ADMBORD.EMDONG_NM AS ADM_NM
+		FROM SRV_DT_OPEN_DATA_EMDONG_TOT
+		INNER JOIN SRV_PG_ADMBORD ON 
+			SRV_DT_OPEN_DATA_EMDONG_TOT.SIDO_CD = SRV_PG_ADMBORD.SIDO_CD
+			AND SRV_DT_OPEN_DATA_EMDONG_TOT.SGG_CD = SRV_PG_ADMBORD.SGG_CD
+			AND SRV_DT_OPEN_DATA_EMDONG_TOT.EMDONG_CD = SRV_PG_ADMBORD.EMDONG_CD
+		<where>
+			DIV_CD = '99'
+			AND SEQ = #{seq}
+			AND BASE_YEAR = #{bnd_year}
+			<if test="type == null or type == ''">
+				<!-- 2017.09.10 [개발팀] 2단계 조회 추가-->
+				<if test="low_search == 1">
+					AND SRV_DT_OPEN_DATA_EMDONG_TOT.SGG_CD = #{sgg_cd}
+				</if>
+				AND SRV_DT_OPEN_DATA_EMDONG_TOT.SIDO_CD = #{sido_cd}
+			</if>
+		</where>
+	</sql>
+	<!-- 2017.10.31 [개발팀] 정책통계지도 LBDMS 데이터조회(집계)  START -->
+	
+	<!-- 2017.11.01 [개발팀] 정책통계지도 LBDMS 데이터조회(POI)  START -->
+	<select id="selectLbdmsPoiCount" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM SRV_PT_OPEN_DATA
+		<include refid="sql_lbdms_poi_join"/>
+	</select>
+	<select id="selectLbdmsPoiList" resultType="hashmap">
+		SELECT 
+			DIV_CD,
+			SEQ,
+			TRIM(DIV_NM) as div_nm,  
+			TOT_OA_CD as tot_reg_cd,
+			ADM_DR_CD as adm_cd,    
+			ST_X(PT) AS COOR_X,
+			ST_Y(PT) AS COOR_Y
+		FROM SRV_PT_OPEN_DATA
+		<include refid="sql_lbdms_poi_join"/>
+		LIMIT ${last_num},${page_size}
+	</select>
+	<sql id="sql_lbdms_poi_join">
+		<choose>
+			<when test="sido_cd != null and sido_cd != '' and sido_cd != '00'">
+				<choose>
+					<when test="sgg_cd != null and sgg_cd != '' and sgg_cd != '999'">
+						<choose>
+							<when test="emdong_cd != null and emdong_cd != '' and emdong_cd != '00'">
+								INNER JOIN SRV_PG_ADMBORD
+								ON 
+									ST_INTERSECTS(SRV_PG_ADMBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+								AND SRV_PG_ADMBORD.BASE_YEAR = #{base_year}
+								AND SIDO_CD=#{sido_cd}
+								AND SGG_CD=#{sgg_cd}
+								AND EMDONG_CD=#{emdong_cd}
+							</when>
+							<otherwise>
+								INNER JOIN SRV_PG_SGGBORD
+								ON 
+									ST_INTERSECTS(SRV_PG_SGGBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+								AND SRV_PG_SGGBORD.BASE_YEAR = #{base_year}
+								AND SIDO_CD=#{sido_cd}
+								AND SGG_CD=#{sgg_cd}
+							</otherwise>
+						</choose>
+					</when>
+					<otherwise>
+						INNER JOIN SRV_PG_SIDOBORD
+						ON 
+							ST_INTERSECTS(SRV_PG_SIDOBORD.LIGHTEN_BORD,SRV_PT_OPEN_DATA.PT) = 1 
+						AND SRV_PG_SIDOBORD.BASE_YEAR = #{base_year}
+						AND SIDO_CD=#{sido_cd}
+					</otherwise>
+				</choose>
+			</when>
+		</choose>
+		<where>
+			div_cd = '99'
+		AND seq = #{seq}	
+		</where>
+	</sql>
+</mapper>

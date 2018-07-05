@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<!-- 게시판 분류 조회 -->
+	<select id="boardCommonSetting" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				a.board_nm,
+				a.board_exp,
+				a.file_upload_yn,
+				a.file_upload_sz,
+				a.comment_reg_yn,
+				a.reply_reg_yn,
+				a.reg_authority_class,
+				a.low_rank_b_class_cd,
+				a.comment_reg_limit_cnt, 
+				b.s_class_cd, 
+				b.s_class_cd_nm 
+		FROM 
+				srv_cd_boardclass a
+				LEFT JOIN cmm_cd_comcd b
+		        ON      a.low_rank_b_class_cd = b.b_class_cd
+		WHERE 
+				board_cd = #{board_cd}
+		ORDER BY s_class_cd_order
+	</select>
+	
+	<!-- 게시판 소분류 조회 -->
+	<select id="boardSSclassCd" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				* 
+		FROM 
+				cmm_cd_comcd
+		WHERE 
+				b_class_cd = #{b_class_cd}
+	</select>
+
+	<!-- 게시판 목록 갯수 조회 -->
+	<select id="boardCnt" parameterType="hashmap" resultType="int">	
+		SELECT 
+				count(*) 
+		FROM 
+				srv_dt_board a
+		WHERE 
+				a.board_cd = #{board_cd} and a.post_depth = 0
+		
+		<if test="post_title != null">
+		AND		upper(a.post_title) like '%' || #{post_title} || '%'
+		</if>
+		
+		<if test="post_content != null">
+		AND		upper(a.post_content) like '%' || #{post_content} || '%'
+		</if>
+		
+		<if test="post_all != null">
+		AND		(upper(a.post_title) like '%' || #{post_all} || '%'
+		OR		upper(a.post_content) like '%' || #{post_all} || '%')
+		</if>
+		
+		<choose>
+		<when test="low_rank_s_class_cd != null">
+		AND		a.low_rank_s_class_cd = #{low_rank_s_class_cd}
+		</when>
+		<when test="low_rank_s_class_cd == null and board_cd == 'BOARD_003'">
+		AND		a.low_rank_s_class_cd != 'THEMRQ' 
+		</when>
+		</choose>
+		
+		<if test="reg_member_id != null">
+		AND		upper(a.reg_member_id) like '%' || #{reg_member_id} || '%'
+		</if>
+				
+	</select>
+	
+	<!-- 게시판 최상위 등록 번호 조회 -->
+	<select id="getTopPostNumber" parameterType="hashmap" resultType="int">	
+		SELECT 
+				top 1 post_no
+		FROM 
+				srv_dt_board
+		WHERE 
+				board_cd = #{board_cd}
+		ORDER BY
+				post_no DESC
+	</select>
+	
+	<!-- 게시판 내용 등록 -->
+	<insert id="boardRegist" parameterType="hashmap">
+		INSERT INTO srv_dt_board
+			(
+					board_cd
+				,	post_no
+				,	post_depth
+				,	post_order
+				,	post_title
+				,	post_content
+				,	reg_ts
+				,	reg_member_id
+				,	post_hits
+				,	priority_disp_yn
+				<if test="post_title_en != null">
+				,		post_title_en
+				</if>
+				,		parent_post_id
+				<if test="low_rank_s_class_cd != null">
+				,		low_rank_s_class_cd
+				</if>
+				<if test="file_yn != null">
+				,		file_yn
+				</if>
+			)
+		VALUES
+			(
+					#{board_cd}
+				,	#{post_no}
+				,	#{post_depth}
+				,	#{post_order}
+				,	#{post_title}
+				,	#{post_content}
+				,	SYSDATE
+				,	#{reg_member_id}
+				,	0
+				,	#{priority_disp_yn}
+				<if test="post_title_en != null">
+				,		#{post_title_en}
+				</if>
+				<choose>
+				<when test="parent_post_id != null">
+				,		#{parent_post_id}
+				</when>
+				<otherwise>
+				,		#{post_no}
+				</otherwise>
+				</choose>
+				<if test="low_rank_s_class_cd != null">
+				,		#{low_rank_s_class_cd}
+				</if>
+				<if test="file_yn != null">
+				,		#{file_yn}
+				</if>
+			)
+	</insert>
+	
+	<!-- 게시판 첨부파일 등록 -->
+	<insert id="boardRegistFile" parameterType="hashmap">
+		INSERT INTO srv_dt_file
+			(
+					board_cd
+				,	post_no
+				,	file_id
+				,	file_path
+				,	file_nm
+				,	file_extn
+				,	file_content_type
+			)
+		VALUES
+			(
+					#{board_cd}
+				,	#{post_no}
+				,	#{file_id}
+				,	#{file_path}
+				,	#{file_nm}
+				,	#{file_extension}
+				,	#{file_content_type}
+			)
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="boardModify" parameterType="hashmap">
+		UPDATE	srv_dt_board
+		SET		mod_ts = SYSDATE
+		<if test="post_title != null">
+		,		post_title = #{post_title}
+		</if>
+		<if test="post_title_en != null">
+		,		post_title_en = #{post_title_en}
+		</if>
+		<if test="post_content != null">
+		,		post_content = #{post_content}
+		</if>
+		<if test="priority_disp_yn != null">
+		,		priority_disp_yn = #{priority_disp_yn}
+		</if>
+		<if test="low_rank_s_class_cd != null">
+		,		low_rank_s_class_cd = #{low_rank_s_class_cd}
+		</if>
+		<if test="file_yn != null">
+		,		file_yn = #{file_yn}
+		</if>
+		WHERE	board_cd = #{board_cd}
+		AND		post_no = #{post_no}
+	</update>
+	
+	<!-- 게시판 작성자 확인 -->
+	<select id="boardRegIdCheck" parameterType="hashmap" resultType="string">
+		SELECT 
+				reg_member_id
+		FROM 
+				srv_dt_board
+		WHERE
+				board_cd = #{board_cd} 
+		AND		post_no = #{post_no}
+	</select>
+	
+	<!-- 게시판 내용 삭제 -->
+	<delete id="boardDelete" parameterType="hashmap">
+		DELETE
+		FROM
+		        srv_dt_board
+		WHERE
+		        board_cd = #{board_cd}
+		AND     post_no = #{post_no}
+	</delete>
+	
+	<!-- 게시판 댓글 삭제 -->
+	<delete id="boardDeleteReply" parameterType="hashmap">
+		DELETE
+		FROM
+		        srv_dt_board
+		WHERE
+		        board_cd = #{board_cd}
+		AND     parent_post_id = #{post_no}	
+	</delete>
+	
+	<!-- 게시판 파일 삭제 -->
+	<delete id="boardDeleteFile" parameterType="hashmap">
+		DELETE
+		FROM
+		        srv_dt_file
+		WHERE
+		        board_cd = #{board_cd}
+		AND     post_no = #{post_no}
+	</delete>
+	
+	<!-- 게시판 파일 조회 -->
+	<select id="boardFileIdCheck" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+				file_id
+		,		file_path
+		,		file_extn
+		,		file_content_type
+		FROM 
+				srv_dt_file
+		WHERE
+				board_cd = #{board_cd} 
+		AND		post_no = #{post_no}
+	</select>
+	
+	<!-- 게시판 목록 조회 시 조회수 증가 -->
+	<update id="boardListsCountAdd" parameterType="hashmap">
+		UPDATE	srv_dt_board
+		SET		post_hits = ISNULL(post_hits, 0) + 1
+		WHERE	board_cd = #{board_cd}
+		AND		post_no = #{post_no}
+	</update>
+	
+	<!-- 통계용어 설명 -->
+	<select id="boardLists_title" parameterType="hashmap" resultType="hashmap" >
+		SELECT *
+		FROM srv_dt_board
+		WHERE board_cd = 'BOARD_005'
+		AND post_title like '%' || #{post_title} || '%'
+	</select>
+	
+	<!-- 게시판 목록 조회 ( Parent Lists ) -->
+	<select id="boardLists" parameterType="hashmap" resultType="hashmap">
+			SELECT TOP 10 * 
+			FROM (
+					SELECT  
+					<choose>
+						<when test="board_cd == 'BOARD_003'">
+							case when (select count(0) from srv_dt_board where board_cd = 'BOARD_003' and parent_post_id = a.post_no) = 1 then 'N' else 'Y' end as replyyn,
+						</when>
+					</choose>
+					<choose>
+						<when test="board_cd == 'BOARD_005'">
+							row_number() over (order by priority_disp_yn asc, POST_TITLE DESC) as boardNum
+						</when>
+						<otherwise>
+							row_number() over (order by priority_disp_yn asc, post_no asc) as boardNum
+						</otherwise>
+					</choose>
+							, *
+					FROM ( 
+							SELECT a.board_cd , a.post_no , a.post_title , a.post_title_en , a.post_content 
+									, a.low_rank_s_class_cd , a.post_hits , upper(a.priority_disp_yn) priority_disp_yn
+									, TO_CHAR(a.reg_ts, 'YYYY-MM-DD HH24:MI') as reg_ts , a.reg_member_id , a.file_yn 
+									, fn_get_membernm( a.reg_member_id ) AS member_nm , c.file_id , c.file_path , c.file_nm , c.file_extn as file_extension 
+									, c.file_content_type
+							FROM srv_dt_board a 
+									LEFT JOIN srv_dt_file c ON c.board_cd = a.board_cd AND c.post_no = a.post_no 
+							WHERE a.board_cd = #{board_cd}
+							AND a.post_depth = 0 	
+							<if test="post_title != null">
+								AND		upper(a.post_title) like '%' || #{post_title} || '%'
+							</if>
+							
+							<if test="post_content != null">
+								AND		upper(a.post_content) like '%' || #{post_content} || '%'
+							</if>
+							
+							<if test="post_all != null">
+								AND		(upper(a.post_title) like '%' || #{post_all} || '%'
+								OR		upper(a.post_content) like '%' || #{post_all} || '%')
+							</if>
+							
+							<choose>
+								<when test="low_rank_s_class_cd != null">
+									AND		a.low_rank_s_class_cd = #{low_rank_s_class_cd}
+								</when>
+								<when test="low_rank_s_class_cd == null and board_cd == 'BOARD_003'">
+									AND		a.low_rank_s_class_cd != 'THEMRQ' 
+								</when>
+							</choose>
+							
+							<if test="reg_member_id != null">
+								AND		upper(a.reg_member_id) like '%' || #{reg_member_id} || '%'
+							</if>
+								
+							ORDER BY priority_disp_yn DESC
+							
+						<choose>
+							<when test="board_cd == 'BOARD_005'">
+									, POST_TITLE
+							</when>
+							<otherwise>
+									, post_no DESC 
+							</otherwise>
+						</choose>
+						) a
+					ORDER BY boardNum DESC
+				)
+				<!-- mng_s 20171031 페이징 처리 오류 수정-->
+			WHERE boardNum &lt; #{last_num}
+				<!-- mng_e 20171031 -->
+	</select>
+	
+		<!-- mng_s 20171227 언론소개자료  목록 소팅문제때문에 분기 -->
+	<select id="boardLists2" parameterType="hashmap" resultType="hashmap">
+	select top 10 * from (
+	SELECT 
+			row_number() over(order by cast( substr(post_title, length(post_title)-14, 10) as varchar(10)) asc) as boardNum, 
+			* 
+	FROM srv_dt_board
+	where board_cd = 'BOARD_010' 
+	<if test="post_title != null">
+								AND		upper(post_title) like '%' || #{post_title} || '%'
+							</if>
+							
+							<if test="post_content != null">
+								AND		upper(post_content) like '%' || #{post_content} || '%'
+							</if>
+							
+							<if test="post_all != null">
+								AND		(upper(post_title) like '%' || #{post_all} || '%'
+								OR		upper(post_content) like '%' || #{post_all} || '%')
+							</if>
+	)where boardNum &lt; #{last_num}
+	
+	order by boardnum desc
+	</select>
+		<!-- mng_e 20171227 언론소개자료  목록 소팅문제때문에 분기 -->
+	
+	<!-- 게시판 목록 댓글 조회 ( Child Lists ) -->
+	<select id="boardListsReply" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				a.board_cd
+		,		a.post_no
+		,		a.post_title
+		,		a.post_title_en
+		,		a.post_content
+		,		a.low_rank_s_class_cd
+		,		a.post_hits
+		,		a.priority_disp_yn
+		,		TO_CHAR(a.reg_ts, 'YYYY-MM-DD HH24:MI') as reg_ts
+		,		a.reg_member_id
+		,		fn_get_membernm( a.reg_member_id ) AS member_nm
+	    FROM  
+				srv_dt_board a
+		WHERE 
+				a.board_cd = #{board_cd} 
+		AND 	a.post_depth != 0 
+		AND 	a.parent_post_id = #{post_no} 
+		ORDER BY
+				post_no DESC 
+	</select>
+	
+	
+		<!-- 게시판 분류 조회 -->
+	<select id="BoardListView" parameterType="hashmap" resultType="hashmap">	
+		select 
+		    top 5
+		    board_cd, 
+		    post_no, 
+		    post_title, 
+		    to_char(reg_ts, 'YYYY-MM-DD') as reg_ts,
+		    low_rank_s_class_cd
+		from srv_dt_board
+		where board_cd = #{gubun}
+		<if test="gubun != 'BOARD_001'">
+			and priority_disp_yn = 'N' 
+		</if>
+		<if test="gubun == 'BOARD_003'">
+			and (low_rank_s_class_cd = 'QUERY' or low_rank_s_class_cd = 'REQST') 
+			  
+		</if>
+		and post_depth = 0
+		order by post_no desc
+	</select>
+		<!-- 활용게시판 조회 -->
+	<select id="Share" parameterType="hashmap" resultType="hashmap">	
+		  select 
+		  				top 5
+					    sgis_use_board_seq,
+					    sgis_use_board_title,
+					    sgis_user_name,
+					    sgis_use_board_gb,
+					    sgis_use_purpose,
+					    sgis_use_area_cd,
+					    sgis_use_data,
+					    sgis_use_data_other,
+					    sgis_act_cont,
+					    sgis_ref_data1,
+					    sgis_ref_data2,
+					    sgis_ref_data3,
+					    sgis_ref_data4,
+					    sgis_ref_image,
+					    sgis_progress_stat,
+					    prioritize,
+					    rtnrsn,
+					    del_at,
+					    regist_user,
+					    upt_user,
+					    to_char(regist_date, 'YYYY-MM-DD') regist_date,
+					    upt_date
+					from sgis_use_board
+					where del_at = 'N'
+					and sgis_progress_stat = '002'
+	</select>
+	
+			<!-- 활용게시판 조회 -->
+	<select id="gallery" parameterType="hashmap" resultType="hashmap">	
+		  select top 5 data_id, title , srv_type
+			from SRV_DT_GALLERYLIST
+			where srv_type in ('1',  '2')
+			and excellent_case_slctn_yn is not null
+			order by excellent_case_slctn_yn desc, reg_dt desc
+	</select>
+	
+		<!-- 공지사항 우선노출 조회 -->
+	<select id="notice" parameterType="hashmap" resultType="hashmap">	
+		 select post_content from srv_dt_board
+		where board_cd = 'BOARD_001'
+		and priority_disp_yn = 'Y'
+		order by reg_ts desc
+	</select>
+	<!-- 게시판 상세조회 -->
+	<select id="boardListsView" parameterType="hashmap" resultType="hashmap">
+		
+		<!-- 20160422 원본 백업
+		select *, reg_member_id from(
+			(SELECT *, upper(priority_disp_yn) temp 
+			 FROM ( SELECT a.board_cd , a.post_no , a.post_title , a.post_title_en , a.post_content , a.low_rank_s_class_cd , a.post_hits , upper(a.priority_disp_yn) priority_disp_yn , TO_CHAR(a.reg_ts, 'YYYY-MM-DD HH24:MI') as reg_ts , a.reg_member_id , a.file_yn , fn_get_membernm( a.reg_member_id ) AS member_nm , c.file_id , c.file_path , c.file_nm , c.file_extn as file_extension , c.file_content_type 
+			        FROM srv_dt_board a LEFT JOIN srv_dt_file c ON c.board_cd = a.board_cd AND c.post_no = a.post_no WHERE a.board_cd = #{board_cd} ) 
+			  )) B 
+		where b.post_no=#{post_no}
+	    -->
+				
+		select *, b.reg_member_id, (select post_content from srv_dt_board d where d.post_depth='1' and d.parent_post_id=#{post_no} and d.board_cd=#{board_cd}) reply_content 
+		from(
+			(SELECT *, upper(priority_disp_yn) temp 
+			 FROM ( 
+					SELECT a.board_cd,
+						   a.post_no,
+						   a.post_title,
+						   a.post_title_en,
+						   a.post_content,
+						   a.low_rank_s_class_cd,
+						   a.post_hits,
+						   UPPER (a.priority_disp_yn) priority_disp_yn,
+						   TO_CHAR (a.reg_ts, 'YYYY-MM-DD HH24:MI') AS reg_ts,
+						   a.reg_member_id,
+						   a.file_yn,
+						   fn_get_membernm( a.reg_member_id ) AS member_nm,
+						   c.file_id,
+						   c.file_path,
+						   c.file_nm,
+						   c.file_extn AS file_extension,
+						   c.file_content_type
+					  FROM srv_dt_board a
+						   LEFT JOIN srv_dt_file c
+							  ON c.board_cd = a.board_cd AND c.post_no = a.post_no
+					 WHERE a.board_cd = #{board_cd} ) 
+			  )) B
+		where b.post_no=#{post_no}
+        
+		
+	</select>
+	<!-- 통계커뮤니티맵 목록 조회 (5개) -->
+	<select id="MainCommunityMapLists"  parameterType="hashmap" resultType="hashmap">
+	        SELECT top 5
+	        	A.CMMNTY_MAP_ID
+	            , A.CMMNTY_MAP_NM
+	            , A.INTRCN
+	            , A.MAIN_PHOTO     
+	            , A.CMMNTY_MAP_OPEN_DATE 
+	            , A.OPENR_ID  
+	            , A.CMMNTY_PARTCPTN_GRANT_YN
+	            , SUM(A.CMMNTY_DATA_CNT) CMMNTY_DATA_CNT
+	            ,CASE 
+	                WHEN A.CMMNTY_PARTCPTN_GRANT_YN = 'N' THEN COUNT(A.REGISTER) 
+	                WHEN A.CMMNTY_PARTCPTN_GRANT_YN = 'Y' THEN A.PRTCPNT_CNT
+	                END 
+	            PARTICIPATION
+	          FROM ( SELECT A.CMMNTY_MAP_ID
+	                      , A.CMMNTY_MAP_NM
+	                      , A.INTRCN
+	                      , A.MAIN_PHOTO     
+	                      , A.CMMNTY_MAP_OPEN_DATE 
+	                      , A.OPENR_ID  
+	                      , A.CMMNTY_PARTCPTN_GRANT_YN
+	                      , COUNT(B.CMMNTY_POI_ID)  AS CMMNTY_DATA_CNT
+	                      , B.REGISTER
+	                      , A.PRTCPNT_CNT
+	                  FROM ( SELECT A.CMMNTY_MAP_ID
+	                              , A.CMMNTY_MAP_NM
+	                              , A.INTRCN
+	                              , A.MAIN_PHOTO     
+	                              , A.CMMNTY_MAP_OPEN_DATE 
+	                              , A.OPENR_ID  
+	                              , A.CMMNTY_PARTCPTN_GRANT_YN
+	                              , A.PRTCPNT_CNT
+	                          FROM ( SELECT A.CMMNTY_MAP_ID
+	                                      , A.CMMNTY_MAP_NM
+	                                      , A.INTRCN
+	                                      , A.MAIN_PHOTO     
+	                                      , TO_CHAR(TO_DATE(A.PRID_ESTBS_START_DATE),'YYYY.MM.DD') AS CMMNTY_MAP_OPEN_DATE 
+	                                      , B.USER_ID AS OPENR_ID    
+	                                      , A.CMMNTY_PARTCPTN_GRANT_YN
+	                                      , NVL(C.PRTCPNT_CNT,0) AS PRTCPNT_CNT                      
+	                                   FROM CMMNTY_MAP A 
+	                                      , CMMNTY_MAP_OPENER B
+	                                      , 
+	                                        ( 
+	                                            SELECT 
+	                                                MAP_PRT.CMMNTY_MAP_ID, 
+	                                                MAP_PRT.GRANT_YN, 
+	                                                APR_LT.APPROVAL_DISTINCT, 
+	                                                APR_LT.APPROVAL_DATE, 
+	                                                COUNT(APR_LT.USER_ID) AS PRTCPNT_CNT        
+	                                            FROM CMMNTY_MAP_PRTCPNT MAP_PRT, CMMNITY_APPROVAL_LIST APR_LT
+	                                            WHERE 
+	                                                MAP_PRT.CMMNTY_MAP_PRTCPNT_ID  = APR_LT.CMMNTY_MAP_PRTCPNT_ID                    	                                            
+	                                            GROUP BY 
+	                                                MAP_PRT.CMMNTY_MAP_ID, 
+	                                                MAP_PRT.GRANT_YN, 
+	                                                APR_LT.APPROVAL_DISTINCT, 
+	                                                APR_LT.APPROVAL_DATE   
+	                                        ) C   
+	                                  WHERE 1=1
+	                                    AND A.CMMNTY_MAP_ID = B.CMMNTY_MAP_ID
+	                                    AND A.CMMNTY_MAP_ID = C.CMMNTY_MAP_ID(+)
+	                                    AND A.TEMP_SAVE_YN = 'N'
+	                                    AND A.PRID_ESTBS_START_DATE <![CDATA[<=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+	                                    AND TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> A.PRID_ESTBS_END_DATE
+	                                    AND (SELECT COUNT(1) FROM CMMNTY_MAP_LOCK WHERE CMMNTY_MAP_LOCK.CMMNTY_MAP_ID = A.CMMNTY_MAP_ID)=0
+	                               ) A
+	                         ) A
+	                         , CMMNTY_POI B
+	                     WHERE A.CMMNTY_MAP_ID = B.CMMNTY_MAP_ID(+)             
+	                  GROUP BY A.CMMNTY_MAP_ID
+	                         , A.CMMNTY_MAP_NM
+	                         , A.INTRCN
+	                         , A.MAIN_PHOTO  
+	                         , A.CMMNTY_MAP_OPEN_DATE 
+	                         , B.REGISTER
+	                         , A.CMMNTY_PARTCPTN_GRANT_YN
+	                         , A.OPENR_ID
+	                         , A.PRTCPNT_CNT
+	                ) A
+	         GROUP BY A.CMMNTY_MAP_ID
+	                , A.CMMNTY_MAP_NM
+	                , A.INTRCN
+	                , A.MAIN_PHOTO  
+	                , A.CMMNTY_MAP_OPEN_DATE         
+	                , A.CMMNTY_PARTCPTN_GRANT_YN
+	                , A.OPENR_ID
+	                , A.PRTCPNT_CNT
+	         ORDER BY TO_NUMBER(A.CMMNTY_MAP_ID) DESC
+	</select>
+	<!--  mng_s 20171110_김건민 -->
+	<select id="getGridTopPostNumber" parameterType="hashmap" resultType="int">	
+		SELECT 
+				top 1 post_no
+		FROM 
+				srv_dt_gridboard
+		WHERE 
+				board_cd = #{board_cd}
+		ORDER BY
+				post_no DESC
+	</select>
+	<!-- 그리드 개선요청 등록-->
+	<insert id="boardGridRegist" parameterType="hashmap">
+		INSERT INTO srv_dt_gridboard
+			(
+				  board_cd
+				, post_no
+				, post_depth
+				, post_order
+				, post_title
+				, post_content
+				, priority_disp_yn
+				, reg_ts
+				, parent_post_id
+				<if test="reg_member_id != null">
+					, reg_member_id
+				</if>
+					, post_hits
+				<if test="post_title_en != null">
+					, post_title_en
+				</if>
+				, FILE_YN
+			)
+				VALUES
+			(
+				  'BOARD_012'
+				, (select NVL(MAX(post_no)+1,0) from srv_dt_gridboard)
+				, 0
+				, 0
+				, #{post_title}
+				, #{post_content}
+				, 'N'
+				, SYSDATE
+				, (select NVL(MAX(post_no)+1,0) from srv_dt_gridboard)
+				<if test="reg_member_id != null">
+					, #{reg_member_id}
+				</if>
+				, 0 
+				<if test="post_title_en != null">
+					, #{post_title_en}
+				</if>
+				, #{FILE_YN}
+			)
+	</insert>
+	<insert id="boardGridFile" parameterType="hashmap">
+		insert into SRV_DT_FILE
+		(
+			 board_cd
+			,post_no
+			,file_id
+			,file_path
+			,file_nm
+			,file_extn
+			,file_content_type
+		)
+		values
+		(
+			 #{board_cd}
+			,#{post_no}
+			,#{file_id}
+			,#{file_path}
+			,#{file_nm}
+			,#{file_extension}
+			,#{file_content_type}
+		)
+	</insert>	
+</mapper>

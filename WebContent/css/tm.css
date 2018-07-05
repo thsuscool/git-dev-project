@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* 통계주제도 메인 */
+.analysis-main {border-top: solid 3px #00498f;}
+.analysis-main .analysis {}
+.analysis-main .analysis > li {border-bottom: solid 1px #d6d6d6;overflow: hidden;}
+.analysis-main .analysis > li.life {background: url(/img/tm/bg_tm1.png) no-repeat 20px 30px;}
+.analysis-main .analysis > li.life:hover {background: url(/img/tm/bg_tm1.png) no-repeat 20px 30px #f2f2f2;}
+.analysis-main .analysis > li.health {background: url(/img/tm/bg_tm2.png) no-repeat 20px 30px;}
+.analysis-main .analysis > li.health:hover {background: url(/img/tm/bg_tm2.png) no-repeat 20px 30px #f2f2f2;}
+.analysis-main .analysis > li.culture {background: url(/img/tm/bg_tm3.png) no-repeat 20px 30px;}
+.analysis-main .analysis > li.culture:hover {background: url(/img/tm/bg_tm3.png) no-repeat 20px 30px #f2f2f2;}
+.analysis-main .analysis > li.environment {background: url(/img/tm/bg_tm4.png) no-repeat 20px 30px;}
+.analysis-main .analysis > li.environment:hover {background: url(/img/tm/bg_tm4.png) no-repeat 20px 30px #f2f2f2;}
+.analysis-main .analysis li .category {position: relative;float: left;width: 375px;height: 355px;border-right: solid 1px #d6d6d6; min-height: 250px;}
+.analysis-main .analysis li .category h4 {margin: 25px 0 5px 97px;font-size: 28px;color: #333;font-weight: bold;letter-spacing: -0.5px;}
+.analysis-main .analysis li .category .en-tit {margin: 0 0 22px 97px;color: #999;letter-spacing: -0.25px;}
+.analysis-main .analysis li .category .summary {margin-left: 97px;color: #999;letter-spacing: -0.5px;line-height: 20px;}
+.analysis-main .analysis li .category .more {position: absolute;top: 30px;right: 29px;}
+.analysis-main .analysis li .section {float: left;width: 579px;}
+.analysis-main .analysis li .section .lst-analysis {margin-left: 30px;padding-top: 15px;}
+.analysis-main .analysis li .section .lst-analysis li {padding: 15px 0;overflow: hidden;}
+.analysis-main .analysis li .section .lst-analysis li .status {float: left;width: 34px;height: 34px;font-size: 12px;line-height: 34px;margin-right: 19px;font-weight: bold;text-align: center;color: #fff;background: url(/img/tm/bg_status.png) no-repeat 0 0;}
+.analysis-main .analysis li .section .lst-analysis li .analy {background: url(/img/tm/bg_analy.png) no-repeat 0 0;}
+.analysis-main .analysis li .section .lst-analysis li .details {float: left;}
+.analysis-main .analysis li .section .lst-analysis li .details .subject {margin-bottom: 4px;font-weight: bold;font-size: 14px;color: #333;line-height: 16px;}
+.analysis-main .analysis li .section .lst-analysis li .details .subject a {color: #333; font-size: 16px; }
+.analysis-main .analysis li .section .lst-analysis li .details .subject a:hover {color: #3792de;text-decoration: underline; font-size: 16px; }
+.analysis-main .analysis li .section .lst-analysis li .details .date {color: #999;}
+/* 통계 주제도 게시물 목록 */
+#article-wrap {}
+#article-wrap .article-search {width: 100%;padding: 30px 0;border-top: solid 3px #00498f;border-bottom: solid 1px #00498f;}
+#article-wrap .article-search .searchDiv {width: 800px;position: relative;margin: 0 auto;overflow: hidden;}
+#article-wrap .article-search .searchDiv fieldset {position: relative;float: left;width: 600px;border: none;}
+#article-wrap .article-search .searchDiv fieldset .f-el {float: left;position: relative;}
+#article-wrap .article-search .searchDiv fieldset .f-el-select {width: 160px;margin-right: 10px;}
+#article-wrap .article-search .searchDiv fieldset .f-el-select .el-h {display: none;}
+#article-wrap .article-search .searchDiv fieldset .f-el-select a {display: block;width: 158px;height: 38px;line-height: 38px;font-size: 14px;color: #666;border: solid 1px #ddd;background: url(/img/tm/bg_sel_box.gif) no-repeat 100% 0;text-indent: 9px;}
+#article-wrap .article-search .searchDiv fieldset .el-h {position: absolute;top: 12px;left: 10px;font-size: 14px;letter-spacing: -0.5px;}
+#article-wrap .article-search .searchDiv fieldset input[type="text"] {width: 510px;height: 38px;line-height: 38px;font-size: 14px;border: solid 1px #e4e4e4;}
+#article-wrap .article-search .searchDiv fieldset .selectbox {width: 158px;}
+#article-wrap .article-search .searchDiv .sbm {float: left;}
+#article-wrap .article-search .searchDiv .sbm input[type="submit"]{width: 100px;height: 40px;font-size: 14px;border: none;background: none;color: #fff;background-color: #ee7200;font-weight: bold;}
+#article-wrap .search-result {height: 49px;line-height: 49px;color: #999;border-bottom: solid 1px #d6d6d6;letter-spacing: -0.5px;font-size: 16px;}
+#article-wrap .search-result .keyword {color: #3c9cd7;}
+#article-wrap .search-result .count {color: #ee7200;}
+#article-wrap .article-list {clear: both;margin-bottom: 50px;}
+#article-wrap .article-list ul {border-bottom: solid 1px #9e9e9e;}
+#article-wrap .article-list ul li {border-top: solid 1px #d6d6d6;position: relative;}
+#article-wrap .article-list > ul > li:hover {background-color: #f2f2f2;}
+#article-wrap .article-list ul li:first-child {border-top: none;}
+#article-wrap .article-list ul li .inner {padding: 30px 20px;}
+#article-wrap .article-list ul li .inner .subject {margin-bottom: 25px;font-size: 18px;line-height: 16px;font-weight: bold;color: #333;}
+
+#article-wrap .article-list ul li .inner .subject1 {font-size: 18px;line-height: 16px;font-weight: bold;color: #333;}
+
+#article-wrap .article-list ul li .inner .subject a {color: #333;}
+#article-wrap .article-list ul li .inner .subject a:hover {color: #3792de;text-decoration: underline;}
+#article-wrap .article-list ul li .inner .date,
+#article-wrap .article-list ul li .inner .term {margin-bottom: 7px;color: #999;}
+#article-wrap .article-list ul li .inner .summary {color: #999;letter-spacing: -0.6px;}
+#article-wrap .article-list ul li .atc-info {position: absolute;top: 30px;right: 20px;}
+#article-wrap .article-list ul li .atc-info span {float: left;margin-left: 5px;display: block;width: 61px;height: 34px;line-height: 34px;font-size: 12px;font-weight: bold;color: #fff;text-align: center;}
+#article-wrap .article-list ul li .atc-info span.publish {background: url(/img/tm/bg_atc_pub.png) no-repeat 0 0;}
+#article-wrap .article-list ul li .atc-info span.status {background: url(/img/tm/bg_atc_status.png) no-repeat 0 0;}
+#article-wrap .article-list ul li .atc-info span.analy {background: url(/img/tm/bg_atc_analy.png) no-repeat 0 0;}
+#article-wrap .article-list ul li .inner .inner-content {margin-top: 30px;padding-top: 30px;background: url(/img/common/bg_ctit.gif) no-repeat 0 0;}
+#article-wrap .article-list ul li .inner .inner-content p {margin-bottom: 25px;line-height: 1.7;letter-spacing: -0.6px;}
+#article-wrap .pagenation {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+#article-wrap .pagenation a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+#article-wrap .pagenation .btn {background-color: #eceae8;color: #666;}
+#article-wrap .pagenation .prev {border-right: none;}
+#article-wrap .pagenation .next {border-left: none;}
+#article-wrap .pagenation .pages .page {border-left: none;color: #666; font-family:"나눔고딕B"}
+#article-wrap .pagenation .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+#article-wrap .pagenation .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+
+
+/* 통계주제도 카테고리별 페이징 */
+.pagenation1 {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+.pagenation1 a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation1 .btn {background-color: #eceae8;color: #666;}
+.pagenation1 .prev {border-right: none;}
+.pagenation1 .next {border-left: none;}
+.pagenation1 .pages .page {border-left: none;color: #666;font-weight: bold;}
+.pagenation1 .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+.pagenation1 .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+
+.pagenation2 {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+.pagenation2 a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation2 .btn {background-color: #eceae8;color: #666;}
+.pagenation2 .prev {border-right: none;}
+.pagenation2 .next {border-left: none;}
+.pagenation2 .pages .page {border-left: none;color: #666;font-weight: bold;}
+.pagenation2 .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+.pagenation2 .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+
+.pagenation3 {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+.pagenation3 a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation3 .btn {background-color: #eceae8;color: #666;}
+.pagenation3 .prev {border-right: none;}
+.pagenation3 .next {border-left: none;}
+.pagenation3 .pages .page {border-left: none;color: #666;font-weight: bold;}
+.pagenation3 .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+.pagenation3 .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+
+.pagenation4 {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+.pagenation4 a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation4 .btn {background-color: #eceae8;color: #666;}
+.pagenation4 .prev {border-right: none;}
+.pagenation4 .next {border-left: none;}
+.pagenation4 .pages .page {border-left: none;color: #666;font-weight: bold;}
+.pagenation4 .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+.pagenation4 .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+/* 2015통계주제도 카테고리별 페이징 */
+.pagenation {position: relative;margin: 0 auto;text-align: center;overflow: hidden;font-size: 0;}
+.pagenation a {display: inline-block;min-width: 27px;height: 27px;border: solid 1px #d6d6d6;font-size: 12px;line-height: 27px;text-align: center;vertical-align: top;}
+.pagenation .btn {background-color: #eceae8;color: #666;}
+.pagenation .prev {border-right: none;}
+.pagenation .next {border-left: none;}
+.pagenation .pages .page {border-left: none;color: #666;font-weight: bold;}
+.pagenation .pages .page:first-child {border-left: solid 1px #d6d6d6;}
+.pagenation .pages .current {background-color: #4f87b6;border: solid 1px #134582;color: #fff;}
+
+
+/* 알람팝업 */
+/* .map #layer_map .interactive_box .interactive_ct .map_ct_tit .layer_alarm_pop { position: absolute; left: 307px; top: 11px; border: 1px solid #d8c8b4; width: 252px; box-shadow: 4px 4px 5px -2px #dcdbd8; background: #f9efe2;}
+.map #layer_map .interactive_box .interactive_ct .map_ct_tit .layer_alarm_pop p { padding: 10px; color: #433a2f; line-height: 20px; font-size: 11px; font-weight: normal;}
+.map #layer_map .interactive_box .interactive_ct .map_ct_tit .layer_alarm_pop span { position: absolute; left: -10px; top: 10px;} */
+
+.layer_alarm_pop {/* width: 252px; */ background: #f9efe2;}
+.layer_alarm_pop p { padding: 0 10px 0 10px; color: #433a2f; line-height: 20px; font-size: 11px; font-weight: normal;}
+.layer_alarm_pop span { position: absolute; left: -10px; top: 10px;}
+
+.layer_alarm_pop2 { z-index: 20; position: absolute; left: 307px; top: 11px; border: 1px solid #d8c8b4; width: 252px; box-shadow: 4px 4px 5px -2px #dcdbd8; background: #f9efe2;}
+.layer_alarm_pop2 p { padding: 10px; color: #433a2f; line-height: 20px; font-size: 11px; font-weight: normal;}
+.layer_alarm_pop2 span { position: absolute; left: -10px; top: 10px;}
+
+.alarm_content { position: relative; z-index: 20;}

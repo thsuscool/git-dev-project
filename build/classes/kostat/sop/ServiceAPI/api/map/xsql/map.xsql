@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map">
+
+	<!-- 시도 조회 -->
+	<select id="selectSidoList" parameterType="hashmap" resultType="hashmap">
+		SELECT	sido_cd
+		,       		sido_nm
+		,       		x_coor
+		,       		y_coor
+		FROM    	srv_pg_sidobord
+		WHERE   	base_year = #{base_year}
+	</select>
+
+	<!-- 시군구 조회 -->
+	<select id="selectSggList" parameterType="hashmap" resultType="hashmap">
+		SELECT  	sgg_cd
+		,       		sgg_nm
+		,       		x_coor
+		,       		y_coor
+		FROM    	srv_pg_sggbord
+		WHERE   	base_year = #{base_year}
+		AND     	sido_cd = #{sido_cd}
+		ORDER BY sgg_nm
+	</select>
+
+	<!-- 읍면동 조회 -->
+	<select id="selectAdmList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	emdong_cd
+		,       		emdong_nm
+		,       		x_coor
+		,       		y_coor
+		FROM    	srv_pg_admbord
+		WHERE   	base_year = #{base_year}
+		AND     	sido_cd = #{sido_cd}
+		AND     	sgg_cd = #{sgg_cd}
+		ORDER BY emdong_nm
+	</select>
+
+	<!-- 행정동 코드로 지역 명칭 조회 -->
+	<select id="selectAddressCodeToName" parameterType="hashmap" resultType="hashmap">
+		<if test="adm_cd.length() == 2">
+			SELECT	sido_nm as adm_nm
+			FROM		srv_pg_sidobord
+			WHERE	base_year = #{base_year}
+			AND		sido_cd = #{adm_cd}
+		</if>
+		<if test="adm_cd.length() == 5">
+			SELECT	sido_nm || ' ' || sgg_nm as adm_nm
+			FROM		srv_pg_sggbord
+			WHERE	base_year = #{base_year}
+			AND		sido_cd = substr(#{adm_cd}, 0, 2)
+			AND		sgg_cd = substr(#{adm_cd}, 3, 3)
+		</if>
+		<if test="adm_cd.length() == 7">
+			SELECT	sido_nm || ' ' || sgg_nm || ' ' || emdong_nm as adm_nm
+			FROM		srv_pg_admbord
+			WHERE	base_year = #{base_year}
+			AND		sido_cd = substr(#{adm_cd}, 0, 2)
+			AND		sgg_cd = substr(#{adm_cd}, 3, 3)
+			AND		emdong_cd = substr(#{adm_cd}, 6, 2)
+		</if>
+	</select>
+	
+	<!-- 사용자지정영역 경계가져오기  -->
+	<!-- 2017. 02. 27 개발팀 수정요청 -->
+	<select id="userAreaBoundInfo" parameterType="hashmap" resultType="hashmap">
+		<if test='code == "2" '>
+			SELECT 
+					SIDO_CD AS adm_cd
+					,SIDO_NM AS adm_nm
+					, st_asbinary(lighten_bord) geometry  
+			FROM 
+					SRV_PG_SIDOBORD 
+			WHERE 
+					BASE_YEAR = #{year}
+				<if test='type  == "circle"'>
+					AND ST_INTERSECTS(ST_BUFFER(ST_POINTFROMTEXT(#{area},0), ${round}), lighten_bord) = 1
+				</if>
+				<if test='type  == "rectangle"'>
+					AND ST_INTERSECTS(ST_RECTFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+				<if test='type  == "polygon"'>
+					AND ST_INTERSECTS(ST_POLYFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+				
+		</if>
+		<if test='code == "3" '>
+			SELECT  
+					SIDO_CD||SGG_CD AS adm_cd
+					, SIDO_NM||' '||SGG_NM AS adm_nm
+					, st_asbinary(lighten_bord) geometry  
+			FROM 
+					SRV_PG_SGGBORD 
+			WHERE  
+					BASE_YEAR = #{year} 
+				<if test='type  == "circle"'>
+					AND ST_INTERSECTS(ST_BUFFER(ST_POINTFROMTEXT(#{area},0), ${round}), lighten_bord) = 1
+				</if>
+				<if test='type  == "rectangle"'>
+					AND ST_INTERSECTS(ST_RECTFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+				<if test='type  == "polygon"'>
+					AND ST_INTERSECTS(ST_POLYFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+		</if>
+		<if test='code == "4"'>
+			SELECT  
+					SIDO_CD||SGG_CD||EMDONG_CD AS adm_cd
+					, SIDO_NM||' '||SGG_NM||' '||EMDONG_NM AS adm_nm
+					, st_asbinary(lighten_bord) geometry  
+			FROM 
+					SRV_PG_ADMBORD 
+			WHERE
+					BASE_YEAR = #{year} 
+				<if test='type  == "circle"'>
+					AND ST_INTERSECTS(ST_BUFFER(ST_POINTFROMTEXT(#{area},0), ${round}), lighten_bord) = 1
+				</if>
+				<if test='type  == "rectangle"'>
+					AND ST_INTERSECTS(ST_RECTFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+				<if test='type  == "polygon"'>
+					AND ST_INTERSECTS(ST_POLYFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+		</if>
+		<if test='code == "5"'>
+			<!-- SELECT  
+					SIDO_CD||SGG_CD||EMDONG_CD AS adm_cd
+					, SIDO_NM||' '||SGG_NM||' '||EMDONG_NM AS adm_nm
+					, st_asbinary(lighten_bord) geometry  
+			FROM 
+					SRV_PG_TOTREGBORD
+			WHERE
+					BASE_YEAR = #{year} 
+				<if test='type  == "circle"'>
+					AND ST_INTERSECTS(ST_BUFFER(ST_POINTFROMTEXT(#{area},0), ${round}), lighten_bord) = 1
+				</if>
+				<if test='type  == "rectangle"'>
+					AND ST_INTERSECTS(ST_RECTFROMTEXT(#{area},0), lighten_bord) = 1
+				</if>
+				<if test='type  == "polygon"'>
+					AND ST_INTERSECTS(ST_POLYFROMTEXT(#{area},0), lighten_bord) = 1
+				</if> -->
+				SELECT
+					bord.tot_reg_cd AS adm_cd
+					, admbord.sido_nm||' '||admbord.sgg_nm||' '||admbord.emdong_nm AS adm_nm
+					, st_asbinary(bord.bord) geometry
+				FROM    
+					SRV_PG_ADMBORD admbord
+                    INNER JOIN SRV_PG_TOTREGBORD bord
+                    ON admbord.base_year = bord.base_year and admbord.sido_cd = bord.sido_cd and admbord.sgg_cd = bord.sgg_cd and admbord.emdong_cd = bord.emdong_cd
+				WHERE
+					admbord.BASE_YEAR = #{year} 
+				<if test='type  == "circle"'>
+					AND ST_INTERSECTS(ST_BUFFER(ST_POINTFROMTEXT(#{area},0), ${round}), bord.bord) = 1
+				</if>
+				<if test='type  == "rectangle"'>
+					AND ST_INTERSECTS(ST_RECTFROMTEXT(#{area},0), bord.bord) = 1
+				</if>
+				<if test='type  == "polygon"'>
+					AND ST_INTERSECTS(ST_POLYFROMTEXT(#{area},0), bord.bord) = 1
+				</if>
+		</if>
+			
+	</select>
+	
+	<!-- 산업분류 검색 총개수  -->
+	<select id="corpClassCount" parameterType="hashmap" resultType="int">
+		SELECT 	COUNT(*) as cnt
+		FROM 	CMM_CD_CORPCLASS
+		WHERE	class_deg = #{class_deg}
+		AND		ksic_5_nm LIKE '%'||#{searchword}||'%'
+	</select>
+	
+	<!-- 산업분류 검색 -->
+	<select id="corpClassSearch" parameterType="hashmap" resultType="hashmap">
+		SELECT 	ksic_1_cd||ksic_5_cd as class_code
+		, 			ksic_5_nm as class_nm
+		FROM 	CMM_CD_CORPCLASS
+		WHERE	class_deg = #{class_deg}
+		<!-- AND		syn LIKE '%'||#{searchword}||'%' -->
+		AND ksic_5_nm LIKE '%'||#{searchword}||'%'
+		<if test = 'pagenum != null'>
+			LIMIT #{startnum}, #{endnum}
+		</if>
+	</select>
+	
+</mapper>

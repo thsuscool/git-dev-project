@@ -1,0 +1,116 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/sample/include/css/mypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css"> 
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script> 
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script>
+    <script type="text/javascript" src="/sample/include/js/mypageEtc.js"></script>
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header>
+			<!-- Top Include -->
+			<!-- <script type="text/javascript"  src="/js/common/includeSearch.js"></script> -->
+			<div class="headerEtc">
+				<a href="#">로그인</a>
+				<a href="#">회원가입</a>
+				<a href="#">도움말</a>
+			</div>
+			<div class="headerContents">
+				<h1><a href='/'><img src='/img/common/logoPlus.gif' alt='SGIS 오픈플랫폼' /></a></h1>
+				
+				<div class="searchPop">
+					<p class="subj">추천검색어</p>
+					<ul>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+					</ul>
+					<p class="subj">인기검색어</p>
+					<ol>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+						<li><a href="#">출산율</a></li>
+					</ol>
+				</div>
+				
+				<h2>주메뉴</h2>
+				<ul id="#gnb" class="gnb">
+					<li><a href="javascript:void(0)">통계주제도</a></li>
+					<li><a href="javascript:void(0)">대화형통계지도</a></li>
+					<li><a href="javascript:void(0)">활용사례</a></li>
+					<li><a href="javascript:void(0)">분석지도</a></li>
+					<li><a href="javascript:void(0)">알림마당</a></li>
+				</ul>
+				<form action="" method="post">
+					<fieldset>
+						<legend class='blind'>통합검색</legend>
+						<label for="totalSearchBox">통계정보 검색</label>
+						<input id="totalSearchBox" type="text" placeholder="통계정보를 검색해 보세요" />
+						<a href="#"><img src="/img/common/btn_search.png" alt="검색" /></a>
+					</fieldset>
+				</form>
+			</div>
+		</header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<p class="mpGuide">처음페이지 > <span>마이페이지</span></p>
+			
+			<div class="mpSubTitle">
+				<h3>마이페이지 사용자 관리</h3>
+				<p>SGIS+plus를 이용에 따라 저장된 서비스 조회목록 및 업로드 데이터, 회원정보 등의 관리를 할 수 있습니다.</p>
+				<a href="javascript:void(0)" class="btnType02">회원정보관리</a> 
+			</div>  
+			<ul class="latest">
+				<li>
+					<h4><a href="javascript:void(0)">즐겨찾기</a></h4>
+					<p>SGIS+plus를 이용하면서 저장한 서비스 조회  이력으로 조회결과를 재조회하거나 저장된 목록을 관리할 수 있습니다.</p>
+				</li>
+				<li>
+					<h4><a href="javascript:void(0)">나의 데이터</a></h4>
+					<p>개인이 수집하거나 작성한 데이터를 업로드한 목록을 조회, 관리할 수 있으며, 데이터 표출항목 설정을 통해 SGIS+plus에 활용할 수 있습니다.</p>
+				</li>
+				<li>
+					<h4><a href="javascript:void(0)">나의 인증키</a></h4>
+					<p>SGIS+plus의 오픈플랫폼의 개발자 사이트에서 공개된 데이터 및 개발예제를 활용하기 위한 인증키를 관리할 수 있습니다.</p>
+				</li>
+				<li>
+					<h4><a href="javascript:void(0)">나의 커뮤니티</a></h4>
+					<p>개설 및 참여중인 커뮤니티를 확인할 수 있습니다.</p>
+				</li>
+			</ul>
+			
+			 
+			
+			
+				 
+		</div>  
+
+
+	</div>
+</body>
+</html>

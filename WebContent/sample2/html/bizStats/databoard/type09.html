@@ -1,0 +1,240 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>  
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- *신규* -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/bizStats.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<p class="dbText01">조건별 후보지역 정보현황</p>
+				    				<div class="areaBox">후보지역 특정정보</div>
+				    				 
+				    				<dl class="dscList bob"> 
+					    				<dt class="mt15"><a href="javascript:void(0)">후보지 조건설정 목록</a></dt>
+					    				<dd>
+					    					<div class="optionListInfo mt20">
+					    						<span>사업체</span>
+					    						<span>사업체 수</span>
+					    						<span>사업체 증감</span>
+					    						<span>남자 인구</span>
+					    						<span>20대 인구</span> 
+					    					</div>
+					    					<div class="optionListInfo">
+					    						<span class="on">한식</span>
+					    						<span class="on">많은지역</span>
+					    						<span class="on">많은지역</span>
+					    						<span class="on">적은지역</span>
+					    						<span class="on">많은지역</span> 
+					    					</div>
+					    				</dd>
+					    				<dt><a href="javascript:void(0)">후보지역 선택목록(최대 3개 선택가능)</a></dt>
+					    				<dd>
+					    					<div class="clickArea">
+						    					<div class="clickListBox bon">
+						    						<ul class="compareSelectList"> 
+						    							<li>
+						    								<div class="rela">
+						    									<a href="javascript:void(0)" class="round on">
+							    									<span class="ss">대전광역시 서구 탄방동</span>
+							    									<span class="es">지역상세정보보기</span>
+							    								</a>
+							    								<a href="javascript:void(0)" class="del"><img src="/img/ico/ico_del.png" alt="삭제" /></a>
+						    								</div>
+						    							</li> 
+						    							<li>
+						    								<div class="rela">
+						    									<a href="javascript:void(0)" class="round">
+							    									<span class="ss">대전광역시 서구 탄방동</span>
+							    									<span class="es">지역상세정보보기</span>
+							    								</a>
+							    								<a href="javascript:void(0)" class="del"><img src="/img/ico/ico_del.png" alt="삭제" /></a>
+						    								</div>
+						    							</li>
+						    							<li>
+						    								<div class="rela">
+						    									<a href="javascript:void(0)" class="round">
+							    									<span class="ss">대전광역시 서구 탄방동</span>
+							    									<span class="es">지역상세정보보기</span>
+							    								</a>
+							    								<a href="javascript:void(0)" class="del"><img src="/img/ico/ico_del.png" alt="삭제" /></a>
+						    								</div>
+						    							</li> 
+						    						</ul>
+						    						<a href="javascript:void(0)" class="cslBtn">비교하기</a>
+						    					</div>
+					    					</div>
+					    				</dd> 
+					    				<dt><a href="javascript:void(0)">지역 특성정보 보기</a></dt>
+					    				<dd>
+					    					<div class="rela">
+					    						<a href="javascript:void(0)" class="helpPosition"><img src="/img/ico/ico_help06.png" /></a>
+						    					<div id="spyTypeCharts01"></div>
+						    					<div class="fb">
+						    						<ul class="cateSaupLegend line">
+						    							<li>대전 광역시</li>
+						    							<li>대전 광역시</li> 
+						    							<li>둔산2동</li> 
+						    							<li>둔산2동</li> 
+						    						</ul>
+						    						<p class="gtxt ar">출처:통계청, 인구주택총조사 (2010)</p>
+						    					</div>
+					    					</div>
+					    				</dd> 
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	<script>
+	$(function () { 
+		spyCharts("#spyTypeCharts01", "인구 / 거주 / 주택 특성"); 
+	});
+	function spyCharts(id, title){
+		$(id).highcharts({ 
+	        chart: { polar: true, type: 'line', width:500, height:450, margin:[0,0,0,0] },
+	        colors: ['#bee51c', '#e8771a','#738ef5', '#a176f4'],
+	        title: {
+	            text: title, useHTML: true,
+				style : { color : '#ffffff', "fontSize" : "12px", 'background-color': '#e8771a', 'widith':'110px', 
+					'textAlign':'center', 'padding':'4px 10px 4px 10px', 'borderRadius':'11px'}
+	        }, 
+	        pane: { size: '70%' }, 
+	        xAxis: {
+	            categories: ['거주인구', '직장인구비율', '아파트', '1인 가구', '65세 이상 인구', '20대 인구'],
+	            tickmarkPlacement: 'on', lineWidth: 0
+	        }, 
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            lineWidth: 0,
+	            min: 0,
+	            labels: { enabled: false }
+	        },   
+	        /*
+	        tooltip: {
+	            shared: true,
+	            pointFormat: "<span>{series.name} : {point.y}</span>"
+	        },
+	        */
+	        tooltip: {
+	        	style: { padding: 0 },
+	        	useHTML: true, 
+	        	formatter: function() {
+	        		var div = "<div class='tooltipTitle'>아파트지수</div>";
+	        		div += "<div class='tooltipBlock'><span>"+this.series.name+" : " + this.y + "</span></div>";
+	        		return (""+div+"");
+	        	}
+	        },
+	        legend: {
+	        	enabled : false
+	        }, 
+	        series: [{
+	        	type: 'line',
+	            name: '대전 광역시',
+	            data: [13000, 9000, 20000, 25000, 17000, 37000]
+	        }, {
+	        	type: 'line',
+	            name: '대전 광역시',
+	            data: [20000, 59000, 22000, 11000, 26000, 27000]
+	        }, {
+	        	type: 'line',
+	            name: '둔산 2동',
+	            data: [10000, 29000, 32000, 31000, 16000, 17000]
+	        }, {
+	        	type: 'line',
+	            name: '둔산 2동',
+	            data: [30000, 19000, 12000, 31000, 16000, 17000]
+	        }] 
+	    });
+	}
+	</script>
+</body>
+</html>

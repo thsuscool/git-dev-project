@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TileMap version="2.0.0" tilemapservice="https://sgisapi.kostat.go.kr">
+  <Title>BaseMAP</Title>
+  <Abstract></Abstract>
+  <SRS>UTMK</SRS>
+  <BoundingBox minx="171162" miny="1214781" maxx="1744026" maxy="2787645"/>
+  <Origin x="171162" y="2787645"/>
+  <TileFormat width="256" height="256" mime-type="image/png" extension="png"/>
+	<TileSets profile="https://sgisapi.kostat.go.kr/tiles/bmap3"> 
+	<TileSet href="L00" units-per-pixel="2048" order="0"/>
+    <TileSet href="L01" units-per-pixel="1024" order="1"/>
+    <TileSet href="L02" units-per-pixel="512" order="2"/>
+    <TileSet href="L03" units-per-pixel="256" order="3"/>
+    <TileSet href="L04" units-per-pixel="128" order="4"/>
+    <TileSet href="L05" units-per-pixel="64" order="5"/>
+    <TileSet href="L06" units-per-pixel="32" order="6"/>
+    <TileSet href="L07" units-per-pixel="16" order="7"/>    
+    <TileSet href="L08" units-per-pixel="8" order="8"/>
+    <TileSet href="L09" units-per-pixel="4" order="9"/>
+    <TileSet href="L10" units-per-pixel="2" order="10"/>
+    <TileSet href="L11" units-per-pixel="1" order="11"/>
+    <TileSet href="L12" units-per-pixel="0.5" order="12"/>
+    <TileSet href="L13" units-per-pixel="0.25" order="13"/>
+  </TileSets>
+</TileMap>

@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bizStats">
+
+	<!-- 영역내 사업체 -->
+	<select id="areacorp" parameterType="hashmap" resultType="hashmap">	
+		select class.theme_cd theme_cd
+			, theme.s_theme_cd_nm theme_nm
+			, count(corp.ksic5) corp_cnt  
+		from
+			${year} corp
+			, cmm_cd_corpclass class
+			, cmm_cd_theme theme
+		<where> 
+			<if test='area_kind  == "POLYGON" '>
+				and st_contains(st_polyfromtext(#{area},0),corp.pt)=1 
+			</if>
+			<if test='area_kind  == "POINT" '>
+				and st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),corp.pt) = 1
+			</if>
+			<if test='area_kind  == "RECTANGLE" '>
+				and st_contains(st_rectfromtext(#{area},0),corp.pt) = 1
+			</if>
+			and class.theme_cd in ('1001','1002','1003','1004','1005','1006','1007','1008','1009','1013','2004',
+			'2006','4002','5001','5002','5003','5004','5005','5006','5007','5008','5009','5010','5011')
+			and corp.ksic5 = class.ksic5
+			and class.theme_cd = theme.theme_cd
+		</where>
+		group by class.theme_cd,s_theme_cd_nm
+	</select>
+	
+	<!-- 영역내 거주인구 -->
+	<select id="areapopulation" parameterType="hashmap" resultType="hashmap">	
+		select 
+			nvl(sum(case when (age <![CDATA[>=]]> 0 and age <![CDATA[<=]]> 9) and gender ='1' then 1 end),0) m_00_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 10 and age <![CDATA[<=]]> 19) and gender ='1' then 1 end),0) m_10_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 20 and age <![CDATA[<=]]> 29) and gender ='1' then 1 end),0) m_20_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 30 and age <![CDATA[<=]]> 39) and gender ='1' then 1 end),0) m_30_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 40 and age <![CDATA[<=]]> 49) and gender ='1' then 1 end),0) m_40_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 50 and age <![CDATA[<=]]> 59) and gender ='1' then 1 end),0) m_50_age
+			,nvl(sum(case when age <![CDATA[>=]]> 60 and gender ='1' then 1 end),0) m_60_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 0 and age <![CDATA[<=]]> 9) and gender ='2' then 1 end),0) w_00_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 10 and age <![CDATA[<=]]> 19) and gender ='2' then 1 end),0) w_10_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 20 and age <![CDATA[<=]]> 29) and gender ='2' then 1 end),0) w_20_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 30 and age <![CDATA[<=]]> 39) and gender ='2' then 1 end),0) w_30_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 40 and age <![CDATA[<=]]> 49) and gender ='2' then 1 end),0) w_40_age
+			,nvl(sum(case when (age <![CDATA[>=]]> 50 and age <![CDATA[<=]]> 59) and gender ='2' then 1 end),0) w_50_age
+			,nvl(sum(case when age <![CDATA[>=]]> 60 and gender ='2' then 1 end),0) w_60_age
+			from ${year} ppl
+			<where> 
+				<if test='area_kind  == "POLYGON" '>
+					and st_contains(st_polyfromtext(#{area},0),ppl.pt)=1 
+				</if>
+				<if test='area_kind  == "POINT" '>
+					and st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),ppl.pt) = 1
+				</if>
+				<if test='area_kind  == "RECTANGLE" '>
+					and st_contains(st_rectfromtext(#{area},0),ppl.pt) = 1
+				</if>
+			</where>
+	</select>
+	
+	<!-- 영역내 직장인구 -->
+	<select id="areacorpworker" parameterType="hashmap" resultType="hashmap">	
+		select nvl(sum(worker_sum),0) worker_sum
+		from
+			${year} corp
+		<where> 
+			<if test='area_kind  == "POLYGON" '>
+				and st_contains(st_polyfromtext(#{area},0),corp.pt)=1 
+			</if>
+			<if test='area_kind  == "POINT" '>
+				and st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),corp.pt) = 1
+			</if>
+			<if test='area_kind  == "RECTANGLE" '>
+				and st_contains(st_rectfromtext(#{area},0),corp.pt) = 1
+			</if>
+		</where>
+	</select>
+	
+	<!-- 영역내 세대구성 -->
+	<select id="areahousehold" parameterType="hashmap" resultType="hashmap">	
+		select nvl(sum(decode(family.household_type,'01',1,0)),0) household_01_type
+			, nvl(sum(decode(family.household_type,'02',1,0)),0) household_02_type
+			, nvl(sum(decode(family.household_type,'03',1,0)),0) household_03_type
+			, nvl(sum(decode(family.household_type,'04',1,0)),0) household_04_type
+			, nvl(sum(decode(family.household_type,'05',1,0)),0) household_05_type
+			, nvl(sum(decode(family.household_type,'B0',1,0)),0) household_B0_type
+			from ${year} family
+			<where> 
+				<if test='area_kind  == "POLYGON" '>
+					and st_contains(st_polyfromtext(#{area},0),family.pt)=1 
+				</if>
+				<if test='area_kind  == "POINT" '>
+					and st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),family.pt) = 1
+				</if>
+				<if test='area_kind  == "RECTANGLE" '>
+					and st_contains(st_rectfromtext(#{area},0),family.pt) = 1
+				</if>
+			</where>
+	</select>
+	
+	<!-- 영역내 주택유형 -->
+	<select id="areahousetype" parameterType="hashmap" resultType="hashmap">	
+		select nvl(sum(case when house.house_type = '01'  then 1 end),0) detach_house_per
+			, nvl(sum(case when (house.house_type = '03' or house.house_type = '04') then 1 end),0) row_multi_house
+			, nvl(sum(case when house.house_type = '06' then 1 end),0) officetel_per
+			, nvl(sum(case when house.house_type = '08' then 1 end),0) dom_soc_fac_per
+			, nvl(sum(case when house.house_type = '02' then 1 end),0) apart
+			, nvl(sum(case when (house.house_type = '05' or house.house_type = '07'or house.house_type = '09'or house.house_type = '10') then 1 end),0) etc
+			from ${year} house
+			<where> 
+				<if test='area_kind  == "POLYGON" '>
+					and st_contains(st_polyfromtext(#{area},0),house.pt)=1 
+				</if>
+				<if test='area_kind  == "POINT" '>
+					and st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),house.pt) = 1
+				</if>
+				<if test='area_kind  == "RECTANGLE" '>
+					and st_contains(st_rectfromtext(#{area},0),house.pt) = 1
+				</if>
+			</where>
+	</select>
+	
+	<!-- 선택상권 정보 -->
+	<select id="tradeAreaCorp" parameterType="hashmap" resultType="hashmap">	
+		SELECT	info.theme_cd
+		,			theme.s_theme_cd_nm
+		,			info.corp_cnt
+		,			info.corp_per
+		FROM 	SRV_DT_BUSCOMMER com
+		,			SRV_DT_SMALL_LIFEBIZ_INFO info
+		,			CMM_CD_THEME theme
+		WHERE	com.tradearea_id = info.tradearea_id
+		AND		info.theme_cd = theme.theme_cd
+		AND		com.tradearea_id = #{tradearea_id}
+		AND		SUBSTR(info.theme_cd, 0, 2) = #{theme_cd}
+		ORDER BY info.corp_cnt DESC
+	</select>
+	
+	<!-- 최신년도 조회 -->
+	<select id="getBaseYear" parameterType="hashmap" resultType="String">
+		SELECT  base_year
+		FROM    srv_dt_statbaseyearinfo
+		WHERE   api_id = #{api_id}
+		AND     param_info = #{param}
+	</select>
+	
+	<!-- 경계면적조회 -->
+	<select id="polygonuserareacheck" parameterType="hashmap" resultType="String">
+		Select round(ST_AREA(ST_POLYFROMTEXT(#{area},0))) areasize from dual
+	</select>
+	<select id="cercleuserareacheck" parameterType="hashmap" resultType="String">
+		Select round(ST_AREA(ST_BUFFER(ST_POINTFROMTEXT(#{area},0),#{round}))) areasize from dual
+	</select>
+	<select id="rectuserareacheck" parameterType="hashmap" resultType="String">
+		Select round(ST_AREA(ST_RECTFROMTEXT(#{area},0))) areasize from dual
+	</select>
+	
+	<!-- 상권조회  -->
+	<select id="tradearea" parameterType="hashmap" resultType="hashmap">
+         Select tradearea_id, tradearea_nm, st_asbinary(bord) geometry
+         from srv_dt_buscommer
+         where 
+              st_intersects(st_rectfromtext(#{area},0),bord) = 1
+	</select>
+	
+	<!-- 주택거래가격 -->
+	<select id="houseprice" parameterType="hashmap" resultType="hashmap">	
+		Select price.ym as year_month
+			, round(price.apt_highest_price/10000) as apart_highest_price
+			, round(price.apt_lowest_price/10000) apart_lowest_price
+			, round(price.rmhouse_highest_price/10000) row_multi_house_highest_price
+			, round(price.rmhouse_lowest_price/10000) row_multi_house_lowest_price
+			<!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+			, round(price.slh_highest_price/10000) single_highest_price
+			, round(price.slh_lowest_price/10000) single_lowest_price
+		<if test='adm_cd.length() == 7 '>
+			, bord.emdong_nm adm_nm
+			, bord.sido_cd||bord.sgg_cd||bord.emdong_cd adm_cd
+		from srv_dt_housevolumeprice price
+			,srv_pg_admbord bord
+		where price.sido_cd=substr(#{adm_cd},0,2)
+			and price.sgg_cd=substr(#{adm_cd},3,3)
+			and price.emdong_cd=substr(#{adm_cd},6,2)
+			and price.tot_reg_cd='0000000000000'
+			and bord.base_year = #{year}
+			and price.sido_cd=bord.sido_cd
+			and price.sgg_cd=bord.sgg_cd
+			and price.emdong_cd=bord.emdong_cd
+		</if>
+		<if test='adm_cd.length() == 5 '>
+			, bord.sgg_nm adm_nm
+			, bord.sido_cd||bord.sgg_cd adm_cd
+		from srv_dt_housevolumeprice price
+			,srv_pg_sggbord bord
+		where price.sido_cd=substr(#{adm_cd},0,2)
+			and price.sgg_cd=substr(#{adm_cd},3,3)
+			and price.emdong_cd='00'
+			and price.tot_reg_cd='0000000000000'
+			and bord.base_year = #{year}
+			and price.sido_cd=bord.sido_cd
+			and price.sgg_cd=bord.sgg_cd
+		</if>
+		<if test='adm_cd.length() == 2 '>
+			, bord.sido_nm adm_nm
+			, bord.sido_cd adm_cd
+		from srv_dt_housevolumeprice price
+			,srv_pg_sidobord bord
+		where price.sido_cd=#{adm_cd}
+			and price.sgg_cd='000'
+			and price.emdong_cd='00'
+			and price.tot_reg_cd='0000000000000'
+			and bord.base_year = #{year}
+			and price.sido_cd=bord.sido_cd
+		</if>
+	</select>
+	
+	<!-- 주택거래량 -->
+	<select id="housevolume" parameterType="hashmap" resultType="hashmap">	
+		Select volume.ym as year_month
+			<!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+			, volume.apt_deal_delng_qntty as apart_deal_volume
+			, volume.apt_lease_delng_qntty as apart_lease_volume
+			, volume.rmhouse_delng_qntty as row_multi_dealvolume
+			, volume.rmhouse_lease_delng_qntty as row_multi_leasevolume
+			, volume.slh_deal_delng_qntty as single_deal_volume
+			, volume.slh_lease_delng_qntty as single_lease_volume
+		<if test='adm_cd.length() == 7 '>
+			, bord.emdong_nm adm_nm
+			, bord.sido_cd||bord.sgg_cd||bord.emdong_cd adm_cd
+		from srv_dt_housevolume volume
+			,srv_pg_admbord bord
+		where volume.sido_cd=substr(#{adm_cd},0,2)
+			and volume.sgg_cd=substr(#{adm_cd},3,3)
+			and volume.emdong_cd=substr(#{adm_cd},6,2)
+			and bord.base_year = #{year}
+			and volume.sido_cd=bord.sido_cd
+			and volume.sgg_cd=bord.sgg_cd
+			and volume.emdong_cd=bord.emdong_cd
+		</if>
+		<if test='adm_cd.length() == 5 '>
+			, bord.sgg_nm adm_nm
+			, bord.sido_cd||bord.sgg_cd adm_cd
+		from srv_dt_housevolume volume
+			,srv_pg_sggbord bord
+		where volume.sido_cd=substr(#{adm_cd},0,2)
+			and volume.sgg_cd=substr(#{adm_cd},3,3)
+			and volume.emdong_cd='00'
+			and bord.base_year = #{year}
+			and volume.sido_cd=bord.sido_cd
+			and volume.sgg_cd=bord.sgg_cd
+		</if>
+		<if test='adm_cd.length() == 2 '>
+			, bord.sido_nm adm_nm
+			, bord.sido_cd adm_cd
+		from srv_dt_housevolume volume
+			,srv_pg_sidobord bord
+		where volume.sido_cd=#{adm_cd}
+			and volume.sgg_cd='000'
+			and volume.emdong_cd='00'
+			and bord.base_year = #{year}
+			and volume.sido_cd=bord.sido_cd
+		</if>
+	</select>
+	
+	<!-- 공시지가 -->
+	<select id="pnilpInfo" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+				base_year,
+				sido_cd,
+				<if test='adm_cd.length() == 2'>
+					sido_cd as adm_cd,
+				</if>
+				<if test='adm_cd.length() == 5'>
+					sido_cd||sgg_cd as adm_cd,
+				</if>
+				<if test='adm_cd.length() == 7'>
+					sido_cd||sgg_cd||emdong_cd as adm_cd,
+				</if>
+				<!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+				slh_price as single_price,
+				rmhouse_price,
+				apt_price,
+				cmrc_price,
+				job_price,
+				rccomplex_price
+		 FROM srv_dt_pnilpinfo 
+		 WHERE 
+		 	<if test='adm_cd.length() == 2'>
+		 		sido_cd = #{adm_cd}
+		 		and sgg_cd = '000'
+		 	</if>
+		 	<if test='adm_cd.length() == 5'>
+		 		sido_cd = substr(#{adm_cd},0,2)
+		 		and sgg_cd = substr(#{adm_cd},3,3)
+		 		and emdong_cd = '00'
+		 	</if>
+		 	<if test='adm_cd.length() == 7'>
+		 		sido_cd = substr(#{adm_cd},0,2)
+		 		and sgg_cd = substr(#{adm_cd},3,3)
+		 		and emdong_cd = substr(#{adm_cd},6,2)
+		 	</if>
+	</select>
+	
+	<!-- 지역 특성정보 -->
+	<select id="regionalSpec" parameterType="hashmap" resultType="String">	
+		Select 
+		<if test='data_type != "40" '>
+			spec.data_cd
+		</if>
+		<if test='data_type == "40" '>
+			theme.s_theme_cd_nm data_cd
+		</if>
+		<if test='adm_cd.length() == 7 '>
+		from srv_dt_regionalspec spec
+		<if test='data_type == "40" '>
+			,cmm_cd_theme theme
+		</if>
+		<where> 
+			<if test='data_type == "10" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 10
+			</if>
+			<if test='data_type == "20" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 20
+			</if>
+			<if test='data_type == "30" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 30
+			</if>
+			<if test='data_type == "40" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 3
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt <![CDATA[>]]> 20 
+				and spec.data_type = 40
+				and spec.data_cd=theme.theme_cd
+			</if>
+				and spec.sido_cd=substr(#{adm_cd},0,2)
+				and spec.sgg_cd=substr(#{adm_cd},3,3)
+				and spec.emdong_cd=substr(#{adm_cd},6,2)
+		</where>
+		</if>
+		<if test='adm_cd.length() == 5 '>
+		from srv_dt_regionalspec spec
+		<if test='data_type == "40" '>
+			,cmm_cd_theme theme
+		</if>
+		<where> 
+			<if test='data_type == "10" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 10
+			</if>
+			<if test='data_type == "20" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 20
+			</if>
+			<if test='data_type == "30" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 30
+			</if>
+			<if test='data_type == "40" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 3
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt <![CDATA[>]]> 20 
+				and spec.data_type = 40
+				and spec.data_cd=theme.theme_cd
+			</if>
+				and spec.sido_cd=substr(#{adm_cd},0,2)
+				and spec.sgg_cd=substr(#{adm_cd},3,3)
+				and spec.emdong_cd='00'
+		</where>
+		</if>
+		<if test='adm_cd.length() == 2 '>
+		from srv_dt_regionalspec spec
+		<if test='data_type == "40" '>
+			,cmm_cd_theme theme
+		</if>
+		<where> 
+			<if test='data_type == "10" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 10
+			</if>
+			<if test='data_type == "20" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 20
+			</if>
+			<if test='data_type == "30" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 5
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt=0
+				and spec.data_type = 30
+			</if>
+			<if test='data_type == "40" '>
+					spec.upper_region_percentile <![CDATA[<=]]> 3
+				and spec.upper_region_rate <![CDATA[>=]]> 150
+				and spec.corp_cnt <![CDATA[>]]> 20 
+				and spec.data_type = 40
+				and spec.data_cd=theme.theme_cd
+			</if>
+				and spec.sido_cd=#{adm_cd}
+				and spec.sgg_cd='000'
+				and spec.emdong_cd='00'
+		</where>
+		</if>
+	</select>
+	
+	<select id="areaevent" parameterType="hashmap" resultType="hashmap">	
+		select  sido_cd||sgg_cd||emdong_cd adm_cd
+				, event_no, event_nm
+				, addr
+				, event_start_dt
+				, event_end_dt 
+				, st_x(pt) x 
+				, st_y(pt) y 
+		from SRV_PT_EVENT
+		where 
+			st_contains(st_rectfromtext(#{area},0),pt) = 1
+			and event_end_dt <![CDATA[>]]> sysdate
+	</select>
+	
+	<!-- 지역별버스정류장정보 -->
+	<select id="poietcbusstop" parameterType="hashmap" resultType="hashmap">	
+		select tot_reg_cd
+			,busstop_id
+			,bis_cnter_cd
+			,bis_cnter_nm
+			,busstop_nm
+			,st_x(pt) x
+			,st_y(pt) y
+		from SRV_PT_BUSSTOP_INFO
+		where 
+			st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),pt) = 1
+	</select>
+	
+	<!-- 일자별유동인구정보 -->
+	<select id="poietcfloatppln" parameterType="hashmap" resultType="hashmap">	
+        select flo.surv_time
+            , flo.surv_dt
+            <!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+            , flo.weekend_div as wkend_div
+            , flo.surv_region
+            , flo.surv_no
+            , flo.tot_reg_cd
+            <!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+            , flo.weather as wethr
+            , flo.male_agegp_10_cnt
+            , flo.male_agegp_20_cnt
+            , flo.male_agegp_30_cnt
+            , flo.male_agegp_40_cnt
+            , flo.male_agegp_50_cnt
+            , flo.fem_agegp_10_cnt
+            , flo.fem_agegp_20_cnt
+            , flo.fem_agegp_30_cnt
+            , flo.fem_agegp_40_cnt
+            , flo.fem_agegp_50_cnt
+            <!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+            , flo.floating_ppltn_sum as fltppltn_sum
+            , st_x(flo.pt) x
+            , st_y(flo.pt) y
+            , tot.adm_nm
+        from SRV_PT_FLOATING_PPLTN_INFO flo, 
+        			(
+        				select tot_reg_cd 
+		                     , a.sido_cd||a.sgg_cd||a.emdong_cd adm_cd 
+		                     , b.sido_nm || ' ' || b.sgg_nm || ' ' || b.emdong_nm adm_nm 
+		                     , a.base_year as year
+		                 from srv_pg_totregbord a, srv_pg_admbord b
+		                 where   a.base_year = #{bnd_year}
+			                 and a.base_year=b.base_year 
+							 and a.sido_cd=b.sido_cd
+							 and a.sgg_cd=b.sgg_cd
+							 and a.emdong_cd=b.emdong_cd
+					) tot
+        where flo.tot_reg_cd = tot.tot_reg_cd 
+        	and tot.year = #{bnd_year}
+            and st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),flo.pt) = 1
+        order by flo.surv_dt
+	</select>
+	
+	<!-- 일자별유동인구정보 리스트-->
+	<select id="poietcfloatlist" parameterType="hashmap" resultType="hashmap">	
+		select distinct st_x(pt) x,st_y(pt) y
+		from SRV_PT_FLOATING_PPLTN_INFO 
+		where 
+			st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),pt) = 1
+	</select>
+	
+	<!-- 지하철승하차정보 -->
+	<select id="poietcmetroppln" parameterType="hashmap" resultType="hashmap">	
+		select sido_nm, station_nm, subway_no, inout_type, x, y 
+			,hour1_psn_cnt, hour2_psn_cnt, hour3_psn_cnt, hour4_psn_cnt, hour5_psn_cnt, hour6_psn_cnt
+			,hour7_psn_cnt, hour8_psn_cnt, hour9_psn_cnt, hour10_psn_cnt, hour11_psn_cnt, hour12_psn_cnt
+			,hour13_psn_cnt, hour14_psn_cnt, hour15_psn_cnt, hour16_psn_cnt, hour17_psn_cnt, hour18_psn_cnt
+			,hour19_psn_cnt, hour20_psn_cnt, hour21_psn_cnt, hour22_psn_cnt, hour23_psn_cnt, hour24_psn_cnt
+			,hour1_psn_cnt + hour2_psn_cnt + hour3_psn_cnt + hour4_psn_cnt + hour5_psn_cnt + hour6_psn_cnt 
+			+ hour7_psn_cnt + hour8_psn_cnt + hour9_psn_cnt + hour10_psn_cnt + hour11_psn_cnt + hour12_psn_cnt 
+			+ hour13_psn_cnt + hour14_psn_cnt + hour15_psn_cnt + hour16_psn_cnt + hour17_psn_cnt + hour18_psn_cnt 
+			+ hour19_psn_cnt + hour20_psn_cnt + hour21_psn_cnt + hour22_psn_cnt + hour23_psn_cnt + hour24_psn_cnt hour_psn_sum
+		from
+	 		(   select sido_nm
+		            ,station_nm
+		            ,subway_no
+		            ,inout_type
+		            <!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+		            ,round(avg(hour_1_psn_cnt),0) hour1_psn_cnt
+		            ,round(avg(hour_2_psn_cnt),0) hour2_psn_cnt
+		            ,round(avg(hour_3_psn_cnt),0) hour3_psn_cnt
+		            ,round(avg(hour_4_psn_cnt),0) hour4_psn_cnt
+		            ,round(avg(hour_5_psn_cnt),0) hour5_psn_cnt
+		            ,round(avg(hour_6_psn_cnt),0) hour6_psn_cnt
+		            ,round(avg(hour_7_psn_cnt),0) hour7_psn_cnt
+		            ,round(avg(hour_8_psn_cnt),0) hour8_psn_cnt
+		            ,round(avg(hour_9_psn_cnt),0) hour9_psn_cnt
+		            ,round(avg(hour_10_psn_cnt),0) hour10_psn_cnt
+		            ,round(avg(hour_11_psn_cnt),0) hour11_psn_cnt
+		            ,round(avg(hour_12_psn_cnt),0) hour12_psn_cnt
+		            ,round(avg(hour_13_psn_cnt),0) hour13_psn_cnt
+		            ,round(avg(hour_14_psn_cnt),0) hour14_psn_cnt
+		            ,round(avg(hour_15_psn_cnt),0) hour15_psn_cnt
+		            ,round(avg(hour_16_psn_cnt),0) hour16_psn_cnt
+		            ,round(avg(hour_17_psn_cnt),0) hour17_psn_cnt
+		            ,round(avg(hour_18_psn_cnt),0) hour18_psn_cnt
+		            ,round(avg(hour_19_psn_cnt),0) hour19_psn_cnt
+		            ,round(avg(hour_20_psn_cnt),0) hour20_psn_cnt
+		            ,round(avg(hour_21_psn_cnt),0) hour21_psn_cnt
+		            ,round(avg(hour_22_psn_cnt),0) hour22_psn_cnt
+		            ,round(avg(hour_23_psn_cnt),0) hour23_psn_cnt
+		            ,round(avg(hour_24_psn_cnt),0) hour24_psn_cnt
+		            ,st_x(pt) x
+		            ,st_y(pt) y
+	        	from SRV_PT_SUBWAY_INOUT_INFO
+		        where 
+		            st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),pt) = 1
+		        group by sido_nm, station_nm, subway_no, inout_type, st_x(pt), st_y(pt)
+			)
+	</select>
+	
+	<!-- 지하철승하차정보 지하철역 리스트-->
+	<select id="poietcmetrolist" parameterType="hashmap" resultType="String">	
+	    select distinct station_nm
+        from SRV_PT_SUBWAY_INOUT_INFO 
+        where 
+            st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),pt) = 1
+	</select>
+	
+	<!-- 연도별학교정보 -->
+	<select id="poietcschoolppln" parameterType="hashmap" resultType="hashmap">	
+		select distinct school_nm
+			,sc.base_year
+			,tot_reg_cd
+			,sgg_nm
+			<!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+			,schoolsystem as elsm
+			,mainbranch_type
+			,school_state
+			<!-- 2017. 06. 27 j.h.Seok DB 표준화 작업 -->
+			,edu_support_office as eduoffice
+			,est_div as fond_div
+			,postcd
+			,sc.addr
+			,tel_no
+			,fax_no
+			,hpage
+			,stdnt_cnt
+			,tcher_cnt
+			,st_x(pt) x
+			,st_y(pt) y
+		from SRV_PT_SCHOOL_INFO sc, SRV_PG_SGGBORD sgg
+		where 
+			 substr(sc.tot_reg_cd, 0, 5) = (sgg.sido_cd || sgg.sgg_cd)
+		and
+			 st_contains(st_rectfromtext('rectangle(${minx} ${miny}, ${maxx} ${maxy})',0),pt) = 1
+	</select>
+	
+	<!-- 업종별 밀집도 조회-테마코드별 사업체조회 -->
+	<!-- <select id="poiCompanyDensity" parameterType="hashmap" resultMap="companysearchMap">
+		select count(*) totalcount
+			,case when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[=]]> to_char(#{pagenum}) then mod(count(*),to_char(#{resultcount}))
+			  when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[>]]> to_char(#{pagenum}) then to_number(to_char(#{resultcount}))
+			  when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[<]]> to_char(#{pagenum}) then 0
+			end as returncount
+			,to_char(#{resultcount}) as resultcount
+			,to_char(#{pagenum}) as pagenum
+			,to_char(#{year}) as year
+			,to_char(#{srt_idx}) as srt_idx
+			,to_char(#{theme_cd}) as theme_cd
+			,to_char(#{bnd_year}) as bnd_year	
+			,to_char(#{corp_num}) as corp_num
+			,to_char(#{adm_cd}) as adm_cd	
+		from srv_dt_corpcensus_${corp_num} corp
+		   , cmm_cd_corpclass class
+		   , cmm_cd_theme theme
+		<where>		
+		    and corp.ksic_5_cd=class.ksic_5_cd 
+		    and class.theme_cd = theme.theme_cd
+		    and corp.base_year = #{year}
+		<if test='theme_cd != null '>
+		    and class.theme_cd = #{theme_cd}
+		</if>
+		<if test='adm_cd != null '>
+			and corp.adm_cd like #{adm_cd}||'%'
+		</if>
+		</where>
+	</select>
+	
+	<resultMap id="companysearchMap" type="kostat.sop.ServiceAPI.api.bizStats.dto.CompanysearchMap">
+		<collection property="company_list"
+			column="{
+						corp_num = corp_num
+						, year = year
+						, bnd_year = bnd_year
+						, theme_cd = theme_cd
+						, srt_idx = srt_idx
+						, resultcount = resultcount
+						, adm_cd = adm_cd
+			}"
+			ofType="hashmap" javaType="ArrayList" select="companysearchinfo">
+		</collection>
+	</resultMap> -->
+
+	<!-- <select id="companysearchinfo" parameterType="hashmap" resultType="hashmap">
+        select distinct
+             corp.adm_cd
+             , bd.tot_reg_cd
+             , corp.ksic_1_cd || corp.ksic_5_cd class_code
+             , class.ksic_5_nm class_nm
+             , corp.corp_nm
+             , '' AS main_nm
+             , corp.employee_cnt
+             , censusbd.naddr
+             , censusbd.adm_nm
+             , '' AS hpage
+             , '' as tel_no
+             , corp.sufid
+             , round(st_x(bd.pt)) x
+             , round(st_y(bd.pt)) y
+             , theme.b_theme_cd_nm||'/'||theme.s_theme_cd_nm theme_nm
+             , theme.theme_cd
+        from srv_dt_corpcensus_${corp_num} corp
+           , cmm_cd_corpclass class
+           , cmm_cd_theme theme
+           , SRV_PT_BD bd
+           , SRV_PG_CENSUSBD censusbd
+        <where>
+            and corp.sufid = bd.sufid
+            and corp.sufid = censusbd.sufid        
+            and corp.ksic_5_cd=class.ksic_5_cd 
+            and class.theme_cd = theme.theme_cd
+            and corp.base_year= #{year}
+        <if test='theme_cd != null '>
+            and class.theme_cd = #{theme_cd}
+        </if>
+        <if test='adm_cd != null '>
+			and corp.adm_cd like #{adm_cd}||'%'
+		</if>
+        </where>
+            limit #{srt_idx}, #{resultcount}
+    </select> -->
+    <select id="poiCompanyDensity" parameterType="hashmap" resultMap="companysearchMap">
+		select count(*) totalcount
+			,case when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[=]]> to_char(#{pagenum}) then mod(count(*),to_char(#{resultcount}))
+			  when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[>]]> to_char(#{pagenum}) then to_number(to_char(#{resultcount}))
+			  when TRUNC(count(*)/to_char(#{resultcount})) <![CDATA[<]]> to_char(#{pagenum}) then 0
+			end as returncount
+			,to_char(#{resultcount}) as resultcount
+			,to_char(#{pagenum}) as pagenum
+			,to_char(#{year}) as year
+			,to_char(#{srt_idx}) as srt_idx
+			,to_char(#{theme_cd}) as theme_cd
+			,to_char(#{bnd_year}) as bnd_year	
+			,to_char(#{corp_num}) as corp_num
+			,to_char(#{adm_cd}) as adm_cd	
+		from srv_dt_corpcensus_${corp_num}
+		where base_year = #{year}
+			<if test='theme_cd != null '>
+				and theme_cd = #{theme_cd}
+			</if>
+			<if test='adm_cd != null '>
+				and adm_cd like #{adm_cd}||'%'
+			</if>
+	</select>
+	
+	<select id="poiCompanyDensity_Test" parameterType="hashmap" resultType="hashmap">
+		<if test='data_type == "1" '>
+        	select 
+					nvl(corp.cnt, 0) as cnt
+				,	bord.adm_cd
+				,	bord.X
+				,	bord.Y
+			from
+				(
+					select 
+						SIDO_CD||SGG_CD||EMDONG_CD as adm_cd
+						,round(X_COOR) AS X
+						,round(Y_COOR) AS Y
+					From 
+						srv_pg_admbord 
+					where 
+						BASE_YEAR = #{bnd_year}
+				) bord
+			inner join
+				(
+					select 
+						sum(corp_cnt) as cnt
+					,	substr(tot_reg_cd, 0, 7) as adm_cd
+					from 
+						srv_dt_corpthemereg
+					where
+						base_year = #{year}
+					<if test='theme_cd != null '>
+					and theme_cd = #{theme_cd}
+					</if>
+					group by substr(tot_reg_cd, 0, 7)
+				) corp
+			on bord.adm_cd = corp.adm_cd and corp.cnt > 0;
+            
+	</if>
+	<if test='data_type == "2" '>
+			select 
+					nvl(corp.cnt, 0) as cnt
+				,	bord.adm_cd
+				,	bord.X
+				,	bord.Y
+			from
+				(
+					select 
+						tot_reg_cd as adm_cd
+						,round(X_COOR) AS X
+						,round(Y_COOR) AS Y
+					From 
+						srv_pg_totregbord 
+					where 
+						BASE_YEAR = #{bnd_year}
+				) bord
+			inner join
+				(
+					select 
+						sum(corp_cnt) as cnt
+					,	tot_reg_cd as adm_cd
+					from 
+						srv_dt_corpthemereg
+					where
+						base_year = #{year}
+					and theme_cd = #{theme_cd}
+					and substr(tot_reg_cd,0,2) = #{adm_cd}
+					group by tot_reg_cd
+				) corp
+			on bord.adm_cd = corp.adm_cd and corp.cnt > 0;
+	</if>
+	
+	<if test='data_type=="3"'>
+              select
+                 a.corp_nm as corp_nm
+                 ,c.naddr as naddr
+                 ,a.adm_cd as adm_cd
+                 ,a.sufid as sufid
+                 ,d.b_theme_cd_nm||'/'||d.s_theme_cd_nm theme_nm
+                 ,d.theme_cd
+                 ,b.X
+                 ,b.Y
+          from  (select * from srv_dt_corpcensus_9 where base_year = #{year} 
+          		and theme_cd = #{theme_cd}
+          ) a,
+            (select 
+                 sufid
+                , round(st_x(pt)) AS X
+                , round(st_y(pt)) AS Y
+                
+                From srv_pt_bd
+                where tot_reg_cd like #{adm_cd}||'%'
+                ) b,
+                 SRV_PG_CENSUSBD c,
+                cmm_cd_theme d
+
+            where 
+             a.sufid = b.sufid
+            and a.sufid = c.sufid
+            and a.theme_cd = d.theme_cd
+            
+	</if>
+	</select>
+	
+	
+	<!-- 지자체 인허가 업종별 개업 현황 -->
+	<select id="poiCompanyOpen" parameterType="hashmap" resultType="hashmap">
+		<if test='data_type == "1" '>
+        	select 
+					nvl(corp.cnt, 0) as cnt
+				,	bord.adm_cd
+				,	bord.X
+				,	bord.Y
+			from
+			(
+				select 
+						SIDO_CD||SGG_CD||EMDONG_CD as adm_cd
+						,round(X_COOR) AS X
+						,round(Y_COOR) AS Y
+					from 
+						srv_pg_admbord 
+					where 
+						BASE_YEAR = (select max(base_year) from srv_pg_admbord)
+			) bord
+			left outer join			
+			(
+				select count(1) cnt, left(tot_oa_cd, 7) adm_cd 
+				from srv_pt_localdata 
+				where 
+					service_code = #{theme_cd} and 
+					left(apvpermymd, 4) = #{year}
+					group by left(tot_oa_cd, 7)
+			) corp
+			on bord.adm_cd = corp.adm_cd 
+			
+			
+			
+			
+			
+			
+            
+	</if>
+	<if test='data_type == "2" '>
+			select 
+					nvl(corp.cnt, 0) as cnt
+				,	bord.adm_cd
+				,	bord.X
+				,	bord.Y
+			from
+				(
+					select 
+						tot_reg_cd as adm_cd
+						,round(X_COOR) AS X
+						,round(Y_COOR) AS Y
+					From 
+						srv_pg_totregbord 
+					where 
+						left(tot_reg_cd,2) = #{adm_cd}
+				) bord
+			left outer join
+				(
+					select count(1) cnt, tot_oa_cd adm_cd 
+					from srv_pt_localdata 
+					where 
+					service_code = #{theme_cd} and 
+					left(apvpermymd, 4) = #{year} and 
+					left(tot_oa_cd, 2) = ${adm_cd}
+					group by tot_oa_cd
+				) corp
+			on bord.adm_cd = corp.adm_cd 
+	</if>
+	
+	<if test='data_type=="3"'>
+          select bplcnm as corp_nm
+					, sitewhladdr as naddr
+					, left(tot_oa_cd, 7) as adm_cd
+					, replace(coord_x, '.','')||replace(coord_y, '.','') as sufid
+					, service_nm as theme_nm
+					, service_code as theme_cd
+					, coord_x as X
+					, coord_y as Y
+			from srv_pt_localdata
+			where left(apvpermymd, 4) = #{year}
+			    and service_code = #{theme_cd}
+				and left(tot_oa_cd, 5) = #{adm_cd}
+            
+	</if>
+	</select>
+	
+	<!-- mng_s 업종별 뜨는 지역 -->
+	<select id="getCompanyBestArea" parameterType="hashmap" resultType="hashmap">
+	
+		select top 3 max(addr) adm_nm, max(corp_cnt) corp_cnt, adm_cd, round(max(X)) X, round(max(Y)) Y 
+		from srv_pg_admbord a, 
+		(
+        	select top 3 count(left(tot_oa_cd, 7)) corp_cnt, 
+				max(left(tot_oa_cd, 7)) as adm_cd , max(coord_x) as X
+					, max(coord_y) as Y
+			from srv_pt_localdata
+			where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+			    and service_code = #{theme_cd}
+			    <if test='param_sido_cd != "00"'>
+			    	<if test='param_sgg_cd != "999"'>
+			    		and left(tot_oa_cd, 5) = #{param_sido_cd} || #{param_sgg_cd}
+			    	</if>
+			    </if>
+			    <if test='param_sido_cd != "00"'>
+			    	<if test='param_sgg_cd == "999"'>
+			    		and left(tot_oa_cd, 2) = #{param_sido_cd}
+			    	</if>
+			    </if>
+			group by left(tot_oa_cd, 7)
+ 			order by corp_cnt desc
+        ) b
+        where trim(a.sido_cd||sgg_cd||emdong_cd) = trim(b.adm_cd)
+		group by adm_cd, corp_cnt
+		order by corp_cnt desc
+	
+	</select>
+	<!-- mng_s 업종별 뜨는 지역 POI -->
+	<select id="getCompanyBestPOI" parameterType="hashmap" resultType="hashmap">
+	
+		select bplcnm corp_nm, left(tot_oa_cd, 7) adm_cd, coord_x X, coord_y Y 
+		from srv_pt_localdata 
+		where #{job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{job_best_to}
+			    and service_code = #{job_best_themeCd}
+			    and left(tot_oa_cd, 7) = #{jobBestAdmCd}
+		
+	
+	</select>
+	
+	
+	<!-- A: 문화체육, B:관광, C:식품, H:소상공인, I:산업고용  -->
+	<select id="selectjobBestTab10" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							and category_code='A'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<select id="selectjobBestTab20" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							and category_code='B'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<select id="selectjobBestTab30" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							and category_code='C'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<select id="selectjobBestTab40" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							and category_code='H'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<select id="selectjobBestTab50" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							and category_code='I'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<select id="selectjobBestTabFull" parameterType="hashmap" resultType="hashmap">
+	
+		select count(service_code) cnt, max(service_code) service_code, max(service_nm) service_nm
+		from srv_pt_localdata    
+		where #{param_job_best_from} <![CDATA[ <= ]]> apvpermymd
+			    and apvpermymd <![CDATA[ <= ]]> #{param_job_best_to}
+		and service_code in (select service_code
+							from cmm_cd_localdata 
+							where use_yn='Y'
+							)
+		and left(tot_oa_cd, 7) = #{adm_cd}
+		group by service_code
+		order by cnt desc
+		
+	</select>
+	
+	<!-- mng_e 업종별 뜨는 지역 -->
+	
+
+	<resultMap id="companysearchMap" type="kostat.sop.ServiceAPI.api.bizStats.dto.CompanysearchMap">
+		<collection property="company_list"
+			column="{
+						corp_num = corp_num
+						, year = year
+						, bnd_year = bnd_year
+						, theme_cd = theme_cd
+						, srt_idx = srt_idx
+						, resultcount = resultcount
+						, adm_cd = adm_cd
+			}"
+			ofType="hashmap" javaType="ArrayList" select="companysearchinfo">
+		</collection>
+	</resultMap>
+
+
+	<select id="companysearchinfo" parameterType="hashmap" resultType="hashmap">
+		select distinct
+			 corp.adm_cd
+			 , bd.tot_reg_cd
+			 , corp.ksic_1_cd || corp.ksic_5_cd class_code
+			 , class.ksic_5_nm class_nm
+			 , corp.corp_nm
+			 , '' AS main_nm
+			 , corp.employee_cnt
+			 , censusbd.naddr
+			 , censusbd.adm_nm
+			 , '' AS hpage
+			 , '' as tel_no
+			 , corp.sufid
+			 , round(st_x(bd.pt)) x
+			 , round(st_y(bd.pt)) y
+			 , theme.b_theme_cd_nm||'/'||theme.s_theme_cd_nm theme_nm
+			 , theme.theme_cd
+		from 
+			(	
+				select adm_cd, ksic_1_cd, ksic_5_cd, corp_nm, employee_cnt, sufid, theme_cd
+				from srv_dt_corpcensus_${corp_num}
+				where base_year= #{year}
+				<if test='theme_cd != null '>
+					and theme_cd = #{theme_cd}
+				</if>
+				<if test='adm_cd != null '>
+					and adm_cd like #{adm_cd}||'%'
+				</if>
+				limit #{srt_idx}, #{resultcount}
+			) corp
+		   , cmm_cd_corpclass class
+		   , cmm_cd_theme theme
+		   , SRV_PT_BD bd
+		   , SRV_PG_CENSUSBD censusbd
+		<where>
+			and corp.sufid = bd.sufid
+			and corp.sufid = censusbd.sufid        
+			and corp.ksic_5_cd = class.ksic_5_cd 
+			and corp.theme_cd = class.theme_cd
+			and corp.theme_cd = theme.theme_cd
+		</where>
+	</select>
+    
+    
+    <!-- 업종별 밀집도 조회-테마코드별 사업체 년도별 개수 조회 -->
+	<select id="poiCompanyTimeSeries" parameterType="hashmap" resultType="hashmap">
+		<!-- 
+		SELECT	corp.base_year, COUNT(*) as cnt
+		FROM 	srv_dt_corpcensus_8 corp
+		, 		cmm_cd_corpclass class
+		, 		cmm_cd_theme theme
+		WHERE	class.class_deg = '8'
+		AND		corp.ksic_5_cd = class.ksic_5_cd 
+		AND 	class.theme_cd = theme.theme_cd
+		AND		class.theme_cd = #{theme_cd}
+		<if test='adm_cd  == "null" '>
+			AND		corp.adm_cd like '%'
+		</if>
+		<if test='adm_cd  != "null" '>
+			AND		corp.adm_cd like #{adm_cd}||'%'	
+		</if>
+		GROUP BY corp.base_year
+		
+		UNION ALL
+		-->
+		SELECT	corp.base_year, COUNT(*) as cnt
+		FROM 	srv_dt_corpcensus_9 corp
+		, 		cmm_cd_corpclass class
+		, 		cmm_cd_theme theme
+		<!-- 2016. 10. 06 수정 -->
+		WHERE	class.class_deg = '9'
+		AND		corp.ksic_5_cd = class.ksic_5_cd 
+		AND 	class.theme_cd = theme.theme_cd
+		AND		class.theme_cd = #{theme_cd}
+		<if test='adm_cd  == "null" '>
+			AND		corp.adm_cd like '%'
+		</if>
+		<if test='adm_cd  != "null" '>
+			AND		corp.adm_cd like #{adm_cd}||'%'	
+		</if>
+		GROUP BY corp.base_year
+		
+	</select>
+	
+	
+	<!-- 지자체 인허가 업종별 개업 현황 사업체 년도별 개수 조회 -->
+	<select id="poiOpenTimeSeries" parameterType="hashmap" resultType="hashmap">
+		select max(base_year)||'/'||max(quater)||'Q' base_year, sum(cnt) cnt
+		from (
+			select left(apvpermymd, 4) as base_year, ceil(substr(left(apvpermymd, 6),5,2)/3) quater
+			, count(1) as cnt
+			from srv_pt_localdata, (select max(base_year) m_year from srv_dt_corpclasssgg)
+			where service_code = #{theme_cd}
+			
+			and tot_oa_cd like '%'
+			<if test='adm_cd  == "null" '>
+				AND		tot_oa_cd like '%'
+			</if>
+			<if test='adm_cd  != "null" '>
+				AND		tot_oa_cd like #{adm_cd}||'%'	
+			</if>
+			
+			and left(apvpermymd, 4) > m_year
+			group by left(apvpermymd, 4), ceil(substr(left(apvpermymd, 6),5,2)/3)
+		)
+		group by base_year||quater
+		order by base_year
+	</select>
+	
+	<!-- 지역 종합정보 조회 - 총사업체, 총인구, 총가구, 총주택 조회 -->
+	<!-- 2016.09.06 9월 서비스 -->
+	<select id="allCompanyPplHouse" parameterType="hashmap" resultType="hashmap">
+		SELECT	(
+						SELECT	COUNT(*) as corp_cnt
+						FROM		SRV_DT_CORPCENSUS_9
+						WHERE	adm_cd LIKE #{adm_cd}||'%'
+						AND		base_year = #{company_year}
+					) as corp_cnt
+		,			(
+						SELECT	SUM(ppltn_cnt) as ppltn_cnt
+						FROM		SRV_DT_POPSREG_${year}
+						WHERE	tot_reg_cd LIKE #{adm_cd}||'%'
+					) as ppltn_cnt
+		,			(
+						SELECT	SUM(family_cnt) as family_cnt
+						FROM		SRV_DT_FAMILYREG_${year}
+						WHERE	tot_reg_cd LIKE #{adm_cd}||'%'
+					) as family_cnt
+		,			(
+						SELECT	SUM(resid_cnt) as resid_cnt
+						FROM		SRV_DT_HOUSEREG_${year}
+						WHERE	tot_reg_cd LIKE #{adm_cd}||'%'
+						AND		house_yn = 'Y'
+					) as resid_cnt
+		,			(
+						SELECT	emdong_nm as adm_nm
+						FROM		SRV_PG_ADMBORD
+						WHERE	sido_cd = SUBSTR(#{adm_cd},1,2)
+						AND		sgg_cd = SUBSTR(#{adm_cd},3,5)
+						AND		emdong_cd = SUBSTR(#{adm_cd},6,7)
+						group by emdong_nm
+					) as adm_nm
+		FROM 	DUAL
+	</select>
+	
+	<!-- 상권정보 - 선택영역 비율 -->
+	<select id="tradeSelectAreaRatio" parameterType="hashmap" resultType="hashmap">
+		SELECT	rstrt_cnt
+		,			rstrt_per
+		,			srv_corp_cnt
+		,			srv_corp_per
+		,			whrtlsal_corp_cnt
+		,			whrtlsal_per
+		,			lodge_corp_cnt
+		,			lodgebiz_per
+		FROM 	SRV_DT_BUSCOMMER com
+		,			SRV_DT_SMALL_LIFEBIZ_STATUS stat
+		WHERE	com.tradearea_id = stat.tradearea_id
+		AND		com.tradearea_id = #{tradearea_id}
+	</select>
+	
+	<!-- 상권정보 - 전국평균 비율 -->
+	<select id="tradeCountryAvgRatio" parameterType="hashmap" resultType="hashmap">
+		SELECT	SUM(rstrt_cnt) as rstrt_cnt
+		,			SUM(srv_corp_cnt) as srv_corp_cnt
+		,			SUM(whrtlsal_corp_cnt) as whrtlsal_corp_cnt
+		,			SUM(lodge_corp_cnt) as lodge_corp_cnt
+		FROM 	SRV_DT_BUSCOMMER com
+		,			SRV_DT_SMALL_LIFEBIZ_STATUS stat
+		WHERE	com.tradearea_id = stat.tradearea_id
+	</select>
+	
+	<!-- 지역 종합정보 조회 - 주요 시설물 현황 -->
+	<select id="mainFacilityList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	SUM(CASE WHEN theme_cd IN (7001, 7002, 7003, 7004, 7005, 7006, 7007) THEN 1 ELSE 0 END) as theme_sum_01
+		,			SUM(CASE WHEN theme_cd IN (6001, 6002, 6003, 6004) THEN 1 ELSE 0 END) as theme_sum_02
+		,			SUM(CASE WHEN theme_cd IN (8006, 9002) THEN 1 ELSE 0 END) as theme_sum_03
+		,			SUM(CASE WHEN theme_cd IN (8007, 9003) THEN 1 ELSE 0 END) as theme_sum_04
+		,			(
+						SELECT	metro + bus
+						FROM	
+								(
+									SELECT	(
+													SELECT COUNT(*)
+													FROM
+															(
+																SELECT	distinct station_nm
+																FROM 	SRV_PT_SUBWAY_INOUT_INFO 
+																WHERE	st_contains(ST_BUFFER(st_pointfromtext(#{area},0),#{round}),pt) = 1
+															)
+												)  as metro
+									,			(		
+													SELECT COUNT(*)
+													FROM
+														(
+															SELECT	distinct busstop_nm
+															FROM 	SRV_PT_BUSSTOP_INFO 
+															WHERE	tot_reg_cd LIKE #{adm_cd}||'%'
+														)						
+												) as bus		
+									FROM DUAL
+								)
+					) as theme_sum_05
+		,			SUM(CASE WHEN theme_cd IN (6003, 6004) THEN 1 ELSE 0 END) as theme_sum_06
+		,			SUM(CASE WHEN theme_cd IN (9001) THEN 1 ELSE 0 END) as theme_sum_07
+		,			SUM(CASE WHEN theme_cd IN (2003) THEN 1 ELSE 0 END) as theme_sum_08
+		,			SUM(CASE WHEN theme_cd IN (9004) THEN 1 ELSE 0 END) as theme_sum_09
+		,			SUM(CASE WHEN theme_cd IN (9005) THEN 1 ELSE 0 END) as theme_sum_10
+		FROM 	SRV_DT_CORPCENSUS_9 corp, SRV_PT_BD bd
+		WHERE 	bd.sufid = corp.sufid
+		AND		corp.base_year = #{base_year}
+		AND		bd.tot_reg_cd LIKE #{adm_cd}||'%'
+	</select>
+	
+	<!-- 지역 종합정보 조회 - 주요 시설물 현황 - 테마코드명 가져오기-->
+	<select id="mainFacilityList_thcd" parameterType="hashmap" resultType="hashmap">
+		select  corp.theme_cd , cd.s_theme_cd_nm
+			FROM 	SRV_DT_CORPCENSUS_9 corp, SRV_PT_BD bd, CMM_CD_THEME cd
+		WHERE 	bd.sufid = corp.sufid 
+		AND		corp.base_year = #{base_year}
+		AND		bd.tot_reg_cd LIKE #{adm_cd}||'%'
+		AND		corp.theme_cd  = cd.theme_cd
+		group by corp.theme_cd, cd.s_theme_cd_nm 
+	</select>
+	
+	<!-- 업종밀집도 - 시군구별 하위 읍면동 리스트 -->
+	<select id="getEmdongListBySgg" parameterType="hashmap" resultType="hashmap">
+		select
+			sgg_cd
+			,emdong_cd
+			,sgg_nm
+			,emdong_nm
+		from srv_pg_admbord
+		where base_year = #{year}
+		  and sido_cd = #{sido_cd}
+		  and sgg_cd = #{sgg_cd}
+		order by emdong_cd
+	</select>
+</mapper>

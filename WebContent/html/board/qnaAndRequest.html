@@ -1,0 +1,522 @@
+<!-- 
+* 질문과 개선요청 (FAQ) (Q&A) HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/09/29  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<title>질문과 개선요청 | 통계지리정보서비스</title>
+	
+	<link href="/css/default.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="/js/common/includeHead.js"></script>
+	<script src="/js/common/common.js"></script>
+	<script src="/js/common/board.js"></script>
+	<script src="/js/board/themaAndRequest.js"></script>
+	<script src="/js/board/qnaAndRequest.js"></script>
+	<script src="/js/board/faq.js"></script>
+	<script src="/js/board/jquery.paging.js"></script>
+	
+	<script src="/js/board/holder.js"></script>
+	
+	<script src="/js/plugins/ui.js"></script>
+	<script src="/js/plugins/common.js"></script>
+	<script type='text/javascript' src='/js/plugins/jquery.form.js'></script>
+	<script type='text/javascript' src='/js/plugins/jquery-easyui-1.4/jquery.easyui.min.js'></script>
+	
+<!-- 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script> -->
+	<script type="text/javascript" src='/js/plugins/google_recaptcha.js'></script>
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+	<link rel="stylesheet" type="text/css" href="/css/nm.css" />
+</head>
+<body>
+	<div id="wrap">
+		<!-- header // -->
+        <header id="header">
+                <!-- Top Include -->
+                <script type="text/javascript"  src="/js/common/includeSearch.js"></script>
+        </header>
+
+		<!-- body -->
+		<div id="container">
+			<p class="path">
+                   <a href="/html/index.html"><span class="path_el">처음페이지&nbsp;&nbsp;>&nbsp;</span></a>
+                   <a href="/html/board/sopBoardMain.html"><span class="path_el">알림마당&nbsp;&nbsp;>&nbsp;</span></a>
+                   <a href="/html/board/qnaAndRequest.html"><span class="path_el current">질문과 개선요청</span></a>
+			</p>
+			<h2 class="ctit">질문과 개선요청</h2>
+			<p class="smr">SGIS 플러스에 대해 궁금한 사항이나 요청사항에 대한 글을 올려 주세요</p>
+			<div class="board_tabs1">
+				<a id="board_tabs_faq" class="active" style="cursor: pointer;">FAQ</a>
+				<a id="board_tabs_qna" style="cursor: pointer;">Q&A</a>
+				<a id="board_tabs_thema" style="cursor: pointer;">통계주제도 요청</a>
+			</div>
+			<div id="contents">
+				<div id="content">
+					<!-- 게시판 전체 영역// -->
+					<div id="article-wrap">
+						<!-- 게시물 목록 // -->
+						<div class="tab_contents">
+							<div class="faq_list">
+								<h3 class="ptit">FAQ 자주하는 질문</h3>
+								<!-- 게시물 검색// -->
+								<div class="article-search2">
+									<form action="#" method="get">
+										<fieldset style="margin-left: 165px;">
+											<div class="f-el">
+												<span class="el-h">
+													<label for="atc-kwd">검색어 입력</label>
+												</span>
+												<span class="el-b">
+													<input id="faq_search_title_text" class="easyui-textbox" type="text" name="search" style="width: 350px;" data-options="required:true" />
+												</span>
+											</div>
+										</fieldset>
+										<div class="sbm">
+											<input style="cursor: pointer;" type="button" onclick="javascript:faq.searchFaqLists();" value="검색" />
+										</div>
+									</form>
+								</div>
+								<!-- // 게시물 검색 -->
+								
+								<div id="article-wrap">
+									<div id="faq_list_div">
+										<div id="faq_list" class="faq_list" style="width: 100%;">
+										</div>
+									</div>
+								</div>
+								
+								<div id="faq_lists_paging" class="pagenation" align="center" style="width: 100%;">
+									<span class="pages"> <a href="" class="page">1</a></span>
+								</div>
+							</div>
+	
+							<div class="qna_list" style="display: none;">
+								<h3 class="ptit">
+									Q&A
+									<p class="ptit_stit">SOP를 활용함에 있어서 질문사항 또는 서비스 개선의견에 대해 자유롭게 써주세요</p>
+								</h3>
+	
+								<!-- 게시물 검색// -->
+								<div class="article-search2">
+									<form action="#" method="get">
+										<fieldset style="margin-left: 165px;">
+											<legend class="blind">게시물 검색</legend>
+											<div class="f-el f-el-select">
+												<span class="el-h blind">
+													<label for="atc-sel1">검색항목</label>
+												</span>
+												<span class="el-b select_box">
+													<select id="qna_search_select" class="easyui-combobox" data-options="editable:false" name="searchsel" style="width: 155px; height: 40px; cursor: pointer;">
+														<option value="post_title">제목</option>
+														<option value="post_content">내용</option>
+														<option value="post_all" selected="selected">제목 + 내용</option>
+													</select>
+												</span>
+											</div>
+											<div class="f-el">
+												<span class="el-b">
+													<input id="qna_search_title_text" type="text" name="search" style="width: 350px;" />
+												</span>
+											</div>
+										</fieldset>
+										<div class="sbm">
+											<input style="cursor: pointer;" type="button" onclick="javascript:qnaAndRequest.searchQnaLists();" value="검색" />
+										</div>
+									</form>
+								</div>
+								<!-- // 게시물 검색 -->
+	
+								<!-- ( loginbox ) -->
+								<div id="qna_login_box" class="loginbox">
+									<p>로그인을 하셔야 의견작성이 가능합니다.</p>
+									<a class="anc-btn" style="width: 80px;" href="javascript:qnaAndRequest.moveLogin();">로그인</a>
+									<!-- <a class="anc-btn main" style="width: 80px;" href="javascript:qnaAndRequest.moveAgree();">회원가입</a> -->
+									<a class="anc-btn main" style="width: 80px;" href="javascript:memberRegister();">회원가입</a>
+								</div>
+								<!-- //( loginbox ) -->
+	
+								<!-- (board_qna) -->
+								<div id="qna_input_form_btn" class="btn_board">
+									<a id="qnaboardclose" style="cursor: pointer;" class="anc-btn black qnaboardclose" onclick="javascript:qnaAndRequest.controlInputForm();" style="width: 140px;">입력폼닫기</a>
+								</div>
+								
+								<div id="qna_input_form" class="board_qna">
+									<table>
+										<colgroup>
+											<col style=" width: 140px;" />
+											<col style=" width: ;" />
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row"><span>질문유형</span></th>
+												<td class="select_box">
+													<select id="qna_regist_category_select" class="easyui-combobox" data-options="editable:false" name="mail" style="width: 155px;">
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><span>보안코드</span></th>
+												<td class="code" valign="middle">
+													<input id="qna_regist_secret_code_input" type="text" name="code" style="width: 250px;" data-options="required:true" />
+													<a href="javascript:board.refreshSecretCode();" class="anc-btn black qnaboardclose" style="width:80px; margin-left: 10px">Reload</a>
+													<img id="qna_regist_secret_code_show" src="/jcaptcha" style="margin-left: 10px; vertical-align: middle;"/>
+												</td>
+<!-- 												<td style="margin-right: 10px"> -->
+<!-- 													<a href="javascript:qnaAndRequest.refreshSecretCode();" class="anc-btn black qnaboardclose" style="width:80px">Reload</a> -->
+<!-- 													<img id="qna_regist_secret_code_show" src="/jcaptcha" /> -->
+<!-- 												</td> -->
+<!-- 												<td width="90px"> -->
+<!-- 													<img id="qna_regist_secret_code_show" src="/jcaptcha" /> -->
+<!-- 												</td> -->
+											</tr>
+											<tr>
+												<th scope="row"><span>글제목</span></th>
+												<td class="title">
+													<input id="qna_regist_title_input" type="text" value=" 글제목을 입력하세요." name="title" style="width: 600px;" data-options="required:true" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><span>글내용</span></th>
+												<td class="content">
+													<textarea id="qna_regist_content_input" name="message" style="width: 670px; height: 186px; padding-left: 10px;" >
+													</textarea>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><span>파일첨부</span></th>
+												<form id="qnaFileUploadForm" name="qnaFileUploadForm" method="post" enctype="multipart/form-data">
+												<td class="file">
+													<input id="qna_regist_file" class="file_input_textbox" type="text" style="width: 280px;" readonly="readonly"/>
+													<div class="file_input_div" style="width:400px;">
+														<input type="button" value="파일찾기" class="file_input_button" style="cursor: pointer;" onclick="javascript:qnaAndRequest.openFileBrowser();"/>
+														<input id="qna_file" class="file_input_hidden" type="file" name="qna_file" style="cursor: pointer;" onchange="javascript:qnaAndRequest.setFileName(this.value)">
+														<input id="qna_file" class="file_input_ie9" type="file" name="qna_file" style="cursor: pointer;">
+													</div>
+												</td>
+												</form>
+											</tr>
+											<tr hidden id="qnaFileTr">
+												<th scope="row"><span></span></th>
+												<td>
+													<div id="qnaFileTrName" style="float: left; margin-left: 7px;">testFile.zip</div>
+													<img src="/img/pm/btn_layer_close.gif" style="cursor: pointer; margin-left: 20px;" onclick="javascript:qnaAndRequest.removeFileOnModifyMode();"/>
+													&nbsp;&nbsp;&nbsp;※이전 파일을 제거 후 등록 가능 합니다.
+												</td>
+											</tr>
+										</tbody>
+									</table>
+	
+									<div class="btn_board">
+										<a id="qnaRegistBtn" class="anc-btn" style="width: 140px; cursor: pointer;" onclick="javascript:qnaAndRequest.checkSecretCode();">질문등록</a>
+									</div>
+								</div>
+								<!-- //(board_qna) -->
+	
+								<div id="article-wrap">
+									<div id="qna_list_div">
+									<div id="qna_list" class="qna_list" style="width: 100%;">
+									</div>
+									</div>
+								</div>
+					
+								<div id="board_lists_paging" class="pagenation1" align="center" style="width: 100%;">
+									<span class="pages"> <a href="" class="page">1</a></span>
+								</div>
+							</div>
+							
+							<div class="thema_list" style="display: none;">
+								<h3 class="ptit">
+									통계주제도 요청
+									<p class="ptit_stit"></p>
+								</h3>
+	
+								<!-- 게시물 검색// -->
+								<div class="article-search2">
+									<form action="#" method="get">
+										<fieldset style="margin-left: 165px;">
+											<legend class="blind">게시물 검색</legend>
+											<div class="f-el f-el-select">
+												<span class="el-h blind">
+													<label for="atc-sel1">검색항목</label>
+												</span>
+												<span class="el-b select_box">
+													<select id="thema_search_select" class="easyui-combobox" data-options="editable:false" name="searchsel" style="width: 155px; height: 40px; cursor: pointer;">
+														<option value="post_title">제목</option>
+														<option value="post_content">내용</option>
+														<option value="post_all" selected="selected">제목 + 내용</option>
+													</select>
+												</span>
+											</div>
+											<div class="f-el">
+												<span class="el-b">
+													<input id="thema_search_title_text" type="text" name="search" style="width: 350px;" />
+												</span>
+											</div>
+										</fieldset>
+										<div class="sbm">
+											<input style="cursor: pointer;" type="button" onclick="javascript:themaAndRequest.searchThemaLists();" value="검색" />
+										</div>
+									</form>
+								</div>
+								<!-- // 게시물 검색 -->
+	
+								<!-- ( loginbox ) -->
+								<div id="thema_login_box" class="loginbox">
+									<p>로그인을 하셔야 주제도 요청이 가능합니다.</p>
+									<a class="anc-btn" style="width: 80px;" href="javascript:themaAndRequest.moveLogin();">로그인</a>
+									<!-- <a class="anc-btn main" style="width: 80px;" href="javascript:themaAndRequest.moveAgree();">회원가입</a> -->
+									<a class="anc-btn main" style="width: 80px;" href="javascript:memberRegister();">회원가입</a>
+								</div>
+								<!-- //( loginbox ) -->
+	
+								<!-- (board_thema) -->
+								<div id="thema_input_form_btn" class="btn_board">
+									<a id="themaboardclose" style="cursor: pointer;" class="anc-btn black themaboardclose" onclick="javascript:themaAndRequest.controlInputForm();" style="width: 140px;">입력폼닫기</a>
+								</div>
+								
+								<div id="thema_input_form" class="board_thema">
+									<table>
+										<colgroup>
+											<col style=" width: 140px;" />
+											<col style=" width: ;" />
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row"><span>보안코드</span></th>
+												<td class="code" valign="middle">
+													<input id="thema_regist_secret_code_input" type="text" name="code" style="width: 250px;" data-options="required:true" />
+													<a href="javascript:board.refreshSecretCode();" class="anc-btn black qnaboardclose" style="width:80px; margin-left: 10px">Reload</a>
+													<img id="thema_regist_secret_code_show" src="/jcaptcha" style="margin-left: 10px; vertical-align: middle;"/>
+												</td>
+<!-- 												<td style="margin-right: 10px"> -->
+<!-- 													<a href="javascript:qnaAndRequest.refreshSecretCode();" class="anc-btn black qnaboardclose" style="width:80px">Reload</a> -->
+<!-- 													<img id="qna_regist_secret_code_show" src="/jcaptcha" /> -->
+<!-- 												</td> -->
+<!-- 												<td width="90px"> -->
+<!-- 													<img id="qna_regist_secret_code_show" src="/jcaptcha" /> -->
+<!-- 												</td> -->
+											</tr>
+											<tr>
+												<th scope="row"><span>글제목</span></th>
+												<td class="title">
+													<input id="thema_regist_title_input" type="text" value=" 글제목을 입력하세요." name="title" style="width: 600px;" data-options="required:true" />
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><span>글내용</span></th>
+												<td class="content">
+													<textarea id="thema_regist_content_input" name="message" style="width: 670px; height: 186px; padding-left: 10px;" >
+													</textarea>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><span>파일첨부</span></th>
+												<form id="themaFileUploadForm" name="themaFileUploadForm" method="post" enctype="multipart/form-data">
+												<td class="file">
+													<input id="thema_regist_file" class="file_input_textbox" type="text" style="width: 280px;" readonly="readonly"/>
+													<div class="file_input_div" style="width:400px;">
+														<input type="button" value="파일찾기" class="file_input_button" style="cursor: pointer;" onclick="javascript:themaAndRequest.openFileBrowser();"/>
+														<input id="thema_file" class="file_input_hidden" type="file" name="qna_file" style="cursor: pointer;" onchange="javascript:themaAndRequest.setFileName(this.value)">
+														<input id="thema_file" class="file_input_ie9" type="file" name="qna_file" style="cursor: pointer;">
+													</div>
+												</td>
+												</form>
+											</tr>
+											<tr hidden id="themaFileTr">
+												<th scope="row"><span></span></th>
+												<td>
+													<div id="themaFileTrName" style="float: left; margin-left: 7px;">testFile.zip</div>
+													<img src="/img/pm/btn_layer_close.gif" style="cursor: pointer; margin-left: 20px;" onclick="javascript:themaAndRequest.removeFileOnModifyMode();"/>
+													&nbsp;&nbsp;&nbsp;※이전 파일을 제거 후 등록 가능 합니다.
+												</td>
+											</tr>
+										</tbody>
+									</table>
+	
+									<div class="btn_board">
+										<a id="themaRegistBtn" class="anc-btn" style="width: 140px; cursor: pointer;" onclick="javascript:themaAndRequest.checkSecretCode();">질문등록</a>
+									</div>
+								</div>
+								<!-- //(board_thema) -->
+	
+								<div id="article-wrap">
+									<div id="thema_list_div">
+									<div id="thema_list" class="qna_list" style="width: 100%;">
+									</div>
+									</div>
+								</div>
+					
+								<div id="thema_lists_paging" class="pagenation2" align="center" style="width: 100%;">
+									<span class="pages"> <a href="" class="page">1</a></span>
+								</div>
+							</div>
+	
+						</div>
+						<!-- //게시물 목록 -->
+	
+					</div>
+					<!-- //게시판 전체 영역 -->
+	
+				</div>
+			</div>
+		</div>
+<!-- 		<div class="container"> -->
+<!-- 			<p class="path"> -->
+<!-- 				<span class="path_el current">통계용어설명</span>&lt;<span class="path_el">알림마당</span>&lt;<span class="path_el">설명과공지</span><span class="path_el path_home">처음페이지</span> -->
+<!-- 			</p> -->
+<!-- 			<h2 class="ctit">질문과 개선요청</h2> -->
+<!-- 			<p class="smr">자주하는 질문과 더불어, SGIS 오픈플랫폼에 대해 궁금한 사항이나 요청사항에 대해 언제든지 물어볼 수 있습니다.</p> -->
+<!-- 			<div class="tabs"> -->
+<!-- 				<a href="#" class="active">FAQ</a> -->
+<!-- 				<a href="#">Q&A</a> -->
+<!-- 			</div> -->
+
+<!-- 			<div align="center" style="width: 100%;"> -->
+<!-- 				<div style="font-size: 17pt; float: left;"> -->
+<!-- 					<select id="qna_search_select" class="easyui-combobox"> -->
+<!-- 						<option value="post_title">제목</option> -->
+<!-- 						<option value="post_content">내용</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+
+<!-- 				<div style="font-size: 12pt; float: left;"> -->
+<!-- 					<input id="qna_search_title_text" class="easyui-textbox"> -->
+<!-- 				</div> -->
+
+<!-- 				<div style="font-size: 12pt; float: left;"> -->
+<!-- 					<a class="easyui-linkbutton" onclick="javascript:qnaAndRequest.searchLists();">Search</a> -->
+<!-- 				</div> -->
+
+<!-- 				<div style="font-size: 12pt; float: left;"> -->
+<!-- 					<a class="easyui-linkbutton" onclick="javascript:qnaAndRequest.readyRegistQna();">작성</a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+<!-- 			<div style="height: 50px;"></div> -->
+
+<!-- 			<div></div> -->
+
+<!-- 			<div style="background-color: BLACK; height: 2px;"></div> -->
+
+<!-- 			<div style="height: 50px;"></div> -->
+
+<!-- 			<div id="article-wrap"> -->
+<!-- 			<div id="qna_list" class="qna_list" style="width: 100%;"> -->
+<!-- 			</div> -->
+<!-- 			</div> -->
+
+<!-- 			<div id="board_lists_paging" align="center" style="width: 100%;"> -->
+<!-- 			</div> -->
+
+<!-- 			<div id="qnaModifyDlg" class="easyui-window" title="Modify" style="width: 500px; height: 600px; padding: 10px" data-options=" -->
+<!-- 		        	onResize:function(){ -->
+<!-- 		        		console.log('onResize'); -->
+<!-- 		                $(qnaModifyDlg).window('center'); -->
+<!-- 		            }, -->
+<!-- 		            resizable : false, -->
+<!-- 		        "> -->
+<!-- 				<div style="margin-bottom: 20px"> -->
+<!-- 					<table width="470px" align="center"> -->
+<!-- 						<tr> -->
+<!-- 							<td width="100px"> -->
+<!-- 								<div>제목 </div> -->
+<!-- 							</td> -->
+								
+<!-- 							<td width="350px"> -->
+<!-- 								<input id="qna_popup_title_input" class="easyui-textbox" style="width: 350px"> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+
+<!-- 				<div style="margin-bottom: 20px"> -->
+<!-- 					<table width="470px" align="center"> -->
+<!-- 						<tr> -->
+<!-- 							<td width="100px"> -->
+<!-- 								<div>분류 </div> -->
+<!-- 							</td> -->
+								
+<!-- 							<td width="350px"> -->
+<!-- 								<select id="qna_popup_category_select" class="easyui-combobox" style="width: 350px"> -->
+<!-- 								</select> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+
+<!-- 				<div style="margin-bottom: 20px"> -->
+<!-- 					<table width="470px" align="center"> -->
+<!-- 						<tr> -->
+<!-- 							<td width="100px"> -->
+<!-- 								<div>내용 </div> -->
+<!-- 							</td> -->
+								
+<!-- 							<td width="350px"> -->
+<!-- 								<input id="qna_popup_content_input" data-options="multiline:true" class="easyui-textbox" style="margin: 10px; width: 350px; height: 150px;"> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+				
+<!-- 				<div style="margin-bottom: 20px"> -->
+<!-- 					<table width="470px" align="center"> -->
+<!-- 						<tr> -->
+<!-- 							<td width="100px"> -->
+<!-- 								<div>첨부파일 </div> -->
+<!-- 							</td> -->
+								
+<!-- 							<td width="350px"> -->
+<!-- 								<input id="notice_popup_file" class="easyui-filebox" data-options="prompt:'Choose a file...'" style="width: 330px"> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+				
+<!-- 				<div style="margin-bottom: 20px"> -->
+<!-- 					<table width="470px" align="center"> -->
+<!-- 						<tr> -->
+<!-- 							<td width="100px"> -->
+<!-- 								<div>보안코드 </div> -->
+<!-- 							</td> -->
+								
+<!-- 							<td width="160px"> -->
+<!-- 								<input id="qna_popup_secret_code_input" class="easyui-textbox" style="margin: 10px; width: 150px;"> -->
+<!-- 							</td> -->
+							
+<!-- 							<td width="90px"> -->
+<!-- 								<a href="javascript:qnaAndRequest.addSecretCode();" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px">Reload</a> -->
+<!-- 							</td> -->
+							
+<!-- 							<td width="90px"> -->
+<!-- 								<div id="qna_popup_secret_code_show" name="qna_popup_secret_code_show" style="margin: 10px; width: 80px;"> -->
+<!-- 								</div> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+				
+<!-- 				<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;"> -->
+<!-- 	                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="javascript:qnaAndRequest.submitData();" style="width:80px">Ok</a> -->
+<!-- 	                <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="javascript:qnaAndRequest.cancelData();" style="width:80px">Cancel</a> -->
+<!-- 	            </div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+		<!-- footer// -->
+		<footer id="footer">
+		      <script type="text/javascript"  src="/js/common/includeBottom.js"></script>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script> 
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- *신규* -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/bizStats.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<p class="dbText01">17개 주요 시도별 생활업종현황</p>
+				    				<div class="areaBox">
+				    					한식/대전광역시 서구 <span>2014</span>
+				    				</div>
+				    				<p class="areaEtcTextBox">※ 원하는 지역 내 업종별 분포 현황과 함께 연도별 업종 증감 변화를 지도상에서 확인할 수 있습니다.</p>
+				    				 
+				    				<dl class="dscList"> 
+					    				<dd class="view">
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)" class="on">음식점</a>
+					    						<a href="javascript:void(0)">도소매</a>
+					    						<a href="javascript:void(0)">서비스</a>
+					    						<a href="javascript:void(0)">숙박업</a>
+					    					</div>
+					    					<ul class="dbTabs01">
+						    					<li><a href="javascript:void(0)" class="on">한식</a></li>
+						    					<li><a href="javascript:void(0)">중식</a></li>
+						    					<li><a href="javascript:void(0)">일식</a></li>
+						    					<li><a href="javascript:void(0)">분식</a></li>
+						    					<li><a href="javascript:void(0)">서양식</a></li>
+						    					<li><a href="javascript:void(0)">제과점</a></li>
+						    					<li><a href="javascript:void(0)">패스트푸드</a></li>
+						    					<li><a href="javascript:void(0)">치킨</a></li>
+						    					<li><a href="javascript:void(0)">호프 및 간이주점</a></li>
+						    					<li><a href="javascript:void(0)">카페</a></li>
+						    					<li><a href="javascript:void(0)">기타 외국식</a></li>
+						    				</ul> 
+						    				
+						    				<div class="lineTextBox">2014 총사업체 2,542개</div>
+					    					  
+					    					<p class="timeTitle">시계열별 데이터 조회</p>
+					    					<div class="timeAreaCharts" id="timeAreaCharts01"></div>
+					    					
+					    					<p class="timeTitle">조회년도 설정</p>
+					    					<ul class="ysettingList">
+					    						<li><a href="javascript:void(0)">2000</a></li>
+					    						<li><a href="javascript:void(0)">2001</a></li>
+					    						<li><a href="javascript:void(0)">2002</a></li>
+					    						<li><a href="javascript:void(0)">2003</a></li>
+					    						<li><a href="javascript:void(0)">2004</a></li>
+					    						<li><a href="javascript:void(0)">2005</a></li>
+					    						<li><a href="javascript:void(0)">2006</a></li>
+					    						<li><a href="javascript:void(0)">2007</a></li>
+					    						<li><a href="javascript:void(0)">2008</a></li>
+					    						<li><a href="javascript:void(0)">2009</a></li>
+					    						<li><a href="javascript:void(0)">2010</a></li>
+					    						<li><a href="javascript:void(0)">2011</a></li>
+					    						<li><a href="javascript:void(0)">2012</a></li>
+					    						<li><a href="javascript:void(0)">2013</a></li>
+					    						<li><a href="javascript:void(0)" class="on">2014</a></li>
+					    					</ul>
+					    				</dd> 
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	<script>
+	$(function () { 
+		$('#timeAreaCharts01').highcharts({
+	        chart: { zoomType: 'xy' },
+	        colors: ['#ffc622','#218b70'],
+	        title: { text: '' },
+	        subtitle: {
+	            text: ''
+	        },
+	        xAxis: [{
+	            categories: ['2004', '2005', '2006', '2007', '2008', '2009',
+	                '2010', '2011', '2012', '2013', '2014', '2015'],
+	            crosshair: true
+	        }],
+	        yAxis: [{ // Primary yAxis
+	            labels: { enabled : false },
+	            title: {
+	                text: '',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            }
+	        }, { // Secondary yAxis
+	            title: {
+	                text: '',
+	                style: {
+	                    color: Highcharts.getOptions().colors[0]
+	                }
+	            },
+	            labels: {
+	            	enabled : false 
+	            },
+	            opposite: true
+	        }],
+	        tooltip: {
+	            shared: true
+	        },
+	        legend: {
+	        	enabled : false
+	        },
+	        series: [{
+	            name: '음식점',
+	            type: 'column',
+	            yAxis: 1,
+	            data: [299, 215, 264, 192, 144, 176, 136, 148, 216, 194, 295, 254],
+	            tooltip: {
+	                valueSuffix: ' 개'
+	            }
+
+	        }, {
+	            name: '한식',
+	            type: '',
+	            data: [7, 6, 9, 4, 12, 25, 22, 25, 23, 13, 19, 6],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        }]
+	    });
+	});
+	 
+	</script>
+</body>
+</html>

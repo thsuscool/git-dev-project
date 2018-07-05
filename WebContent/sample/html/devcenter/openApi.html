@@ -1,0 +1,159 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>  
+    
+    <!-- *신규* --> 
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/devcenter.css" />
+  	<!-- *신규* -->
+  	 
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>   
+    <script type="text/javascript" src="/sample/include/js/devcenter.js"></script><!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap">
+		<!-- header // --> 
+		<header>
+			<!-- Top Include -->
+			<!-- <script type="text/javascript"  src="/js/common/includeSearch.js"></script> -->
+			<div class="headerEtc">
+				<a href="#">로그인</a>
+				<a href="#">회원가입</a>
+				<a href="#">도움말</a>
+			</div>
+			<div class="headerContents">
+				<h1><a href='/'><img src='/img/pic/pic_devcenterLogo.png' alt='SGIS 개발자지원센터' /></a></h1> 
+				
+				<h2>주메뉴</h2>
+				<ul id="#gnb" class="gnb">
+					<li><a href="javascript:void(0)">서비스 소개</a></li>
+					<li><a href="javascript:void(0)">S-OpenAPI</a></li>
+					<li><a href="javascript:void(0)">체험하기</a></li>
+					<li><a href="javascript:void(0)">문의하기</a></li>
+					<li><a href="javascript:void(0)">인증키 발급</a></li>
+				</ul>
+			</div>
+			
+			<div class="submenuBox"><!-- submenu  -->
+				<div class="rela">
+					<div class="etc"></div>
+					<ul>
+						<li><a href="javascript:void(0)">소개</a></li> 
+					</ul>
+					<ul>
+						<li><a href="javascript:void(0)">지도 API</a></li>
+						<li><a href="javascript:void(0)">좌표계 변환</a></li>
+						<li><a href="javascript:void(0)">주소</a></li>
+						<li><a href="javascript:void(0)">경계</a></li>
+						<li><a href="javascript:void(0)">검색</a></li>
+						<li><a href="javascript:void(0)">총조사통계</a></li>
+						<li><a href="javascript:void(0)">지역통계</a></li>
+					</ul>
+					<ul>
+						<li><a href="javascript:void(0)">초기사용자</a></li>
+						<li><a href="javascript:void(0)">고급사용자</a></li>
+						<li><a href="javascript:void(0)">활용사례</a></li> 
+					</ul>
+					<ul>
+						<li><a href="javascript:void(0)">FAQ</a></li>
+						<li><a href="javascript:void(0)">Q&amp;A</a></li>
+						<li><a href="javascript:void(0)">개발자지원센터</a></li> 
+					</ul>
+					<ul>
+						<li><a href="javascript:void(0)">인증키 발급</a></li> 
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<!-- body -->
+
+		<div class="container">  
+		
+			<div class="lnb"><!-- 왼쪽 영역 -->
+				<h3>S-OpenAPI</h3>
+				<ul>
+					<li><a href="javascript:void(0)" class="on">지도 API</a></li>
+					<li><a href="javascript:void(0)">좌표계 변환</a></li>
+					<li><a href="javascript:void(0)">주소</a></li>
+					<li><a href="javascript:void(0)">경계</a></li>
+					<li><a href="javascript:void(0)">검색</a></li>
+					<li><a href="javascript:void(0)">총조사통계</a></li>
+					<li><a href="javascript:void(0)">지역통계</a></li>
+				</ul>
+			</div><!-- 왼쪽 영역 -->
+			
+			<div class="acticle"><!-- 컨텐츠 영역-->
+				<h4 class="guide">지도 API <span>S-OpenAPI > 지도 API</span></h4>
+				
+				<p class="normalText">자바스크립트(JavaScript)언어를 사용하여 웹 사이트를 구현하는데 사용할 수 있는 API입니다.
+				<br />일반적으로 많이 사용되는 지도표출, 마커표시, 정보창 표시 등의 기능을 제공합니다.</p>
+				<a href="javascript:void(0)" class="btnStyle01">정의서 보기</a>
+				
+				<h5 class="tith5">1. 주요기능</h5>
+				<p class="normalText">아래의 표는 지도 API에서 제공하는 주요기능에 대한 설명입니다.</p>
+				<table summary="기능, 기능설명" class="normalTable">
+					<caption>주요기능</caption>
+					<colgroup>
+						<col width="180" />
+						<col width="" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>기능</th>
+							<th>기능설명</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>지도생성</td><td>일반지도, 항공영상, 하이브리드 지도를 웹상에 생성하고 표출합니다.</td>
+						</tr>
+						<tr>
+							<td>지도 이동 및 컨트롤</td><td>마우스에 의한 지도 이동을 지원하고 지도 이동을 위한 UI 컨트롤을 제공합니다.</td>
+						</tr>
+						<tr>
+							<td>지도 줌 및 컨트롤 제공</td><td>마우스에 의한 지도 줌을 지원하고 제벨별 지도 줌을 위한 UI컨드롤을 제공합니다.</td>
+						</tr>
+						<tr>
+							<td>축척 컨트롤</td><td>현재 지도의 축척 표출을 위한 UI를 제공합니다.</td>
+						</tr>
+						<tr>
+							<td>마커 및 정보창</td><td>지도위의 특정지점을 표출하기 위한 마커와 연관정보를 표출하기 위한 정보창을 제공합니다.</td>
+						</tr>
+						<tr>
+							<td>원 및 선 그리기</td><td>지도위의 원과 선을 그릴 수 있습니다. 선과 면에 대한 색상 및 투명도 설정을 제공합니다.</td>
+						</tr>
+						<tr>
+							<td>다각형 그리기</td><td>지도위에 다각형을 그릴 수 있습니다. 선과 면에 대한 색상 및 투명도 설정을 제공합니다.</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<strong class="titStr">S-OpenAPI는 어떤 서비스인가요?</strong>
+				<p class="normalText">자바스크립트(JavaScript)언어를 사용하여 웹 사이트를 구현하는데 사용할 수 있는 API입니다.
+				<br />일반적으로 많이 사용되는 지도표출, 마커표시, 정보창 표시 등의 기능을 제공합니다.</p>
+				
+				<div class="barTitle">기본컨트롤</div>
+				<p class="normalText">자바스크립트(JavaScript)언어를 사용하여 웹 사이트를 구현하는데 사용할 수 있는 API입니다.
+				<br />일반적으로 많이 사용되는 지도표출, 마커표시, 정보창 표시 등의 기능을 제공합니다.</p>
+				
+			</div><!-- 컨텐츠 영역 -->
+		</div>  
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,908 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/main_new.css" /> 
+    <link href="/css/interativeFunc.css" rel="stylesheet" type="text/css" />
+  
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/rangeslider.css" />
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/interactive/interactiveEtc.js"></script>
+     
+</head>
+
+<body> 
+	<div id="wrap">
+		<!-- header // -->
+		<!-- header // -->
+		<header>
+			<!-- Top Include -->
+			<!-- <script type="text/javascript"  src="/js/common/includeSearch.js"></script> -->
+			<div class="headerEtc">
+				<a href="#">로그인</a>
+				<a href="#">회원가입</a>
+				<a href="#">도움말</a>
+			</div>
+			<div class="headerContents">
+				<h1><a href='/'><img src='/img/common/logoPlus.gif' alt='SGIS 오픈플랫폼' /></a></h1>
+				<form action="" method="post">
+					<fieldset>
+						<legend class='blind'>통합검색</legend>
+						<label for="totalSearchBox">통계정보 검색</label>
+						<input id="totalSearchBox" type="text" placeholder="통계정보를 검색해 보세요" />
+						<a href="#"><img src="/img/ico/ico_search.png" alt="검색" /></a>
+					</fieldset>
+				</form>
+				
+				<div class="searchPop">
+					<p class="subj">추천검색어</p>
+					<ul>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+					</ul>
+					<p class="subj">인기검색어</p>
+					<ol>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+						<li><a href="#">출산율</a></li>
+					</ol>
+				</div>
+				
+				<h2>주메뉴</h2>
+				<ul id="#gnb" class="gnb">
+					<li><a href="javascript:void(0)">통계주제도</a>
+						<ul>
+							<li><a href="#">인구와 주거</a></li>
+							<li><a href="#">복지와 문화</a></li>
+							<li><a href="#">일과 산업</a></li>
+							<li><a href="#">환경과 안전</a></li>
+						</ul>
+					</li>
+					<li><a href="javascript:void(0)">대화형통계지도</a>
+						<ul>
+							<li><a href="#">인구통계</a></li>
+							<li><a href="#">가구통계</a></li>
+							<li><a href="#">주택통계</a></li>
+							<li><a href="#">사업체통계</a></li>
+							<li><a href="#">농림어가통계</a></li>
+							<li><a href="#">행정구역통계</a></li>
+						</ul>
+					</li>
+					<li><a href="javascript:void(0)">활용사례</a>
+						<ul>
+							<li><a href="#">창업통계맵</a></li> 
+						</ul>
+					</li>
+					<li><a href="javascript:void(0)">분석지도</a>
+						<ul>
+							<li><a href="#">인구와 주거</a></li>
+							<li><a href="#">복지와 문화</a></li>
+							<li><a href="#">일과 산업</a></li>
+							<li><a href="#">환경과 안전</a></li>
+						</ul>
+					</li>
+					<li><a href="javascript:void(0)">알림마당</a>
+						<ul>
+							<li><a href="#">SOP 소개</a></li>
+							<li><a href="#">설명과 공지</a></li>
+							<li><a href="#">데이터현황 및 제공</a></li>
+							<li><a href="#">질문과 개선요청</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar">
+							<a href="javascript:void(0)" class="interactiveView"></a> 
+							<a href="javascript:void(0)" class="interactiveSelect">둔산 2동</a> 
+							<div class="tb_right">
+								<ul>
+									<li><a href="javascript:void(0)" class="tb_window">창분리</a></li>
+									<li><a href="javascript:void(0)">초기화</a></li>
+									<li><a href="javascript:void(0)">뒤로</a></li>
+									<li><a href="javascript:void(0)">공유</a></li>
+									<li><a href="javascript:void(0)">북마크</a></li>
+									<li><a href="javascript:void(0)">창분리</a></li>
+									<li><a href="javascript:void(0)" class="tb_mapAdd">지도추가</a></li>
+									<li><a href="javascript:void(0)">몬지모름</a></li> 
+								</ul> 
+								<a href="javascript:void(0)" class="tb_close"><img src="/img/ico/ico_winClose.gif" alt="창닫기" /></a>
+							</div>
+						</div>
+						<div class="interactiveBar"><!-- map topbar -->
+				    		<p class="helperText">아래 메뉴버튼을 클릭하여 통계항목을 선택하고, 통계버튼을 만드세요</p> 
+				    		<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a> 
+				    	</div><!-- map topbar -->
+				    	
+				    	<!-- right menu -->
+				    	<a href="javascript:void(0)" class="rightQuick rq01">맵기능설정</a>
+				    	<ul class="rqListBox rq01">
+				    		<li><a href="javascript:void(0)">지도타입설정</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">일반</a>
+				    				<li><a href="javascript:void(0)">위성</a>
+				    				<li><a href="javascript:void(0)">백</a>
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">경계기준선택</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">연동</a>
+				    				<li><a href="javascript:void(0)">고정</a> 
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">조회레벨선택</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">1레벨</a>
+				    				<li><a href="javascript:void(0)">2레벨</a>
+				    				<li><a href="javascript:void(0)">0레벨</a>
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">지역다중선택</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">선택해제</a>
+				    				<li><a href="javascript:void(0)">다중선택</a> 
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">사업체전개도</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">OFF</a>
+				    				<li><a href="javascript:void(0)">ON</a> 
+				    			</ul>
+				    		</li> 
+				    		<li><a href="javascript:void(0)">거리측정</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">거리</a>
+				    				<li><a href="javascript:void(0)">면적</a> 
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">지도타입</a>
+				    			<ul>
+				    				<li><a href="javascript:void(0)">다각</a>
+				    				<li><a href="javascript:void(0)">사각</a>
+				    				<li><a href="javascript:void(0)">원</a>
+				    			</ul>
+				    		</li>
+				    		<li><a href="javascript:void(0)">초기화</a></li>
+				    	</ul>
+				    	<a href="javascript:void(0)" class="rightQuick rq02">GPS</a>
+				    	<a href="javascript:void(0)" class="rightQuick rq03">+</a>
+				    	<p class="rightQuick rq04">집계구</p>
+				    	<a href="javascript:void(0)" class="rightQuick rq05">-</a>
+				    	<!-- right menu --> 
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->
+				    	<div class="resizeIcon"><!-- 리사이즈 아이콘 --></div>
+			    	</div>
+		    	</div>
+		    	
+				<!-- left menu -->
+		    	<a href="javascript:void(0)" class="sideQuick sq02"><img src="/img/ico/ico_totalmenu.gif" alt="전체메뉴" /></a>
+		     
+		    	<a href="javascript:void(0)" class="sideQuick sq03"><img src="/img/ico/ico_resultbtn.gif" alt="통계버튼" /></a>
+		    	<div class="sqListBox sq03">
+		    		<div class="sqTabs">
+		    			<a href="javascript:void(0)" class="on">통계버튼목록</a>
+			    		<a href="javascript:void(0)">드래그앤드롭</a>
+			    		<a href="javascript:void(0)">더블클릭</a>
+		    		</div>
+		    		<div class="sqList">
+		    			<ul>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel.gif" alt="삭제" /></a>
+		    				</li>
+		    			</ul>
+		    		</div> 
+		    	</div> 
+		    	 
+		    	<!-- left menu --> 
+	    	
+				<div class="shadow"></div>
+				<div class="quickBox step01"><!-- 대화형통계지도 메뉴 보기 start -->
+					<div class="subj">
+						<span>대화형통계지도 메뉴 보기</span>
+						<a href="javascript:void(0)" class="stepClose">닫기</a>
+					</div>
+					<div class="scrollBox">
+						<dl class="qmdl">
+							<dt>총조사 통계조건 조회</dt>
+							<dd>
+								<ul class="qmIcon01">
+									<li><a href="#">층조사 주요지표 목록보기</a></li>
+									<li><a href="#">인구총조사 통계</a></li>
+									<li><a href="#">농림어가총조사 통계</a></li>
+									<li><a href="#">사업체총조사 통계</a></li>
+								</ul>
+							</dd>
+						</dl> 
+						<dl class="qmdl">
+							<dt>기타 통계 조회</dt>
+							<dd>
+								<ul class="qmIcon02">
+									<li><a href="#">행정구역 통계목록보기</a></li>
+									<li><a href="#">공공데이터 통계목록 보기</a></li> 
+								</ul>
+							</dd>
+						</dl> 
+						<ul class="qmlist">
+                            <li><a href="#">POI 조회하기</a></li>
+                            <li><a href="#">사용자데이터업로드</a></li>
+                            <li><a href="#">지도 추가하여 비교하기</a></li>
+                            <li><a href="#">지도 겹쳐보기</a></li>
+                            <li><a href="#">통계히스토리로 저장하기</a></li>
+                        </ul>
+						<ul class="qmlist botn">
+                            <li><a href="#">URL 공유하기</a></li>
+                            <li><a href="#">보고서 보기</a></li>
+                            <li><a href="#">경계년도 설정하기</a></li>
+                            <li><a href="#">도움말 보기</a></li>
+                        </ul>
+					</div> 
+				</div><!-- 대화형통계지도 메뉴 보기 end -->
+				
+				<div class="quickBox step02"><!-- 사업체총조사 통계조건 설정하기 start -->
+					<div class="subj">
+						<span>사업체총조사 통계조건 설정하기</span>
+						<a href="javascript:void(0)" class="stepClose">닫기</a>
+					</div>
+					<div class="scrollBox">
+						<div class="totalResult tr01"><!-- 총조사 주요지표 목록보기 -->
+							<div class="stepBox"> 
+							    <ul>
+							        <li>
+							            <input type="checkbox" id="rd_select01" />
+							            <label for="rd_select01">총인구, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select02" />
+							            <label for="rd_select02">평균나이, 세</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select03" />
+							            <label for="rd_select03">인구밀도, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select04" />
+							            <label for="rd_select04">노령화지수, %</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select05" />
+							            <label for="rd_select05">노년부양비, %</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select06" />
+							            <label for="rd_select06">유년부양비, %</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select07" />
+							            <label for="rd_select07">총가구, 가구</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select08" />
+							            <label for="rd_select08">평균 가구원, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select09" />
+							            <label for="rd_select09">총주택, 호</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select10" />
+							            <label for="rd_select10">총농가, 가구</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select11" />
+							            <label for="rd_select11">농가인구_계, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select12" />
+							            <label for="rd_select12">총임가, 가구</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select13" />
+							            <label for="rd_select13">임가인구_계, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select14" />
+							            <label for="rd_select14">내수면충어가, 가구</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select15" />
+							            <label for="rd_select15">내수면어가인구_계, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select16" />
+							            <label for="rd_select16">해수면총어가, 가구</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select17" />
+							            <label for="rd_select17">해수면어가인구_계, 명</label>
+							        </li>
+							        <li>
+							            <input type="checkbox" id="rd_select18" />
+							            <label for="rd_select18">총괄사업체수, 계</label>
+							        </li> 
+							    </ul> 
+							</div> 
+						</div>
+						
+						<div class="totalResult tr02"><!-- 인구총조사 통계 -->
+							<ol class="cateMenu type01">
+                                <li class="on"><a href="#">인구조건</a></li>
+                                <li><a href="#">가구조건</a></li>
+                                <li><a href="#">주택조건</a></li>
+                            </ol>
+                            <div class="cm01">
+                            	<div class="stepBox">
+									<p>성별 설정하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_sex01" />
+								            <label for="rd_sex01">남+녀</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_sex02" />
+								            <label for="rd_sex02">남자</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_sex03" />
+								            <label for="rd_sex03">여자</label>
+								        </li>
+								    </ul>
+								</div>
+                            	<div class="stepBox"> 
+								    <p>연령 설정하기, 선택</p>
+								    <div class="box_area_option02">
+		                                <div class="mgb_12">
+		                                    <p id="houseBdspaceIgnore">
+		                                        <input type="checkbox" id="hbIgnore" />
+		                                        <label for="hbIgnore">선택</label>
+		                                    </p>
+		                                    <p class="houseArea">
+		                                        <select title="시작범위" id="houseBdspaceFrom" name="bdspace_from"></select>
+		                                        <span>~</span>
+		                                        <select title="마지막범위" id="houseBdspaceTo" name="bdspace_to"></select>
+		                                    </p>
+		                                </div>
+		                                <div id="slider-range2"></div>
+		                                <ul class="slider_controll_bar">
+		                                    <li>1</li>
+		                                    <li>50</li>
+		                                    <li>100</li>
+		                                    <li>150</li>
+		                                    <li>200</li>
+		                                    <li>250</li>
+		                                    <li>300</li>
+		                                </ul> 
+		                            </div>
+								</div>
+								<div class="stepBox"> 
+								    <p>조사 연도별 특성 설정하기, 선택</p>
+								    <ul>
+								        <li>
+								            <p id="houseConstYearIgnore">
+		                                        <input type="checkbox" id="hcYear" />
+		                                        <label for="hcYear">선택</label>
+		                                    </p>
+		                                    <select id="houseConstYear" title="건축년도" name="const_year">
+		                                        <!-- <option value="">미선택</option> -->
+		                                        <option value="01">2010년</option>
+		                                        <option value="02">2009년</option>
+		                                        <option value="03">2008년</option>
+		                                        <option value="04">2007년</option>
+		                                        <option value="05">2006년</option>
+		                                        <option value="06">2005년</option>
+		                                        <option value="07">2000년~2004년</option>
+		                                        <option value="08">1995년~1999년</option>
+		                                        <option value="09">1990년~1994년</option>
+		                                        <option value="10">1980년~1989년</option>
+		                                        <option value="11">1970년~1979년</option>
+		                                        <option value="12">1960년~1969년</option>
+		                                        <option value="13">1959년 이전</option>
+		                                    </select>
+								        </li> 
+								    </ul>
+								    <a href="javascript:void(0)" class="link">교육 정도별 선택</a>
+								    <a href="javascript:void(0)" class="link">혼인 정도별 선택</a>
+								</div> 
+                            </div>
+                            <div class="cm02">
+                            	<div class="stepBox">
+									<p>세대구성 설정하기, 다중선택</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_dajung01" />
+								            <label for="rd_dajung01">1세대 가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung02" />
+								            <label for="rd_dajung02">2세대 가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung03" />
+								            <label for="rd_dajung03">3세대 가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung04" />
+								            <label for="rd_dajung04">4세대 가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung05" />
+								            <label for="rd_dajung05">5세대 이상 가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung06" />
+								            <label for="rd_dajung06">1인가구</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_dajung07" />
+								            <label for="rd_dajung07">비혈연가구</label>
+								        </li>
+								    </ul>
+								    <p>점유형태 설정하기, 다중선택</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_jumu01" />
+								            <label for="rd_jumu01">자기집</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jumu02" />
+								            <label for="rd_jumu02">전세(월세없음)</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jumu03" />
+								            <label for="rd_jumu03">보증금 있는 월세</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jumu04" />
+								            <label for="rd_jumu04">보증금 없는 월세</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jumu05" />
+								            <label for="rd_jumu05">사글세</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jumu06" />
+								            <label for="rd_jumu06">무상(관사, 사택, 친척집 등)</label>
+								        </li>
+								    </ul>
+								</div>
+								
+                            </div>
+                            <div class="cm03">
+                            	<div class="stepBox"> 
+								    <p>주택유형 설정하기, 다중선택</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_jutack01" />
+								            <label for="rd_jutack01">단독주택</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jutack02" />
+								            <label for="rd_jutack02">아파트</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jutack03" />
+								            <label for="rd_jutack03">연립주택</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jutack04" />
+								            <label for="rd_jutack04">다세대주택</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jutack05" />
+								            <label for="rd_jutack05">비주거용건물(상가,공장,여관 등)내주택</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_jutack06" />
+								            <label for="rd_jutack06">주택이외의 거처</label>
+								        </li>
+								    </ul>
+								</div>
+								<div class="stepBox"> 
+								    <p>조사 연도별 특성 설정하기, 선택</p>
+								    <ul>
+								        <li>
+								            <p id="houseConstYearIgnore">
+		                                        <input type="checkbox" id="hcYear" />
+		                                        <label for="hcYear">선택</label>
+		                                    </p>
+		                                    <div class="defaultLine">
+		                                    	<select title="시작년도"> 
+			                                        <option value="13">1959년</option>
+			                                    </select>
+			                                    <span>부터</span>
+			                                    <select title="마지막년도"> 
+			                                        <option value="13">2010년</option>
+			                                    </select>
+			                                    <span>까지</span>
+		                                    </div>
+								        </li> 
+								    </ul> 
+								</div> 
+								<div class="stepBox"> 
+								    <p>연령 설정하기, 선택</p>
+								    <div class="box_area_option02">
+		                                <div class="mgb_12">
+		                                    <p id="houseBdspaceIgnore01">
+		                                        <input type="checkbox" id="hbIgnore01" />
+		                                        <label for="hbIgnore01">선택</label>
+		                                    </p>
+		                                    <p class="houseArea">
+		                                        <select title="시작범위" id="houseBdspaceFrom01" name="bdspace_from"></select>
+		                                        <span>~</span>
+		                                        <select title="마지막범위" id="houseBdspaceTo01" name="bdspace_to"></select>
+		                                    </p>
+		                                </div>
+		                                <div id="slider-range3" class="slider-range"></div>
+		                                <ul class="slider_controll_bar">
+		                                    <li>1</li>
+		                                    <li>50</li>
+		                                    <li>100</li>
+		                                    <li>150</li>
+		                                    <li>200</li>
+		                                    <li>250</li>
+		                                    <li>300</li>
+		                                </ul> 
+		                            </div>
+								</div>
+                            </div>
+						</div>
+						
+						<div class="totalResult tr03"><!-- 농림어가총조사 통계 -->
+							<ol class="cateMenu">
+                                <li class="on"><a href="#">가구원별</a></li>
+                                <li><a href="#">가구별</a></li>
+                            </ol>
+                            <div class="cm01">
+                            	<div class="stepBox">
+									<p>가구원 대상 설정하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_gaguwon01" />
+								            <label for="rd_gaguwon01">농가</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_gaguwon02" />
+								            <label for="rd_gaguwon02">임가</label>
+								        </li>
+								         <li>
+								            <input type="checkbox" id="rd_gaguwon03" />
+								            <label for="rd_gaguwon03">해수면어가</label>
+								        </li>
+								         <li>
+								            <input type="checkbox" id="rd_gaguwon04" />
+								            <label for="rd_gaguwon04">내수면어가</label>
+								        </li>
+								    </ul>
+								    <p>해당 가구원 성별 설정하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_namnu01" />
+								            <label for="rd_namnu01">남+녀</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_namnu02" />
+								            <label for="rd_namnu02">남자</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_namnu03" />
+								            <label for="rd_namnu03">여자</label>
+								        </li>
+								    </ul> 
+								</div>
+								<div class="stepBox"> 
+								    <p>연령 설정하기, 선택</p>
+								    <div class="box_area_option02">
+		                                <div class="mgb_12">
+		                                    <p id="houseBdspaceIgnore03">
+		                                        <input type="checkbox" id="hbIgnore01" />
+		                                        <label for="hbIgnore01">선택</label>
+		                                    </p>
+		                                    <p class="houseArea">
+		                                        <select title="시작범위" id="houseBdspaceFrom02" name="bdspace_from"></select>
+		                                        <span>~</span>
+		                                        <select title="마지막범위" id="houseBdspaceTo02" name="bdspace_to"></select>
+		                                    </p>
+		                                </div>
+		                                <div id="slider-range4" class="slider-range"></div>
+		                                <ul class="slider_controll_bar">
+		                                    <li>1</li>
+		                                    <li>50</li>
+		                                    <li>100</li>
+		                                    <li>150</li>
+		                                    <li>200</li>
+		                                    <li>250</li>
+		                                    <li>300</li>
+		                                </ul> 
+		                            </div>
+								</div>
+                            </div>
+                            <div class="cm02"></div>
+						</div>
+						
+						<div class="totalResult tr04"><!-- 사업체총조사 통계 -->
+							<ol class="cateMenu">
+                                <li class="on"><a href="#">산업분류별</a></li>
+                                <li><a href="#">테마분류별</a></li>
+                            </ol>
+                            <div class="cm01">
+                            	<div class="stepBox">
+									<p>대상 선택하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_target01" />
+								            <label for="rd_target01">사업체수</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_target02" />
+								            <label for="rd_target02">종사자수</label>
+								        </li>
+								    </ul>
+								    <p>산업분류 치수 선택하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_cate01" />
+								            <label for="rd_cate01">사업체수</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_cate02" />
+								            <label for="rd_cate02">종사자수</label>
+								        </li>
+								    </ul>
+								    <p>대상 위치표시(POI)</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_pos01" />
+								            <label for="rd_pos01">사업체수</label>
+								        </li> 
+								    </ul>
+								</div>
+								<div class="stepBox"> 
+								    <p>해당 설정조건으로 업종검색하기</p>
+								    <ul>
+								        <li>
+								            <input type="text" class="inp" />
+								            <a href="javascript:void(0)" class="btn_stepSearch">검색</a>
+								        </li> 
+								    </ul>
+								</div>
+                            </div>
+                            <div class="cm02">
+                            	<div class="stepBox">
+									<p>가구원 대상 설정하기, 필수</p>
+								    <ul>
+								        <li>
+								            <input type="checkbox" id="rd_gago01" />
+								            <label for="rd_gago01">농가</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_gago02" />
+								            <label for="rd_gago02">임가</label>
+								        </li>
+								        <li>
+								            <input type="checkbox" id="rd_gago03" />
+								            <label for="rd_gago03">어가가구</label>
+								        </li>
+								    </ul> 
+								</div> 
+                            </div> 
+						</div>  
+					</div>
+					<div class="btnBottom">
+                        <a href="#" class="btnStyle01">산업분류목록 열기</a>
+                    </div>
+				</div><!-- 사업체총조사 통계조건 설정하기 end -->
+				
+				<div class="quickBox step03"><!-- 9차 산업분류 목록 선택하기 start -->
+					<div class="subj">
+						<span>9차 산업분류 목록 선택하기</span>
+						<a href="javascript:void(0)" class="stepClose">닫기</a>
+					</div>
+					<div class="scrollBox">
+						<div class="stepBox">
+						     <p class="result">검색결과 : 5개</p>
+						</div>
+						<div class="stepBox xWidth">
+				            <ul class="xWidth"> 
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha01" />
+						            <label for="rd_goocha01">농업, 임업 및 어업농업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha02" />
+						            <label for="rd_goocha02">광업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha03" />
+						            <label for="rd_goocha03">제조업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha04" />
+						            <label for="rd_goocha04">전기, 가스, 중기 및 수도사업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha05" />
+						            <label for="rd_goocha05">하수 폐기물 처리, 원료재생 및 환경보건업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha06" />
+						            <label for="rd_goocha06">건설업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha07" />
+						            <label for="rd_goocha07">도매 및 소매업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha08" />
+						            <label for="rd_goocha08">운수업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha09" />
+						            <label for="rd_goocha09">숙박 및 음식점업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha10" />
+						            <label for="rd_goocha10">출판, 영상, 방송통신 및 정보서비스업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha11" />
+						            <label for="rd_goocha11">금융 및 보험업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha12" />
+						            <label for="rd_goocha12">부동산업 및 임대업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha13" />
+						            <label for="rd_goocha13">전문, 과학 및 기술 서비스업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha14" />
+						            <label for="rd_goocha14">사업시설관리 및 사업지원 서비스업</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha15" />
+						            <label for="rd_goocha15">공공행정, 국방 및 사회보장 행정</label>
+				                </li>
+				                <li>
+				                    <input type="radio" name="rd_goocha" id="rd_goocha16" />
+						            <label for="rd_goocha16">교육 서비스업</label>
+				                </li> 
+						    </ul>
+						</div>
+
+					</div>
+					<div class="btnBottom">
+                        <a href="#" class="btnStyle01">버튼 생성</a>
+                        <a href="#" class="btnStyle01">목록 열기</a>
+                    </div>
+					
+				</div><!-- 9차 산업분류 목록 선택하기 end -->
+				
+				<div class="quickBox step04"><!-- 해당분류 세부업종 선택하기 start -->
+					<div class="subj">
+						<span>해당분류 세부업종 선택하기</span>
+						<a href="javascript:void(0)" class="stepClose">닫기</a>
+					</div>
+					<div class="normalBox">
+				        <div class="stepTreeBox">
+                            <ul> 
+                                <li class="isFolder isExpanded">
+                                    농업
+                                    <ul>
+                                        <li class="isFolder isExpanded">
+                                            작물재배업
+                                            <ul>
+                                                <li><a href="#">곡물 및 기타 식량작물 재배업식량작물 재배업</a></li>
+                                                <li><a href="#">채소, 화훼작물 및 종묘재배업</a></li>
+                                                <li><a href="#">과실, 음료용 및 향신료 작물 재배업</a></li>
+                                                <li><a href="#">기타 작물 재배업</a></li>
+                                                <li><a href="#">시설 작물 재배업</a></li>
+                                            </ul> 
+                                        </li> 
+                                    </ul>
+                                </li>
+                                <li class="isFolder isExpanded">
+                                    축산업
+                                    <ul>
+                                        <li class="isFolder isExpanded"><!--isExpanded-->
+                                            작물재배업
+                                            <ul>
+                                                <li><a href="#">곡물 및 기타 식량작물 재배업</a></li>
+                                                <li><a href="#">채소, 화훼작물 및 종묘재배업</a></li>
+                                                <li><a href="#">과실, 음료용 및 향신료 작물 재배업</a></li>
+                                                <li><a href="#">기타 작물 재배업</a></li>
+                                                <li><a href="#">시설 작물 재배업</a></li>
+                                            </ul> 
+                                        </li> 
+                                    </ul>
+                                </li>
+                                <li class="isFolder isExpanded">
+                                    농업
+                                    <ul>
+                                        <li class="isFolder isExpanded"><!--isExpanded-->
+                                            작물재배업
+                                            <ul>
+                                                <li><a href="#">곡물 및 기타 식량작물 재배업곡물 및 기타 식량작물 재배곡물 및 기타 식량작물 재배</a></li>
+                                                <li><a href="#">채소, 화훼작물 및 종묘재배업</a></li>
+                                                <li><a href="#">과실, 음료용 및 향신료 작물 재배업</a></li>
+                                                <li><a href="#">기타 작물 재배업</a></li>
+                                                <li><a href="#">시설 작물 재배업</a></li>
+                                            </ul> 
+                                        </li> 
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div> 
+
+					</div>
+					<div class="btnBottom">
+                        <a href="#" class="btnStyle01">버튼 생성</a>
+                    </div>
+                    
+				</div><!-- 해당분류 세부업종 선택하기 end -->
+
+			</div>	 
+		</div>  
+
+
+	</div>
+</body>
+</html>

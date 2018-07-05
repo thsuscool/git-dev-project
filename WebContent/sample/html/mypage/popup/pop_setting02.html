@@ -1,0 +1,88 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/sample/include/css/mypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css"> 
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script> 
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script>
+    <script type="text/javascript" src="/sample/include/js/mypageEtc.js"></script>
+</head>
+
+<body>  
+	<div id="wrap">   
+		
+		<!----------------------레이어---------------------- --> 
+		  
+		
+		<div class="popBox">
+			<div class="topbar">
+				<span>집계</span>
+				<a href="javascript:void(0)">닫기</a>
+			</div>
+			<div class="popContents">
+				<ul class="listFormPop">
+					<li>
+						<div class="dbTypeSubj">
+							<label for="awSelect01">1. 공간연산 범위 선택 </label>
+							<select id="awSelect01"><option>A</option></select>
+						</div>
+					</li>
+					<li>
+						<div class="dbTypeSubj">
+							<label for="awSelect02">2. 공간연산 값 선택</label>
+							<select id="awSelect02"><option>A</option></select>
+						</div>
+					</li> 
+				</ul>
+				<div class="btnBox"> 
+					<a href="javascript:void(0)" class="btnType01">적용</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="popBox" style="top:55%;">
+			<div class="topbar">
+				<span>연산</span>
+				<a href="javascript:void(0)">닫기</a>
+			</div>
+			<div class="popContents">
+				<ul class="listFormPop">
+					<li>
+						<select title="열선택" class="mpSelect"><option>E</option></select>
+						<select title="연산자선택" class="mpSelect type01">
+							<option>+</option>
+							<option>ㅡ</option>
+							<option>X</option>
+							<option>/</option>
+						</select>
+						<select title="열선택" class="mpSelect"><option>F</option></select>
+						<span class="mpSpan etc">=</span>
+						<select title="키종류" class="mpSelect"><option>G</option></select> 
+					</li> 
+				</ul>
+				<div class="btnBox"> 
+					<a href="javascript:void(0)" class="btnType01">연산적용</a>
+				</div>
+			</div>
+		</div>
+		<!----------------------레이어---------------------- -->
+
+
+	</div>
+</body>
+</html>

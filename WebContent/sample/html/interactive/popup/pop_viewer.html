@@ -1,0 +1,118 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    
+    <!-- *신규* --> 
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/interativeFunc.css" />
+  	<!-- *신규* -->
+  
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    
+    <script type="text/javascript" src="/sample/include/js/interactiveEtc.js"></script><!-- *신규* -->
+</head>
+
+<body class="pop">  
+	<div class="popViewer">   
+		<h1><img src="/img/common/logo.gif" /></h1>
+		<div class="guide">
+			<span>사업체전개도 > 중부시장 / 서울특별시 중구 동호로 33길 24(오장동)</span>
+			<a href="javascript:void(0)" class="btnStyle01
+			">대표층보기</a>
+		</div>
+		
+		<div class="pvRow">
+			<div class="fl">
+				<p>건물 입체도</p>
+				<div class="pvContents">
+					<div class="">
+						<a href="javascript:void(0)">위로</a>
+						<ul>
+							<li><a href="javascript:void(0)">4층</a></li>
+							<li><a href="javascript:void(0)">3층</a></li>
+							<li><a href="javascript:void(0)">2층</a></li>
+							<li><a href="javascript:void(0)">1층</a></li>
+							<li><a href="javascript:void(0)">B1층</a></li>
+							<li><a href="javascript:void(0)">B2층</a></li>
+							<li><a href="javascript:void(0)">B3층</a></li>
+						</ul>
+						<a href="javascript:void(0)">아래로</a>
+					</div>
+					<div>
+						<input type="radio" name="" />
+						<label>평면도</label>
+						<input type="radio" name="" />
+						<label>정면도</label>
+					</div>
+				</div>
+			</div>
+			<div class="fr">
+				<p>건물 입체도 (1층)</p>
+				<div class="pvContents"></div>
+			</div>
+		</div>
+		<div class="pvRow">
+			<div class="fl">
+				<p>업종 분포도</p>
+				<div class="pvContents">
+					<div class="pvcRow">
+						<input type="radio" name="rd_bunpo" id="rd_bunpo01" />
+						<label for="rd_bunpo01">건물전체</label>
+						<input type="radio" name="rd_bunpo" id="rd_bunpo02" />
+						<label for="rd_bunpo02">해당층</label>
+					</div>
+					<div class="charts"></div>	
+				</div>
+			</div>
+			<div class="fr">
+				<p>업종별 사업체 (1층)</p>
+				<div class="pvContents">
+					<div class="pvcRow">
+						<span class="subj">업종분류</span>
+						<select><option>기업(판매/유통)</option></select>
+					</div>
+					<div class="pvcRow">
+						<span class="subj">해당사업체</span>
+						<div class="scrolls">
+							<ul>
+								<li><a href="#">동원포장(주)</a></li>
+								<li><a href="#">(주)바이셀 종합상사</a></li>
+								<li><a href="#">주식회사 세한씨푸드</a></li>
+								<li><a href="#">탄탄포장비닐</a></li>
+								<li><a href="#">강 &amp; 산 드림푸드</a></li>
+								<li><a href="#">엠피솔루션(MP Solution)</a></li>
+								<li><a href="#">동원포장(주)</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		 
+
+
+	</div>
+</body>
+</html>

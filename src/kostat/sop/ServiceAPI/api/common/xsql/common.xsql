@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common">
+
+	<!-- 페이지 통계 등록 -->
+	<insert id="insertPageCall" parameterType="hashmap">
+		INSERT INTO srv_dt_pagerealtimestat
+			(
+					hpage
+				,	call_ts
+				,	tr_id
+				,	access_ip
+			) 
+		VALUES
+			(
+					#{hpage}
+				,	sysdate
+				,	#{tr_id}
+				,	#{access_ip}
+			)
+	</insert>
+	
+	<!-- 인터랙티브/통계주제도 최신목록 조회 (4개) -->
+	<select id="interactive_recent" parameterType="hashmap" resultType="hashmap">	
+		SELECT TITLE, URL, HOT_ICON_YN 
+		FROM MNG_DT_THEMAMAPBOOKMARK 
+		WHERE SRV_YN='Y' AND STAT_ID LIKE 'map'||'%' ORDER BY RANK, REG_TS DESC
+	</select>
+	
+	<!-- 인터랙티브/통계주제도 최신목록 조회 (4개) -->
+	<select id="thema_recent_bk" parameterType="hashmap" resultType="hashmap">	
+		SELECT  TOP 3
+	                s.stat_thema_map_id AS stat_thema_map_id,
+	                s.thema_map_category AS category,
+	                s.manager_id AS manager_id,
+	                s.title AS title,
+	                TO_CHAR(s.reg_ts, 'YYYYMMDDHH') AS reg_ts,
+	                s.thema_map_type AS thema_map_type,
+	                s.stat_thema_map_file_url,
+	                s.hits AS hits,
+	                s.disp_mthd AS disp_method,
+	                s.rel_stat_info AS rel_stat_info,
+	                s.thema_map_exp AS thema_exp,
+	                t.category_nm AS category_nm,
+	                t.en AS category_en,
+	                t.exp AS category_exp,
+	                s.max_expnsn_level as max_expnsn_level,
+	                d.category_icon_url as category_icon_url,
+	                s.srv_yn
+	        FROM    mng_dt_themamaplist s, mng_dt_themamapcategory t, mng_dt_themamapicon d
+	
+	        
+	        WHERE   s.thema_map_category = t.thema_map_category 
+	        AND     t.category_icon_id = d.category_icon_id
+	        AND     s.srv_yn='Y'
+	        AND     t.srv_yn = 'Y'
+	        AND     s.priority_disp_yn ='Y'
+	</select>
+	<select id="thema_recent2" parameterType="hashmap" resultType="hashmap">	
+		SELECT
+	                s.stat_thema_map_id AS stat_thema_map_id,
+	                s.thema_map_category AS category,
+	                s.manager_id AS manager_id,
+	                s.title AS title,
+	                TO_CHAR(s.reg_ts, 'YYYYMMDDHH') AS reg_ts,
+	                s.thema_map_type AS thema_map_type,
+	                s.stat_thema_map_file_url,
+	                s.hits AS hits,
+	                s.disp_mthd AS disp_method,
+	                s.rel_stat_info AS rel_stat_info,
+	                s.thema_map_exp AS thema_exp,
+	                t.category_nm AS category_nm,
+	                t.en AS category_en,
+	                t.exp AS category_exp,
+	                s.max_expnsn_level as max_expnsn_level,
+	                d.category_icon_url as category_icon_url,
+	                s.srv_yn
+	        FROM    mng_dt_themamaplist s, mng_dt_themamapcategory t, mng_dt_themamapicon d
+	
+	        
+	        WHERE   s.thema_map_category = t.thema_map_category 
+	        AND     t.category_icon_id = d.category_icon_id
+	        AND     s.srv_yn='Y'
+	        AND     t.srv_yn = 'Y'
+	        AND     s.priority_disp_yn ='N'
+	</select>
+	
+	<select id="thema_recent" parameterType="hashmap" resultType="hashmap">	
+		SELECT S.TITLE, S.URL, S.THEMA_MAP_CATEGORY AS CATEGORY, S.HOT_ICON_YN, T.CATEGORY_NM 
+		FROM MNG_DT_THEMAMAPBOOKMARK S, MNG_DT_THEMAMAPCATEGORY T
+		WHERE S.THEMA_MAP_CATEGORY = T.THEMA_MAP_CATEGORY 
+			AND S.SRV_YN='Y' AND S.STAT_ID LIKE 'tma'||'%' ORDER BY S.RANK, S.REG_TS DESC
+	</select>
+	
+	<!-- 인터랙티브/통계주제도 파라미터정보 조회 -->
+	<select id="selectRecentParamInfo"  parameterType="hashmap" resultType="hashmap">
+		SELECT	 	b.hist_id 
+				 ,	b.title
+				 ,	a.seq
+				 ,	a.api_call_url
+				 ,	a.param_info
+		FROM     	srv_dt_statexinfo b, srv_dt_statexhistparaminfo a
+		WHERE	 	b.hist_id = a.hist_id AND b.hist_id = #{hist_id} AND ex_type = 'INTERM'
+		ORDER BY seq asc;
+	</select>
+	
+	<!-- 관리자 사이트 등록 배너 목록 조회 -->
+	<select id="banner_recent"  parameterType="hashmap" resultType="hashmap">
+		SELECT POST_CONTENT, POST_TITLE_EN, POST_TITLE, LINK_URL 
+		FROM SRV_DT_BOARD 
+		WHERE BOARD_CD='BOARD_007' 
+		ORDER BY PRIORITY_DISP_YN DESC, POST_NO ASC	
+	</select>
+		<select id="selectTooltipInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT	 menu_class_cd
+			   , ttip_id
+			   , ttip_nm
+			   , ttip_exp
+		FROM	 mng_dt_tooltipexp
+		WHERE 	 menu_class_cd = #{menu_class_cd}
+		ORDER BY ttip_id asc;
+	</select>
+	
+		
+	<!-- APILogWrite를 DB로 쌓도록 변경 -->
+	<!-- mng_s 20170822 leekh -->
+	<insert id="apiLogWrite" parameterType="hashmap">
+		Insert into api_log_write (
+		 	log_seq,
+			regdate,
+			type	 ,
+			api_id,
+			title	,
+			parameter,
+			zoomlevel,
+			adm_nm,
+			member_id,
+			null_val,
+			address_ip 
+		)values (
+			(select max(log_seq)+1 from api_log_write with (nolock)),
+			sysdate,
+			#{type},
+			#{api_id},
+			#{title},
+			#{parameter},
+			#{zoomLevel},
+			#{adm_nm},
+			#{member_id},
+			'0',
+			#{addressIP}
+		)
+		<!-- mng_e 20170822 leekh -->				
+		
+	</insert>
+		
+	<!-- 대화형 통계지도의 검색조건  -->
+	<insert id="regpopsearcondi" parameterType="hashmap">
+		<!-- mng_s 20170822 leekh -->
+		Insert into pop_search_condi (
+			condi_seq,
+			regdate,
+			title
+		)values (
+			(select max(condi_seq)+1 from pop_search_condi  with (nolock)),
+			sysdate,
+			#{title}
+		)
+		<!-- mng_e 20170822 leekh -->
+	</insert>
+		
+	<!-- 살고싶은 우리동네 지표조건  -->
+	<insert id="houseAnalcondi" parameterType="hashmap">
+		<!-- mng_s 20170822 leekh -->
+		insert into house_analysis_map_condition
+		(
+			condition_seq,
+			regdate,
+			type,
+			condition
+		)
+		values(
+			(select max(condition_seq)+1 from house_analysis_map_condition  with (nolock)),
+			sysdate,
+			#{type},
+			#{condition}
+		)
+				<!-- mng_e 20170822 leekh -->
+		
+	</insert>
+		
+	<!-- 살고싶은 우리동네 지표조건  -->
+	<insert id="houseAnalcondiMix" parameterType="hashmap">
+			<!-- mng_s 20170822 leekh -->
+		insert into house_analysis_map_condition_mix 
+		(
+			mix_seq,
+			regdate,
+			type,
+			condition_mix 
+		)
+		values(
+			(select max(mix_seq)+1 from house_analysis_map_condition_mix  with (nolock)),
+			sysdate,
+			#{type},
+			#{condition_mix}
+		)
+				<!-- mng_e 20170822 leekh -->
+		
+	</insert>
+		
+	<!-- 인기지역  -->
+	<insert id="interestArea" parameterType="hashmap">
+			<!-- mng_s 20170822 leekh -->
+		insert into interest_area
+		(
+			area_seq,
+			regdate,
+			type,
+			adm_nm 
+		)
+		values(
+			(select max(area_seq)+1 from interest_area  with (nolock)),
+			sysdate,
+			#{type},
+			#{adm_nm}
+		)
+				<!-- mng_e 20170822 leekh -->
+		
+	</insert>
+		
+	<!-- 통계주제도 조건  -->
+	<insert id="themaCondi" parameterType="hashmap">
+		insert into thema_condi
+		(
+			condi_seq,
+			regdate,
+			condition
+		)
+		values(
+			(select max(condi_seq)+1 from thema_condi  with (nolock)),
+			sysdate,
+			#{condition}
+		)
+		
+	</insert>
+
+	<!-- 생활업종지도 이용현황 인기검색업종  -->
+	<insert id="popSearchTheme" parameterType="hashmap">
+			<!-- mng_s 20170822 leekh -->
+		insert into pop_search_theme 
+		(
+			theme_seq,
+			regdate,
+			theme_cd,
+			theme_nm,
+			api_nm
+		)
+		values
+		(
+			(select max(theme_seq)+1 from pop_search_theme  with (nolock)),
+			sysdate,
+			#{theme_cd},
+			(select s_theme_cd_nm from cmm_cd_theme where theme_cd = #{theme_cd}),
+			#{title}
+		)
+				<!-- mng_e 20170822 leekh -->
+	</insert>
+</mapper>

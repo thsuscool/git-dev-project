@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>보고서</title>
+	
+	<link rel="stylesheet" href="/css/jquery-ui-1.10.4.custom.css"/>
+	<link rel="stylesheet" href="/js/plugins/jquery-easyui-1.4/sop.css" />
+	<link rel="stylesheet" href="/css/reportForm.css"/>
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/wheelcolorpicker.css"/>
+	<script src="/js/plugins/jquery-1.11.1.min.js"></script>
+	<script src="/js/plugins/btoa.js"></script>
+	<script src="/js/plugins/highcharts/highcharts.js"></script>
+	<script type="text/javascript" src="/js/plugins/jsPDF/jspdf.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/imageCapture/rgbcolor.js"></script>
+	<script type="text/javascript" src="/js/plugins/imageCapture/canvg.js"></script>
+    <script type="text/javascript" src="/js/plugins/imageCapture/html2canvas.js"></script>
+    <script type="text/javascript" src="/js/plugins/imageCapture/html2canvas.svg.js"></script>
+	<script src="/js/plugins/highcharts/modules/exporting.js"></script>
+	<script src="/js/plugins/jquery-easyui-1.4/sop-src.js"></script>
+	<script src="/js/plugins/jquery.sha256.js"></script>
+	<script src="/js/plugins/durian-v2.0.js"></script>
+	<script src="/js/common/sop.portal.absAPI.js"></script>
+	<script src="/js/common/common.js"></script>		
+	<script src="/js/common/map.js"></script>
+	<script src="/js/common/mapInfo/legendInfo.js"></script>
+	<script src="/js/policyStatic/report/policyStaticMap.report.js"></script>
+	<script src="/js/policyStatic/report/policyStaticMap.report.event.js"></script>
+	<script src="/js/policyStatic/report/policyStaticMap.report.util.js"></script>
+	<style media="print">@page{size:auto;margin:10mm;}body{margin:0;}</style> 
+	
+	<style>
+		#AlertMessage {
+			width : 400px;
+			overflow : hidden;
+			border : 3px solid #656972;
+			barder-radius : 5px;
+			padding : 20px 20px 20px 70px;
+			font-size : 20px;
+			color : #333333;
+			box-shadow : 1px 1px 3px #cccccc;
+			word-break : break-all;
+			position : absolute;
+			top : 45%;
+			left : 20%;
+		}
+		.pntCenter {text-align:center;}
+		.titleArea {height:40px;float:left;}
+		.legendArea {width:220px;height:270px;border-right:1px solid #ccc;position:absolute; top:233px;z-index:10;background-color:#fff;}
+		.pntChart, .pntLegend {height:auto;}
+		
+		#policyDetailTable{width:100%;margin-top:10px;}
+		#policyDetailTable th{border-top:1px solid #ccc;border-bottom:1px solid #ccc;height:32px;background:#f5f5f5;color:#606060;font-size:13px;}
+		#policyDetailTable td{border-bottom:1px solid #ccc;text-align:center;height:32px;color:#666;font-size:11px;}
+		#policyDetailTable .addSideLine{border:1px solid #ccc;}
+		.pcAddBox{display:block;margin-left:20px;height:auto;overflow:hidden;width:407px;}
+		.pcAddBox span{font-size:14px;color:#333;font-weight:bold;float:left;}
+		.pcAddBox a{float:right;}
+		.pcAddList{display:block;margin-left:20px;height:auto;overflow:hidden;}
+		.pcAddList li{display:block;width:100%;height:auto;overflow:hidden;}
+		.pcAddList li a{display:block;width:395px;border:1px solid #ccc;width:Scalc( 100% - 12px );padding-left:10px;height:28px;line-height:28px;background:url(/img/policyStatic/ico_mius01.png) no-repeat right center;overflow:hidden;}
+		.pcAddList li a img{vertical-align:middle;}
+		.pcAddList li a span{font-size:13px;vertical-align:middle;}
+			
+	</style>
+</head>
+<body>
+	<div id="mask" style="background:#ffffff;z-index:10000;width:100%;height:100%;">
+		<div id="AlertMessage">보고서 생성중입니다. 잠시만 기다려주세요.</div>
+	</div>
+	<div id="wrap">
+		<div class="printArea">
+			<div class="pntPage">
+				<h1 class="pntHeader"><img src="/img/common/logo.gif" alt="SGIS 오픈플랫폼"></h1>	 
+		 		<div class="pntBtn">
+		 			<a href="javascript:$policyStaticMap.report.event.reportPdfDown();" id="pdfdown">PDF</a>
+		 			<a href="javascript:$policyStaticMap.report.event.reportPrint();">인쇄</a>
+		 			<a href="javascript:self.close();">닫기</a>
+		 		</div>
+		 		<p class="pntURI">통계지리정보서비스 (https://sgis.kostat.go.kr)</p> 
+				
+		 		<div id="policyInfo" style="display:none;">
+		 			<div class="pntNewCenter" style="margin-top:10px;"><h3 style="height:40px;line-height:40px;">보고서명</h3><div class="titleArea"><textarea id="policyTitle" class="inputArea" cols="60" rows="1"></textarea></div></div>
+		 			<div class="pntNewCenter"><h3>대상지역</h3><div id="targetArea" class="pntNewRight"></div></div>
+		 			<div class="pntNewCenter"><h3>작성일자</h3><div id="datePolicy" class="pntNewRight"></div></div>
+		 			<div class="pntNewCenter"><h3 style="height:60px; line-height:60px;">출처</h3><div id="policyOrigin" class="pntNewRight" style="height:60px;"></div></div>
+		 		</div>
+
+	 			<div class="pntPage" id="policyContentDiv" style="display:none;">
+			 		<div id="policyContent_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyContent');"><img src="/img/im/btn_plus.png" alt="보이기"/></a></div>
+			 		<div class="pntCenter" id="policyContent" style="position:relative;">
+			 			 <h3>내용</h3><div id="content"></div>
+			 			 <div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyContent');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 		</div>
+			 	</div>
+
+		 		<div id="combineInfo" style="display:none;">
+		 			<div class="pntNewCenter" style="margin-top:10px;"><h3 style="height:40px;line-height:40px;">보고서명</h3><div style="width:677px;height:40px;float:left;"><textarea id="combineTitle"cols="60" rows="1"></textarea></div></div>
+		 			<div class="pntNewCenter"><h3>작성일자</h3><div id="dateCombine" class="pntNewRight"></div></div>
+		 			<div class="pntNewCenter"><h3>주요지표</h3><div id="combineIndicator" class="pntNewRight"></div></div>
+		 			<div class="pntNewCenter"><h3>대상지역</h3><div id="combineArea" class="pntNewRight"></div></div>
+		 			<div class="pntNewCenter"><h3>출처</h3><div id="combineOrigin" class="pntNewRight"></div></div>
+		 		</div>
+		 		<div id="demandMapDiv" style="display:none;">
+			 		<div id="staticMap01Div_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('staticMap01Div');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="staticLegend01_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('staticLegend01');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="staticMap01Div" class="pntCenter" style="position:relative;text-align:center;">
+			 			<div class="pntNewCenterTitle"><h3>지도 시각화 화면(기준)</h3></div>
+			 			<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('staticMap01Div');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 			<div id="staticLegend01" class="legendArea">
+			 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+			 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('staticLegend01');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 			<div id="legend_1" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+			 			<div class="mapArea">
+			 				<div class="pntMap"><img id="staticMapDiv_1" src=""></div>
+			 			</div>
+					</div>
+					<div id="staticMap02Div_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('staticMap02Div');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="staticLegend02_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('staticLegend02');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="staticMap02Div" class="pntCenter" style="position:relative;">
+		 				<div class="pntNewCenterTitle"><h3>지도 시각화 화면(추가)</h3></div>
+		 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('staticMap02Div');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 			<div id="staticLegend02" class="legendArea">
+			 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+			 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('staticLegend02');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 			<div id="legend_2" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+			 			<div class="mapArea">
+			 				<div class="pntMap"><img id="staticMapDiv_2" src=""></div>
+			 			</div>
+			 		</div>
+		 		</div>
+		 		<div id="policyMapDiv_report" style="display:none;">
+			 		<div id="policyMapDiv_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyMapDiv');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="policyLegend_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyLegend');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="policyMapDiv" class="pntCenter" style="position:relative;">
+		 				<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+		 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyMapDiv');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 			<div id="policyLegend" class="legendArea">
+			 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+			 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyLegend');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 			<div id="legend2_1" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+			 			<div class="mapArea">
+			 				<div class="pntMap"><img id="policyMapDiv_1" src=""></div>
+			 			</div>
+			 		</div>
+		 		</div>
+		 		<div id="combineMapDiv_report" style="display:none;">
+			 		<div id="combineMapDiv_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('combineMapDiv');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="combineLegend_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('combineLegend');"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div id="combineMapDiv" class="pntCenter" style="position:relative;">
+		 				<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+		 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('combineMapDiv');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 			<div id="combineLegend" style="width:220px;height:270px;border-right:1px solid #ccc;position:absolute; top:240px;z-index:10;background-color:#fff;">
+			 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+			 				<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('combineLegend');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 			<div id="legend_3" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+			 			<div style="width:798px;height:472px;float:right;">
+			 				<div class="pntMap"><div id="combineMapDiv_1"></div></div>
+			 			</div>
+			 		</div>
+		 		</div>
+		 		<div class="pntPage">
+			 		<div id="policyMemo_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyMemo');"><img src="/img/im/btn_plus.png" alt="보이기"/></a></div>
+			 		<div class="pntCenter" id="policyMemo" style="position:relative;">
+			 			 <h3>메모</h3> 
+			 			 <textarea id="memo"></textarea>
+			 			 <div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyMemo');"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+			 		</div>
+			 	</div>
+		 		<div class="pntPage" id="demandChartDiv" style="display:none; height:auto;">
+			 		<div id="policyChart_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyChart')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div class="pntCenter">
+					 	<div class="pntNewCenterTitle" id="policyChart" style="position:relative;display:block; height:auto;">
+					 		<h3>데이터 보기 - 차트</h3>
+					 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyChart')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+					 		<div class="pntChart">
+					 			<img id="policyDetailChart" src="">
+					 		</div>
+					 	</div>
+			 		</div>
+		 		</div>
+		 		<div class="pntPage" id="demandTableDiv" style="display:none;">
+			 		<div id="policyTable_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyTable')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+			 		<div class="pntCenter">
+					 	<div class="pntNewCenterTitle" id="policyTable" style="position:relative;display:block;">
+					 		<h3>데이터 보기 - 표</h3>
+					 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyTable')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+					 		<div class="pntChart" style="height: auto;">
+					 			<table id="policyDetailTable" style="height: auto;">
+					 				<thead>
+					 					<tr>
+					 						<th></th>
+					 					</tr>
+					 				</thead>
+					 				<tbody></tbody>
+					 			</table>
+					 		</div>
+					 	</div>
+			 		</div>
+		 		</div>
+		 		<div class="pntPage" id="policyChartDiv" style="display:none;">
+		 			<div id="standardDataboard_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('standardDataboard')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 			<div class="pntCenter">
+		 				<div class="pntNewCenterTitle" id="standardDataboard" style="position:relative;display:block;"><h3></h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('standardDataboard')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="policyDataboard"></div>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<div class="pntPage" id="policyConvergenceDiv" style="display:none;">
+		 			<div id="policyConvergence_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('policyConvergence')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 			<div class="pntCenter">
+		 				<div class="pntNewCenterTitle" id="policyConvergence" style="position:relative;display:block;"><h3>융합데이터</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('policyConvergence')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="policyConData"></div>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<div class="pntPage" id="combineChartDiv" style="display:none;">
+		 			<div id="combineDataboard_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('combineDataboard')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 			<div class="pntCenter">
+		 				<div class="pntNewCenterTitle" id="combineDataboard" style="position:relative;display:block;"><h3>기준/추가데이터</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('combineDataboard')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="combineStandardDataboard"></div>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<div class="pntPage" id="combineConvergenceDiv" style="display:none;">
+		 			<div id="combineConvergence_show" class="pntShowBtn"><a href="javascript:$policyStaticMap.report.event.show('combineConvergence')"><img src="/img/im/btn_plus.png" alt="보이기" /></a></div>
+		 			<div class="pntCenter">
+		 				<div class="pntNewCenterTitle" id="combineConvergence" style="position:relative;display:block;"><h3>융합데이터</h3>
+				 		<div class="pntCloseBtn"><a href="javascript:$policyStaticMap.report.event.hide('combineConvergence')"><img src="/img/um/btn_closel01.png" alt="숨기기" /></a></div>
+				 		<div class="pntChart" id="combineConData"></div>
+		 				</div>
+		 			</div>
+		 		</div>
+			</div>
+		</div>
+	</div>
+	<div id="hiddenReport"></div>
+</body>
+</html>

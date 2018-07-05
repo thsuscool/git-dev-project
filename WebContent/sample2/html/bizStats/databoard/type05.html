@@ -1,0 +1,214 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script> 
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-3d.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- *신규* -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/bizStats.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<p class="dbText01">생활업종별 지역 시군구 현황</p>
+				    				<div class="areaBox">
+				    					한식/충청북도 괴산군 <span>2014</span>
+				    					<div class="etcTabs">
+				    						<a href="javascript:void(0)">색상지도</a>
+				    						<a href="javascript:void(0)" class="on">버블지도</a>
+				    					</div>
+				    				</div>
+				    				 
+				    				<dl class="dscList"> 
+					    				<dd class="view">
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)">종합현황</a>
+					    						<a href="javascript:void(0)" class="on">음식점</a>
+					    						<a href="javascript:void(0)">도소매</a>
+					    						<a href="javascript:void(0)">서비스</a>
+					    						<a href="javascript:void(0)">숙박업</a>
+					    					</div>
+					    					<ul class="dbTabs01">
+						    					<li><a href="javascript:void(0)" class="on">한식</a></li>
+						    					<li><a href="javascript:void(0)">중식</a></li>
+						    					<li><a href="javascript:void(0)">일식</a></li>
+						    					<li><a href="javascript:void(0)">분식</a></li>
+						    					<li><a href="javascript:void(0)">서양식</a></li>
+						    					<li><a href="javascript:void(0)">제과점</a></li>
+						    					<li><a href="javascript:void(0)">패스트푸드</a></li>
+						    					<li><a href="javascript:void(0)">치킨</a></li>
+						    					<li><a href="javascript:void(0)">호프 및 간이주점</a></li>
+						    					<li><a href="javascript:void(0)">카페</a></li>
+						    					<li><a href="javascript:void(0)">기타 외국식</a></li>
+						    				</ul>
+						    				<p class="horizontalTitle mt20">
+			    								<span>충청북도 괴산군 한식 업종의 사업체 수 </span> <strong>400</strong><span>개</span>
+			    								<a href="javascript:void(0)"><img src="/img/pic/pic_mapbtn.png" alt="지도보기"/></a>
+			    							</p>
+						    				<p class="horizontalTitle t01">
+			    								<span>한식 사업체 수 : 충청북도 14개 시군구 중 </span> <strong>10</strong><span>위</span>
+			    							</p>
+				    						<div id="rotationCharts01"></div>
+				    						
+				    						<p class="horizontalTitle mt20">
+			    								<span>충청북도 괴산군 한식 업종의 사업체 수 </span> <strong>400</strong><span>개</span>
+			    								<a href="javascript:void(0)"><img src="/img/pic/pic_mapbtn.png" alt="지도보기"/></a>
+			    							</p>
+						    				<p class="horizontalTitle t01">
+			    								<span>한식 사업체 수 : 충청북도 14개 시군구 중 </span> <strong>10</strong><span>위</span>
+			    							</p>
+				    						<div id="rotationCharts02"></div>
+				    						
+				    						<p class="horizontalTitle mt20">
+			    								<span>충청북도 괴산군 한식 업체당 거주 인구 </span> <strong>76.9</strong><span>명</span>
+			    								<a href="javascript:void(0)"><img src="/img/pic/pic_mapbtn.png" alt="지도보기"/></a>
+			    							</p>
+						    				<p class="horizontalTitle t01">
+			    								<span>한식 업체당 거주 인구 : 충청북도 14개 시군구 중 </span> <strong>13</strong><span>위</span>
+			    							</p>
+				    						<div id="rotationCharts03"></div>
+				    						
+				    						<p class="horizontalTitle mt20">
+			    								<span>충청북도 괴산군의 한식 업체당 직장 인구 </span> <strong>26.6</strong><span>명</span>
+			    								<a href="javascript:void(0)"><img src="/img/pic/pic_mapbtn.png" alt="지도보기"/></a>
+			    							</p>
+						    				<p class="horizontalTitle t01">
+			    								<span>한식 업체당 직장 인구 : 충청북도 14개 시군구 중 </span> <strong>14</strong><span>위</span>
+			    							</p>
+				    						<div id="rotationCharts04"></div>
+					    					 
+					    				</dd> 
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	<script>
+	$(function () { 
+		rotationBarCharts("#rotationCharts01");
+		rotationBarCharts("#rotationCharts02");
+		rotationBarCharts("#rotationCharts03");
+		rotationBarCharts("#rotationCharts04");
+	});
+	function rotationBarCharts(id) {
+		$(id).highcharts({
+			chart : {type : 'column', width:530, height:250 },
+			title : {text : ''},
+			colors: ['#2f7ed8'],
+			subtitle : {text : ''},
+			xAxis : {
+				type : 'category',
+				labels : {rotation : -45,
+					style : {fontSize : '11px'}
+				}
+			},
+			yAxis : {
+				min : 0, title : { text : '' },
+				enabled : false,
+				labels: {enabled: false}
+			},
+			plotOptions: {
+	        	series: {
+	                states: { hover: { color:'#fe5800' } }
+	            }
+	        },
+			legend : {enabled : false},
+			tooltip : {pointFormat : '{point.y:.1f}'},
+			series : [ {
+				name : 'Population',
+				data : [ [ '충주시', 11 ], [ '청주시 홍덕구', 16.1 ], [ '청주시 상당구', 14.2 ], [ '제천시', 14.0 ],
+						[ '청주시 청원구', 12.5 ], [ '청주시 서원구', 12.1 ], [ '음성군', 11.8 ], [ '진천군', 11.7 ], 
+						[ '옥천군', 11.1 ], [ '괴산군', 12.1 ], [ '영동군', 12.1 ], [ '단양군', 12.1 ]
+				, [ '보은군', 12.1 ], [ '증평군', 12.1 ]],
+				dataLabels : {enabled : false}
+			} ]
+		});
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+		</div>  
+
+
+	</div>
+	
+	
+	<div class="dialogbox" style="display:block;">
+		<div class="policyPoiBox">
+	   		<div class="bar">
+	   			<span>연산기준 설정</span> 
+	   			<a href="javascript:void(0)"><img src="/img/ico/ico_close04.png" alt="데이터보드 닫기" /></a>
+	   		</div>
+	   		<div class="policyPoiContents">
+	   		 	<div class="stepBox"> 
+				    <div class="poiTop">
+				    	<ul class="dbTypeCk">
+					        <li>
+					            <input type="radio" name="rd_set" id="rd_set11">
+					            <label for="rd_set11" class="on">일괄설정</label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_set" id="rd_set12">
+					            <label for="rd_set12">일괄설정</label>
+					        </li> 
+					    </ul>
+				    </div>
+				    <div class="joinDefault" style="display: block;">
+				    	<ul class="dbTypeCk">
+					        <li>
+					            <input type="radio" name="rd_etc" id="rd_etc11">
+					            <label for="rd_jetc11" class="on">관광숙박시설 운영업</label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_etc" id="rd_etc12">
+					            <label for="rd_etc12">외국인 게스트하우스(2017.06.07)</label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_etc" id="rd_etc13">
+					            <label for="rd_etc13">2016 전국민박_펜션업소표준데이터</label>
+					        </li> 
+					    </ul>
+				    </div>
+				     
+				    <a href="javascript:void(0)" class="roundTextBox on">
+						<span>위치 데이터의 포인트 모양</span> 
+				    </a>
+				    <div class="joinDefault" style="display: block;">
+						<ul class="dbTypeCk po01">
+					        <li>
+					            <input type="radio" name="rd_pointer" id="rd_pointer11">
+					            <label for="rd_pointer11" class="on"><img src="/img/statsPotal/ico_pointer01.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_pointer" id="rd_pointer12">
+					            <label for="rd_pointer12"><img src="/img/statsPotal/ico_pointer02.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_pointer" id="rd_pointer13">
+					            <label for="rd_pointer13"><img src="/img/statsPotal/ico_pointer03.png" /></label>
+					        </li> 
+					        <li>
+					            <input type="radio" name="rd_pointer" id="rd_pointer14">
+					            <label for="rd_pointer14"><img src="/img/statsPotal/ico_pointer04.png" /></label>
+					        </li> 
+					    </ul>	
+					</div>
+					
+					<a href="javascript:void(0)" class="roundTextBox on">
+						<span>위치 데이터의 포인트 색상</span> 
+				    </a>
+				    <div class="joinDefault" style="display: block;">
+						<ul class="dbTypeCk po02">
+					        <li>
+					            <input type="radio" name="rd_color" id="rd_color11">
+					            <label for="rd_color11" class="on"><img src="/img/statsPotal/ico_color01.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_color" id="rd_color12">
+					            <label for="rd_color12"><img src="/img/statsPotal/ico_color02.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_color" id="rd_color13">
+					            <label for="rd_color13"><img src="/img/statsPotal/ico_color03.png" /></label>
+					        </li> 
+					        <li>
+					            <input type="radio" name="rd_color" id="rd_color14">
+					            <label for="rd_color14"><img src="/img/statsPotal/ico_color04.png" /></label>
+					        </li> 
+					        <li>
+					            <input type="radio" name="rd_color" id="rd_color15">
+					            <label for="rd_color15"><img src="/img/statsPotal/ico_color05.png" /></label>
+					        </li> 
+					         <li>
+					            <input type="radio" name="rd_color" id="rd_color16">
+					            <label for="rd_color16"><img src="/img/statsPotal/ico_color06.png" /></label>
+					        </li> 
+					    </ul>	
+					</div>
+					<div class="bar t01">
+						<div class="policy_radio">
+							<a href="javascript:void(0)" class="fl">체크1</a>
+							<a href="javascript:void(0)" class="fr">체크2</a>
+						</div>
+			   			<span>POI 기준 분석 반경(버퍼) 설정</span> 
+			   			<a href="javascript:void(0)"><img src="/img/ico/ico_close04.png" alt="닫기" /></a>
+			   		</div>
+			   		
+			   		<a href="javascript:void(0)" class="roundTextBox on">
+						<span>위치 데이터의 반경 거리</span> 
+				    </a>
+				    <div class="joinDefault" style="display: block;">
+						<div id="slider-range20" class="slider-range"></div>
+						<select class="select"><option>500</option></select>
+						<label>m</label>
+					</div>
+					
+					<a href="javascript:void(0)" class="roundTextBox on">
+						<span>위치 데이터의 반경 색상 및 투명도</span> 
+				    </a>
+				    <div class="joinDefault" style="display: block;">
+						<ul class="dbTypeCk po02">
+					        <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity11">
+					            <label for="rd_opacity11" class="on"><img src="/img/statsPotal/ico_color01.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity12">
+					            <label for="rd_opacity12"><img src="/img/statsPotal/ico_color02.png" /></label>
+					        </li>
+					        <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity13">
+					            <label for="rd_opacity13"><img src="/img/statsPotal/ico_color03.png" /></label>
+					        </li> 
+					        <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity14">
+					            <label for="rd_opacity14"><img src="/img/statsPotal/ico_color04.png" /></label>
+					        </li> 
+					        <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity15">
+					            <label for="rd_opacity15"><img src="/img/statsPotal/ico_color05.png" /></label>
+					        </li> 
+					         <li>
+					            <input type="radio" name="rd_opacity" id="rd_opacity16">
+					            <label for="rd_opacity16"><img src="/img/statsPotal/ico_color06.png" /></label>
+					        </li> 
+					    </ul>	
+					    <label class="fullLabel">반경투명도</label>
+					    <select class="select"><option>50</option></select>
+						<label>%</label>
+					</div>
+					
+					 
+					
+					
+				    
+				</div>
+	   			<div class="policyPoiBtn">
+	   				<a href="javascript:void(0)">취소</a>
+	   				<a href="javascript:void(0)">적용</a>
+	   			</div>
+	   		</div>
+	   	</div>  
+   	</div> 
+   	<script>
+   	$(function(){
+   		$("body").on("click",".policy_radio .fl",function(){ 
+   			$(".policy_radio .fr").css("background","transparent");
+   			$(this).css("background","#fff");  
+   	    });
+   		$("body").on("click",".policy_radio .fr",function(){ 
+   			$(".policy_radio .fl").css("background","transparent");
+   			$(this).css("background","#fff");  
+   	    });
+   		$("#slider-range20").slider({
+   			range: true,
+   	        min: 1,
+   	        max: 300,
+   	        values : [60, 85],
+   	        slide : function(e, ui) {
+   	            //$(domFrom).val(ui.values[0]);
+   	            //$(domTo).val(ui.values[1]);	
+   	            //$("."+from).text("약 "+(ui.values[0]/3.3).toFixed(1)+"평");
+   	            //$("."+to).text("약 "+(ui.values[1]/3.3).toFixed(1)+"평");
+   	        }
+   		});
+   	});
+   	  
+   	</script>
+</body>
+</html>

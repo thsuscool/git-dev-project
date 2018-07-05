@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Range Slider - jQuery EasyUI Demo</title> 
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+	<script src="/js/plugins/highcharts/highcharts.js"></script> 
+	<script>
+	$(function () { 
+		var $value1 = $('.value1');
+		var $value2 = $('.value2');
+		var chart = $('#container').highcharts();
+		$('#container').highcharts({
+			chart: { type: 'column' },
+			credits: { enabled: false },  // highcharts 카피라이트 숨기기
+			legend: { enabled: false },
+			xAxis: {
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				tickInterval: 1, lineColor: 'black', crossing: 3, 
+				labels: { style: { color: 'white' } }  // xAxis 글자색
+			},
+			yAxis: {
+				title: { text: '' },
+				labels: { style: { color: 'white' } // yAxis 글자색
+				}
+			},
+			title: { text: '' },
+			tooltip: { 
+				enabled: false,
+				crosshairs: [{
+					width: 3, color: 'red', dashStyle: 'shortdot'
+				}, {
+					width: 3, color: 'red', dashStyle: 'shortdot'
+				}],
+				shared: true
+			},
+			plotOptions: { 
+				crosshairs: true, shared: true,
+				series: {
+					states: {
+						hover: { color: 'red' } // bar 색
+					},
+					cursor: 'pointer',
+					point: {
+						events: {
+							mouseOver: function () { 
+								$value1.text(this.y).show().stop().animate({"top": parseInt(this.plotY)},200);
+								$value2.text(this.category).show().show().stop().animate({"left": parseInt(this.plotX+10)},200); 
+							}
+						}
+					}
+				}
+			},
+			series: [{
+				data: [35, 71, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+			}] 
+		});
+		$("body").on("mouseleave",".box",function(){
+			$value1.hide(); 
+			$value2.hide();
+		});
+	});
+	</script>
+	<style>
+	.box{width:600px;height:400px;overflow:hidden;position:relative;} 
+	.value1{color:#fff;position:absolute;background:red;height:20px;line-height:20px;overflow:hidden;width:60px;left:0;top:-2000px;text-align:center;border-radius:10px;} 
+	.value2{color:#fff;position:absolute;background:red;height:20px;line-height:20px;overflow:hidden;width:60px;bottom:0px;left:-2000px;text-align:center;border-radius:10px;}
+	</style>
+</head>
+<body> 
+	<div class="box">
+		<div id="container" style="width:600px; height: 400px; margin: 0 auto"></div>    
+		<div class="value1"></div>
+		<div class="value2"></div>
+	</div>
+</body>
+</html>

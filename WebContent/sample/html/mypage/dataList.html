@@ -1,0 +1,136 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/sample/include/css/mypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css"> 
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script> 
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script>
+    <script type="text/javascript" src="/sample/include/js/mypageEtc.js"></script>
+</head>
+
+<body>   
+	<div id="wrap">
+		<!-- header // -->
+		<header>
+			<!-- Top Include -->
+			<!-- <script type="text/javascript"  src="/js/common/includeSearch.js"></script> -->
+			<div class="headerEtc">
+				<a href="#">로그인</a>
+				<a href="#">회원가입</a>
+				<a href="#">도움말</a>
+			</div>
+			<div class="headerContents">
+				<h1><a href='/'><img src='/img/common/logoPlus.gif' alt='SGIS 오픈플랫폼' /></a></h1>
+				
+				<div class="searchPop">
+					<p class="subj">추천검색어</p>
+					<ul>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+					</ul>
+					<p class="subj">인기검색어</p>
+					<ol>
+						<li><a href="#">서울시인구</a></li>
+						<li><a href="#">미취학아동</a></li>
+						<li><a href="#">편의점</a></li>
+						<li><a href="#">20대</a></li>
+						<li><a href="#">출산율</a></li>
+					</ol>
+				</div>
+				
+				<h2>주메뉴</h2>
+				<ul id="#gnb" class="gnb">
+					<li><a href="javascript:void(0)">통계주제도</a></li>
+					<li><a href="javascript:void(0)">대화형통계지도</a></li>
+					<li><a href="javascript:void(0)">활용사례</a></li>
+					<li><a href="javascript:void(0)">분석지도</a></li>
+					<li><a href="javascript:void(0)">알림마당</a></li>
+				</ul>
+				<form action="" method="post">
+					<fieldset>
+						<legend class='blind'>통합검색</legend>
+						<label for="totalSearchBox">통계정보 검색</label>
+						<input id="totalSearchBox" type="text" placeholder="통계정보를 검색해 보세요" />
+						<a href="#"><img src="/img/common/btn_search.png" alt="검색" /></a>
+					</fieldset>
+				</form>
+			</div>
+		</header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<p class="mpGuide">처음페이지 > 마이페이지 > <span>마이 데이터</span></p>
+			
+			<div class="mpSubTitle">
+				<h3>마이 데이터 목록</h3>
+				<div class="mpfileBox">
+					<input type="file" id="mpfile" />
+					<label for="mpfile">내파일 업로드 하기</label>
+				</div> 
+				<p>업로드된 개인 데이터 목록입니다. 저장된 데이터는 SGIS+plus 서비스(대화형통계지도, 생황업종지도)에서 활용가능합니다.</p> 
+			</div>
+			<div class="mpForm"></div>
+			
+			<div class="searchReslutBox"> 
+				<div class="fc">
+					<ul class="mpSearchList">
+						<li>
+							<div class="mpLink">
+								<a href="#1">2015년 10월 01일 11:20:52</a> 
+							</div>
+							<div class="mpSpan">
+								<div class="al">
+									<a href="javascript:void(0)" class="spbox type01" data-subj="데이터적용 팁" title="업로드한 데이터를 해당 서비스 먑에 적용하여 데이터를 조회할 수 있습니다.<br />적용 전 데이터를 설정해 주세요">지도보기</a>
+								</div> 
+								<div class="ar">
+									<a href="javascript:void(0)" class="spbox type02" data-subj="데이터적용 팁" title="업로드한 데이터를 활용하기 위해서는<br />제공되는 서비스에 적용될 수 있도록 데이터 설정이 필요합니다">데이터설정</a>
+									<a href="javascript:void(0)" class="spbox type02">목록삭제</a>
+								</div>
+							</div>
+							<div class="mpEtc"><a href="javascript:void(0)">서울시 잠실본동 상가 정보.xlsx</a></div>
+						</li>
+						<li>
+							<div class="mpLink">
+								<a href="#1">2015년 10월 01일 11:20:52</a> 
+							</div>
+							<div class="mpSpan">
+								<div class="al">
+									<a href="javascript:void(0)" class="spbox type01" data-subj="데이터적용 팁" title="업로드한 데이터를 해당 서비스 먑에 적용하여 데이터를 조회할 수 있습니다.<br />적용 전 데이터를 설정해 주세요">지도보기</a>
+								</div> 
+								<div class="ar">
+									<a href="javascript:void(0)" class="spbox type02" data-subj="데이터적용 팁" title="업로드한 데이터를 활용하기 위해서는<br />제공되는 서비스에 적용될 수 있도록 데이터 설정이 필요합니다">데이터설정</a>
+									<a href="javascript:void(0)" class="spbox type02">목록삭제</a>
+								</div>
+							</div>
+							<div class="mpEtc"><a href="javascript:void(0)">서울시 잠실본동 상가 정보.xlsx</a></div>
+						</li>
+						 
+					</ul> 
+				</div>
+			</div>
+				 
+		</div>  
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <!-- 기존 -->
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <script type="text/javascript" src="/sample2/include/js/technicalBiz.js"></script>
+    
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	 
+				    	
+				    	
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<!-- <p class="dbText01">17개 주요 시도별 생활업종현황</p> -->
+				    				<div class="areaBox">시군구 지역별 정보 현황</div>
+				    				 
+				    				<dl class="dscList"> 
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">조건설정 목록</a>
+					    				</dt>
+					    				<dd>
+					    					<div class="btListBox t01">
+					    						<a href="javascript:void(0)">
+			    									<span class="t01">업종선택</span>
+			    									<span class="t02">미선택</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">사업체 입지계수</span>
+			    									<span class="t02 n2">1.0~1.5</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">종사자 입지계수</span>
+			    									<span class="t02 n2">미선택</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">창업  지원시설</span>
+			    									<span class="t02 n2">포함</span>
+			    								</a>
+			    								<a href="javascript:void(0)">
+			    									<span class="t01">산업단지</span>
+			    									<span class="t02">미포함</span>
+			    								</a> 
+					    					</div>
+					    				</dd>
+					    				<dt class="mt15">
+					    					<a href="javascript:void(0)">비교지역 목록</a> 
+					    				</dt>
+					    				<dd>
+					    					<div class="dbTabs type01">
+					    						<a href="javascript:void(0)" class="on">검색지역 리스트</a>
+					    						<a href="javascript:void(0)">수</a>
+					    						<a href="javascript:void(0)">증감률</a>
+					    						<a href="javascript:void(0)">증감률</a>
+					    						<a href="javascript:void(0)">창업지원시설</a>
+					    						<a href="javascript:void(0)">산업단지</a> 
+					    					</div>
+					    					<div class="chartAreaRela full cellType">  
+					    						<div class="carRight">
+					    							<p>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    								<a href="javascript:void(0)" class="ckbtn">
+					    									<span class="ico"></span>
+					    								</a>
+					    							</p>
+					    						</div>
+					    					</div>
+					    					<div class="dbTabs">
+					    						<a href="javascript:void(0)" class="c01">첨</a>
+					    						<a href="javascript:void(0)" class="c02">고</a>
+					    						<a href="javascript:void(0)" class="c03">중</a>
+					    						<a href="javascript:void(0)" class="c04">저</a>
+					    						<a href="javascript:void(0)" class="c05">창</a>
+					    						<a href="javascript:void(0)" class="c06">ICT</a>
+					    						<a href="javascript:void(0)" class="c07">서</a>  
+					    					</div> 
+					    					<a href="javascript:void(0)" class="selSslBtn">지역 비교하기</a>
+					    					
+					    					<p class="nTitle">총 6개 시군구 검색 완료</p>
+					    					<ul class="areaList01">
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">경기도 화성시</span>
+					    								<div class="sikunBox">
+					    									<span class="b01">첨</span>
+						    								<span class="b02">고</span>
+						    								<span class="b03">중</span>
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">대전시 유성시</span>
+					    								<div class="sikunBox">
+					    									<span class="b04">저</span>
+						    								<span class="b05">창</span>
+						    								<span class="b06">ICT</span>
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">서울시 강남구</span>
+					    								<div class="sikunBox">
+					    									<span class="b07">서</span> 
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">경기도 군포시</span>
+					    								<div class="sikunBox">
+					    									<span class="b07">서</span> 
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">경기도 화성시</span>
+					    								<div class="sikunBox">
+					    									<span class="b01">고</span>
+						    								<span class="b02">중</span>
+						    								<span class="b03">서</span>
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    						<li>
+					    							<div class="rela">
+					    								<span class="tit">경기도 화성시</span>
+					    								<div class="sikunBox">
+					    									<span class="b01">고</span>
+						    								<span class="b02">중</span>
+						    								<span class="b03">서</span>
+					    								</div>
+					    								<a href="javascript:void(0)">상세정보</a>
+					    							</div>
+					    						</li>
+					    					</ul>
+					    					
+					    				</dd>  
+					    				
+					    				 
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents">
+				    		<img src="/img/pm/map_img.jpg" />
+				    	</div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+	 
+	
+	 
+ 		
+	<script>
+	$(function () { 
+		
+	});  
+	</script>
+</body>
+</html>

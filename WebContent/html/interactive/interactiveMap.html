@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>대화형 통계지도 | 통계지리정보서비스</title>
+
+        <link href="/css/default.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet"  href="/js/plugins/jquery-easyui-1.4/sop.css" />
+        <link rel="stylesheet"  href="/css/jquery-ui-1.10.4.custom.css" />
+        <link rel="stylesheet"  href="/js/plugins/EasyTree/skin-lion/ui.easytree.css" />
+        <link rel="stylesheet"  href="/js/common/mapDraw/draw.css"/>
+        <link rel="stylesheet"  href="/js/plugins/dataGrid/css/jquery.dataTables.css"/>
+        <link href="/css/board/board.css" rel="stylesheet" type="text/css" media="screen">
+
+        <script type="text/javascript"  src="/js/plugins/jquery-easyui-1.4/sop-src.js"></script>
+        <script type="text/javascript"  src="/js/common/includeHead.js"></script>
+		<script type="text/javascript"  src="/js/common/common.js"></script>
+		<script type="text/javascript"  src="/js/board/jquery.paging.js"></script>
+		<script type="text/javascript"  src="/js/common/reportForm.js"></script>
+		
+        <!-- 컬러픽커 -->
+        <link rel="stylesheet" media="screen" type="text/css" href="/js/plugins/colorpicker/css/colpick.css" />
+        <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+        <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+        <!-- 컬러픽커 -->
+
+        <!-- 하이차트 -->
+        <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+        
+        <!-- 트리  -->
+        <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.js"></script>
+        
+        <!-- 데이터그리드  -->
+        <script type="text/javascript" src="/js/plugins/dataGrid/js/jquery.dataTables.js"></script>
+        
+		<!-- 사용자지정 컨트롤  -->
+		<script type="text/javascript" src="/js/thematicMap/thematicMap_api.js"></script>
+	    <script type="text/javascript" src="/js/common/mapDraw/Draw.Feature.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/Draw.Control.Manager.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/draw/Draw.Cricle.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/draw/Draw.Rectangle.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/draw/Draw.Polygon.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/Draw.Control.Overlay.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/measure/Draw.AreaMeasure.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/measure/Draw.DistanceMeasure.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/Draw.Control.Distance.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/Draw.Control.Poi.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/poi/Poi.BizMap.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/poi/Poi.InteractiveMap.js"></script>
+        <script type="text/javascript" src="/js/common/mapDraw/Draw.Control.Measure.js"></script>
+        
+        <script type="text/javascript"  src="/js/common/map.js"></script>
+        <script type="text/javascript"  src="/js/common/mapInfo.js"></script>
+        <script type="text/javascript" src="/js/common/mapNavigation.js"></script>
+
+		<link rel="stylesheet" href="/css/im.css" />
+		<script type="text/javascript" src="/js/plugins/libs/jquery-ui.js"></script>
+		<script type="text/javascript" src="/js/plugins/jquery.form.js"></script>
+		<script type="text/javascript" src="/js/plugins/dataGrid/js/dataTables.fnProcessingIndicator.js"></script>
+		<script type="text/javascript" src="/js/interactive/interactiveMap_p.js"></script>
+		<script type="text/javascript" src="/js/interactive/interactiveMap.js"></script>
+		<script type="text/javascript"  src="/js/interactive/interactiveMap_kosis.js"></script>
+		<script type="text/javascript"  src="/js/interactive/interactiveMapApi.js"></script>
+		
+<!-- 		<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> -->
+		<script type="text/javascript"  src="/js/interactive/kakao_script_api.js"></script>
+		
+		
+		<script type="text/javascript" src = "//connect.facebook.net/ko_KR/all.js#xfbml=1&appId=1516531411965359"></script>
+		
+		
+		<link rel="stylesheet"  href="/css/jquery.ui.dialog.minmax.css"/>
+		<script type="text/javascript"  src="/js/plugins/jquery.ui.dialog.minmax.js"></script>
+		<script type="text/javascript">
+			function pop_close(){
+				$("#notice_mini_pop").hide();
+			}
+			function pop_click(){
+				if($("#notice_mini_pop").css("display") == "none"){
+					$("#notice_mini_pop").show();
+				}else{
+					$("#notice_mini_pop").hide();
+				}
+			}
+		</script>
+    </head>
+    <body>
+    	<div id="notice_mini_pop" class="popupWrapper" style="margin-left: 200px; margin-top: 120px; width:602px; height:375px; background: rgba(0,0,0,0); display:none;">
+			<div >
+			<img src="/img/new/sgis_use_notice_pop.png" alt='' usemap="#Map" />
+				<map name="Map">
+					<area shape="rect" coords="565 0 601 36" href="javascript:pop_close()" >
+				</map>
+			</div>						      	 
+ 		</div>
+        <div class="wrap">
+            <!-- top -->
+            <header id="header">
+                <!-- Top Include -->
+                <script type="text/javascript"  src="/js/common/includeSearch.js"></script>
+            </header>
+
+            <!-- body -->
+            <div id="container" class="map" style="max-width: 100%;"> 
+				<a class="map_left_btn"><span>menu open</span></a>
+				<div id="layer_map">
+					<div class="interactive_tit" style="display: none;">
+						<p>대화형 통계지도 <a style="cursor:pointer" onclick="javascript:location.href='/html/board/sopInteractivemap.html'"><img src="/img/im/icon_q.gif" alt="도움말" /></a></p>
+					</div>
+		
+					<div class="interactive_box" style="width: 80px;">
+		
+						<!-- ( interactive_category ) -->
+						<div class="interactive_category">
+							<ul>
+								<li id="populationStatsBtn" class="ic_01" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('population');"><a><span>&nbsp;</span><br />인구</a></li>
+								<li id="householdStatsBtn" class="ic_02" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('household');"><a><span>&nbsp;</span><br />가구</a></li>
+								<li id="houseStatsBtn" class="ic_03" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('house');"><a><span>&nbsp;</span><br />주택</a></li>
+								<li id="companyStatsBtn" class="ic_05" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('company');"><a><span>&nbsp;</span><br />사업체</a></li>
+								<li id="3fStatsBtn" class="ic_04" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('3f');"><a><span>&nbsp;</span><br />농림어가</a></li>
+								<li id="kosisStatsBtn" class="ic_06" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('kosis');"><a><span>&nbsp;</span><br />행정구역<br />통계</a></li>
+								<li id="searchStatsBtn" class="ic_08" onclick="javascript:$interactiveMap.ui.setDetailStatsPanel('search');"><a><span>&nbsp;</span><br />통계표<br />검색</a></li>
+							</ul>
+						</div>
+						<!-- //( interactive_category ) -->
+		
+						<div class="tabcon">
+							<div class="statsDetailRgn">
+								<!-- ( interactive_ct - 인구총괄 ) -->
+								<div class="interactive_ct" id="API_0301">
+									<div class="map_ct_tit">
+										<p>지표</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>검색항목 (필수)</a>
+			
+													<div id="populationTotal" class="box_area_option01">
+														<p>
+			                                                <span style="width:140px; height:30px; float:left">
+			                                                	<input type="radio" name="ptotal" value="tot_ppltn" checked="checked" style="margin:10px;" />
+			                                               		 <span id="tot_ppltn">총인구</span>
+			                                               	</span> 
+			                                                <span style="width:140px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="tot_ppltn_male" style="margin:10px;" />
+			                                                	<span id="tot_ppltn_male">총인구-남자</span>
+			                                                </span>
+			                                                <br/>
+			                                                <span style="width:140px; height:30px; float:left;">
+			                                               		<input type="radio" name="ptotal" value="tot_ppltn_fem" style="margin:10px;" />
+			                                                	<span id="tot_ppltn_fem">총인구-여자</span>
+			                                                </span>
+			                                                <span id="avg_age" style="width:130px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="avg_age" style="margin:10px;">
+			                                                	<span id="tot_ppltn_fem">평균나이</span>
+			                                                </span>
+			                                                <br/>
+			                                                <span style="width:140px; height:30px; float:left;">
+			                                                	<input type="radio" name="ptotal" value="avg_age_male" style="margin:10px;">
+			                                                	<span id="avg_age_male">평균나이-남자</span>
+			                                                </span>
+			                                                <span style="width:140px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="avg_age_fem" style="margin:10px;">
+			                                                	<span id="avg_age_fem">평균나이-여자</span>
+			                                                </span>
+			                                                <br/>
+			                                                <span style="width:140px; height:30px; float:left;">
+			                                                	<input type="radio" name="ptotal" value="ppltn_dnsty" style="margin:10px;">
+			                                                	<span id="ppltn_dnsty">인구밀도</span>
+			                                                </span>
+			                                                <span style="width:140px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="aged_child_idx" style="margin:10px;">
+			                                                	<span id="aged_child_idx">노령화지수</span>
+			                                                </span>
+			                                                <br/>
+			                                                <span style="width:140px; height:30px; float:left;">
+			                                                	<input type="radio" name="ptotal" value="oldage_suprt_per" style="margin:10px;">
+			                                                	<span id="oldage_suprt_per">노년부양비</span>
+			                                                </span>
+			                                                <span style="width:140px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="juv_suprt_per" style="margin:10px;">
+			                                                	<span id="juv_suprt_per">유년부양비</span>
+			                                                </span>
+			                                                <br/>
+			                                                <span style="width:140px; height:30px;">
+			                                                	<input type="radio" name="ptotal" value="tot_suprt_per" style="margin:10px;">
+			                                                	<span id="tot_suprt_per">총부양비</span>
+			                                                </span>
+			                                                <br/>
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 인구총괄 ) -->
+								
+								<!-- ( interactive_ct - 인구통계 세부조건 검색 ) -->
+								<div class="interactive_ct" id="API_0302">
+									<div class="map_ct_tit">
+										<p>상세검색</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+			
+											<ul class="list_type01">
+												<li class="on">
+													<a>성별 (필수, 다중)</a>
+													<div id="populationGender"  class="box_area_option03">
+														<p>											
+															<span style="width:130px; height:30px; float:left">
+																<input type="checkbox" name="gender_1" value="1" checked="checked" style="margin:5px;"/>
+																<span id="gender_1">남자</span>
+															</span>
+															<span style="width:90px; height:30px;">
+																<input type="checkbox" name="gender_2" value="2" checked="checked" style="margin:5px;"/>
+																<span id="gender_2">여자</span>
+															</span> 
+														</p>
+													</div>
+												</li>
+												<li class="on">
+													<a>연령 (선택)</a>
+													<div class="box_area_option02">
+														<p class="mgb_12">
+															<span id="populationAgeIgnore" style="width:40px; height:25px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+															<select id="populationAgeFrom" name="age_from" style="width: 75px; height: 25px;">
+															</select>
+															 ~
+															<select id="populationAgeTo" name="age_to" style="width: 75px; height: 25px;">
+															</select>
+														</p>
+														<div id="slider-range"></div>
+														<div class="slider_controll_bar">
+															<span class="first">0</span>
+															<span class="center" style="margin-left:22px">20</span>
+															<span class="center" style="margin-left:29px">40</span>
+															<span class="center" style="margin-left:29px">60</span>
+															<span class="center" style="margin-left:29px">80</span>
+															<span class="last" style="margin-right:-10px;">100+</span>
+														</div>
+													</div>
+												</li>
+												<li class="on">
+													<a>교육정도 (선택)</a>
+													<div class="box_area_option02">
+														<p style="height:35px;">
+															<span id="populationEduLevelIgnore" style="width:40px; height:25px; /* float:left */; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+                                                			<select id="populationEduLevel" name="edu_level" style="width: 170px; height: 25px; /* float:left; */ margin-left:20px;">
+														    	<!-- <option value="">미선택</option> -->
+                                                           	 	<option value="1">수학없음(미취학포함)</option>
+                                                            	<option value="2">초등학교</option>
+                                                            	<option value="3">중학교</option>
+                                                            	<option value="4">고등학교</option>
+                                                            	<option value="5">전문학사</option>
+                                                            	<option value="6">학사</option>
+                                                            	<option value="7">석사</option>
+                                                            	<option value="8">박사</option>
+															</select>
+														</p>
+														<!-- <div>
+															<select id="populationEduLevel" name="edu_level" style="width: 160px; height: 25px; /* float:left; */ margin-left:5px;">
+														    	<option value="">미선택</option>
+                                                           	 	<option value="1">수학없음(미취학포함)</option>
+                                                            	<option value="2">초등학교</option>
+                                                            	<option value="3">중학교</option>
+                                                            	<option value="4">고등학교</option>
+                                                            	<option value="5">전문학사</option>
+                                                            	<option value="6">학사</option>
+                                                            	<option value="7">석사</option>
+                                                            	<option value="8">박사</option>
+															</select>
+															<select id="populationEduFinish" name="edu_finish" style="width: 70px; height: 25px; margin-left:5px;">
+														    	<option value="">미선택</option>
+                                                           	 	<option value="1">졸업</option>
+                                                            	<option value="2">재학</option>
+                                                            	<option value="3">수료</option>
+                                                            	<option value="4">휴학</option>
+                                                            	<option value="5">중퇴</option>
+															</select>
+														</div> -->
+														
+													</div>
+												</li>
+												<li class="on">
+													<a>혼인상태 (선택, 다중)</a>
+													<div id="populationMrgState" class="box_area_option01">
+														<p>
+															<input type="checkbox" name="mrg_state_1"  value="1"  style="margin:10px;">
+                                                			<span id="mrg_state_1">미혼</span>
+                                                			<input type="checkbox" name="mrg_state_2"  value="2"  style="margin:10px;">
+                                               				<span id="mrg_state_2">기혼</span>
+                                                			<input type="checkbox" name="mrg_state_3"  value="3"  style="margin:10px;">
+                                                			<span id="mrg_state_3">사별</span>
+                                                			<input type="checkbox" name="mrg_state_4"  value="4"  style="margin:10px;">
+                                                			<span id="mrg_state_4">이혼</span>
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 인구통계 세부조건 검색 ) -->
+			
+								<!-- ( interactive_ct - 가구통계 가구 ) -->
+								<div class="interactive_ct" id="API_0305">
+									<div class="map_ct_tit">
+										<p>상세검색</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>세대구성 (선택, 다중)</a>
+													<div id="householdType" class="box_area_option01">
+                                                		<span style="width:140px; height:30px; float:left">
+                                                			<input type="checkbox" name="household_type_0" value="01" style="margin:10px;">
+                                                			<span id="household_type_0">1세대가구</span>
+                                                		</span>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="household_type_1" value="02" style="margin:10px;">
+                                                			<span id="household_type_1">2세대가구</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:140px; height:30px; float:left">
+                                                			<input type="checkbox" name="household_type_2" value="03" style="margin:10px;">
+                                                			<span id="household_type_2">3세대가구</span>
+                                                		</span>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="household_type_3" value="04" style="margin:10px;">
+                                                			<span  id="household_type_3">4세대가구</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:140px; height:30px; float:left">
+                                                			<input type="checkbox" name="household_type_4" value="05" style="margin:10px;">
+                                                			<span id="household_type_4">5세대이상가구</span>
+                                                		</span>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="household_type_5" value="A0" style="margin:10px;">
+                                                			<span id="household_type_5">1인가구</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="household_type_6" value="B0" style="margin:10px;">
+                                                			<span id="household_type_6">비혈연가구</span>
+                                                		</span>	
+													</div>
+												</li>
+												<li class="on">
+													<a>점유형태 (선택, 다중)</a>
+													<div id="householdOcptnType" class="box_area_option01">
+														
+                                                		<span style="width:140px; height:30px; float:left">
+                                                			<input type="checkbox" name="ocptn_type_1" value="1" style="margin:10px;">
+                                                			<span id="ocptn_type_1">자기집</span>
+                                                		</span>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox"  name="ocptn_type_3"  value="3"  style="margin:10px;">
+                                                			<span id="ocptn_type_3">보증금있는 월세</span>
+                                                		</span>  
+                                                		<br/>
+                                                		<span style="width:140px; height:30px; float:left">
+                                                			<input type="checkbox" name="ocptn_type_2" value="2" style="margin:10px;">
+                                                			<span id="ocptn_type_2">전세(월세없음)</span>
+                                                		</span>         		
+                                               		 	<span style="width:140px; height:30px;">
+                                               		 		<input type="checkbox" name="ocptn_type_4" value="4" style="margin:10px;">
+                                               		 		<span id="ocptn_type_4">보즘금없는 월세</span>
+                                               		 	</span>
+                                                		<br/>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="ocptn_type_5" value="5" style="margin:10px;">
+                                                			<span id="ocptn_type_5">사글세</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:140px; height:30px;">
+                                                			<input type="checkbox" name="ocptn_type_6" value="6" style="margin:10px;">
+                                                			<span id="ocptn_type_6">무상(관사,사택,친적집 등)</span>
+                                                		</span>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 가구통계 가구 ) -->
+								
+								<!-- ( interactive_ct - 주택통계 세부조건 검색 ) -->
+								<div class="interactive_ct" id="API_0306">
+									<div class="map_ct_tit">
+										<p>상세검색</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>유형 (선택, 다중)</a>
+													<div id="houseType" class="box_area_option01">									
+                                                		<span style="width:120px; height:30px; float:left">
+                                                			<input type="checkbox" name="house_type_01" value="01" style="margin:10px;">
+                                                			<span id="house_type_01">단독주택</span>
+                                                		</span>
+                                                		<span style="width:120px; height:30px;">
+                                                			<input type="checkbox" name="house_type_02" value="02" style="margin:10px;">
+                                                			<span id="house_type_02">아파트</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:120px; height:30px; float:left">
+                                                			<input type="checkbox" name="house_type_03" value="03" style="margin:10px;">
+                                                			<span id="house_type_03">연립주택</span>
+                                                		</span>
+                                                		<span style="width:120px; height:30px;">
+                                                			<input type="checkbox" name="house_type_04" value="04" style="margin:10px;">
+                                                			<span id="house_type_04">다세대주택</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:120px; height:30px;">
+                                                			<input type="checkbox"  name="house_type_05"  value="05"  style="margin:10px;">
+                                                			<span id="house_type_05">비거주용 건물(상가,공장,여관 등) 내 주택</span>
+                                                		</span>
+                                                		<br/>
+                                                		<span style="width:120px; height:30px;">
+                                                			<input type="checkbox"  name="house_type_06"  value="06"  style="margin:10px;">
+                                                			<span id="house_type_06">주택이외의 거처</span>
+                                                		</span>
+													</div>
+												</li>
+												<li class="on">
+													<a>건축년도 (선택)</a>
+													<div class="box_area_option02">
+														<p>
+															<span id="houseConstYearIgnore" style="width:40px; height:25px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+															<select id="houseConstYear" name="const_year" style="width: 180px; height: 25px; margin-left : 15px;">
+														    	<!-- <option value="">미선택</option> -->
+                                                            	<option value="01">2010년</option>
+                                                            	<option value="02">2009년</option>
+                                                            	<option value="03">2008년</option>
+                                                            	<option value="04">2007년</option>
+                                                            	<option value="05">2006년</option>
+                                                            	<option value="06">2005년</option>
+                                                            	<option value="07">2000년~2004년</option>
+                                                            	<option value="08">1995년~1999년</option>
+                                                            	<option value="09">1990년~1994년</option>
+                                                            	<option value="10">1980년~1989년</option>
+                                                            	<option value="11">1970년~1979년</option>
+                                                            	<option value="12">1960년~1969년</option>
+                                                            	<option value="13">1959년 이전</option>
+															</select>
+														</p>
+													</div>
+												</li>
+												<li class="on">
+													<a>건축면적 (선택)</a>
+													<div class="box_area_option02">
+														<p class="mgb_12">
+															<span id="houseBdspaceIgnore" style="width:40px; height:25px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+															<select id="houseBdspaceFrom" name="bdspace_from" style="width: 75px; height: 25px;">
+															</select>
+																~
+															<select id="houseBdspaceTo" name="bdspace_to" style="width: 75px; height: 25px;">
+															</select>
+														</p>
+														<div id="slider-range2"></div>
+														<div class="slider_controll_bar">
+															<span class="first">1</span>
+															<span class="center" style="margin-left:15px;">50</span>			
+															<span class="center" style="margin-left:16px;">100</span>
+															<span class="center" style="margin-left:20px;">150</span>
+															<span class="center" style="margin-left:20px;">200</span>
+															<span class="center" style="margin-left:20px;">250</span>
+															<span class="last" style="margin-right:-10px;">300</span>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 주택통계 세부조건 검색 ) -->
+			
+								<!-- ( interactive_ct - 농림어가 가구원 검색 ) -->
+								<div class="interactive_ct" id="API_0310">
+									<div class="map_ct_tit">
+										<p>가구원별 상세조건</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>대상 (필수)</a>
+													<div id="3fDataType" class="box_area_option01">
+														<span style="width:130px; height:30px; float:left;">
+															<input type="radio"  name="data_type"  value="1"  checked="checked"  style="margin:10px;">
+                                                			<span id="data_type_1">농가</span>
+                                                		</span>
+                                                		<span style="width:130px; height:30px;">
+                                                			<input type="radio"  name="data_type"  value="2"  style="margin:10px;">
+                                               		 		<span id="data_type_2">임가</span>
+                                               		 	</span>
+		                                                <br/>
+		                                                <span style="width:130px; height:30px;float:left;">
+		                                                	<input type="radio"  name="data_type"  value="3"  style="margin:10px;">
+		                                                	<span id="data_type_3">해수면어가</span>
+		                                                </span>
+		                                                <span style="width:130px; height:30px;">
+		                                                	<input type="radio"  name="data_type"  value="4"  style="margin:10px;">
+		                                                	<span id="data_type_4">내수면어가</span>
+		                                                </span>
+													</div>
+												</li>
+												<li class="on">
+													<a>성별 (필수)</a>
+													<div id="3fGender" class="box_area_option03">
+														<p>										
+															<span style="width:130px; height:30px; float:left">
+																<input type="checkbox" name="gender_1" value="1" checked="checked" style="margin:5px;"/>
+																<span id="gender_1">남자</span>
+															</span>
+															<span style="width:90px; height:30px;">
+																<input type="checkbox" name="gender_2" value="2" checked="checked" style="margin:5px;"/>
+																<span id="gender_2">여자</span>
+															</span> 
+														</p>
+													</div>
+												</li>
+												<li class="on">
+													<a>연령 (선택)</a>
+													<div class="box_area_option02">
+														<p class="mgb_12">
+															<span id="3fAgeIgnore" style="width:40px; height:25px; float:left; line-height:30px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+															<select id="3fAgeFrom" name="age_from" style="width: 75px; height: 25px;">
+															</select>
+															 ~
+															<select id=3fAgeTo name="age_to" style="width: 75px; height: 25px;">
+															</select>
+														</p>
+														<div id="slider-range3"></div>
+														<div class="slider_controll_bar">
+															<span class="first">0</span>
+															<span class="center" style="margin-left:22px">20</span>
+															<span class="center" style="margin-left:29px">40</span>
+															<span class="center" style="margin-left:29px">60</span>
+															<span class="center" style="margin-left:29px">80</span>
+															<span class="last" style="margin-right:-10px;">100+</span>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 농림어가 가구원 검색 ) -->
+								
+								<!-- ( interactive_ct - 농림어가 가구통계 검색 ) -->
+								<div class="interactive_ct" id="API_0307">
+									<div class="map_ct_tit">
+										<p>가구별 상세조건</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>대상 (필수)</a>
+													<div id=3fConditionType class="box_area_option03">
+														<p>											
+															<span style="width:90px; height:30px; float:left">
+																<input type="radio" name="conditionType" value="farm_cnt" checked="checked" style="margin:5px;"/>
+																<span id="farm_cnt">농가가구</span>
+															</span>
+															<span style="width:90px; height:30px; float:left">
+																<input type="radio" name="conditionType" value="forestry_cnt" style="margin:5px;"/>
+																<span id="forestry_cnt">임가가구</span>
+															</span>
+															<span style="width:90px; height:30px;">
+																<input type="radio" name="conditionType" value="fishery_cnt" style="margin:5px;"/>
+																<span id="fishery_cnt">어가가구</span>
+															</span> 
+														</p>
+													</div>
+												</li>
+												<li class="on" style="display:none;">
+													<a>어가구분(필수)</a>
+													<div id="3fOgaType" class="box_area_option03">
+														<p>											
+															<span style="width:90px; height:30px; float:left">
+																<input type="radio" name="oga_div" value="0" checked="checked" style="margin:5px;"/>
+																<span id="oga_div_0">전체</span>
+															</span>
+															<span style="width:90px; height:30px; float:left">
+																<input type="radio" name="oga_div" value="1" style="margin:5px;"/>
+																<span id="oga_div_1">내수면어가</span>
+															</span>
+															<span style="width:90px; height:30px;">
+																<input type="radio" name="oga_div" value="2" style="margin:5px;"/>
+																<span id="oga_div_2">해수면어가</span>
+															</span> 
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 농림어가 가구통계 검색 ) -->
+								
+																<!-- ( interactive_ct - 사업체통계 상세업종검색 ) -->
+								<div class="interactive_ct" id="API_0304-b">
+									<div class="map_ct_tit">
+										<p>산업분류검색</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>검색항목 (필수)</a>
+													<div id="companyDataType2" class="box_area_option01">
+                                                		<span id="corp_cnt" style="width:150px; height:30px; float:left;">
+                                                			<input type="radio" name="cDataType" value="corp_cnt" checked="checked" style="margin:10px;">
+                                                			<span id="corp_cnt">사업체수</span>
+                                                		</span>
+                                                		<span id="tot_worker" style="width:130px; height:30px;">
+                                                			<input type="radio" name="cDataType" value="tot_worker" style="margin:10px;">
+                                                			<span id="tot_worker">종사자수</span>
+                                                		</span>	
+													</div>
+												</li>
+												<li class="on">
+													<a>산업분류 차수 (필수)</a>
+													<div id="companyClassType" class="box_area_option01">
+														<span id="tot_worker" style="width:150px; height:30px; float:left;">
+                                                			<input type="radio" name="class_deg" value="9" checked="checked" style="margin:10px;">
+                                                			<span>9차</span>
+                                                		</span>
+                                                		<span id="corp_cnt" style="width:130px; height:30px;">
+                                                			<input type="radio" name="class_deg" value="8" style="margin:10px;">
+                                                			<span>8차</span>
+                                                		</span>
+													</div>
+												</li>
+												<li class="on">
+													<a>산업분류 (필수)</a>
+													<div class="box_area_option02" style="padding-right:0px;">
+														<p>
+															<span id="companyPoiView" style="width:100%; height:40px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox" value="Y">
+                                                				<span id="poiView">위치표시</span>
+                                                			</span>
+															<div class="tree" id="companyClassCode" style="height: 270px; margin-bottom:35px;"></div>
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 사업체통계 상세업종검색 ) -->
+			
+								<!-- ( interactive_ct - 사업체통계 테마업종 검색 ) -->
+								<div class="interactive_ct" id="API_0304-a">
+									<div class="map_ct_tit">
+										<p>테마 검색</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt=""></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">
+											<ul class="list_type01">
+												<li class="on">
+													<a>검색항목 (필수)</a>
+													<div id="companyDataType" class="box_area_option01">
+                                                		<span style="width:150px; height:30px; float:left;">
+                                                			<input type="radio" name="cDataType1" value="corp_cnt" checked="checked" style="margin:10px;">
+                                                			<span id="corp_cnt">사업체수</span>
+                                                		</span>
+                                                		<span style="width:130px; height:30px;">
+                                                			<input type="radio" name="cDataType1" value="tot_worker" style="margin:10px;">
+                                                			<span id="tot_worker">종사자수</span>
+                                                		</span>
+													</div>
+												</li>
+												<li class="on">
+													<a>테마유형 (선택)</a>
+													<div class="box_area_option02">
+														<p>
+														<!-- 	<span id="companyPoiView" style="width:100%; height:40px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox" value="Y">
+                                                				<span id="poiView">POI표출</span>
+                                                			</span> -->
+															<span id="companyThemeCodeIgnore" style="width:40px; height:25px; float:left; line-height:30px; margin-left:5px;">
+                                                				<input type="checkbox">
+                                                				<span>선택</span>
+                                                			</span>
+															<select id="companyThemeCode" style="width:85px; height:30px; margin-left:5px;">
+																<!-- <option value="" selected="selected">미선택</option> -->
+																<option value="10">생활/편의</option>
+																<option value="20">쇼핑</option>
+																<option value="30">교통</option>
+																<option value="40">숙박</option>
+																<option value="50">음식점</option>
+																<option value="60">공공</option>
+																<option value="70">교육</option>
+																<option value="80">기업</option>
+															</select>
+															<select id="companyThemeDetailCode" style="width:118px; height:30px;">
+																<!-- <option value="" selected="selected">미선택</option> -->
+															</select>
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 사업체통계 테마업종 검색 ) -->
+														
+								<!-- ( interactive_ct - Kosis 조회 메뉴 ) -->
+								<div class="interactive_ct" id="kosisStatsPanel">
+									<div class="map_ct_tit">
+										<p>통계항목</p>
+										<a class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" >
+											<ul class="list_type01">
+												<li class="on" id="kosisTreeMenuSection">
+													<a id="kosisTreeMenuTitle" title="">통계항목 선택 (필수)</a>
+													<div class="box_area_option02" >
+														<div id="kosisStatsTreeDiv">
+															<div class="tree" id="kosisStatsTree" style="height: 270px; margin-bottom:35px;"></div>
+														</div>
+													</div>
+												</li>
+												<li class="on" id="kosisSearchMenuSection">
+													<a>조회조건</a>
+													<div class="box_area_option01">
+														<p>
+															<table id="kosisDataFieldTable">
+                                            				</table>
+														</p>													
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - Kosis 조회 메뉴) -->
+								
+								<!-- ( interactive_ct - Kosis 조회 세부조건 ) -->
+<!-- 								<div class="interactive_ct" id="kosisDataField"> -->
+<!-- 									<div class="map_ct_tit"> -->
+<!-- 										<p>상세조회조건</p> -->
+<!-- 										<a href="#" class="lpop_alarm alarm_pop"><img title="" src="/img/im/icon_q2.png" alt="" /></a> -->
+<!-- 									</div> -->
+			
+<!-- 									( map_ct_controll ) -->
+<!-- 									<div class="map_ct_controll"> -->
+<!-- 										<div class="controll_section01" style="height: 60%;">		 -->
+<!-- 											<ul class="list_type01"> -->
+<!-- 												<li class="on"> -->
+<!-- 													<a>조회조건</a> -->
+<!-- 													<div class="box_area_option01"> -->
+<!-- 														<p> -->
+<!-- 															<table> -->
+<!--                                                 				<tr style="text-align:center"> -->
+<!--                                                     				<td>주기</td> -->
+<!--                                                     				<td style="width:20px;text-align:center">:</td> -->
+<!--                                                     				<td><select id="kosisPeriod" style="width:190px; height:30px"></select></td> -->
+<!--                                                 				</tr> -->
+<!--                                                 				<tr style="height:5px;"></tr> -->
+<!--                                                 				<tr style="text-align:center"> -->
+<!--                                                     				<td>년도 </td> -->
+<!--                                                     				<td style="width:20px;text-align:center">:</td> -->
+<!--                                                     				<td><select id="kosisYear" style="width:190px; height:30px"></select></td> -->
+<!--                                                 				</tr> -->
+<!--                                                 				<tr style="height:5px;"></tr> -->
+<!--                                                 				<tr style="text-align:center"> -->
+<!--                                                     				<td>세부항목</td> -->
+<!--                                                     				<td style="width:20px;text-align:center">:</td> -->
+<!--                                                     				<td><select id="kosisDetail" name="a" style="width:190px; height:30px"></select></td> -->
+<!--                                                					 </tr> -->
+<!--                                             				</table> -->
+<!-- 														</p>													 -->
+<!-- 													</div> -->
+<!-- 												</li> -->
+<!-- 												<li class="on"> -->
+<!-- 													<a>분류</a> -->
+<!-- 													<div class="box_area_option01"> -->
+<!-- 														<table id="kosisDataFieldTable"></table> -->
+<!-- 													</div> -->
+<!-- 												</li> -->
+<!-- 											</ul> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									//( map_ct_controll ) -->
+<!-- 								</div> -->
+								<!-- //( interactive_ct - Kosis 조회 세부조건) -->
+								
+								<!-- ( interactive_ct - 통계표 검색 ) -->
+								<div class="interactive_ct" id="searchPanel">
+									<div class="map_ct_tit">
+										<p>검색</p>
+									</div>
+			
+									<!-- ( map_ct_controll ) -->
+									<div class="map_ct_controll">
+										<div class="controll_section01" style="height: 60%;">											
+											<ul class="list_type01">
+												<li class="on2">
+													<!-- <a>검색어 입력</a> -->
+													<div id="searchTextType" class="box_area_option01">
+                                                		<input type="text" id="searchStatsText" style="width: 255px; height: 30px; padding-left: 10px;" value="지역명 검색어 or 검색어" 
+                                                					onfocus="if(this.value==defaultValue){this.value='';}" onfocusout="if(this.value==''){this.value=defaultValue;}" 
+                                                					onkeydown="javascript:if(event.keyCode == 13) { $interactiveMap.ui.keywordSplit(); }" />
+                                                		<input type="image" style="margin-left: -30px;" onclick="javascript:$interactiveMap.ui.keywordSplit(); return false;" src="/img/common/btn_search.gif" alt="검색" />
+													</div>
+												</li>
+												<li class="on">
+													<a>결과</a>
+													<div id="searchListType" class="box_area_option01">
+														<!-- ( 인터랙티브맵 검색결과 ) -->
+														<div id="sopListTable"></div>
+														<div id="sopListTablePage"></div>
+														<!-- //( 인터랙티브맵 검색결과 ) -->
+														<br/>
+														
+														<!-- ( 행정구역통계 검색결과 ) -->
+														<div id="kosisListTable"></div>
+														<div id="kosisListTablePage"></div>	
+														<br/>				
+														<!-- //( 행정구역통계 검색결과 ) -->
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- //( map_ct_controll ) -->
+								</div>
+								<!-- //( interactive_ct - 검색 ) -->
+								
+							</div>
+						</div>
+						
+					
+						<!-- 버튼 -->
+						<div class="controll_section04">
+						</div>
+						<div class="btn_box">
+							<div class="btn_option">
+								<a onclick="javascript:$interactiveMap.ui.addSearchBtn();"><span>검색조건 담기 &nbsp;<img style="margin-top:-3px;" src="/img/im/btn_plus.gif" alt="설정내용 버튼담기" /></span></a>
+							</div>
+						</div>
+						
+						<div class="controll_section02"  style="height: 44px;" >
+						</div>
+						
+						<!-- 버튼바구니 -->
+						<div class="controll_section02" id="lineDragDiv" style="position: absolute; left: 81px; top: 491px;" >
+							<a style="cursor: ns-resize;" class="btn_scrollbar_controll"><img src="/img/im/btn_scrollbar.gif" alt="" /></a>
+							<div class="sb_controll_menu" style="width:301px;">
+								<p>
+									<input id="checkAllSearchBtn" type="checkbox"/>
+			                    	<span style="margin-left:5px; color:#333333; font-weight:normal;">전체</span>
+			                    </p>
+								<p style="margin-left:5px;">검색조건 : <span id="btnCnt">0개</span></p>
+	
+								<ul>
+									<li onclick="javascript:$interactiveMap.ui.combineSearchBtn();" title="결합" id="combineButton"><a style="cursor:pointer">결합</a></li>
+									<li onclick="javascript:$interactiveMap.ui.undoSearchBtn();" title="분리" id="divideButton"><a style="cursor:pointer">분리</a></li>
+									<li onclick="javascript:$interactiveMap.ui.deleteSearchBtn();" title="삭제" id="deleteButton"><a style="cursor:pointer">삭제</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="controll_section03" style="overflow-y: scroll; width:301px; overflow-x:hidden;">
+							<div class="drag_menu">
+								<ul id="searchBtnResultRgn" class="list_type02"></ul>
+								<div class="mouse_txt">
+									<p><img src="/img/im/mouse_img.png" alt="버튼 드래그" /></p>
+									버튼을 지도화면으로 드레그 하면<br />통계데이터가 적용됩니다.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mapareaboxd">
+					<div id="map_area">
+						<div class="area_cont" style="margin-left: 0;">
+
+							<!-- ( map_dummy ) -->
+							<div id="map_dummy_1" class="map_dummy">
+								<div id="mapRgn_1" class="map_img">
+								</div>
+							</div>
+							<!-- //( map_dummy ) -->
+
+							<!-- ( map_remark ) -->
+							<div id="map_remark_1" class="map_remark">
+								<div class="map_location">
+									<div id="mapNavi_1"></div>
+								</div>
+
+								<div class="map_area_category">
+									<a style="cursor:pointer" class="btn_map_sel" id="innerMapBtn_1" onclick="javascript:$interactiveMap.ui.doInnerMap(1);" title="서울, 부산, 인천, 경기도 지역 전개도를 보실 수 있습니다.">
+										<span>사업체전개도</span>
+									</a>
+									<ul>
+										<li id="reportBtn_1" onclick="javascript:$interactiveMap.ui.reportDataSet(1);" title="보고서 출력"><a class="mac_09"><span>&nbsp;</span></a></li> <!-- ( 보고서 출력 ) -->
+										<li id="uploadBtn_1" onclick="javascript:$interactiveMap.ui.doUpload(1);" title="데이터업로드"><a class="mac_01"><span>&nbsp;</span></a></li> <!-- ( 메시지_데이터업로드 ) -->
+										<li id="initBtn_1" onclick="javascript:$interactiveMap.ui.doClearMap(1);" title="초기화"><a class="mac_02"><span>&nbsp;</span></a></li> <!-- ( 메시지_새로고침시 ) -->
+										<li id="bookmarkBtn_1" onclick="javascript:$interactiveMap.ui.doBookMark(1);" title="북마크"><a class="mac_03"><span>&nbsp;</span></a></li> <!-- ( 메시지_즐겨찾기시 ) -->
+										<li id="shareBtn_1" onclick="javascript:$interactiveMap.ui.doShare(1);" title="공유"><a class="mac_04"><span>&nbsp;</span></a></li> <!-- ( 메시지_URL공유시 ) -->
+										<li id="settingBtn_1" onclick="javascript:$interactiveMap.ui.doSetting(1);" title="설정"><a class="mac_05"><span>&nbsp;</span></a></li> <!-- ( 메시지_설정시 ) -->
+										<li id="mapAddBtn_1" onclick="javascript:$interactiveMap.ui.doAddMap(1);" title="지도추가"><a class="mac_06"><span>&nbsp;</span></a></li> 
+										<li id="viewBtn_1" style="display: none;" title="View 1"><a class="mac_07"><span>View 1</span></a></li> 
+										<li  id="mapCloseBtn_1" style="display: none;" onclick="javascript:$interactiveMap.ui.doRemoveMap(1);"><a class="mac_08"><span><img src="/img/im/btn_map_close2.png" alt="닫기" /></span></a></li> 
+									</ul>
+								</div>
+							</div>
+							<!-- //( map_remark ) -->
+							<div id="map_remark_notice" class="map_remark_notice" style= "position: absolute; left:10px; bottom:10px; z-index:6">
+								<a onclick='pop_click()'>
+								<img src="/img/new/use_notice_map.png"></a>
+							</div>
+							<div id="map_remark_notice2" class="map_remark_notice" style= "position: absolute; left:10px; bottom:10px; z-index:6; display:none;">
+								<a href='http://sgis1.kostat.go.kr/statbd/statbd_04.vw' target = '_blank'>
+								<img src="/img/new/use_notice_map2.png"></a>
+							</div>
+						</div>
+<!-- 						<div id="minimizeArea_1" class="dialog-ui-button"></div> -->
+					</div>
+
+					<!-- ( map 분할 ) -->
+					<div id="map_area2">
+						<div class="area_cont">
+							<!-- ( map_dummy ) -->
+							<div id="map_dummy_2" class="map_dummy" style="display: none;">
+								<div id="mapRgn_2" class="map_img" style="display: none;">
+								</div>
+							</div>
+							<!-- //( map_dummy ) -->
+
+							<!-- ( map_remark ) -->
+							<div id="map_remark_2" class="map_remark" style="display: none;">
+								<div class="map_location">
+									<div id="mapNavi_2"></div>
+								</div>
+
+								<div class="map_area_category">
+									<a style="cursor:pointer" class="btn_map_sel" id="innerMapBtn_2" onclick="javascript:$interactiveMap.ui.doInnerMap(2);" title="서울, 부산, 인천, 경기도 지역 전개도를 보실 수 있습니다.">
+										<span>사업체전개도</span>
+									</a>
+									<ul>
+										<li id="reportBtn_2" onclick="javascript:$interactiveMap.ui.reportDataSet(2);" title="보고서 출력"><a class="mac_09"><span>&nbsp;</span></a></li> <!-- ( 보고서 출력 ) -->
+										<li id="uploadBtn_2" onclick="javascript:$interactiveMap.ui.doUpload(2);" title="데이터업로드"><a class="mac_01"><span>&nbsp;</span></a></li> <!-- ( 메시지_데이터업로드 ) -->
+										<li id="initBtn_2" onclick="javascript:$interactiveMap.ui.doClearMap(2);" title="초기화"><a class="mac_02"><span>&nbsp;</span></a></li> <!-- ( 메시지_새로고침시 ) -->
+										<li id="bookmarkBtn_2" onclick="javascript:$interactiveMap.ui.doBookMark(2);" title="북마크"><a class="mac_03"><span>&nbsp;</span></a></li> <!-- ( 메시지_즐겨찾기시 ) -->
+										<li id="shareBtn_2" onclick="javascript:$interactiveMap.ui.doShare(2);" title="공유"><a class="mac_04"><span>&nbsp;</span></a></li> <!-- ( 메시지_URL공유시 ) -->
+										<li id="settingBtn_2" onclick="javascript:$interactiveMap.ui.doSetting(2);" title="설정"><a class="mac_05"><span>&nbsp;</span></a></li> <!-- ( 메시지_설정시 ) -->
+										<li id="mapAddBtn_2" onclick="javascript:$interactiveMap.ui.doAddMap(2);" title="지도추가"><a class="mac_06"><span>&nbsp;</span></a></li> 
+										<li id="viewBtn_2" style="display: none;" title="View 1"><a class="mac_07"><span>View 2</span></a></li> 
+										<li  id="mapCloseBtn_2" style="display: none;" onclick="javascript:$interactiveMap.ui.doRemoveMap(2);"><a class="mac_08"><span><img src="/img/im/btn_map_close2.png" alt="닫기" /></span></a></li> 
+									</ul>
+								</div>
+							</div>
+							<!-- //( map_remark ) -->
+						</div>
+<!-- 						<div id="minimizeArea_2" class="dialog-ui-button"></div> -->
+					</div>
+				<!-- //( map 분할 ) -->
+            </div>
+        </div>
+        <!-- bottom -->
+        <footer id="footer">
+        	<script type="text/javascript"  src="/js/common/includeBottom.js"></script>
+        </footer>
+    </div>
+        
+        <!-- ( 메시지_설정시 ) -->
+		<div id="settings" class="pop_layer_con01 pop_006" style="width: 380px; margin: -170px 0 0 -190px; z-index: 20001; display: none;">
+			<div class="pop_layer_in">
+				<p class="pop_tit">경계 데이터 기준 년도를 설정합니다.</p>
+				<div class="pop_con" style="overflow-y: hidden;">
+					<div class="pop_con_02">
+						지도 상 경계레벨 조회 기준설정을 위한 경계 데이터의<br />
+						기준년도를 설정합니다.<br />
+						기준년도에 따라 시도 혹은 시군구, 읍면동, 집계구 등의<br />
+						경계기준이 상이합니다.
+
+						<div class="inputbox02">
+							행정경계 기준년도 &nbsp;&nbsp;
+							<select id="bndYear" name="bnd_year" style="width: 100px;">
+								<option value="2013">2013년도</option>
+								<option value="2012">2012년도</option>
+								<option value="2011">2011년도</option>
+								<option value="2010">2010년도</option>
+								<option value="2009">2009년도</option>
+								<option value="2008">2008년도</option>
+								<option value="2007">2007년도</option>
+								<option value="2006">2006년도</option>
+								<option value="2005">2005년도</option>
+								<option value="2004">2004년도</option>
+								<option value="2003">2003년도</option>
+								<option value="2002">2002년도</option>
+								<option value="2001">2001년도</option>
+								<option value="2000">2000년도</option>
+							</select>
+						</div>
+
+						<div class="btn_roption2 mgt_15">
+							<a style="width: 100px;cursor:pointer" class="bg_blue" onclick="javascript:$interactiveMap.ui.doDone('settings');">설정</a>
+							<a style="width: 100px;cursor:pointer" onclick="javascript:$interactiveMap.ui.doCancel('settings');">취소</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a style="cursor:pointer" class="pop_layer_close" onclick="javascript:$interactiveMap.ui.doCancel('settings');"><img src="/img/im/btn_layer_close2.gif" alt="close" /></a>
+		</div>
+		<!-- //( 메시지_설정시 ) -->
+		
+		<!-- ( 메시지_URL공유시 ) -->
+		<div id="sharedlg" class="pop_layer_con01 pop_005" style="width: 380px; margin: -170px 0 0 -190px; z-index: 20001; display: none;">
+			<div class="pop_layer_in">
+				<p class="pop_tit">현재 대화형 통계지도 조회 내용을 공유합니다.</p>
+				<div class="pop_con" style="overflow-y: hidden;">
+					<div class="pop_con_02">
+						조회하신 대화형 통계지도의 현재 조회결과의 URL을 복사하여<br />
+						트위터, 페이스북 등 기타 SNS에 링크하실 수 있습니다.
+
+						<div class="article">
+						<p class="inputbox01">
+							<input type="text" style="width: 336px;" value="" readonly=readonly />
+						</p>
+						</div>
+						<div class="btn_roption2 mgt_15">
+							<a style="width: 100px;cursor:pointer" class="bg_blue" onclick="javascript:$interactiveMap.ui.doDone('sharedlg');">URL복사</a>
+							<a style="width: 100px;cursor:pointer" onclick="javascript:$interactiveMap.ui.doCancel('sharedlg');">취소</a>
+						</div>
+						
+						<div style="width:100%;margin:auto 0">
+							<table style="margin:auto;width:270px;height:30px;margin-top:10px">
+								<tr style="height:30px;line-height:1px;">
+									<td valign="middle">
+										<a href="javascript:$interactiveMap.ui.shareToKakaoStory();"><img src="/img/im/kakao.png" alt="카카오스토리"></a>
+									</td>
+									<td valign="middle">
+										<div id="twitterDiv">
+											<a class='twitter-share-button' href='https://twitter.com/share' data-count='none'>트윗</a>
+										</div>
+									</td>
+									<td valign="middle">
+										<div id="facebookDiv"></div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a style="cursor:pointer" class="pop_layer_close" onclick="javascript:$interactiveMap.ui.doCancel('sharedlg');"><img src="/img/im/btn_layer_close2.gif" alt="close" /></a>
+		</div>
+		<!-- //( 메시지_URL공유시 ) -->
+        
+        <!-- ( 기능팝업_좌측상단 물음표 TIP 클릭시 ) -->
+		<div id="mainTips" class="pop_layer_con01 pop_001" style="display:none;POSITION: absolute; Z-INDEX: 20001; top:270px; left: 550px;">
+			<img src='/img/nm/guide_interactive_map1.jpg' alt='' />
+			<a style="cursor:pointer" class="pop_layer_close" onclick="javascript:$interactiveMap.ui.doCancel('mainTips');"><img src="/img/im/btn_layer_close2.gif" alt="close" /></a>
+			<!-- <div class="pop_layer_in">
+				<p class="pop_tit">SOP 활용 팀!</p>
+				<div class="pop_con" style="height: 300px;">
+					<div class="pop_con_01">
+						<dl>
+							<dt>대화형통계지도란? </dt>
+							<dd>인구 센서스는 5년 주기로 실시하는 인구총조사를 통해 읍,면,동 단위보다 세밀한 집계구 단위의
+								통계정보를 제공합니다. 단순한 통계정보가 아니라 우리지역, 사용자가 찾고자 하는 특정지역의
+								지도위에 통계정보를 시각화하여 사용자에게 제공합니다.</dd>
+						</dl>
+						<p>조회가능 목록 및 조건</p>
+						<ul>
+							<li>인구총괄데이터 조회 가능</li>
+							<li>성별, 연령별 데이터 비교 분석 가능</li>
+							<li>교육상태별, 학력별 데이터 비교 분석 가능</li>
+							<li>혼인상태, 기혼, 미혼, 이혼 정보 제공</li>
+							<li>종교별 데이터 비교 분석 가능</li>
+						</ul>
+					</div>
+				</div>
+			</div> -->			
+		</div>
+		<!-- //( 기능팝업_좌측상단 물음표 TIP 클릭시 ) -->
+		
+		<!-- ( 파일 업로드 시 ) -->
+		<div id="uploadFile" class="pop_layer_con01 pop_005" style="width: 380px; margin: -170px 0 0 -190px; z-index: 20001; display: none;">
+			<div class="pop_layer_in">
+				<p class="pop_tit">사용자정의 엑셀파일을 업로드합니다.</p>
+				<div class="pop_con" style="overflow-y: hidden;">
+					<div class="pop_con_02">
+						업로드한 정보를 지도상에 마커로 표시할 수 있습니다. <br />
+						또한, 지정된 양식의 엑셀파일만 업로드 할 수 있습니다.
+						
+						<form id="uploadForm" name="uploadForm"  method="post" enctype="multipart/form-data">
+							<p class="inputbox01">
+								<input id="filePathField" type="text" style="width:260px;height:32px; float:left; margin-left:5px; padding-right:10px;" value=""  readonly=readonly />
+								<input type="file" name="fileData" id="fileSearch"/>
+							</p>
+							<div class="btn_roption2" id="fileBtn">
+								<input type="file" name="fileData" id="fileSearch" style="display:none;"/>
+								<a style="width: 60px; float:left;cursor:pointer" class="bg_blue" id="fileSearchBtn">파일</a>
+								<!-- <a style="width: 100px;cursor:pointer" class="bg_yellow" id="uploadFileBtn">업로드</a> -->
+							</div>
+						</form>
+						<p class="inputbox02 btn_roption2">
+						<br/>
+						*엑셀 양식이 없으신 분은 양식을 다운받고<br/> 작성해주시길 바랍니다.
+						<br/>
+						<br/>
+
+<!-- 						<a id="excelDown"  style="width: 120px;cursor:pointer" class="bg_yellow">양식 다운로드</a> -->
+						<a id="downUserDataForm" style="width: 120px;cursor:pointer" class="bg_yellow">양식 다운로드</a>
+						<br/>
+						<br/>
+						</p>
+
+						<div class="btn_roption2 mgt_15">
+							<a style="width: 100px;cursor:pointer" class="bg_yellow" id="uploadFileBtn" >업로드</a>
+							<a style="width: 100px;cursor:pointer" onclick="javascript:$interactiveMap.ui.doCancel('uploadFile');">취소</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a style="cursor:pointer" class="pop_layer_close" onclick="javascript:$interactiveMap.ui.doCancel('uploadFile');"><img src="/img/im/btn_layer_close2.gif" alt="close" /></a>
+		</div>
+		
+		<!-- //( 파일 업로드 시 ) -->
+        
+        <script type="text/javascript" src="/js/common/loginPopup.js"></script>
+        
+        <!-- ( mask ) -->
+        <div class="deem" style="display: none;"></div> 
+        <!-- ( mask ) -->
+        
+        <!--하루동안 열지않기  -->
+		<div id="div_laypopup" style="display:none;">
+			<div class="popupWrapper">
+			<img src="/img/nm/guide_interactive_map1.jpg" alt='' usemap="#Map_1" />
+				<map name="Map_1">
+					<area shape="rect" coords="339 29 441 62" href="/html/help/help1.html" >
+					<area shape="rect" coords="474 31 576 62" href="/html/help/help2.html" >
+					<area shape="rect" coords="932 1 975 41" href="javascript:$interactiveMap.ui.closeWinImg('div_laypopup');" >
+				</map>
+				<div style="margin-right: 0px; font-size: 14px; margin-top: -25px; margin-left: 10px;width:1024px;">			  
+			    	<input type="checkbox" name="close" value="OK" onclick="javascript:$interactiveMap.ui.closeWin('div_laypopup', 1);"/> 하루동안 이 창을 열지 않음  <input type="checkbox" name="close" value="OK" onclick="javascript:$interactiveMap.ui.closeWinImg('div_laypopup');"/> 닫음
+			    </div>
+			</div>						      	 
+ 		</div>
+    </body>
+</html>

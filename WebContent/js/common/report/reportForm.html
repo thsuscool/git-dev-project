@@ -1,0 +1,863 @@
+<!-- 
+* 검색창에 입력한 단어와 연관되는 데이터를 보여주는 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/29  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>보고서</title>
+	
+	<link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet"  href="/js/plugins/jquery-easyui-1.4/sop.css" />
+	<link href="/css/reportForm.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/css/common.css">
+	<link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="/js/plugins/jquery-1.11.1.min.js"></script>
+	<script src="/js/plugins/btoa.js"></script>
+	<script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+	<script type="text/javascript" src="/js/plugins/jsPDF/jspdf.min.js"></script>
+	<script type="text/javascript" src="/js/plugins/imageCapture/rgbcolor.js"></script>
+	<script type="text/javascript" src="/js/plugins/imageCapture/canvg.js"></script> <!-- 2017.03.13 pdf저장 이슈  -->
+    <script type="text/javascript" src="/js/plugins/imageCapture/html2canvas.js"></script>
+	<script src="/js/plugins/highcharts/modules/exporting.js"></script>
+	<script type="text/javascript" src="/js/plugins/jquery-easyui-1.4/sop-src.js"></script>
+	<script type="text/javascript" src="/js/plugins/jquery.sha256.js"></script>
+	<script type="text/javascript" src="/js/plugins/durian-v2.0.js"></script>
+	<script type="text/javascript" src="/js/common/sop.portal.absAPI.js"></script>
+	<script type="text/javascript" src="/js/common/common.js"></script>	    
+	<script type="text/javascript" src="/js/common/map.js"></script>
+	<script type="text/javascript" src="/js/common/mapInfo/legendInfo.js"></script>
+	<script type="text/javascript" src="/js/common/report/reportForm.js"></script>
+	<script type="text/javascript" src="/js/common/report/reportFormEvent.js"></script>
+	<style type="text/css" media="print">@page{size:auto;margin:10mm;}body{margin:0;}</style> 
+	
+	<style type="text/css">
+		#AlertMessage {
+			width : 400px;
+			overflow : hidden;
+			border : 3px solid #656972;
+			barder-radius : 5px;
+			padding : 20px 20px 20px 70px;
+			font-size : 20px;
+			color : #333333;
+			box-shadow : 1px 1px 3px #cccccc;
+			word-break : break-all;
+			position : absolute;
+			top : 45%;
+			left : 20%;
+		}
+	</style>
+	
+	<script>
+            var beforePrint = function() {
+                console.log("1");
+            };
+            var afterPrint = function() {
+                console.log("2");
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function(mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+        </script>
+	
+</head>
+<body>
+	<div id="mask" style="background:#ffffff;z-index:10000;width:100%;height:100%;">
+		<div id="AlertMessage">보고서 생성중입니다. 잠시만 기다려주세요.</div>
+	</div>
+	<div id="wrap">
+		<div class="printArea">
+			<div id="bizStatsTopDiv"> <!-- 생활업종통계 -->
+			 	<div class="pntPage">
+			 		<h1 class="pntHeader"><img src="/img/common/logoPlus.jpg" alt="SGIS 오픈플랫폼"></h1>	 
+			 		<div class="pntBtn"><a href="javascript:$reportFormEvent.UI.reportPdfDown();" id="pdfdown">PDF</a><a href="javascript:$reportFormEvent.UI.reportPrint();">인쇄</a><a href="javascript:$reportFormEvent.UI.reportClose();">닫기</a></div>
+			 		<p class="pntURI">통계지리정보서비스 (https://sgis.kostat.go.kr)</p> 
+			 		<h2 class="pntTitle"><textarea cols="60" rows="1" id="reportTitle"></textarea></h2>
+			 		<table class="pntTable" summary="보고서제목,검색조건,작성일자,출처,작성자">
+			 			<caption>대화형 통계지도 검색 결과 보고서</caption>
+			 				<colgroup>
+			 			 		<col width="120" />
+				 			 	<col width="" />
+				 			 	<col width="120" />
+				 			 	<col width="" />
+			 			 	</colgroup>
+			 			 <tbody>
+			 			 	<tr>
+			 			 		<th scope="col">검색조건</th><td class="ac" colspan="3" id="searchItem"></td>
+			 			 	</tr>
+			 			 	<tr>
+			 			 		<th scope="col">출처</th><td class="ac" id="origin"></td>
+			 			 		<th scope="col">작성일자</th><td class="ac" id="date"></td>
+			 			 	</tr>
+			 			 </tbody>
+			 		</table> 
+	
+					<!-- 2017.03.13 pdf저장 이슈 -->
+					<!-- START -->
+					<div id="mainMapDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="mainMapDiv" class="pntCenter" style="position:relative;">
+				 		<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+				 		<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+				 		<div style="width:798px;height:472px;float:right;">
+				 			<div class="pntMap">
+				 				<img id="reportMapDiv" src="">
+				 			</div>
+				 		</div>
+			 		</div>	
+
+			 		<div id="interactiveMapRegion_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('interactiveMapRegion');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="interactiveMapRegion" class="pntCenter" style="position:relative;">
+			 			<div class="pntLeft">
+				 			 <h3 id="legendTitle"></h3>
+				 			 <div id="legend" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+					 	<div class="pntRight mt60">
+					 		<h3 id="chartTitle">지역별 그래프</h3> 
+					 		<div class="pntChart"><div id="barChartDiv"></div></div>
+					 	</div>
+			 		</div>
+			 		<!-- END -->
+				</div>
+
+				<div class="pntPage">
+					<div id="extraChartRegion_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('extraChartRegion');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+					<div id="extraChartRegion"></div>
+				</div>
+			 			
+			 	<div class="pntPage">
+			 		<div id="memoDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div class="pntCenter" id="memoDiv" style="position:relative;">
+			 			 <h3>메모</h3> 
+			 			 <textarea id="memo"></textarea>
+			 			 <div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+			 		</div>
+			 	</div>
+			</div>
+		
+			<div id="interactiveTopDiv"> <!-- 대화형통계지도 -->
+				<div class="pntPage">
+			 		<h1 class="pntHeader"><img src="/img/common/logoPlus.jpg" alt="SGIS 오픈플랫폼"></h1>	 
+			 		<div class="pntBtn"><a href="javascript:$reportFormEvent.UI.reportPdfDown();" id="pdfdown">PDF</a><a href="javascript:$reportFormEvent.UI.reportPrint();">인쇄</a><a href="javascript:$reportFormEvent.UI.reportClose();">닫기</a></div>
+			 		<p class="pntURI">통계지리정보서비스 (https://sgis.kostat.go.kr)</p> 
+	 
+			 		<div class="pntNewCenter" style="margin-top:10px;"><h3 style="height:40px;line-height:40px;">보고서명</h3><div style="width:677px;height:40px;float:left;"><textarea cols="60" rows="1" id="reportTitle"></textarea></div></div>
+			 		<div class="pntNewCenter"><h3>검색조건</h3><div id="searchItem" class="pntNewRight"></div></div>
+			 		<div class="pntNewCenter"><h3>작성일자</h3><div id="date" class="pntNewRight"></div></div>
+			 		<div class="pntNewCenter"><h3>출처</h3><div id="origin" class="pntNewRight"></div></div>
+			 		
+			 		<div id="mainMapDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="pntLegend_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('pntLegend');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="mainMapDiv" class="pntCenter" style="position:relative;">
+			 			<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+			 			<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+			 			<div id="pntLegend" style="width:220px;height:270px;border-right:1px solid #ccc;position:absolute; top:240px;z-index:10;background-color:#fff;">
+			 				<h3 class="pntLegendTitle" id="legendTitle"></h3>
+			 				<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('pntLegend');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+				 			<div id="legend" class="pntLegend remarkbox" style="display: block; position: relative;width:215px;"></div>
+			 			</div>
+			 			<div style="width:798px;height:472px;float:right;">
+			 				<div class="pntMap">
+			 					<img id="reportMapDiv" src="">
+			 					<img  id="report_captureImage" style="width:798px;height:472px;display:none;"></img>
+			 				</div>
+			 			</div>
+			 		</div>
+		 			
+		 			<div id="interactiveMapRegion_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('interactiveMapRegion');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="interactiveMapRegion" class="pntCenter">
+					 	<div class="pntNewCenterTitle" style="position:relative;">
+					 		<h3 id="chartTitle">지역별 그래프</h3>
+					 		<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('interactiveMapRegion');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+					 		<div class="pntChart"><div id="barChartDiv"></div></div>
+					 	</div>
+			 		</div>
+				</div>
+				
+				<div class="pntPage">
+					<div id="extraChartRegion"></div>
+				</div>
+				
+				<div class="pntPage">
+					<div id="extraChartRegion2_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('extraChartRegion2');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+					<div id="extraChartRegion2" style="display:none;"></div>
+				</div>
+			 			
+			 	<div class="pntPage">
+			 		<div id="memoDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="memoDiv" class='pntNewCenter' style='margin-bottom:10px;position:relative;'>
+			 			<h3 style='height:140px;line-height:140px;'>메모노트</h3>
+			 			<div style="width:677px;height:140px;float:left;"><textarea id="memo" style="height:130px; width:645px;line-height:1.5em;border:0;margin:5px;"></textarea></div>
+			 			<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+			 		</div>
+			 	</div>
+			</div>
+			
+			<div id="poiDiv"> <!-- poi -->
+				<div class="pntPage">
+			 		<h1 class="pntHeader"><img src="/img/common/logoPlus.jpg" alt="SGIS 오픈플랫폼"></h1>	 
+			 		<div class="pntBtn"><a href="javascript:$reportFormEvent.UI.reportPdfDown();" id="pdfdown">PDF</a><a href="javascript:$reportFormEvent.UI.reportPrint();">인쇄</a><a href="javascript:$reportFormEvent.UI.reportClose();">닫기</a></div>
+			 		<p class="pntURI">통계지리정보서비스 (https://sgis.kostat.go.kr)</p> 
+	 
+			 		<div class="pntNewCenter" style="margin-top:10px;"><h3 style="height:40px;line-height:40px;">보고서명</h3><div style="width:677px;height:40px;float:left;"><textarea cols="60" rows="1" id="reportTitle"></textarea></div></div>
+			 		<div class="pntNewCenter"><h3>검색조건</h3><div id="searchItem" class="pntNewRight"></div></div>
+			 		<div class="pntNewCenter"><h3>작성일자</h3><div id="date" class="pntNewRight"></div></div>
+			 		<div class="pntNewCenter"><h3>출처</h3><div id="origin" class="pntNewRight"></div></div>
+			 		
+			 		<div id="mainMapDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="pntLegend_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('pntLegend');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="mainMapDiv" class="pntCenter" style="position:relative;">
+			 			<div class="pntNewCenterTitle"><h3>지도 시각화 화면</h3></div>
+			 			<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('mainMapDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div> <!-- 2017.03.13 pdf저장 이슈  -->
+			 			<div style="width:798px;height:472px;float:right;">
+			 				<div class="pntMap">
+			 					<img id="reportMapDiv" src="">
+			 					<img  id="report_captureImage" style="width:798px;height:472px;display:none;"></img>
+			 				</div>
+			 			</div>
+			 		</div>	 			
+				</div>
+				
+				<div class="pntPage">
+					<div id="extraChartRegion"></div>
+				</div>
+				
+				<div class="pntPage">
+					<div id="extraChartRegion2_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('extraChartRegion2');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+					<div id="extraChartRegion2" style="display:none;"></div>
+				</div>
+			 			
+			 	<div class="pntPage">
+			 		<div id="memoDiv_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+			 		<div id="memoDiv" class='pntNewCenter' style='margin-bottom:10px;position:relative;'>
+			 			<h3 style='height:140px;line-height:140px;'>메모노트</h3>
+			 			<div style="width:677px;height:140px;float:left;"><textarea id="memo" style="height:130px; width:645px;line-height:1.5em;border:0;margin:5px;"></textarea></div>
+			 			<div class="pntCloseBtn"><a href="javascript:$reportForm.ui.onOffDiv('memoDiv');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+			 		</div>
+			 	</div>
+			</div>
+		 		
+		 	<div class="pntPage">
+		 		<div id="gridArea_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('gridArea');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+		 		<div class="pntData">
+		 			<div class="pntDataBox fc" id="gridArea" style="position:relative;">
+		 			<div class="pntCloseBtn" style="top:2px;"><a href="javascript:$reportForm.ui.onOffDiv('gridArea');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+		 				<table id="interactiveMapTableRegion" class="pntTable" summary="항목,순위,값(명), 비율(%)">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="120" />
+		 						<col width="120" />
+								<col width="120" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 	 					<tr>
+		 	 						<th scope="col" id="tAdmName">항목</th>
+		 	 						<th scope="col" id="tAdmCd" style="display: none;">집계구번호</th>
+				 					<th scope="col">순위</th>
+				 					<th scope="col" id="tUnit"></th>
+				 					<th scope="col">비율(%)</th>
+		 	 					</tr>
+				 				<tr>
+				 					<td colspan="2" id="tColspan">합계</td>
+			 						<td id="tTotal"></td>
+			 	 					<td>100</td>
+				 				</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapIntro1TableRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="250" />
+		 						<col width="250" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 	 					<tr>
+		 	 						<th scope="col">생활편의업종</th>	
+				 					<th scope="col" id="curRegionTitle"></th>
+				 					<th scope="col">전국평균 비율(%)</th>
+		 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapIntro2TableRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+		 						<col width="60" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 	 					<tr>
+		 	 						<th scope="col" colspan=2>업종</th>	
+				 					<th scope="col" colspan=2>사업체</th>
+				 					<th scope="col" colspan=2>사업체 비율</th>
+				 					<th scope="col" colspan=2>사업체 증감(전년대비)</th>
+				 					<th scope="col" colspan=2>업종별 종사자수</th>
+				 					<th scope="col" colspan=2>업종별 종사자 비율</th>
+				 					<th scope="col" colspan=2>업종별 증감(전년대비)</th>
+		 	 					</tr>
+		 	 					<tr>
+				 					<td colspan=2></td>
+			 						<td>값</td>
+			 	 					<td>순위</td>
+			 	 					<td>값</td>
+			 	 					<td>순위</td>
+			 	 					<td>값</td>
+			 	 					<td>순위</td>
+			 	 					<td>값</td>
+			 	 					<td>순위</td>
+			 	 					<td>값</td>
+			 	 					<td>순위</td>
+			 	 					<td>값</td>
+			 	 					<td>순위</td>
+				 				</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapAreaInfo1Region" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="200" />
+		 						<col width="200" />
+		 						<col width="200" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 						<tr>
+		 							<th colspan=4 id="areaInfoTitle1"></th>
+		 						</tr>
+		 	 					<tr>
+		 	 						<th scope="col">총사업체(개)</th>	
+				 					<th scope="col">총인구(명)</th>
+				 					<th scope="col">총가구(가구)</th>
+				 					<th scope="col">총주택(호)</th>
+		 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapAreaInfo2Region" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+		 						<col width="85" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 						<tr>
+		 							<th colspan=9 id="areaInfoTitle2"></th>
+		 						</tr>
+		 	 					<tr>
+		 	 						<th scope="col">지역</th>	
+		 	 						<th scope="col">거주인구(%)</th>	
+				 					<th scope="col">1인가구()%)</th>
+				 					<th scope="col">65세이상인구(%)</th>
+				 					<th scope="col">20대인구(%)</th>
+				 					<th scope="col">직장인구(%)</th>	
+				 					<th scope="col">아파트(%)</th>
+				 					<th scope="col">65세이상인구(%)</th>
+				 					<th scope="col">20대인구(%)</th>
+		 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapAreaInfo3Region" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup>
+		 						<col width="" />
+		 						<col width="200" />
+		 						<col width="200" />
+								<col width="200" />
+							</colgroup>
+		 					<tbody id="tBody">
+		 						<tr>
+		 							<th colspan=4>소상공인 업종별 사업체 비율(%)</th>
+		 						</tr>
+		 	 					<tr>
+		 	 						<th scope="col">지역</th>	
+		 	 						<th scope="col" id="areaInfoReginName1"></th>	
+				 					<th scope="col" id="areaInfoReginName2"></th>
+				 					<th scope="col" id="areaInfoReginName3"></th>
+		 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="bizStatsMapAreaInfo4Region" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup id="colgroup">
+							</colgroup>
+							<tbody id="tBody">
+							</tbody>
+				 		</table>
+				 		<table id="bizStatsMapAreaInfo5Region" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup id="colgroup">
+							</colgroup>
+							<tbody id="tBody">
+							</tbody>
+				 		</table>
+				 		<table id="publicPopulationPoiDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="90" />
+			 						<col width="90" />
+			 						<col width="90" />
+			 						<col width="90" />
+			 						<col width="90" />
+			 						<col width="90" />
+			 						<col width="90" />
+								</colgroup>
+								<tbody id="tBody">
+									<tr>
+										<th colspan=8 id="publicTitle1"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">시간</th>	
+					 					<th scope="col">성별</th>
+					 					<th scope="col">10대</th>
+					 					<th scope="col">20대</th>
+					 					<th scope="col">30대</th>
+					 					<th scope="col">40대</th>
+					 					<th scope="col">50대</th>
+					 					<th scope="col">합계</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="publicSchoolPoiDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="130" />
+			 						<col width="130" />
+			 						<col width="130" />
+			 						<col width="130" />
+			 						<col width="130" />
+			 						<col width="" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=6 id="publicTitle2"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col" colspan=2>총학생수(명)</th>	
+					 					<th scope="col" colspan=2>총교직원수(명)</th>
+					 					<th scope="col" colspan=2>교직원 1명당 학생수(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="publicSchoolPoiDataRegion2" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="400" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=2 id="publicTitle3"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">평균 총학생수(명)</th>	
+					 					<th scope="col">평균 총교직원수(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="publicMetroPoiDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="260" />
+			 						<col width="260" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=3 id="publicTitle4"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">시간</th>	
+					 					<th scope="col">승차인원(명)</th>
+					 					<th scope="col">하차인원(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 2017.07.11 [개발팀] kcu 공공데이터 추가 - 세종권역 통행흐름정보  START -->
+				 		<!-- cctv 목록정보 -->
+				 		<table id="publicCctvPoiDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="60" />
+			 						<col width="220" />
+			 						<col width="140" />
+			 						<col width="" />
+			 						<col width="160" />
+			 						
+								<tbody id="tBody">
+									<tr>
+										<th colspan=5>CCTV 정보</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">No</th>	
+			 	 						<th scope="col">cctv명</th>	
+					 					<th scope="col">방향</th>
+					 					<th scope="col">위치</th>
+					 					<th scope="col">평균통행량(대수)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- brt 목록정보 -->
+				 		<table id="publicBrtPoiDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="100" />
+			 						<col width="" />
+			 						<col width="100" />
+			 						<col width="160" />
+			 						<col width="160" />
+			 						
+								<tbody id="tBody">
+									<tr>
+										<th colspan=5>BRT 정보</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">No</th>	
+			 	 						<th scope="col">버스정류장명</th>	
+					 					<th scope="col">방향</th>
+					 					<th scope="col">평균 승차정보(명)</th>
+					 					<th scope="col">평균하차정보(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 월별통계 - cctv -->
+				 		<table id="publicCctvMonthDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="160" />
+			 						<col width="160" />
+			 						<col width="160" />
+			 						<col width="160" />
+			 						
+								<tbody id="tBody">
+									<tr>
+										<th colspan=5 id="cctvName"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">년월</th>	
+			 	 						<th scope="col">주중(대수)</th>	
+					 					<th scope="col">주말(대수)</th>
+					 					<th scope="col">출근시간(대수)</th>
+					 					<th scope="col">퇴근시간(대수)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 시간대별통꼐 - cctv -->
+				 		<table id="publicCctvTimeDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="200" />
+			 						<col width="200" />
+			 						<col width="200" />
+			 						
+								<tbody id="tBody">
+									<tr>
+										<th colspan=4 id="cctvName"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">년월</th>	
+			 	 						<th scope="col">시간</th>	
+			 	 						<th scope="col">주중(대수)</th>	
+			 	 						<th scope="col">주말(대수)</th>	
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 요일별 통계 - cctv -->
+				 		<table id="publicCctvDayOfWeekDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=9 id="cctvName"></th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">년월</th>	
+			 	 						<th scope="col">구분</th>	
+			 	 						<th scope="col">월</th>	
+			 	 						<th scope="col">화</th>	
+			 	 						<th scope="col">수</th>	
+			 	 						<th scope="col">목</th>	
+			 	 						<th scope="col">금</th>	
+			 	 						<th scope="col">토</th>	
+			 	 						<th scope="col">일</th>	
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 요일별통계 - BRT -->
+				 		<table id="publicBrtMonthDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+			 						<col width="80" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=9 id="brtName"></th>
+									</tr>
+									<tr>
+										<th rowspan=2>년월</th>
+										<th colspan=2>주중</th>
+										<th colspan=2>주말</th>
+										<th colspan=2>출근시간</th>
+										<th colspan=2>퇴근시간</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+					 					<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+					 					<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+					 					<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 시간대별통계  - BRT -->
+				 		<table id="publicBrtTimeDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="" />
+			 						<col width="120" />
+			 						<col width="120" />
+			 						<col width="120" />
+			 						<col width="120" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=6 id="brtName"></th>
+									</tr>
+									<tr>
+										<th rowspan=2>년월</th>
+										<th rowspan=2>시간</th>
+										<th colspan=2>주중</th>
+										<th colspan=2>주말</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+					 					<th scope="col">승차(명)</th>	
+					 					<th scope="col">하차(명)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 요일별통계  - BRT -->
+				 		<table id="publicBrtDayOfWeekDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+			 						<col width="50" />
+								<tbody id="tBody">
+									<tr>
+										<th colspan=16 id="cctvName"></th>
+									</tr>
+									<tr>
+										<th rowspan=2>년월</th>
+										<th rowspan=2>구분</th>
+										<th colspan=2>월</th>
+										<th colspan=2>화</th>
+										<th colspan=2>수</th>
+										<th colspan=2>목</th>
+										<th colspan=2>금</th>
+										<th colspan=2>토</th>
+										<th colspan=2>일</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>	
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 						<th scope="col">승차</th>	
+			 	 						<th scope="col">하차</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		
+				 		<!-- 2017.07.11 [개발팀] kcu 공공데이터 추가 - 세종권역 통행흐름정보  END -->
+				 		
+				 		<table id="publicCicleDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="200" />
+			 						<col width="200" />
+			 						<col width="200" />
+								</colgroup>
+								<tbody id="tBody">
+									<tr>
+										<th colspan=4>반경 내 주요정보</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col">반경 내 인구(명)</th>	
+					 					<th scope="col">반경 내 가구(가구)</th>
+					 					<th scope="col">반경 내 주택(호)</th>
+					 					<th scope="col">반경 내 사업체수(개)</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="publicCicleCompanyDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+					 		<caption>데이터 표1</caption>
+			 					<colgroup>
+			 						<col width="" />
+			 						<col width="200" />
+			 						<col width="200" />
+			 						<col width="200" />
+								</colgroup>
+								<tbody id="tBody">
+									<tr>
+										<th colspan=4>반경 내 주요시설정보</th>
+									</tr>
+			 	 					<tr>
+			 	 						<th scope="col" colspan=2>시설분류</th>	
+					 					<th scope="col">시설수(개)</th>
+					 					<th scope="col">순위</th>
+			 	 					</tr>
+				 			</tbody>
+				 		</table>
+				 		<table id="myDataRegion" class="pntTable" summary="항목,비율(%),현재지역,상위지역" style="display:none;margin-top:10px;">
+		 					<caption>데이터 표1</caption>
+		 					<colgroup id="colgroup">
+							</colgroup>
+							<tbody id="tBody">
+							</tbody>
+				 		</table>
+				 		
+				 	</div>
+				 </div>
+				</div>
+				
+				<div class="pntPage">
+					<div id="gridPoi_show" class="pntShowBtn"><a href="javascript:$reportForm.ui.onOffDiv('gridPoi');"><img src='/img/im/btn_plus.png' alt='보이기' /></a></div>
+					<div class="pntData">
+		 				<div class="pntDataBox fc" id="gridPoi" style="position:relative;">
+		 				<div class="pntCloseBtn" style="top:2px;"><a href="javascript:$reportForm.ui.onOffDiv('gridPoi');"><img src='/img/um/btn_closel01.png' alt='숨기기' /></a></div>
+						<table id="poiRegion" class="pntTable" summary="poi정보" style="display:none;margin-top:10px;">
+			 					<caption>데이터 표1</caption>
+				 					<colgroup>
+				 						<col width="60" />
+				 						<col width="180" />
+				 						<col width="" />
+				 						<col width="100" />
+				 						<col width="100" />
+									</colgroup>
+									<tbody id="tBody">
+										<tr>
+											<th colspan=5>POI 정보</th>
+										</tr>
+				 	 					<tr>
+				 	 						<th scope="col">순번</th>	
+						 					<th scope="col">사업체명</th>
+						 					<th scope="col">주소</th>
+						 					<th scope="col">x좌표</th>
+						 					<th scope="col">y좌표</th>
+				 	 					</tr>
+					 			</tbody>
+					 		</table>
+					 	</div>
+					</div>
+				</div>
+		
+			 	<dl class="pntDl">
+			 		<dt>※ 자료 이용시 유의사항</dt>
+			 		<dd>
+			 			<p>SGIS 오픈플랫폼에서 제공하는 센서스 통계는 일부 특별조사구와 외국인, 개인운수업 등의 자료를 제외하고 최신경계를 반영하기 때문에 KOSIS 등 공표된 통계와 차이가 있습니다.
+			 			</p>
+			 			<ol>
+			 			 	<li>제외된 자료 
+				 			 	<br />- 인구/가구/주택 센서스 : 해외주재공간, 교도소 및 소년원, 군부대
+				 			 	<br />- 사업체 센서스 : 개인 운수업(사업장이 일정치 않음)
+			 			 	</li>
+			 			 	<li>
+			 			 		최신 경계 반영에 따른 차이
+			 			 		<br />- SGIS는 최신 행정구역 경계에 맞추어 서비스 함에 따라 KOSIS 자료와 다를 수 있습니다.
+			 			 	</li>
+			 			 </ol>
+			 		</dd>
+			 	</dl>
+		 	</div>
+		 </div>
+	</div>
+	<div id="hiddenReport"></div>
+</body>
+</html>

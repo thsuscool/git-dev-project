@@ -1,0 +1,14 @@
+@import url(common.css); 
+#wrap {position: relative; width: 740px;  height: auto;  background:url(../img/bg.png)no-repeat right bottom; border:1px solid #9999a3;}
+
+.question{font-size:15px; color:#505050; padding-right:26px; line-height:30px; padding-left:20px;}
+.question span{color:#4f8bc2; font-weight:bold; }
+.question p{clear:both; display:inline-block;}
+.question button{ width:112px; height:38px; background:#9999a3; text-align:center; margin-right:15px;}
+.question button.oxO{background:#ffc107;}
+.question button.oxX{background:#d50000;}
+.hint{clear:both; background:url(../img/icon.png)no-repeat left center; color:#fb6554; padding-left:15px; }
+.improvement{background:#f3f3f3; font-size:15px; color:#505050;width:740px; border-left:1px solid #9999a3; border-right:1px solid #9999a3; border-bottom:1px solid #9999a3; width: 700px; padding:20px;line-height:25px;}
+.improvement textarea{width:100%; height:100px; margin-top:10px;}
+.improvement li{height:40px;}
+.input{border:1px solid #9999a3; height:15px; padding:5px; margin-left:5px;}

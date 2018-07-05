@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Droppable - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<link rel="stylesheet" href="../../sop.css"/>
+	<script type="text/javascript" src="../../sop-src.js"></script>
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic Droppable</h2>
+	<p>Drag the boxed on left to the target area on right.</p>
+	<div style="margin:20px 0;"></div>
+	<div style="float:left;width:200px;margin-right:20px;">
+		<div class="title">Source</div>
+		<div>
+			<div class="dragitem">Apple</div>
+			<div class="dragitem">Peach</div>
+			<div class="dragitem">Orange</div>
+		</div>
+	</div>
+	<div style="float:left;width:200px;">
+		<div class="title">Target</div>
+		<div class="easyui-droppable targetarea"
+				data-options="
+					accept: '.dragitem',
+					onDragEnter:function(e,source){
+						$(this).html('enter');
+					},
+					onDragLeave: function(e,source){
+						$(this).html('leave');
+					},
+					onDrop: function(e,source){
+						$(this).html($(source).html() + ' dropped');
+					}
+				">
+		</div>
+	</div>
+	<div style="clear:both"></div>
+	<div id="map"></div>
+	<div style="clear:both"></div>
+	<div style="margin:20px 0;"></div>
+	<div class="title">Drop Result</div>
+	<div class="dragresult"></div>
+	<style type="text/css">
+		.title{
+			margin-bottom:10px;
+		}
+		.dragitem{
+			border:1px solid #ccc;
+			width:50px;
+			height:50px;
+			margin-bottom:10px;
+		}
+		.targetarea{
+			border:1px solid red;	
+			height:150px;
+		}
+		.dragresult{
+			border: 1px solid black;
+			width:300px;
+			height: 150px;
+			overflow:auto;
+		}
+		.proxy{
+			border:1px solid #ccc;
+			width:80px;
+			background:#fafafa;
+			z-index: 10;
+		}
+		#map {
+			width: 50%;
+			height: 300px;
+		}
+	</style>
+	<script>
+		$(function(){
+			var isDragging = false;
+			
+			$('.dragitem').draggable({
+				revert:true,
+				deltaX:10,
+				deltaY:10,
+				proxy:function(source){
+					
+					var n = $('<div class="proxy" style="z-index=100;"></div>');
+					n.html($(source).html()).appendTo('body');
+					return n;
+				},
+				onDrag: function(e) {
+					if( !isDragging ) {
+						$('.dragresult').append('<p>Dragging..</p>');
+						isDragging = true;
+						
+						$('.dragresult').scrollTop(999999); 
+					}
+					
+				},
+				onStopDrag: function(e) {
+					$('.dragresult').append('<p>Dragging stop..</p>');
+					$('.dragresult').scrollTop(999999);
+					isDragging = false;
+				}
+			});
+			
+			var map = sop.map('map');
+			map.setView(sop.utmk(953427, 1950827), 6);
+
+			var rectangle = sop.rectangle([
+				[953335, 1950717],
+				[953935, 1951917]
+			]);
+
+			rectangle.addTo(map).on('drop', function(){
+				$('.dragresult').append('<p style="color:red;">Dropped in rectangle area!!</p>');
+				$('.dragresult').scrollTop(999999);
+			});
+
+			$("#map").droppable({
+				accept: '.dragitem',
+				onDrop: function( event, source, oriEvent ) {
+					
+					map.eachLayer(function(layer){
+
+						if( layer._containsPoint )
+						{
+							// 마우스 이벤트에 해당하는 레이어 포인트를 찾는다.
+							var point = map.mouseEventToLayerPoint(oriEvent);
+							console.log(point);
+							// 찾은 포인트가 포함되는 레이어를 찾는다.
+							if( layer._containsPoint(point) )
+							{
+								// 해당 레이어를 찾으면 drop 이벤트를 발생 시킨다.
+								layer.fire('drop');
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
+</body>
+</html>

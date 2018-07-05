@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script type="text/javascript" src="/js/common/includeHead.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="ckeditor.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		CKEDITOR.replace("noContents", {
+    			filebrowserUploadUrl : contextPath+"/js/plugins/ckeditor/ckeditorImageUpload.jsp?realUrl="+contextPath+"/upload/temp/&realDir=/upload/temp/"
+    		});
+    		
+    		CKEDITOR.on('dialogDefinition', function (ev) {
+                var dialogName = ev.data.name;
+                var dialog = ev.data.definition.dialog;
+                var dialogDefinition = ev.data.definition;
+                if (dialogName == 'image') {
+                    dialog.on('show', function (obj) {
+                        this.selectPage('Upload'); //업로드텝으로 시작
+                    });
+                    dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+                    dialogDefinition.removeContents('Link'); // 링크탭 제거
+                }
+                if (dialogName == 'link') {
+                	dialogDefinition.removeContents('upload'); // 업로드탭 제거
+                	dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+                	
+                	var target = ev.data.definition.getContents('target');
+                	var targetField = target.get( 'linkTargetType' );
+                    targetField['default'] = 'popup';
+                    var tempSelectItems = [];
+                    $.each(targetField.items, function(key, value){
+                    	if(key == 2) {
+                    		tempSelectItems.push(this);
+                    	}
+                    });
+                    targetField.items = tempSelectItems;
+                    
+                    var aa = $("input[class='cke_dialog_ui_checkbox_input']");
+                    var bb = $("input[type=checkbox]");
+                    console.log(aa);
+                    console.log(bb);
+                }
+            });
+    	});
+    </script>
+</head>
+<body class="main">
+	<textarea cols="80" id="noContents" name="noContents" rows="10"></textarea>
+</body>
+</html>

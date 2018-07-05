@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="honam">
+
+	<!-- 호남청 담당자 목록 조회 -->
+	<select id="personInfoList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	DISTINCT person
+		,			person_id
+		,			nm
+		FROM 	(
+					<foreach collection="categories1" item="category1" index="i">
+						<if test="i > 0">
+							UNION
+						</if>
+						SELECT	A.person
+						,			A.person_id
+						,       		B.nm
+						FROM
+								<if test="category1 == 'RSC_001'">
+									honam_economy_info A
+								</if>
+								<if test="category1 == 'RSC_002'">
+									honam_society_info A
+								</if>
+								<if test="category1 == 'RSC_003'">
+									honam_agriculture_info A
+								</if>
+								, honam_office_info B
+				        WHERE 	A.office = #{office}
+				        AND     	A.office = B.office
+				        GROUP BY A.person, A.person_id, B.nm
+					</foreach>
+					)
+	</select>
+	
+	<!-- 호남청 담당자 목록 조회 -->
+	<select id="personInfoListForCategory" parameterType="hashmap" resultType="hashmap">
+		SELECT	person
+		,			person_id
+		FROM	
+				<if test="category1 == 'RSC_001'">
+					honam_economy_info
+				</if>
+				<if test="category1 == 'RSC_002'">
+					honam_society_info
+				</if>
+				<if test="category1 == 'RSC_003'">
+					honam_agriculture_info
+				</if>
+		WHERE	category2 = #{category2}
+		AND 		office IN 
+		<foreach collection="officeList" item="office" open="(" separator="," close=")">
+			#{office}
+		</foreach>
+		GROUP BY person, person_id
+	</select>
+	
+	<!-- 호남청 담당자 지역 목록 -->
+	<select id="societyInfoList" parameterType="hashmap" resultType="hashmap">
+		SELECT	addr
+		,		x_coord
+		,	    y_coord
+		, 	    person
+		,		person_id
+		,		sector
+		,		adm_cd
+		,		seq
+		,       category1
+		,       category2
+		, 	    office
+		FROM	
+				<if test="category1 == 'RSC_001'">
+					honam_economy_info
+				</if>
+				<if test="category1 == 'RSC_002'">
+					honam_society_info
+				</if>
+				<if test="category1 == 'RSC_003'">
+					honam_agriculture_info
+				</if>
+		WHERE	person_id = #{person_id}
+		AND		category2 = #{category2}
+	</select>
+	
+	<!-- 카테고리2로 카테고리1을 가져온다. -->
+	<select id="officeToCategory1" parameterType="hashmap" resultType="String">
+		SELECT	category1
+		FROM	honam_cd_drsc
+		WHERE	category2 = #{category2}
+	</select>
+	
+</mapper>

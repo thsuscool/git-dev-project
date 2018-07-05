@@ -1,0 +1,96 @@
+<!-- 
+* 로그인 화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>로그인 | 통계지리정보서비스</title>
+    
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/layout.css" />	
+	<link rel="stylesheet" type="text/css" href="/css/um.css" />
+       
+    <script type="text/javascript" src="/js/common/includeHead.js"></script>
+    <script type='text/javascript' src='/js/plugins/jquery-easyui-1.4/jquery.easyui.min.js'></script>
+    <script src="/js/common/common.js"></script>    
+    <script src="/js/member/login.js"></script>
+</head>
+<body>
+<!-- 	//2015-09-10 수정 -->
+<!-- 	<script type="text/javascript"  src="/softcamp/scwebsc.js"></script> -->
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<!-- Top Include -->
+			<script type="text/javascript"  src="/js/common/includeSearch.js"></script>
+		</div>
+		
+	    <!-- body -->
+	    <div class="container" id="container">
+			<!-- ( login_popbox ) -->
+			<div class="login_popbox" style="width: 440px; height: 358px; left: 50%; top: 50%; margin: -200px 0 0 -220px; position: absolute;">
+				<div class="login_con">
+					<p class="login_title"><img src="/img/um/title_login.gif" alt="login" /></p>
+<!-- 					//2015-09-10 수정 -->
+					<p class="login_txt">SGIS<sup>+plus</sup> 를 이용하기 위하여 로그인이 필요합니다.<br />아직 회원이 아니시면 회원가입후 이용해주세요.</p>
+			
+					<div class="boxlogincon">
+						<div>
+							<dl>
+								<dt class="mb5">아이디</dt>
+								<dd class="mb5"><input type="text" name="member_id" id="member_id" value="" style="width: 183px;" /></dd>
+								<dt>비밀번호</dt>
+								<dd><input type="password" name="pw" id="pw" value=""  style="width: 183px;" /></dd>
+							</dl>
+			
+							<p>
+<!-- 								//2015-09-10 수정 -->
+								<!-- <a href="javascript:login.loginProcess();">로그인</a> -->
+								<a href="javascript:login.checkLogin();">로그인</a>
+							</p>
+						</div>
+					</div>
+			
+					<div class="login_btn_center">
+						<a href="javascript:login.find_ID();"><img src="/img/um/btn_idsearch.gif" alt="아이디찾기" /></a>
+						<a href="javascript:login.find_PW();"><img src="/img/um/btn_pwsearch.gif" alt="비밀번호찾기" /></a>
+<!-- 						//2015-09-10 수정 -->
+						<a href="javascript:memberRegister();"><img src="/img/um/btn_sgismemberjoin.jpg" alt="회원가입" /></a>
+						<!-- <a href="javascript:login.memberJoin();"><img src="/img/um/btn_sgismemberjoin.gif" alt="sgis회원가입" /></a> -->
+					</div>
+				</div>							
+			</div>
+			<!-- //( login_popbox ) -->
+	    </div>
+	    
+	    <!-- footer// -->
+		<footer id="footer">
+		      <script type="text/javascript"  src="/js/common/includeBottom.js"></script>
+		</footer>
+		<!-- //footer -->
+		
+<!-- 		//2015-09-10 수정 -->
+		<iframe id="originloginCheckFrame" name="originloginCheckFrame" width='0' height='0' frameborder='0'></iframe>
+		<form id="originLoginCheckForm" action="/html/authorization/originLogin.jsp" method="post" name="originLoginCheckForm">
+			<input type="hidden" id="SYS_USR_ID" name="SYS_USR_ID"/>
+			<input type="hidden" id="SYS_USR_PW" name="SYS_USR_PW"/>
+		</form>
+		
+		
+	</div>
+	<!--nProtect 키보드보안 적용 시작-->
+<!-- 	Local 전용 -->
+<!-- 	<script src="https://supdate.nprotect.net/nprotect2007/keycrypt/kostat/npkfx_multi.js" type="text/javascript"></script> -->
+	<!--nProtect 키보드보안   적용 끝-->
+</body>
+</html>

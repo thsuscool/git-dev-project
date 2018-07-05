@@ -1,0 +1,101 @@
+@charset "utf-8"; 
+
+html{background:#edf2f8;}
+.wrap{width:969px; height:1080px; position:relative; margin:0 auto; border-left:1px solid #aeb2b6; border-right:1px solid #aeb2b6; background:#fff; padding-top:35px;}
+.contentsWrap{width:902px; height:288px; border:1px solid #dadada; border-radius:9px; margin:0 auto; position:relative;}
+.contentsWrap2{width:902px; height:288px; border:1px solid #dadada; border-radius:9px; margin:0 auto; top:35px; position:relative;}
+.contentsWrap3{width:902px; height:288px; border:1px solid #dadada; border-radius:9px; margin:0 auto; top:70px; position:relative;}
+.title{background:url(../img/bg.png) no-repeat; color:#fff; width:902px; height:49px; line-height:49px;}
+.titleFont{font-size:19px; font-family:monospace; float:left; padding-left:20px;}
+.titleBtn{float:right; padding-right:20px; padding-top:9px;}
+.gWrap{width:902px; height:239px;}
+/* lkh 그래프가 뒤집어지는 현상때문에 수정
+.graph{height:239px; float:left; line-height:239px; border-right:1px solid #aeb2b6; width:625px;}
+*/
+.graph{height:239px; float:left;  border-right:1px solid #aeb2b6; width:625px;}
+.list{width:276px; height:239px; float:right;} 
+.pT1{height:42px; line-height:42px; border-bottom:2px solid #5a5a64; font-size:12px; padding-left:13px; color:#6b6b6b; font-weight: bold;}
+.pT2{height:187px; padding-left:34px; font-size:12px; color:#565656;line-height:30px; padding-top:10px;}
+
+.tWrap{width:902px; height:239px;}
+.tList{width:180px; float:left; }
+.t1{  border-right:1px solid #dadada; height:30px; line-height:39px; background:#f2f9e8; font-size:12px; font-weight:bold; padding-left:21px;}
+.t2{  border-right:1px solid #dadada; height:29px; line-height:39px; background:#f2f9e8; font-size:12px; padding-left:21px;}
+.t3{ border-right:1px solid #dadada; height:29px; line-height:39px; background:#f2f9e8;font-size:12px; padding-left:21px;}
+.t4{  height:29px; line-height:39px; background:#f2f9e8; font-size:12px; font-weight:bold; padding-left:21px;}
+.t11{  height:30px; line-height:32px; background:#f2f9e8; font-size:12px; padding-left:21px;}
+.t5{ height:30px; line-height:30px; background:#f2f9e8;font-size:12px; padding-left:21px;}
+
+.t6{  border-right:1px solid #dadada; height:30px; line-height:39px; background:#fff; font-size:12px; font-weight:bold; padding-left:21px;}
+.t7{  border-right:1px solid #dadada; height:29px; line-height:39px; background:#fff; font-size:12px; padding-left:21px;}
+.t8{ border-right:1px solid #dadada; height:29px; line-height:39px; background:#fff;font-size:12px; padding-left:21px;}
+.t9{  height:30px; line-height:29px; background:#fff; font-size:12px; font-weight:bold; padding-left:21px;}
+.t10{ height:30px; line-height:39px; background:#fff;font-size:12px; padding-left:21px;}
+
+.gWrap2{width:902px; height:239px; }
+.gList{width:300px; float:left; border-right:1px solid #dadada; }
+.gList2{width:300px; float:left; }
+.p1{background:#d1e1ef; color:#60646d; font-size:12px; text-align:center; height:31px; line-height:31px;}
+.p2{height:188px;  text-align:center;}
+.p2chart{height:158px;  text-align:center; margin-top:20px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.uselistTable{width:100%; } 
+.uselistTable tr th{ color:60646d; padding:8px 10px; background: #f2f9e8; border-bottom:1px solid #dadada; text-align: left; }
+.th1{ color:60646d; padding:8px 10px; background: #fff; border-bottom:1px solid #dadada; text-align: left; }
+.th2{ color:60646d; padding:8px 10px; background: #f2f9e8; border-bottom:1px solid #dadada; text-align: left; }
+.uselistTable tr td{ padding:5px 10px; text-align:left; border:1px solid #dddddd; line-height:1.4;}
+.uselistTable tr .align{text-align: center; border:1px solid #dddddd;}
+.uselistTable tr .bnl{ border-left:0; border-right:0;}
+.uselistTable tr .bnl2{ border-left:0; border-right:0;text-align: center;}
+.uselistTable tr .bnr{ border-right:0;border-left:0; line-height:1.4; height:110px;}
+.uselistTable tr .bnr2{ border-right:0;border-left:0; line-height:1.4; text-align: center; }
+.uselistTable tr .bnr3{ border-right:0;border-left:0; line-height:1.4; text-align: left; }
+.uselistTable tr .bnr4{ border-right:0;line-height:1.4; text-align: left; }
+
+
+
+
+/* lkh 그래프 관련 추가 */
+#menu {
+		position: absolute;
+		top: 20px;
+		left: 625px;
+		bottom: 20px;
+		right: 20px;
+		width: 200px;
+	}
+
+	#menu button {
+		display: inline-block;
+		width: 200px;
+		padding: 3px 0 2px 0;
+		margin-bottom: 4px;
+		background: #eee;
+		border: 1px solid #999;
+		border-radius: 2px;
+		font-size: 16px;
+		-o-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-ms-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		cursor: pointer;
+	}
+
+	#description {
+		margin: 15px 10px 20px 10px;
+	}

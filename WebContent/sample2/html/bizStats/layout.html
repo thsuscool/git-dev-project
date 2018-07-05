@@ -1,0 +1,439 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/bizStats.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap">
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar">
+							<h2>생활업종 통계지도</h2> 
+							<a href="javascript:void(0)" class="interactiveSelect">세종특별자치시 세종시 전의면</a>
+							<div class="navi-content">
+								<div class='scrl-first'>
+									<ul>
+										<li><a href="#">test</a></li> 
+									</ul>
+								</div>
+								<div class='scrl-second'>
+									<ul>
+										<li><a href="#">test</a></li>
+									</ul>
+								</div>
+								<div class='scrl-third'>
+									<ul>
+										<li><a href="#">test</a></li>
+									</ul>
+								</div>
+								<div class='navi-action'>
+									<a href="javascript:void(0)"><img id='navi-confirm' src='/img/popup/btn_confirm.png' alt='확인' /></a>
+									<a href="javascript:void(0)"><img id='navi-cancel' src='/img/popup/btn_close.png' alt='닫기' /></a>
+								</div>
+							</div>
+							
+							<div class="tb_right">
+								<ul class="tbr02">   
+									<li><a href="javascript:void(0)" class="tb_sizing"><img src="/img/ico/ico_toolbars01.png" alt="창분리"/></a></li>
+								</ul> 
+								<a href="javascript:void(0)" class="tb_close"><img src="/img/ico/ico_winClose.gif" alt="창닫기" /></a>
+							</div>
+						</div>
+						<div class="interactiveBar"><!-- map topbar -->
+				    		<p class="helperText">왼쪽 통계메뉴 버튼을 클릭하여 항목을 선택하고 통계버튼을 만드세요.</p>
+				    		<a href="javascript:void(0)" onclick="javascript:window.open('/view/newhelp/so_help_10_0');"><img src="/img/im/icon_q.gif" alt="이용법"></a>
+				    		<a href="javascript:void(0)" onclick="javascript:$('#help-indicator').show();"><img src="/img/im/icon_q_biz.gif" alt="생활업종현황"></a> 
+				    	</div><!-- map topbar -->
+				    	
+				    	<!-- 데이터보드 -->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">별도 페이지</div>
+				    	<!-- 데이터보드 end--> 
+				    					    	
+				    	<!-- 
+				    	<a href="javascript:void(0)" class="rightQuick rq03">확대하기</a>
+				    	<p class="rightQuick rq04">집계구</p>
+				    	<a href="javascript:void(0)" class="rightQuick rq05">축소하기</a>
+				    	 -->
+				    	<!-- right menu --> 
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 --> 
+				    	<div class="resizeIcon"><!-- 리사이즈 아이콘 --></div>
+				    	
+			    	</div>
+		    	</div>
+		    	
+				<!-- left menu -->
+		    	<a href="javascript:void(0)" class="sideQuick sq02">
+		    		<img src="/img/ico/ico_totalmenu01.gif" alt="전체메뉴" />
+		    		<span>통계메뉴</span>
+		    	</a>
+		     
+		    	<a href="javascript:void(0)" class="sideQuick sq03">
+		    		<img src="/img/ico/ico_resultbtn01.gif" alt="선택항목" />
+		    		<span>선택항목</span>
+		    	</a>
+		    	<div class="sqListBox sq03">
+		    		<div class="sqTabs">
+		    			<div id=leftSlider class="dataSlider"></div> 
+		    			<a href="javascript:void(0)" class="on"><img src="/img/ico/ico_click.png" alt="통계버튼목록" /></a>
+			    		<a href="javascript:void(0)"><img src="/img/ico/ico_drag.png" alt="드래그앤드롭" /></a> 
+		    		</div>
+		    		<div class="sqList">
+		    			<ul>
+		    				<li>
+		    					<a href="javascript:void(0)" class="on ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="drag ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    				<li>
+		    					<a href="javascript:void(0)" class="ellipsis">총조사>인총>인구>남1인가구남1인가구남1인가구남1인가구</a>
+		    					<a href="javascritp:void(0)" class="sqdel"><img src="/img/um/btn_closel01.gif" alt="삭제" /></a>
+		    				</li>
+		    			</ul>
+		    		</div> 
+		    	</div> 
+		    	 
+		    	<!-- left menu --> 
+	    		<div class="leftArea">
+					<div class="shadow"></div>
+					<div class="quickBox step01"><!-- 대화형통계지도 메뉴 보기 start -->
+						<div class="subj">
+							<span>대화형통계지도 메뉴 보기</span>
+							<a href="javascript:void(0)" class="stepClose">닫기</a>
+						</div> 
+						<div class="scrollBox">
+							<dl class="qmdl pt0"> 
+								<dt><a href="javascript:void(0)">생활업종 통계현황</a></dt>
+								<dd>
+									<ul>
+										<li class="icon01"><a href="#">시도별 생활업종 현황</a></li>
+										<li class="icon02"><a href="#">시군구별 생활업종 현황</a></li>
+										<li class="icon03"><a href="#">업종 밀집도 현황기</a></li> 
+									</ul>
+								</dd>
+							</dl> 
+							<dl class="qmdl pt0"> 
+								<dt><a href="javascript:void(0)">생활업종 후보지</a></dt>
+								<dd>
+									<ul>
+										<li class="icon04"><a href="#">생활업종 후보지 검색</a></li>
+										<li class="icon05"><a href="#">생활업종 후보지 정보 보기</a></li>  
+									</ul>
+								</dd>
+							</dl> 
+							<dl class="qmdl"> 
+								<dd>
+									<ul>
+										<li class="icon06"><a href="#">공공데이터</a></li> 
+										<li class="icon07"><a href="#">나의 데이터</a></li>
+									</ul>
+								</dd>
+							</dl>  
+							<ul class="qmlist botn"> 
+	                            <li><a href="#">전체 화면 확대</a></li>  
+	                            <li><a href="#">도움말 보기</a></li> 
+	                        </ul> 
+						</div> 
+						<!-- 
+						<div class="btnBottom">
+	                        <span class="logo"><img src="/img/pic/pic_logo01.gif" alt="통계청" /></span>
+	                        <div class="serviceLayer" style="display: none;">
+								<ol>
+									<li><a href="javascript:void(0)">test1</a></li>
+									<li><a href="javascript:void(0)">test1</a></li>
+									<li><a href="javascript:void(0)">test1</a></li>
+									<li><a href="javascript:void(0)">test1</a></li>
+									<li><a href="javascript:void(0)">test1</a></li>
+									<li><a href="javascript:void(0)">test1</a></li>
+								</ol>
+							</div>
+	                        <a href="javascript:void(0)" class="btnService">통계청 주요서비스</a> 
+	                    </div>
+	                     -->
+						
+						
+					</div><!-- 대화형통계지도 메뉴 보기 end -->
+					 
+				</div>
+				
+				 
+				<ul class="lgListBox">
+		    		<li>
+		    			<ul class="lgTypeList">
+		    				<li><a href="javascript:void(0)" data-type="color" data-subj="색상지도 팁(Shaded Area map)" title="지도 내  경계영역 내 설정된 범례 범위값과 생상으로 시각화된 데이터를 통해 지역별로 비교할 수 있습니다."><span>색상</span></a>
+		    				<li><a href="javascript:void(0)" data-type="ring" data-subj="버블지도 팁(Bubbles map)" title="지도내 경계영역 내 설정된 범례 범위값에 따라 경계영역 내 그려진 원형 크기로 시각화된 데이터를 통해 지역별로 비교할 수 있습니다."><span>버블</span></a>
+		    				<li><a href="javascript:void(0)" data-type="jum" data-subj="점지도 팁(Dot Destiny map)" title="지도내 경계영역 내 그려진 점으로 시각화된 데이터를 통해 지역별 밀집도를 비교할 수 있습니다."><span>점</span></a>
+		    				<li><a href="javascript:void(0)" data-type="heat" data-subj="열지도(Heat map)" title="지도내 경계여역 내 설정된 범례범위값과 색상으로 시각화된 데이터를 통해 지역벼로 비교할 수 있습니다."><span>열</span></a>
+		    			</ul>
+		    			<a href="javascript:void(0)"><span>타입<br />설정</span></a>
+		    		</li>
+		    		<li><a href="javascript:void(0)" class="legendPopEvent" data-id="guganSettingLayer"><span>단계<br />설정</span></a>
+		    		</li>
+		    		<li><a href="javascript:void(0)" class="legendPopEvent" data-id="colorSettingLayer"><span>색상<br />설정</span></a>
+		    		</li> 
+		    		<li><a href="javascript:void(0)"><span>초기화</span></a></li>
+		    	</ul>
+		    	
+		    	<!-- 구간설정 start --------->
+		    	<div class="popBox" id="guganSettingLayer">
+					<div class="topbar">
+						<span>범례 구간설정</span>
+						<select class="lvSelect" title="범례 구간설정">
+							<option value="10">10레벨</option>
+							<option value="9">9레벨</option>
+							<option value="8">8레벨</option>
+							<option value="7">7레벨</option>
+							<option value="6">6레벨</option>
+							<option value="5">5레벨</option>
+							<option value="4">4레벨</option>
+							<option value="3">3레벨</option>
+							<option value="2">2레벨</option>
+							<option value="1">1레벨</option>
+						</select>
+						<a href="javascript:void(0)">닫기</a>
+					</div>
+					<div class="popContents">
+						<div class="tabs">
+							<span>분류방법</span>
+							<a href="javascript:void(0)" class="btnStyle01 al">자동범례</a>
+							<a href="javascript:void(0)" class="btnStyle01 ac">균등범례</a>
+							<a href="javascript:void(0)" class="btnStyle01 ar">사용자정의</a>
+						</div>
+						<table class="goganList"><tr></tr></table>
+						<ul class="goganText">
+							<li>0</li>
+							<li>25</li>
+							<li>50</li>
+							<li>75</li>
+							<li>100</li>
+						</ul>
+						<div class="btnBox"> 
+							<a href="javascript:void(0)" class="btnStyle01" id="goganEvent">적용</a>
+						</div>
+					</div>
+				</div>
+				<!-- 구간설정 end --------->
+				
+				<!-- 색상설정 start --------->
+		    	<div class="popBox" id="colorSettingLayer">
+					<div class="topbar">
+						<span>사용자 설정</span> 
+						<a href="javascript:void(0)">닫기</a>
+					</div>
+					<div class="popContents">
+						<div class="tabs only"> 
+							<a href="javascript:void(0)" class="btnStyle01 al on">기본색상</a>
+							<a href="javascript:void(0)" class="btnStyle01 ac">혼합색상</a>
+							<a href="javascript:void(0)" class="btnStyle01 ar">사용자정의</a>
+						</div> 
+						
+						<div class="opacityBox"> 
+							<ul class="colorck" id="colorSetting">
+								<li><a href="javascript:void(0)" class="on">#890e4f</a></li>
+								<li><a href="javascript:void(0)">#f6564a</a></li>
+								<li><a href="javascript:void(0)">#a63cba</a></li>
+								<li><a href="javascript:void(0)">#535353</a></li>
+								<li><a href="javascript:void(0)">#3b91ce</a></li>
+								<li><a href="javascript:void(0)">#31c9a2</a></li>
+							</ul>
+							<label for="opacitySel">투명도 설정</label>
+							<select id="opacitySel">
+								<option value="1">100%</option>
+								<option value="0.9">90%</option>
+								<option value="0.8">80%</option>
+								<option value="0.7">70%</option>
+								<option value="0.6">60%</option>
+								<option value="0.5">50%</option>
+								<option value="0.4">40%</option>
+								<option value="0.3">30%</option>
+								<option value="0.2">20%</option> 
+								<option value="0.1">10%</option> 
+							</select>
+						</div>
+						<div class="colorbarBox">
+							<a href="javascript:void(0)" class="fl">#00b051</a>
+							<ul class="colorSettingList01"></ul>
+							<a href="javascript:void(0)" class="fr">#193b70</a>
+						</div>
+						 
+						
+						<div class="btnBox"> 
+							<a href="javascript:void(0)" class="btnStyle01">적용</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="popBox" id="jumSettingLayer">
+					<div class="topbar">
+						<span>사용자 설정</span> 
+						<a href="javascript:void(0)">닫기</a>
+					</div>
+					<div class="popContents"> 
+						<div class="jumContents mt0">
+							<div class="tabs only"> 
+								<a href="javascript:void(0)" class="btnStyle01 al on">기본색상</a> 
+								<a href="javascript:void(0)" id="markerPopup" class="btnStyle01 ar">라이브러리</a>
+							</div> 
+							<div class="opacityBox"> 
+								<ul class="markerList">
+									<li><a href="javascript:void(0)" class="on"><img src="/img/ico/ico_marker01.png" alt=""/></a></li>
+									<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker02.png" alt=""/></a></li>
+									<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker03.png" alt=""/></a></li> 
+								</ul> 
+							</div> 
+							<a href="javascript:void(0)" class="jumMarkerLink"><img src="/img/ico/ico_marker00.png" alt=""/></a>
+						</div> 
+						
+						<div class="jumContents">
+							<div class="tabs only"> 
+								<a href="javascript:void(0)" class="btnStyle01 al on">기본색상</a> 
+								<a href="javascript:void(0)" class="btnStyle01 ar">사용자정의</a>
+							</div> 
+							
+							<div class="opacityBox"> 
+								<ul class="colorck" id="colorSetting01">
+									<li><a href="javascript:void(0)" class="on">#890e4f</a></li>
+									<li><a href="javascript:void(0)">#f6564a</a></li>
+									<li><a href="javascript:void(0)">#a63cba</a></li>
+									<li><a href="javascript:void(0)">#535353</a></li>
+									<li><a href="javascript:void(0)">#3b91ce</a></li>
+									<li><a href="javascript:void(0)">#31c9a2</a></li>
+								</ul> 
+							</div> 
+							<div class="posSelect">
+								<label for="opacitySel01">투명도 설정</label>
+								<select id="opacitySel01">
+									<option value="1">100%</option>
+									<option value="0.9">90%</option>
+									<option value="0.8">80%</option>
+									<option value="0.7">70%</option>
+									<option value="0.6">60%</option>
+									<option value="0.5">50%</option>
+									<option value="0.4">40%</option>
+									<option value="0.3">30%</option>
+									<option value="0.2">20%</option> 
+									<option value="0.1">10%</option> 
+								</select>
+							</div>
+							<a href="javascript:void(0)" class="jumColorLink">#890e4f</a>
+						</div> 
+						
+						<div class="btnBox"> 
+							<a href="javascript:void(0)" class="btnStyle01">적용</a>
+						</div>
+					</div>
+				</div>
+				<div class="popBox" id="markerLibLayer">
+					<div class="topbar">
+						<span>마커 라이브러리</span> 
+						<a href="javascript:void(0)">닫기</a>
+					</div>
+					<div class="popContents"> 
+						<div class="markerLib">
+							<ul>
+								<li><a href="javascript:void(0)" class="on"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+								<li><a href="javascript:void(0)"><img src="/img/ico/ico_marker00.png" alt=""/></a></li>
+							</ul>
+						</div> 
+						
+						<div class="btnBox"> 
+							<a href="javascript:void(0)" class="btnStyle01">적용</a>
+						</div>
+					</div>
+				</div>
+				<!-- 색상설정 end --------->
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+@import url(common.css); 
+
+
+*{margin:0; padding:0;}
+body{font-size:15px;}
+#wrapper{width:820px; height:6270px; background:#5c7dbc; position:relative;}
+#header{width:780px; height:110px; position:absolute; top:20px; left:18px; border:1px solid #4d669a; background:#fff url(images/pic5.png)no-repeat right bottom;}
+#header p{font-size:22px; font-weight:bold;  color:#252e55; margin-top:25px; margin-left:20px;}
+#content{width:780px; height:6100px; background:#fff; position:absolute; top:140px; left:19px; border:1px solid #4d669a;}
+#titlebar1{background:url(images/jum.png)no-repeat left; margin-left:40px; vertical-align:middle;}
+#titlebar1 p{font-size:20px; color:#ee7c1a; font-weight:bold; margin:30px 0 0 20px; ;}
+#detail_content{margin:10px 40px;}
+#detail_content2{margin:10px 40px;}
+
+.detail_content_2{margin-top:25px;}
+.detail_content2_3, .detail_content2_5, .detail_content2_6, .detail_content2_7{margin-top:25px;}

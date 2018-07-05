@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="communityCustomSymbol">
+	<insert id="insertCustomSymbolGroup">
+		<selectKey keyProperty="custom_symbol_group_id" resultType="Integer" order="BEFORE">
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SELECT SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP_ID.nextval FROM DUAL -->       
+			SELECT MAX(CUSTOM_SYMBOL_GROUP_ID)+1 FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP
+			<!-- mng_e 20170713_주용민-->
+		</selectKey>
+		INSERT INTO SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP(
+			CUSTOM_SYMBOL_GROUP_ID,
+			CUSTOM_SYMBOL_GROUP_NM,
+			SHARE_YN,
+			AUTO_CREATE_YN,
+			USR_ID,
+			REG_DATE
+		)VALUES(
+			#{custom_symbol_group_id},
+			#{custom_symbol_group_nm},
+			#{share_yn},
+			#{auto_create_yn},
+			#{member_id},
+			SYSDATE
+		)
+	</insert>
+	<insert id="insertCustomSymbol">
+		<selectKey keyProperty="custom_symbol_id" resultType="Integer" order="BEFORE">
+			<!-- mng_s 20170713_주용민, 이중화 관련 sequence 삭제 -->
+			<!-- SELECT SRV_DT_CMMNTY_CUSTOM_SYMBOL_ID.nextval FROM DUAL -->       
+			SELECT MAX(CUSTOM_SYMBOL_ID)+1 FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+			<!-- mng_e 20170713_주용민-->
+		</selectKey>
+		INSERT INTO SRV_DT_CMMNTY_CUSTOM_SYMBOL(
+			CUSTOM_SYMBOL_ID,
+			CUSTOM_SYMBOL_GROUP_ID,
+			LABEL_NM,
+			ORDER
+		)VALUES(
+			#{custom_symbol_id},
+			#{custom_symbol_group_id},
+			#{label_nm},
+			#{order}
+		)
+	</insert>
+	<insert id="insertCustomSymbolFile">
+		INSERT INTO SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE(
+			CUSTOM_SYMBOL_ID,
+			PATH_NM,
+			SAVE_FILE_NM,
+			FILE_EXTN,
+			FILE_TYPE,
+			ORI_FILE_NM
+		)VALUES(
+			#{custom_symbol_id},
+			#{path_nm},
+			#{save_file_nm},
+			#{file_extn},
+			#{file_type},
+			#{ori_file_nm}
+		)
+	</insert>
+	<delete id="deleteCommunityCustomSymbolAtchImage">
+		DELETE FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != ''">
+					CUSTOM_SYMBOL_ID IN (SELECT CUSTOM_SYMBOL_ID FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL WHERE CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id});
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+	<delete id="deleteCommunityCustomSymbol">
+		DELETE FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != ''">
+					CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+	<delete id="deleteCommunityCustomSymbolList">
+		DELETE FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != '' and custom_symbol_id_list != null and custom_symbol_id_list != ''">
+					CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+					<foreach collection="custom_symbol_id_list" item="item" open="AND CUSTOM_SYMBOL_ID IN (" separator="," close=")">
+						${item}
+					</foreach>
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+	<delete id="deleteCommunityCustomSymbolGroup">
+		DELETE FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP
+		<where>
+			<choose>
+				<when test="member_id != null and member_id != '' and custom_symbol_group_id != null and custom_symbol_group_id != ''">
+						CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+					AND USR_ID = #{member_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+	<update id="updateCustomSymbolGoupNm">
+		UPDATE SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP
+		<set>
+			CUSTOM_SYMBOL_GROUP_NM = #{custom_symbol_group_nm}
+		</set>
+		<where>
+			CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id} 
+		</where>
+	</update>
+	<update id="updateCustomSymbolLabelNm">
+		UPDATE SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<set>
+			LABEL_NM = #{label_nm}
+		</set>
+		<where>
+			<choose>
+				<when test="custom_symbol_id != null and custom_symbol_id != ''">
+					CUSTOM_SYMBOL_ID=#{custom_symbol_id}
+				</when>
+				<when test="order != null and order != ''">
+					ORDER=#{order}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</update>
+	<select id="selectCustomSymbolReOrder" resultType="java.util.HashMap">
+		SELECT 
+			ROWNUM AS ORDER,
+			CUSTOM_SYMBOL_ID 
+		FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != ''">
+					CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY ORDER ASC
+	</select>
+	<update id="updateCustomSymbolReOrder">
+		UPDATE SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<set>
+			ORDER = #{order}
+		</set>
+		<where>
+			<choose>
+				<when test="custom_symbol_id != null and custom_symbol_id != ''">
+					CUSTOM_SYMBOL_ID=#{custom_symbol_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</update>
+	<select id="selectCustomSymbolLastSort" resultType="Integer">
+		SELECT MAX(ORDER) FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != ''">
+					CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="selectCommunityFromCustomSymbolGroup" resultType="Integer">
+		SELECT COUNT(1) FROM SRV_DT_CMMNTY_MAP
+		<where>
+			<choose>
+				<when test="custom_symbol_group_id != null and custom_symbol_group_id != ''">
+						CUSTOM_SYMBOL_GROUP_ID=#{custom_symbol_group_id}
+					<if test="cmmnty_map_id != null and cmmnty_map_id != ''">
+						AND CMMNTY_MAP_ID != #{cmmnty_map_id}
+					</if>
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="selectCommunityCustomSymbolGroup" parameterType="String" resultType="java.util.HashMap">
+		SELECT
+			CUSTOM_SYMBOL_GROUP_ID,
+			CUSTOM_SYMBOL_GROUP_NM,
+			SHARE_YN,
+			AUTO_CREATE_YN,
+			USR_ID,
+			REG_DATE
+		FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP 
+		<where>
+			<choose>
+				<when test="value != null and value != ''">
+					CUSTOM_SYMBOL_GROUP_ID=#{value}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="selectCommunityCustomSymbolGroupList" parameterType="String" resultType="java.util.HashMap">
+		SELECT
+			CUSTOM_SYMBOL_GROUP_ID,
+			CUSTOM_SYMBOL_GROUP_NM,
+			(SELECT REPLACE(SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.PATH_NM,'\','/')||SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.SAVE_FILE_NM FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE WHERE SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.CUSTOM_SYMBOL_ID IN (SELECT CUSTOM_SYMBOL_ID FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL WHERE SRV_DT_CMMNTY_CUSTOM_SYMBOL.CUSTOM_SYMBOL_GROUP_ID = SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP.CUSTOM_SYMBOL_GROUP_ID) AND ROWNUM=1 ORDER BY ORDER) AS PATH_NM
+		FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL_GROUP 
+		<where>
+			<choose>
+				<when test="value != null and value != ''">
+						AUTO_CREATE_YN='N'
+					AND USR_ID=#{value}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY CUSTOM_SYMBOL_GROUP_ID DESC
+	</select>
+	<select id="selectCommunityCustomSymbolList" parameterType="String" resultType="java.util.HashMap">
+		SELECT
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL.CUSTOM_SYMBOL_ID,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL.CUSTOM_SYMBOL_GROUP_ID,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL.LABEL_NM,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL.ORDER,
+			REPLACE(SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.PATH_NM,'\','/') AS PATH_NM,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.SAVE_FILE_NM,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.FILE_EXTN,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.FILE_TYPE,
+			SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.ORI_FILE_NM
+		FROM SRV_DT_CMMNTY_CUSTOM_SYMBOL
+		LEFT OUTER JOIN SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE 
+			ON SRV_DT_CMMNTY_CUSTOM_SYMBOL.CUSTOM_SYMBOL_ID = SRV_DT_CMMNTY_CUSTOM_SYMBOL_ATCH_IMAGE.CUSTOM_SYMBOL_ID
+		<where>
+			<choose>
+				<when test="value != null and value != ''">
+					SRV_DT_CMMNTY_CUSTOM_SYMBOL.CUSTOM_SYMBOL_GROUP_ID = #{value}
+				</when>
+				<otherwise>
+					1!=1
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY SRV_DT_CMMNTY_CUSTOM_SYMBOL.ORDER ASC
+	</select>
+</mapper>

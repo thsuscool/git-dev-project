@@ -1,0 +1,148 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    
+    <!-- *신규* --> 
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/changupFunc.css" />
+  	<!-- *신규* -->
+  
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/css/handsontable.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script> 
+    <script type="text/javascript" src="/js/plugins/handsontable.js"></script><!-- 엑셀테이블 http://handsontable.com -->
+    
+    <script type="text/javascript" src="/sample/include/js/changupEtc.js"></script><!-- *신규* -->
+    <script type="text/javascript" src="/sample/include/js/changupEtc_databoard.js"></script><!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	}); 
+                        
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close02.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+				    				<p class="dbText01">조건별 후보지역 정보현황</p>
+				    				<div class="areaBox">서울특별시 강남구
+				    				</div>
+				    				<ul class="dbTabs02">
+				    					<li><a href="javascript:void(0)" class="on">총사업체<span>59,422개</span></a></li>
+				    					<li><a href="javascript:void(0)">총인구<span>59,422명</span></a></li>
+				    					<li><a href="javascript:void(0)">총가구<span>59,422가구</span></a></li>
+				    					<li><a href="javascript:void(0)">총주택<span>59,422호</span></a></li> 
+				    				</ul> 
+				    				<dl class="dscList"> 
+					    				<dt class="mt15"><a href="javascript:void(0)">후보지역 선택목록(최대 3개 선택가능)</a></dt>
+					    				<dd>
+					    					<div class="clickArea">
+						    					<div class="clickMiniMap"></div>
+						    					<div class="clickListBox">
+						    						<p class="rsText">후보지 리스트 총  <strong>12</strong>개 검색</p>
+							    					<div class="mapResultList">
+							    						<ul>
+							    							<li><a href="javascript:void(0)">1. B지점/매체안경원 앞 유동인구</a></li>
+							    							<li><a href="javascript:void(0)">2. A지점/압구정역 2번출구 유동인구</a></li>
+							    							<li><a href="javascript:void(0)">3. B지점/세븐일레븐앞 유동인근</a></li>
+							    							<li><a href="javascript:void(0)">4. A지점/하나은행앞 유동인구</a></li>
+							    							<li><a href="javascript:void(0)">5. A지점/DKNY앞 유동인구</a></li>
+							    							<li><a href="javascript:void(0)">6. 연극 행복</a></li>
+							    							<li><a href="javascript:void(0)">7. 연극 행복</a></li>
+							    							<li><a href="javascript:void(0)">8. 연극 행복</a></li>
+							    							<li><a href="javascript:void(0)">9. 연극 행복</a></li>
+							    						</ul>
+							    					</div>
+						    					</div>
+					    					</div>
+					    				</dd> 
+					    				<dt><a href="javascript:void(0)">지역 특성정보 보기</a></dt>
+					    				<dd>
+					    					<div class="fl" id="spyCharts01"></div>
+					    					<div class="fr" id="spyCharts02"></div> 
+					    					<div class="fb">
+					    						<ul class="cateSaupLegend line">
+					    							<li>강남구</li>
+					    							<li>서울시평균</li> 
+					    						</ul>
+					    					</div>
+					    				</dd>
+					    			</dl>
+				    				 
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end ----------------------------------->  
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+</body>
+</html>

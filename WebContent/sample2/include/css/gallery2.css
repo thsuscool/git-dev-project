@@ -1,0 +1,188 @@
+.popBox .txt{text-align:center;margin:5px 0 0 0;}
+.btnGtype{display:inline-block;margin-right:5px;font-size:13px;color:#5b5b5b;background:#d3d3d3;height:36px;width:100px;line-height:36px;text-align:center;border-radius:18px;}
+.btnGtype.on{background:#feda00;}
+.btnGtype:hover{background:#feda00;}
+
+
+
+
+
+.dialogGtype{position:fixed;width:100%;height:100%;left:0;top:0;z-index:90;background:rgba(0,0,0,.5);}
+.popUseCasesRela{width:960px;height:600px;overflow:hidden;position:fixed;left:50%;top:50%;margin:-300px 0 0 -480px;}
+.popUseCasesRela .popUseCases{background:#fff;width:900px;height:600px;overflow:hidden;float:left;}
+.popUseCasesRela .rightClose{float:right;}
+.popUseCasesRela .popUseCases .usecLeft{width:450px;height:600px;overflow:hidden;background:#feda00;float:left;}
+.popUseCasesRela .popUseCases .usecRight{background:url(/img/bg/bg_useRight.png) no-repeat left bottom;width:450px;height:600px;overflow:hidden;float:left;}
+.popUseCasesRela .popUseCases .useTit{width:380px;height:auto;overflow:hidden;margin:60px auto 0 auto;font-size:26px;font-weight:bold;color:#4a4a45;}
+.popUseCasesRela .popUseCases .useTxt{width:380px;height:auto;overflow:hidden;margin:10px auto 0 auto;font-size:15px;color:#5c5d62;}
+.ulIconList{width:380px;height:auto;overflow:hidden;margin:60px auto 0 auto;border-top:1px solid #f1d00d;}
+.ulIconList li{width:100%;overflow:hidden;height:90px;border-bottom:1px solid #f1d00d;}
+.ulIconList li .t01{width:290px;height:auto;overflow:hidden;margin-left:70px;margin-top:25px;color:#595a64;font-size:15px;font-weight:bold;}
+.ulIconList li .t02{width:290px;height:auto;overflow:hidden;margin-left:70px;margin-top:10px;color:#595a64;font-size:11px;}
+.ulIconList li.b01{background:url(/img/ico/ico_ulIconList01.png) no-repeat 10px center;}
+.ulIconList li.b02{background:url(/img/ico/ico_ulIconList02.png) no-repeat 10px center;}
+.useTailsubj{width:380px;height:auto;overflow:hidden;margin:60px auto 0 auto;font-weight:bold;font-size:15px;color:#4a4a45;}
+.utIconList{width:380px;height:auto;overflow:hidden;margin:10px auto 0 auto;}
+.utIconList li{width:122px;height:47px;overflow:hidden;float:left;}
+
+.utIconList01{width:380px;height:auto;overflow:hidden;margin:30px auto 0 auto;}
+.utIconList01 li{width:50%;height:47px;overflow:hidden;float:left;}
+
+.ulIconList01{width:380px;height:auto;overflow:hidden;margin:42px auto 0 auto;border-top:1px solid #f1f1f1;}
+.ulIconList01 li{width:100%;overflow:hidden;height:90px;border-bottom:1px solid #f1f1f1;}
+.ulIconList01 li .t01{width:290px;height:auto;overflow:hidden;margin-left:70px;margin-top:25px;color:#595a64;font-size:15px;font-weight:bold;}
+.ulIconList01 li .t02{width:290px;height:auto;overflow:hidden;margin-left:70px;margin-top:10px;color:#595a64;font-size:11px;}
+.ulIconList01 li.b01{background:url(/img/ico/ico_ulIconList03.png) no-repeat 10px center;}
+
+.dialogGtype{position:fixed;width:100%;height:100%;left:0;top:0;z-index:90;background:rgba(0,0,0,.5);}
+.popGalleryCreateRela{width:1060px;height:600px;overflow:hidden;position:fixed;left:50%;top:50%;margin:-300px 0 0 -530px;}
+.popGalleryCreateRela .popGalleryCreate{background:#fff;width:1000px;height:600px;overflow:hidden;float:left;}
+.popGalleryCreateRela .rightClose{float:right;}
+.popGalleryCreateRela .gcLeft{float:left;width:670px;margin-left:10px;height:600px;overflow:hidden;}
+.popGalleryCreateRela .useSide{margin-top:10px;margin-right:10px;}
+.popGalleryCreateRela .topForm{width:100%;height:40px;overflow:hidden;margin:10px 0;background:#f9f9fa;box-shadow:inset 0 0 1px #999;}
+.popGalleryCreateRela .topForm input{background:transparent;border:0;height:40px;width:650px;padding:0 10px;line-height:40px;}
+
+.btnPen{position:absolute;left:20px;bottom:20px;font-size:0;text-indent:-2000px;display:block;width:50px;height:50px;overflow:hidden;background:url(/img/ico/ico_pen.png);}
+.btnPen:hover, .btnPen.on{background:url(/img/ico/ico_pen_on.png);}
+.gicobox{display:none;width:312px;height:152px;overflow:hidden;background:#fff;border:1px solid #ddd;position:absolute;left:20px;bottom:90px;}
+.gicobox .ico{margin-top:20px;width:220px;height:auto;overflow:hidden;float:left;border-right:1px solid #d3d3d3;}
+.gicobox .ico p{font-size:13px;font-weight:bold;width:190px;height:auto;overflow:hidden;margin-left:30px;}
+.gicobox .ico ul{margin-top:10px;width:190px;height:auto;overflow:hidden;margin-left:30px;}
+.gicobox .ico ul li{width:30px;height:40px;overflow:hidden;float:left;}
+.gicobox .talkArea{margin-top:20px;width:74px;height:96px;overflow:hidden;float:left;}
+.gicobox .talkArea p{font-size:13px;font-weight:bold;width:190px;height:auto;overflow:hidden;margin-left:20px;}
+.gicobox .talkArea ul{margin-top:10px;width:190px;height:auto;overflow:hidden;margin-left:20px;}
+.gicobox .talkArea ul li{width:100%;height:40px;overflow:hidden;}
+
+.josaListEtcBox{width:100%;height:auto;overflow:hidden;padding:10px 0;text-align:center;}
+.gcMap{width:670px;height:417px;overflow:hidden;position:relative;}
+.gcSlideBox{position:relative;width:668px;height:auto;padding:10px 0;border:1px solid #ddd;margin-top:10px;}
+.gcSlideArea{width:560px;height:auto;overflow:hidden;margin:0 auto;}
+.gadd{font-size:0;text-indent:-2000px;background:#f4f4f4 url(/img/ico/ico_add02.png) no-repeat center center;background-size:100px 64px;margin-top:10px;width:100px;height:87px;overflow:hidden;float:right;border:1px solid #ddd;}
+.gcSlideArea .item{float:left;}
+.gcSlideArea .item .rela{width:102px;height:auto;overflow:hidden;position:relative;}
+.gcSlideArea .item .rela .gdel{display:none;border:1px solid #ddd;border-radius:50%;position:absolute;right:5px;top:5px;width:15px;height:15px;}
+.gcSlideArea .item .rela .gdel:hover{border:1px solid #ddd;}
+.gcSlideArea .item .rela:hover .gdel{display:block}
+.gcSlideArea .item .rela .gdel img{width:15px;border-radius:50%;}
+.gcSlideArea .item img{width:100px;}
+.gcSlideArea .item a{display:block;width:100px;height:auto;overflow:hidden;border:1px solid #fff;}
+.gcSlideArea .item a:hover{border:1px solid #6a7e8c;}
+.gcSlideBox .gcPrev{position:absolute;left:10px;top:30px;}
+.gcSlideBox .gcNext{position:absolute;right:10px;top:30px;}
+.gviewMap{width:100%;height:540px;overflow:hidden;position:relative;}
+.gvDownload{position:absolute;right:20px;bottom:20px;}
+.gcLeft.t01{margin-left:0;width:689px;border-right:1px solid #ddd;}
+.gvSlideBox{position:relative;width:100%;height:auto;padding:10px 0;}
+.gvSlideArea{width:520px;height:auto;overflow:hidden;margin:0 0 0 120px;}
+.gvSlideBox .item{float:left;}
+.gvSlideBox .item img{width:60px;}
+.gvSlideBox .item a{display:block;width:60px;height:auto;overflow:hidden;border:1px solid #fff;}
+.gvSlideBox .item a:hover{border:1px solid #6a7e8c;}
+.gvSlideBox .gvPrev{position:absolute;left:86px;top:18px;}
+.gvSlideBox .gvNext{position:absolute;right:10px;top:18px;}
+.gvController{position:absolute;left:10px;top:18px;height:auto;width:66px;border-right:1px solid #ddd;}
+.popGalleryCreateRela .useSide.t01{width:310px;margin-right:0;margin-top:0;}
+.useSide.t01 .gvTitle{margin:0 auto;width:220px;padding-left:50px;height:70px;line-height:70px;font-size:16px;font-weight:bold;color:#525252;}
+.useSide.t01 .gvTitle.gwon01{background:url(/img/ico/ico_gwon01.png) no-repeat left center;background-size:45px 45px;}
+.useSide.t01 .gvTitle.gwon02{background:url(/img/ico/ico_gwon02.png) no-repeat left center;background-size:45px 45px;}
+.useSide.t01 .gvTitle.gwon03{background:url(/img/ico/ico_gwon03.png) no-repeat left center;background-size:45px 45px;}
+.useSide.t01 .gvTitle.gwon04{background:url(/img/ico/ico_gwon04.png) no-repeat left center;background-size:45px 45px;}
+.useSide.t01 .gvTitle.gwon05{background:url(/img/ico/ico_gwon05.png) no-repeat left center;background-size:45px 45px;}
+.useSide.t01 .gvInfo{width:270px;height:45px;overflow:hidden;margin:0 auto;border-top:1px solid #ddd;border-bottom:1px solid #ddd;position:relative;}
+.useSide.t01 .gvInfo .t01{margin-top:5px;width:100%;height:auto;overflow:hidden;font-size:12px;color:#7e7f7f;}
+.useSide.t01 .gvInfo .t02{margin-top:5px;width:100%;height:auto;overflow:hidden;font-size:12px;color:#7e7f7f;}
+.useSide.t01 .gvInfo a{position:absolute;right:0;top:5px;}
+.useSide.t01 .gvText{width:270px;height:60px;padding:10px 0;font-size:13px;color:#585858;overflow:hidden;margin:0 auto;}
+.useSide.t01 .gvText *{font-size:13px;}
+.useSide.t01 .gvVote{width:268px;height:auto;overflow:hidden;border:1px solid #ddd;margin:0 auto;}
+.useSide.t01 .gvVoteSubj{width:248px;margin:10px auto;height:auto;overflow:hidden;}
+.useSide.t01 .gvVoteSubj .t01{letter-spacing:-1px;float:left;font-size:12px;color:#666;}
+.useSide.t01 .gvVoteSubj .t02{letter-spacing:-1px;float:right;font-size:10px;color:#999;padding-left:10px;background:url(/img/ico/ico_etc01.png) no-repeat left center;}
+.useSide.t01 .gvVoteBox01{margin:0 auto;position:relative;width:248px;line-height:23px;height:23px;overflow:hidden;border-radius:12px;background:#fff;border:1px solid #ddd;}
+.useSide.t01 .gvVoteBox01 .t01{padding-left:15px;background:url(/img/ico/ico_ck04.png) no-repeat left center;position:absolute;left:10px;top:0;z-index:4;font-size:11px;color:#666;}
+.useSide.t01 .gvVoteBox01 .t02{position:absolute;right:10px;top:0;z-index:4;float:right;font-size:11px;color:#666;}
+.useSide.t01 .gvVoteBox01 .gage{font-size:0;text-indent:-2000px;height:23px;display:block;position:absolute;left:0;top:0;background:#feda00;border-radius:12px;}
+.useSide.t01 .gvVoteBox02{margin:10px auto 0 auto;position:relative;width:248px;line-height:23px;height:23px;overflow:hidden;border-radius:12px;background:#fff;border:1px solid #ddd;}
+.useSide.t01 .gvVoteBox02 .t01{position:absolute;left:10px;top:0;z-index:4;font-size:11px;color:#666;}
+.useSide.t01 .gvVoteBox02 .t02{position:absolute;right:10px;top:0;z-index:4;float:right;font-size:11px;color:#666;}
+.useSide.t01 .gvVoteBox02 .gage{font-size:0;text-indent:-2000px;height:23px;display:block;position:absolute;left:0;top:0;background:#ccc;border-radius:12px;}
+.useSide.t01 .gvVote .btnVote{display:block;margin:10px auto;position:relative;width:250px;line-height:23px;height:23px;overflow:hidden;border-radius:12px;background:#efedee;font-size:13px;text-align:center;}
+.useSide.t01 .gvVote .btnVote:hover{background:#feda00;}
+.gvTag{width:255px;padding-left:15px;height:auto;overflow:hidden;margin:10px auto 5px auto;background:url(/img/ico/ico_rg04.png) no-repeat left center;}
+.gvTag span{display:inline-block;margin-right:5px;font-size:11px;}
+.gvIconEventBox{width:270px;height:30px;overflow:hidden;margin:0 auto;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.gvIconEventBox .t01{margin-top:5px;float:left;}
+.gvIconEventBox .t01 span{font-size:12px;display:inline-block;margin-right:10px;padding-left:15px;}
+.gvIconEventBox .t01 .s01{background:url(/img/ico/ico_rg01.png) no-repeat left center;}
+.gvIconEventBox .t01 .s02{background:url(/img/ico/ico_rg02.png) no-repeat left center;}
+.gvIconEventBox .t01 .s03{background:url(/img/ico/ico_rg03.png) no-repeat left center;}
+
+.gvIconEventBox .t02{float:right;margin-top:4px;}
+.gvIconEventBox .t02 a{display:inline-block;margin-left:10px;}
+.gvReplyForm{width:270px;height:30px;border-radius:15px;margin:10px auto;overflow:hidden;background:#efedee;}
+.gvReplyForm .like{margin:8px 10px 0 15px;width:15px;height:15px;overflow:hidden;background:url(/img/ico/ico_hart01.png);float:left;font-size:0;text-indent:-2000px;}
+.gvReplyForm .like.on{background:url(/img/ico/ico_hart01_on.png);}
+.gvReplyForm input{float:left;width:175px;height:30px;line-height:30px;border:0;background:transparent;font-size:13px;}
+.gvReplyForm .btnGesi{float:left;font-size:13px;height:30px;width:40px;overflow:hidden;line-height:30px;text-align:center;}
+.gvReplyListBox{width:270px;height:140px;overflow:hidden;margin:0 auto;}
+.gvReplyList{width:100%;height:auto;overflow:hidden;}
+.gvReplyList li{width:100%;height:auto;overflow:hidden;margin-bottom:5px;}
+.gvReplyList li .t01{float:left;width:70px;height:auto;overflow:hidden;font-size:12px;color:#666;}
+.gvReplyList li .t02{float:left;width:200px;height:auto;overflow:hidden;font-size:12px;color:#666;}
+.gcLeft.t01 .gdTitle{width:100%;height:70px;overflow:hidden;}
+.gcLeft.t01 .gdTitle .t01{padding-left:50px;float:left;heigth:70px;line-height:70px;margin-left:20px;background:url(/img/ico/ico_gwon06.png) no-repeat left center;font-size:18px;font-weight:bold;color:#666;}
+.gcLeft.t01 .gdTitle .t02{float:right;margin:15px 15px 0 0;text-align:right;}
+.gcLeft.t01 .gdTitle .t02 .s01{font-size:12px;color:#666;}
+.gcLeft.t01 .gdTitle .t02 .s02{margin-top:5px;}
+.gcLeft.t01 .gdTitle .t02 .s02 a, 
+.gcLeft.t01 .gdTitle .t02 .s02 img, 
+.gcLeft.t01 .gdTitle .t02 .s02 span{vertical-align:middle}
+.gcLeft.t01 .gdTitle .t02 .s02 a{position:relative;display:inline-block;width:37px;height:17px;overflow:hidden;}
+.gcLeft.t01 .gdTitle .t02 .s02 a img{position:absolute;left:0;top:0;}
+.gcLeft.t01 .gdTitle .t02 .s02 span{font-size:12px;color:#666;}
+.gdContScrollBox{width:100%;height:529px;border-top:1px solid #ddd;overflow:hidden;}
+.gdContScrollBox table{width:100%;}
+.gdContScrollBox table th{padding:10px 20px;vertical-align:top;font-size:15px;text-align:left;}
+.gdContScrollBox table td{line-height:1.5em;padding:10px 20px;vertical-align:top;font-size:15px;text-align:left;}
+.gdMapArea{width:100%;height:140px;overflow:hidden;position:relative;}
+.gdMapArea .gdDownload{position:absolute;right:10px;bottom:10px;}
+.gdEtcList{width:270px;margin:10px auto;height:auto;overflow:hidden;}
+.gdEtcList li{width:100%;height:auto;overflow:hidden;margin-bottom:5px;}
+.gdEtcList li .t01{float:left;width:70px;height:auto;overflow:hidden;font-size:12px;color:#666;}
+.gdEtcList li .t02{color:#3759a0;float:left;width:200px;height:auto;overflow:hidden;font-size:12px;}
+.gcFavBox{display:none;width:600px;height:320px;overflow:hidden;border:1px solid #ddd;background:#fff;position:absolute;left:50%;top:50%;margin:-160px 0 0 -300px;z-index:90;}
+.gcFavBox .rela{width:530px;height:auto;overflow:hidden;margin:0 auto;}
+.gcFavBox .rela .gcFavTitle{width:100%;height:auto;overflow:hidden;font-size:16px;font-weight:bold;color:#555;margin:20px 0 5px 0;}
+.gcFavBox .rela table{width:100%;}
+.gcFavBox .rela table th{border-top:1px solid #ddd;border-bottom:1px solid #ddd;font-size:13px;padding:5px;font-weight:normal;color:#555;}
+.gcFavBox .rela table td{font-size:13px;padding:5px;text-align:center;color:#555;}
+.gcFavBox .rela table td.al{text-align:left;}
+.gcFavBox .rela .fovScrollBox{width:100%;height:150px;overflow:hidden;border-bottom:1px solid #ddd;}
+.gcTailTitle{width:100%;height:auto;overflow:hidden;font-size:16px;font-weight:bold;color:#555;margin:20px 0 5px 0;}
+.gcTailTitle span{color:#999;font-size:13px;font-weight:normal;}
+.gcTailList{width:100%;height:auto;overflow:hidden;margin-top:10px;}
+.gcTailList li{float:left;width:102px;margin-left:3px;background:#f4f4f4;text-align:center;}
+.gcTailList li:first-child{margin-left:0;}
+.gcTailList li a{font-size:11px;letter-spacing:-1px;}
+.gwon01{display:inline-block;padding-left:30px;background:url(/img/ico/ico_gwon01.png) no-repeat left center;background-size:25px 25px;}
+.gwon02{display:inline-block;padding-left:30px;background:url(/img/ico/ico_gwon02.png) no-repeat left center;background-size:25px 25px;}
+.gwon03{display:inline-block;padding-left:30px;background:url(/img/ico/ico_gwon03.png) no-repeat left center;background-size:25px 25px;}
+.gwon04{display:inline-block;padding-left:30px;background:url(/img/ico/ico_gwon04.png) no-repeat left center;background-size:25px 25px;}
+.gwon05{display:inline-block;padding-left:30px;background:url(/img/ico/ico_gwon05.png) no-repeat left center;background-size:25px 25px;}
+
+.nico01{display:inline-block;padding-left:15px;background:url(/img/ico/ico_nico01.png) no-repeat left center;background-size:15px 15px;}
+.nico02{display:inline-block;padding-left:15px;background:url(/img/ico/ico_nico02.png) no-repeat left center;background-size:15px 15px;}
+.nico03{display:inline-block;padding-left:15px;background:url(/img/ico/ico_nico03.png) no-repeat left center;background-size:15px 15px;}
+.nico04{display:inline-block;padding-left:15px;background:url(/img/ico/ico_nico04.png) no-repeat left center;background-size:15px 15px;}
+.nico05{display:inline-block;padding-left:15px;background:url(/img/ico/ico_nico05.png) no-repeat left center;background-size:15px 15px;}
+.mCSB_inside > .mCSB_container{margin:0 !important}
+.hidden{position:absolute;left:-2000px;}
+
+
+
+
+
+
+

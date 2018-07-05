@@ -1,0 +1,373 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    
+    <!-- *신규* --> 
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/interativeFunc.css" />
+  	<!-- *신규* -->
+  
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    
+    <script type="text/javascript" src="/sample/include/js/interactiveEtc.js"></script><!-- *신규* -->
+    <script type="text/javascript" src="/sample/include/js/interactiveEtc_databoard.js"></script><!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+			<div class="rela">
+				
+				<div class="sceneBox on">
+					<div class="sceneRela">
+						<div class="toolBar"></div>
+						<div class="interactiveBar"></div><!-- map topbar -->
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<script>
+				    	$(function(){
+				    		$(".interactiveDataBoard").click();
+				    	});
+				    	</script>
+				    	<!-------------------------------------데이터보드 ----------------------------------->
+				    	<a href="javascript:void(0)" class="interactiveDataBoard">데이터보드</a>
+				    	<div class="dataSideBox">
+				    		<div class="bar">
+				    			<div id="dataSlider" class="dataSlider"></div> 
+				    			<a href="javascript:void(0)"><img src="/img/ico/ico_close02.png" alt="데이터보드 닫기" /></a>
+				    		</div>
+				    		<div class="dataSideContents">
+				    			<div class="dataSideScroll">
+					    			<strong class="num">1,563명</strong>
+					    			<p class="txt">인구 5세 ~ 9세 + 남 > 2010년 대전광역시 서구 둔산2동</p>
+					    			<dl class="dscList">
+					    				<dt><a href="javascript:void(0)">시계열별 데이터 조회</a></dt>
+					    				<dd>
+					    					<div class="clockTypeBox">
+					    						<a href="javascript:void(0)" class="btn_clockTypePlay">Play</a>
+					    						<a href="javascript:void(0)" class="btn_clockTypeSetting">설정</a>
+					    						<a href="javascript:void(0)" class="btn_clockTypeOk">ok</a>
+					    						<ul class="yearList">
+					    							<li>
+						    							<input type="checkbox" id="y2006" />
+						    							<label for="y2006">2006</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2007" />
+						    							<label for="y2007">2007</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2008" />
+						    							<label for="y2008">2008</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2009" />
+						    							<label for="y2009">2009</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2010" />
+						    							<label for="y2010">2010</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2011" />
+						    							<label for="y2011">2011</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2012" />
+						    							<label for="y2012">2012</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2013" />
+						    							<label for="y2013">2013</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2014" />
+						    							<label for="y2014">2014</label>
+					    							</li>
+					    							<li>
+						    							<input type="checkbox" id="y2015" />
+						    							<label for="y2015">2015</label>
+					    							</li> 
+					    						</ul>
+					    					</div>
+					    				</dd>
+					    				<dt><a href="javascript:void(0)">검색지역 주요 통계 결과</a></dt>
+					    				<dd>
+					    					<div class="clickArea">
+						    					<div class="clickMiniMap"></div>
+						    					<ul class="list01">
+						    						<li>둔산2동 해당 인구 : 1,563(명)</li>
+						    						<li>둔산2동 전체 인구 : 41,563(명)</li>
+						    						<li>선택지역 전체 인구 : (명)</li>
+						    						<li>선택지역 해당 인구 : (명)</li>
+						    					</ul>
+						    					
+						    					<div class="fl"> 
+						    						<div class="charts"></div>
+						    					</div>
+						    					<div class="fr"> 
+						    						<div class="charts"></div>
+						    					</div>
+					    					</div>
+					    				</dd>
+					    				<dt><a href="javascript:void(0)">해당 
+					    				지역 데이터 보기</a></dt>
+					    				<dd>
+					    					<div class="compareBox">
+					    						<div class="typeBox">
+					    							<a href="javascript:void(0)" class="first on">차트</a>
+					    							<a href="javascript:void(0)">표</a>
+					    						</div>
+					    						<div class="charts" id="targetCharts"></div>
+					    						<div class="tables"><!-- 표영역 -->
+					    							<a href="javascript:void(0)" class="btn_excelDownload">엑셀다운로드</a>
+					    							<table summary="항목, 순위, 값, 비율(%)">
+					    								<caption>해당지역 내 데이터 보기</caption>
+					    								<thead>
+					    									<tr>
+						    									<th scope="col">항목</th>
+						    									<th scope="col">순위</th>
+						    									<th scope="col">값</th>
+						    									<th scope="col">비율(%)</th>
+					    									</tr>
+					    								</thead> 
+					    							</table>
+					    							<div class="scrolls">
+						    							<table summary="항목, 순위, 값, 비율(%)">
+						    								<caption>해당지역 내 데이터 보기</caption> 
+						    								<tbody>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    								</tbody>
+						    							</table>
+					    							</div>
+					    						</div><!-- 표영역 -->
+					    						
+					    					</div>
+					    				</dd>
+					    				<dt><a href="javascript:void(0)">상위 지역 비교 데이터 보기</a></dt>
+					    				<dd>
+					    					<div class="compareBox">
+					    						<div class="typeBox">
+					    							<a href="javascript:void(0)" class="first on">차트</a>
+					    							<a href="javascript:void(0)">표</a>
+					    						</div>
+					    						<div class="charts">
+					    							<div class="topAreaChartsBox">
+						    							<div id="pieChartDiv1"></div>
+						    							<div id="pieChartDiv2"></div>
+						    							<div id="pieChartDiv3"></div>
+						    							<p class="pieLegend">
+							    							<span class="pieLegend1">
+							    							<span class="legendName">대전광역시</span> : <span class="legendValue">3.1%</span>
+							    							</span>
+							    							<span class="pieLegend2">
+							    							<span class="legendName">서구</span> : <span class="legendValue">33.4%</span>
+							    							</span>
+							    							<span class="pieLegend3"><span class="legendName">월평2동</span> : <span class="legendValue">3.8%</span>
+							    							</span>
+						    							</p>
+					    							</div>
+					    						</div>
+					    						<div class="tables"><!-- 표영역 -->
+					    							<a href="javascript:void(0)" class="btn_excelDownload">엑셀다운로드</a>
+					    							<table summary="항목, 순위, 값, 비율(%)">
+					    								<caption>해당지역 내 데이터 보기</caption>
+					    								<thead>
+					    									<tr>
+						    									<th scope="col">항목</th>
+						    									<th scope="col">순위</th>
+						    									<th scope="col">값</th>
+						    									<th scope="col">비율(%)</th>
+					    									</tr>
+					    								</thead> 
+					    							</table>
+					    							<div class="scrolls">
+						    							<table summary="항목, 순위, 값, 비율(%)">
+						    								<caption>해당지역 내 데이터 보기</caption> 
+						    								<tbody>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    									<tr>
+						    										<td class="al">집계구1</td>
+						    										<td>1</td>
+						    										<td>98</td>
+						    										<td>5.29</td>
+						    									</tr>
+						    								</tbody>
+						    							</table>
+					    							</div>
+					    						</div><!-- 표영역 -->
+					    						
+					    					</div>
+					    				</dd> 
+					    			</dl>
+				    			</div>
+				    		</div>
+				    	</div>  
+				    	<!-------------------------------------데이터보드 end -----------------------------------> 
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	<div class="mapContents"><img src="/img/pm/map_img.jpg" /></div><!-- 맵영역 -->  
+				    	
+			    	</div>
+		    	</div> 
+				
+
+			</div>	 
+		</div>  
+
+
+	</div>
+</body>
+</html>

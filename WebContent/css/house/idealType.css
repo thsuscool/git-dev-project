@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* 이상형 동네 찾기 */
+
+.LayerCont {display:none;}
+.LayerCont.open { position:fixed;display:block; width:100%; height:100%; left:0; top:0; background:rgba(0, 0, 0, 0.6); z-index:10000;}
+.LikeTown { position:absolute; width:990px; height:720px; background:#fff; z-index:10001; left:50%; top:50%; margin-left:-495px; margin-top:-360px;}
+.LikeTown h1 { height:40px; font-size:15px; color:#fff; width:100%; background:#333; font-weight:normal; font-family:'나눔고딕'; padding:11px 0 0 15px; box-sizing:border-box;}
+.LikeTown .Btn_close { width:18px; height:18px; background:url(/img/house/liketown_close.png) no-repeat center center; position:absolute; right:15px; top:11px; text-indent:-1000px; overflow:hidden;-webkit-transition-duration:0.1s; transition-duration:0.1s;}
+.LikeTown .Btn_close:hover { transform:rotate(90deg);}
+@media only all and (max-width:990px) {
+	.LikeTown { left:0; margin-left:0;}
+}
+@media only all and (max-height:720px) {
+	.LikeTown { top:0; margin-top:0;}
+}
+
+.LayerCont .ContInfo { height:95px; background:#09f url(/img/house/liketown_bg.png) no-repeat 660px bottom; box-sizing:border-box; color:#fff; padding:15px 0 0 25px;}
+.LayerCont .ContInfo h2 { font-size:18px; font-family:'나눔고딕B'; font-weight:normal; margin-bottom:10px;}
+.LayerCont .ContInfo h2 b { font-weight:normal; color:#000; margin-right:10px;}
+.LayerCont .ContInfo p { font-size:12px;}
+.LayerCont .ContInfo p img { background:rgba(255, 255, 255, 0.7); width:9px; height:9px; display:inline-block; border-radius:5px; vertical-align:middle; margin-right:1px; padding:1px; margin-top:-1px;}
+
+.LayerCont .ContBox {height:510px;}
+.LayerCont .BtnGroup {border-top:#ccc solid 1px; text-align:center; padding-top:10px;}
+.LayerCont .BtnGroup button { min-width:100px; padding:0 50px; height:50px; text-align:center; color:#fff; border-radius:15px; background:#666; font-size:14px; line-height:30px; margin:0 5px;}
+.LayerCont .BtnGroup button.btnTypeB { background:#06c;}
+.LayerCont .BtnGroup button.btnTypeG { background:#666;}
+
+.RadioGroup { padding-top:12px;}
+.RadioGroup input, .RadioGroup label {vertical-align:middle;} 
+.RadioGroup input {position:absolute;left:-2000px;}
+.RadioGroup input:checked:before{background:url(/img/ico/ico_rdbox_on.gif);}
+.RadioGroup label {background:url(/img/ico/ico_rdbox.gif) no-repeat left center;padding-left:25px;line-height:20px;display:inline-block; margin-right:20px;}
+.RadioGroup label.on {background:url(/img/ico/ico_rdbox_on.gif) no-repeat left center;}
+
+
+.LikeTown .step1 dd select {height:34px;border:1px solid #ccc; box-sizing:border-box; width:200px; margin-right:10px; border-radius:4px; margin-top:7px;}
+
+.LikeTown .step1 {padding:65px 0 0 60px; font-size:14px; box-sizing:border-box;}
+.LikeTown .step1 dl { height:44px; position:relative; padding-left:120px; margin-bottom:37px;}
+.LikeTown .step1 dt { position:absolute; left:0; top:15px;}
+.LikeTown .step1 dt img { position:absolute; left:-15px; top:3px;}
+.LikeTown .step1 dd a { line-height:45px; margin-right:25px;}
+.LikeTown .step1 dd a span { background:#eaeaea no-repeat center center; display:inline-block; width:45px; height:45px; border-radius:10px; border:#ccc solid 1px; box-sizing:border-box; margin-right:10px; text-indent:-1000px; overflow:hidden; vertical-align:middle;-webkit-transition-duration:0.2s; transition-duration:0.2s;}
+.LikeTown .step1 dd a.M_on span {background-color:#22b599; border:none;}
+.LikeTown .step1 dd a:hover span { background-color:#22b599; border:none;}
+.LikeTown .step1 dd a.male span { background-image:url(/img/house/liketown_icon1_1.png);}
+
+.Condition { height:285px;}
+.Condition dl { float:left; width:330px; height:100%;}
+.Condition dl:nth-child(1) {background:#369;}
+.Condition dl:nth-child(2) {background:#963;}
+.Condition dl:nth-child(3) {background:#396;}
+.Condition dl dt { height:62px; font-size:18px;color:#fff; text-align:center; box-sizing:border-box; padding-top:13px;}
+.Condition dl dt strong { font-family:'나눔고딕B'; font-size:24px; font-weight:normal; }
+.Condition dl:nth-child(1) dt strong { color:#f66;}
+.Condition dl:nth-child(2) dt strong { color:#fc0;}
+.Condition dl:nth-child(3) dt strong { color:#9f6;}
+.Condition dl dd { height: 220px;overflow-y: auto;}
+.Condition dl dd ul { padding:0 22px;}
+.Condition dl dd ul li { height:28px; background:#fff; color:#666;  margin-bottom:5px; border-radius:14px; box-sizing:border-box; line-height:28px; padding: 0 20px; position:relative; font-size:11px; font-family:'돋움', dotum, san-serif; cursor:pointer;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.Condition dl dd ul li.M_on { background: #bbb;color: #000000;}
+.Condition dl dd ul li:before { content:''; display:block; width:4px; height:4px; background:#00bcd4; border-radius:2px; position:absolute; left:11px; top:12px;}
+.Condition dl dd ul li.M_on:before { background: url(/img/ico/ico_ck.gif) no-repeat center center;left: 5px;top: 5px;width:14px;height:14px;}
+
+.Puzzle { height:225px; background:#efefef; position:relative; box-sizing:border-box; text-align:center;}
+.Puzzle .PuzzleHelp { text-align:center; font-size:12px; background:url(/img/house/puzzle_help.png) no-repeat left center; height:22px; line-height:22px; padding-left:25px; display:inline-block; margin:0 auto; margin-top:5px; margin-bottom:4px;}
+.Puzzle .PuzzleInfo {position:absolute; left:24px; top:31px; }
+.Puzzle .PuzzleInfo div { float:left; width:313px; height:88px; margin:0 2px 2px 0; position:relative; overflow:hidden;}
+.Puzzle .PuzzleInfo div:nth-child(3n) {margin-right:0;}
+
+.Puzzle .PuzzleInfo div {}
+.Puzzle .PuzzleInfo div span.Num { position:absolute; left:calc(50% - 15px); top:30px; font-size:18px; width:20px; height:20px; line-height:20px; text-align:center; display:block; -webkit-transition-duration:0.1s; transition-duration:0.1s;}
+.Puzzle .PuzzleInfo div span.Text {position:absolute; width:220px; left:calc(50% - 110px); top:320px; display:block; line-height:20px; word-break:keep-all; -webkit-transition-duration:0.1s; transition-duration:0.1s;}
+.Puzzle .PuzzleInfo div button { background:url(/img/house/puzzle_delete.png) no-repeat left top; width:17px; height:17px; text-indent:-1000px; overflow:hidden; position:absolute; right:10px; top:320px; -webkit-transition-duration:0.1s; transition-duration:0.1s;}
+
+.Puzzle .PuzzleInfo div.M_on span.Num { display:block; color:#333; font-family:'나눔고딕B'; background:#fff; border-radius:15px; left:10px; top:5px;font-size: 15px;}
+.Puzzle .PuzzleInfo div.M_on span.Text { font-size:14px; color:#fff;font-family:'돋움', dotum, san-serif; text-align:center; top:25px;}
+.Puzzle .PuzzleInfo div.M_on button {top:10px;}
+

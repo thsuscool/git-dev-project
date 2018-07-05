@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+<link rel="stylesheet" type="text/css" href="./styles/common.css" />
+<link rel="stylesheet" type="text/css" href="./styles/layout.css" />
+<link rel="stylesheet" type="text/css" href="./styles/survey.css" />
+<script src="./scripts/libs/jquery-1.11.1.min.js"></script>
+<script src="./scripts/ui.js"></script>
+<!--[if lt IE 9]><script src="./scripts/libs/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="./scripts/libs/respond.js"></script><![endif]-->
+<title>공지사항 :: 통계지리정보서비스</title>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+     var wsize = 620;
+     var hsize = 897;
+     document.onreadystatechange=resizeFrame;
+     function resizeFrame(){
+    	 try{
+    		 self.resizeTo(wsize, hsize);
+    	 }catch(e){
+    		 
+    	 }
+     }
+     
+     function fncResist() {       
+    	numcheck();	  	     	
+		if(document.joinFm.userName.value == "") {
+			alert("성명을 입력하세요.");
+			document.getElementsByName("userName")[0].focus();
+		    return;			
+		} else if(document.joinFm.q_1.value == "" || document.joinFm.q_2.value == "" || document.joinFm.q_3.value == "" || document.joinFm.q_4.value == "" || document.joinFm.q_5.value == "") {
+			alert("다섯문제를 다 풀어주세요. 풀지 않은 문제가 있습니다.");
+		    return;
+		} else if(document.joinFm.userTel.value == "") {
+			alert("전화번호를  입력하세요.");
+			document.getElementsByName("p1")[0].focus();
+		    return;	
+		} else {
+			document.joinFm.action="/contents/survey/survey_insert.jsp";
+			document.joinFm.submit();
+			return true;
+		}
+	} 
+ 	
+  function numcheck() {
+		var inText = document.joinFm.p1.value + document.joinFm.p2.value + document.joinFm.p3.value;
+		var ret;
+		for (var i=0; i<inText.length; i++) {
+		 ret = inText.charCodeAt(i);
+		 if ((ret<48) || (ret>57)) {
+			 alert("숫자로만 기입하여 주시기 바랍니다.");
+			 document.joinFm.p1.value ="";
+			 document.joinFm.p2.value ="";
+			 document.joinFm.p3.value ="";
+			 document.joinFm.p1.focus();
+			 return;
+		  } // if 문
+		}
+		document.joinFm.userTel.value = inText;
+   	}
+   function MM_openBrWindow(theURL,winName,features) { //v2.0
+   	   var add = "scrollbars=yes, toolbar=no resizable=no,"+features;
+   	  window.open(theURL,winName,add);
+   }
+   function fncOX(qNum){
+	   var num = qNum.split("_")[1];
+	   var ox = qNum.split("_")[2];
+	   if(ox == "o"){
+	   		$("#"+qNum+"").attr("src","./img/icon_o_a.png" );
+	   		$("#"+qNum.split("_")[0]+"_"+num+"_x").attr("src","./img/icon_x_d.png" );
+	   }else{
+		   $("#"+qNum+"").attr("src","./img/icon_x_a.png" );
+	   	   $("#"+qNum.split("_")[0]+"_"+num+"_o").attr("src","./img/icon_o_d.png" );
+	   }
+	   $("#"+qNum.split("_")[0]+"_"+num+"").val(ox);
+   }
+	function fncCancel(){
+		window.location.reload();
+	}
+//]]>
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="contentsWrapper">
+			<div class="contents">			
+				<div class="title">
+					‘<span>SGIS오픈플랫폼(SOP:가칭)</span>’은 센서스 자료와 민간 데이터를 분석하고 공유할 수 있도록 구축한 SGIS서비스의 발전된 서비스로 2015년 4월 27일부터 대국민 시범서비스를 실시하고 있습니다.
+				</div>
+				<div class="question mt30">
+					1. 이러한 서비스의 성격을 잘 반영한 ‘SGIS오픈플랫폼(SOP)’의 명칭은 무엇이라고 생각하십니까?(   )
+					<ul class="mt20">
+						<li><a href="#">1.SGIS통하는 지도</a><br/>(센서스 자료와 민간 데이터를 활용해서 사용자가 원하는 정보를 얻을 수 있는, 통계로 통하는 지도라는 의미)  </li>
+						<li><a href="#">2.SGIS열린나루</a>
+							<br/>(열린은 ‘open' 즉 ’열다‘, ’나루‘는 강이나 내, 바다목 등에서 배가 건너다니는 곳이란 의미로, 통계를 지도위에서 표현하고 정보 공유를 통해 열려있다는 의미)  
+						</li>
+						<li><a href="#">3.통계여지도</a><br/>(대동여지도처럼 통계의 종합적인 내용을 담은 통계지도 서비스라는 의미) </li>
+						<li><a href="#">4.S-MAP</a>
+							<br/>(‘S’는 SGIS 또는 Statistical등을 의미하며 통계를 지도로 표현하는 서비스라는 의미, ‘에스맵’으로 한국어 음절도 짧고, 통계와 지도를 서비스하는 의미도 함축하고 있으며, URL주소로 활용할 수도 있음)
+						</li>
+					</ul>
+				</div>
+				<div class="question mt30">
+					2.  ‘SGIS오픈플랫폼(SOP)’의 명칭을 제안해주세요!<br/>
+					<span>* 제안한 명칭은 통계청에 귀속되며, 우수 제안자를 선정하여 상품권을 지급합니다. </span>
+					<div class="questionInputA mt20">	
+						명칭<input type="text" class="questionInput w150 ml10 mr10"/>
+						의미<input type="text" class="questionInput w545 ml10"/>
+					</div>
+				</div>				
+				<div class="title mt30">
+					‘<span>‘인터랙티브 맵’</span>’은 사용자가 필요에 따라 다양한 통계자료를 선택하여 공간통계정보를 검색할 수 있는 시스템입니다.
+				</div>
+				<div class="question mt30">
+					3. 이러한 서비스의 성격을 잘 반영한 ‘인터랙티브 맵’의 명칭은 무엇이라고 생각하십니까?(   )
+					<ul class="mt20">
+						<li><a href="#">1.대화형 통계지도</a>
+							<br/>(텍스트, 그래픽, 버튼 등을 눌러서 사용자의 동작에 반응한다는 의미를 가진 대화형 통계지도는 선택버튼을 누르면 원하는 조건의 통계지도를 만들 수 있다는 의미) 
+						</li>
+						<li><a href="#">2.공감맵</a>
+							<br/>(공간통계의 공 + 느낄 감 + 지도를 영어로 맵을 합성한 명칭으로 공감을 얻어낸다는 중복의 의미)  
+						</li>
+						<li><a href="#">3.내가 만드는 통계지도</a><br/>(통계지도를 사용자가 직접 만들 수 있다는 의미)</li>
+						<li><a href="#">4.함께누리맵</a><br/>(함께 세상을 보는 지도라는 의미)</li>
+					</ul>
+				</div>
+				<div class="question mt40">
+					4. ‘인터랙티브맵’의 명칭을 제안해주세요! <br/>
+					<span>* 제안한 명칭은 통계청에 귀속되며, 우수 제안자를 선정하여 상품권을 지급합니다. </span>
+					<div class="questionInputA mt20">	
+						명칭<input type="text" class="questionInput w150 ml10 mr10"/>
+						의미<input type="text" class="questionInput w545 ml10"/>
+					</div>
+				</div>
+				<div class="question mt40">
+					5. SGIS에서 서비스 되었으면 하는 컨텐츠와, SGIS의 개선점, 기타 다양한 의견 등을 기술해 주시기 바랍니다. <br/>					
+					<input type="text" class="questionInput w804 mt10 h100"/>
+				</div>
+				<div class="userTitle mt40">
+					* 아래 사항은 추첨 및 우수제안자 선정을 통한 상품권 지급 및 분석 목적으로만 활용하며 명칭공모 결과 발표 후 상품권 지급이 완료되면 개인정보는 삭제합니다.
+				</div>
+				<div class="user">
+					<ul class="mt30">
+						<li>성별 :<span><input type="radio" class="ml20 mr5"/>남<input type="radio" class="ml20 mr5"/>여</span></li>
+						<li>성명 :<span><input type="text" class="questionInput ml20 w100"/></span></li>
+						<li>휴대전화번호 :<span><input type="text" class="questionInput ml20 w100"/></span></li>
+						<li>분류 :	
+							<p>
+								<a href="#">① 전문가(교수 및 연구원 등) </a><br/>
+								<a href="#">② 정부관련기관 근무자(공무원 및 공공기관, 교사 등) </a> <br/>
+								<a href="#">③ 개발자(프로그램 개발 등)</a><br/>
+								<a href="#">④ 학생(대학 이상 재학)</a> <br/>
+								<a href="#">⑤ 학생(초․중․고등학교 재학)</a><br/>
+								<a href="#">⑥ 주부 및 기타   </a><br/>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>			
+		</div>
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample3/include/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+		</div>  
+
+
+	</div>
+	
+	
+	<div class="dialogbox" style="display:block;">
+		<div class="policyWriteBox areaType">
+	   		<div class="bar">
+	   			<span>지역 상세정보 비교하기</span>
+	   			<div class="pnBox">
+	   				<span class="num on">1</span>
+		   			<span class="num on">2</span>
+		   			<span class="num">3</span>
+	   			</div>
+	   			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+	   		</div>
+	   		<div class="policywContents">
+	   			   
+	    		<div class="mgBox">
+	    			<div class="dbTabs">
+						<a href="javascript:void(0)" class="on">종합 통계 정보</a>
+						<a href="javascript:void(0)">상세 통계 정보</a> 
+					</div>
+		    		<div class="dbTabs type01">
+						<a href="javascript:void(0)" class="on">첨단기술</a>
+						<a href="javascript:void(0)">고기술</a>
+						<a href="javascript:void(0)">중기술</a>
+						<a href="javascript:void(0)">저기술</a>
+						<a href="javascript:void(0)">창의ㆍ디지털</a>
+						<a href="javascript:void(0)">ICT</a>
+						<a href="javascript:void(0)">전문서비스</a> 
+					</div> 
+	    		</div>
+	    		
+	    		<div class="mgCont t01">
+	    			<div class="cItem">
+	    				<p>창업지원시설 현황</p>
+	    				<div class="chtBox">
+	    					<div class="chtBar"  id="chtBar01"></div>
+	    					<span>단위:개</span>
+	    				</div>
+	    			</div>
+	    			<div class="cItem">
+	    				<p>산업단지 현황</p>
+	    				<div class="chtBox">
+	    					<div class="chtBar"  id="chtBar02"></div>
+	    					<span>단위:개</span>
+	    				</div>
+	    			</div>
+	    			<div class="cItem">
+	    				<p>기술업종 통계 현황</p>
+	    				<div class="chtBox">
+	    					<div class="dbTabs">
+	    						<a href="javascript:void(0)" class="on">사업체</a>
+	    						<a href="javascript:void(0)">종사자</a> 
+	    					</div>
+	    					<div class="chtBar"  id="chtBar03"></div>
+	    					<span>단위:개</span>
+	    				</div>
+	    			</div>
+	    			<div class="cItem">
+	    				<p>지역 통계 현황</p>
+	    				<div class="chtBox">
+	    					<div class="dbTabs">
+	    						<a href="javascript:void(0)" class="on">인구</a>
+	    						<a href="javascript:void(0)">면적</a>
+	    						<a href="javascript:void(0)">지가변동률</a>
+	    						<a href="javascript:void(0)">재정자립도</a> 
+	    					</div>
+	    					<div class="chtBar"  id="chtBar04"></div>
+	    					<span>단위:개</span>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		
+	    		 
+	   				
+	   			 
+	   		</div>
+	   	</div>  
+   	</div>
+   	
+   	<script>
+	$( function() {
+		columnCht("#chtBar01");
+		columnCht("#chtBar02");
+		columnCht("#chtBar03");
+		columnCht("#chtBar04");
+	});
+	function columnCht(id){
+		$(id).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        colors:['#f36a4a','#ffc000','#8faadc'],
+	        tooltip: { enabled: false },
+	        title: { text: '' },
+	        subtitle: { text: '' },
+	        xAxis: {
+	            categories: ['경기도<br />화성시', '서울시<br />강남구', '경기도<br />고양시']
+	        },
+	        yAxis: {
+	            min: 0, title: { text: '', align: 'left' },
+	            labels: { overflow: 'justify', enabled: false }
+	        }, 
+	        plotOptions: { 
+	        	bar: {
+	                dataLabels: { enabled: false }
+	            }
+	        },
+	        legend: { enabled: false },
+	        credits: {  enabled: false },
+	        series: [
+	            { 
+	            	colorByPoint: true,
+	            	name: '경기도 화성시',
+	            	data: [50,40,30],
+	            	dataLabels: {
+	    				enabled: true,
+	    				rotation: 0,
+	    				color: '#333',
+	    				align: 'center',
+	    				format: '{point.y}', // one decimal
+	    				y: 0
+	    			}
+	        	}
+	        ]
+	    });
+	}
+	 
+	</script>
+	 
+</body>
+</html>

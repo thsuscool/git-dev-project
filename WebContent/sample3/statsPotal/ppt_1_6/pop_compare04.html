@@ -1,0 +1,337 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title> 
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/wheelcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/plugins/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/plugins/colResizable-1.5.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/sample2/include/css/technicalBiz.css" />
+    <script type="text/javascript" src="/sample2/include/js/bizStatsEtc.js"></script> 
+    <!-- *신규* --> 
+    <link rel="stylesheet" type="text/css" href="/sample3/include/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/statsPotal/statsPotal.css" />
+    <script type="text/javascript" src="/js/statsPotal/statsPotal.js"></script>
+    <!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap"> 
+		<!-- header // -->
+		<header></header>
+
+		<!-- body -->
+
+		<div class="containerBox">  
+		</div>  
+
+
+	</div>
+	
+	
+	<div class="dialogbox" style="display:block;">
+		<div class="policyWriteBox areaType">
+	   		<div class="bar">
+	   			<span>지역 상세정보 비교하기</span>
+	   			<div class="pnBox">
+	   				<span class="num on">1</span>
+		   			<span class="num on">2</span>
+		   			<span class="num">3</span>
+	   			</div>
+	   			<a href="javascript:void(0)"><img src="/img/ico/ico_close05.png" alt="데이터보드 닫기" /></a>
+	   		</div>
+	   		<div class="policywContents">
+	   			   
+	    		<div class="mgBox">
+	    			<div class="dbTabs">
+						<a href="javascript:void(0)" class="on">종합 통계 정보</a>
+						<a href="javascript:void(0)">상세 통계 정보</a> 
+					</div>
+		    		<div class="dbTabs type01">
+						<a href="javascript:void(0)" class="on">첨단기술</a>
+						<a href="javascript:void(0)">고기술</a>
+						<a href="javascript:void(0)">중기술</a>
+						<a href="javascript:void(0)">저기술</a>
+						<a href="javascript:void(0)">창의ㆍ디지털</a>
+						<a href="javascript:void(0)">ICT</a>
+						<a href="javascript:void(0)">전문서비스</a> 
+					</div> 
+	    		</div>
+	    		
+	    		<div class="mgCont">
+	    			<div class="cItem">
+	    				<p>지역 특성 정보_첨단기술</p>
+	    				<div class="chtBox" id="chtBox01"></div>
+	    				
+	    				<ul class="mgLegendList">
+	    					<li>&nbsp;</li>
+	    					<li class="c00">경기도 시흥시</li>
+	    					<li>&nbsp;</li>
+	    					<li class="c01">경기도 시흥시</li>
+	    					<li class="c02">경기도 시흥시</li>
+	    					<li class="c03">경기도 시흥시</li>
+	    					<li class="c04">경기도 시흥시</li>
+	    					<li class="c05">경기도 시흥시</li>
+	    				</ul>
+	    			</div>
+	    			<div class="cItem">
+	    				<p>입지계수 정보_첨단기술</p>
+	    				<div class="chtBox" id="chtBox02"></div>
+	    				<ul class="mgLegendList">
+	    					<li>&nbsp;</li>
+	    					<li class="c00">경기도 시흥시</li>
+	    					<li>&nbsp;</li>
+	    					<li class="c01">경기도 시흥시</li>
+	    					<li class="c02">경기도 시흥시</li>
+	    					<li class="c03">경기도 시흥시</li>
+	    					<li class="c04">경기도 시흥시</li>
+	    					<li class="c05">경기도 시흥시</li>
+	    				</ul>
+	    			</div>
+	    			<div class="cItem">
+	    				<p>증감 추이_첨단기술</p>
+	    				<div class="chtBox" id="chtBox03"></div>
+	    				<ul class="mgLegendList">
+	    					<li>&nbsp;</li>
+	    					<li class="c00">경기도 시흥시</li>
+	    					<li>&nbsp;</li>
+	    					<li class="c01">경기도 시흥시</li>
+	    					<li class="c02">경기도 시흥시</li>
+	    					<li class="c03">경기도 시흥시</li>
+	    					<li class="c04">경기도 시흥시</li>
+	    					<li class="c05">경기도 시흥시</li>
+	    				</ul>
+	    			</div>
+	    		</div>
+	    		
+	    		 
+	   				
+	   			 
+	   		</div>
+	   	</div>  
+   	</div>
+   	
+   	<script>
+	$( function() {
+		
+		$("#chtBox01").highcharts({ 
+	        chart: { polar: true, type: 'line', margin:[0,60,0,60] },
+	        colors: ["#f7c200", "#0067c6"],
+	        title: {
+	            text: ''
+	        }, 
+	        pane: { size: '70%' }, 
+	        xAxis: {
+	            categories: ['종사자 수', '인구', '재정자립도', '지가변동률', '면적', '사업체수'],
+	            tickmarkPlacement: 'on', lineWidth: 0
+	        }, 
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            lineWidth: 0,
+	            min: 0,
+	            labels: { enabled: false }
+	        }, 
+	        tooltip: {
+	            shared: true,
+	            pointFormat: "<span>{series.name} : {point.y}</span><br />"
+	        },
+	        legend: {
+	        	enabled : false
+	        }, 
+	        series: [{
+	        	type: 'line',
+	        	name: '경기도 시흥시',
+	            data: [13000, 19000, 60000, 35000, 17000, 17000]
+	        }, {
+	        	type: 'line',
+	        	name: '경기도 시흥시',
+	            data: [20000, 39000, 42000, 31000, 26000, 17000]
+	        }] 
+	    });
+		$("#chtBox02").highcharts({ 
+	        chart: { type: 'bubble', plotBorderWidth: 1 },
+	        legend: {enabled: false},
+	        title: {text: ''},
+	        subtitle: {text: ''},
+	        xAxis: {
+	            gridLineWidth: 1,
+	            title: {text: ''},
+	            labels: {
+	                format: '{value}'
+	            },
+	            plotLines: [{
+	                color: 'red',
+	                dashStyle: 'solid',
+	                width: 2,
+	                value: 65,
+	                label: {
+	                    rotation: 0,
+	                    y: 15,
+	                    style: {
+	                        fontStyle: 'italic'
+	                    },
+	                    text: '종사자'
+	                },
+	                zIndex: 3
+	            }]
+	        },
+
+	        yAxis: {
+	            startOnTick: false,
+	            endOnTick: false,
+	            title: {
+	                text: ''
+	            },
+	            labels: {
+	                format: '{value}'
+	            },
+	            maxPadding: 0.2,
+	            plotLines: [{
+	                color: 'red',
+	                dashStyle: 'solid',
+	                width: 2,
+	                value: 50,
+	                label: {
+	                    align: 'right',
+	                    style: {
+	                        fontStyle: 'italic'
+	                    },
+	                    text: '사업체',
+	                    x: -10
+	                },
+	                zIndex: 3
+	            }]
+	        },
+
+	        tooltip: {
+	            useHTML: true,
+	            headerFormat: '<table>',
+	            pointFormat: '<tr><th colspan="2"><h3 style="font-size:13px;">{point.name}</h3></th></tr>' +
+	                '<tr><th style="font-size:13px;font-weight:normal;">사업체:</th><td style="font-size:13px;">{point.x}</td></tr>' +
+	                '<tr><th style="font-size:13px;font-weight:normal;"">종사자:</th><td style="font-size:13px;">{point.y}</td></tr>',// +
+	                //'<tr><th>z:</th><td>{point.z}%</td></tr>',
+	            footerFormat: '</table>',
+	            followPointer: true
+	        },
+
+	        plotOptions: {
+	            series: {
+	                dataLabels: {
+	                    enabled: true,
+	                    format: '{point.name}'
+	                }
+	            }
+	        },
+
+	        series: [{
+            	data: [{ x: 73.5, y: 83.1, z: 50, name: '첨단기술'}],
+	            color: "#ff0000"
+	        },{
+            	data: [{ x: 69.2, y: 120, z: 50, name: '고기술'}],
+	            color: "#f79339"
+	        },{
+            	data: [{ x: 69.2, y: 57.6, z: 50, name: '중기술'}],
+	            color: "#ffc000"
+	        },{
+            	data: [{ x: 68.6, y: 20, z: 50, name: '저기술'}],
+	            color: "#92d050"
+	        },{
+            	data: [{ x: 65.5, y: 126.4, z: 50, name: '창의및디지털'}],
+	            color: "#002060"
+	        },{
+	        	data: [{ x: 65.4, y: 50.8, z: 50, name: 'ICT'}],
+	            color: "#00b0f0"
+	        },{
+	        	data: [{ x: 63.4, y: 51.8, z: 50, name: '전문서비스'}],
+	            color: "#7030a0"
+	        }]
+	    });
+		$('#chtBox03').highcharts({
+			chart: { zoomType: 'xy' },
+	        colors: ['#9dc3e6', '#ff6969', '#00b0f0', '#c00000'],
+	        title: { text: '' },
+	        subtitle: {
+	            text: ''
+	        },
+	        xAxis: [{
+	            categories: ['2012', '2013', '2014', '2015', '2016'],
+	            crosshair: true
+	        }],
+	        yAxis: [{ // Secondary yAxis
+	            title: {
+	                text: ''
+	            }
+	        }],
+	        tooltip: {
+	            shared: true
+	        },
+	        legend: {
+	        	enabled : false
+	        },
+	        series: [{
+	            name: '경기도 시흥시',
+	            type: '',
+	            data: [12, 25, 22, 25, 23, 13, 19],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        },{
+	            name: '경기도 시흥시',
+	            type: '',
+	            data: [22, 35, 32, 35, 33, 23, 29],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        },{
+	            name: '경기도 시흥시',
+	            type: '',
+	            data: [32, 45, 42, 45, 43, 33, 39],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        },{
+	            name: '경기도 시흥시',
+	            type: '',
+	            data: [52, 65, 62, 65, 63, 53, 49],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        },{
+	            name: '경기도 시흥시',
+	            type: '',
+	            data: [52, 65, 62, 65, 63, 53, 49],
+	            tooltip: {
+	                valueSuffix: '개'
+	            }
+	        }]
+	    });
+		
+	});
+	 
+	</script>
+	 
+</body>
+</html>

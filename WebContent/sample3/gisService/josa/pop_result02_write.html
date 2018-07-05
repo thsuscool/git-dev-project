@@ -1,0 +1,159 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>조사업무지원서비스</title>  
+	<!-- 공통 -->
+	<link rel="stylesheet" type="text/css" href="/sample3/common/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/sample3/common/js/plugins/EasyTree/skin-lion/ui.easytree_new.css" />
+    <link rel="stylesheet" type="text/css" href="/sample3/common/css/colpick.css" />
+    <script type="text/javascript" src="/sample3/common/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/sample3/common/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/sample3/common/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/sample3/common/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/jquery.wheelcolorpicker.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/EasyTree/jquery.easytree.min.js"></script> 
+    <script type="text/javascript" src="/sample3/common/js/plugins/colResizable-1.5.min.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/highcharts/highcharts-more.js"></script> 
+    <script type="text/javascript" src="/sample3/common/js/plugins/highcharts/solid-gauge.js"></script>
+    <script type="text/javascript" src="/sample3/common/js/plugins/slick.min.js"></script>
+    
+    <!-- 기존 -->
+    <script type="text/javascript" src="/sample3/include/js/gisService/reserchEtc.js"></script>
+    <!-- 신규 -->
+    <link rel="stylesheet" type="text/css" href="/sample3/include/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/sample3/include/css/gisService/research.css" />
+    <script type="text/javascript" src="/sample3/include/js/gisService/gisService.js"></script>
+</head>
+
+<body>   
+<div id="wrap">
+	  본문
+</div>
+
+
+<div class="dialogbox" id="dialogResult" style="display:block;">
+	<div class="popBox w600">
+		<div class="topbar">
+			<span>통계조사 등록</span>
+			<a href="javascript:void(0)" class="close01">닫기</a>
+		</div>
+		<div class="popContents">
+			<div class="popNorBox">
+				<table class="wTable">
+					<colgroup>
+						<col width="150" />
+						<col width="" /> 
+					</colgroup>
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 통계명</div></th>
+						<td><input type="text" name="" class="inp" /></td> 
+					</tr>
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 조사단위</div></th>
+						<td>
+							<input type="radio" name="" />
+							<label class="mr10">대상처별</label>
+							<input type="radio" name="" />
+							<label class="mr10">조사구별</label>
+							<input type="radio" name="" />
+							<label class="mr10">행정구역별</label>
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 조사부문</div></th>
+						<td>
+							<input type="radio" name="" />
+							<label class="mr10">가구</label>
+							<input type="radio" name="" />
+							<label class="mr10">사업체</label>
+							<input type="radio" name="" />
+							<label class="mr10">농업</label>
+							<input type="radio" name="" />
+							<label class="mr10">어업</label>
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 조사주기</div></th>
+						<td>
+							<select class="select" name="">
+								<option>매년</option>
+							</select>
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 조사방법</div></th>
+						<td>
+							<input type="radio" name="" />
+							<label class="mr10">표본</label>
+							<input type="radio" name="" />
+							<label class="mr10">전수</label> 
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 조사구분</div></th>
+						<td>
+							<input type="radio" name="" />
+							<label class="mr10">경상조사</label>
+							<input type="radio" name="" />
+							<label class="mr10">연간조사</label> 
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 회차 및 배치파일 자동생성</div></th>
+						<td>
+							<input type="radio" name="" />
+							<label class="mr10">자동생성</label>
+							<input type="radio" name="" />
+							<label class="mr10">생성안함</label> 
+						</td> 
+					</tr> 
+					<tr>
+						<th><div class="thbox"><i class="fa fa-check"></i> 담당자</div></th>
+						<td>
+							<ul class="seoList">
+								<li>
+									<span>김영오 kairos123</span>
+									<a href="javascript:void(0)" onclick="gis.del(this)"><i class="fa fa-times" aria-hidden="true"></i></a>
+								</li>
+								<li>
+									<span>김영오 kairos123</span>
+									<a href="javascript:void(0)" onclick="gis.del(this)"><i class="fa fa-times" aria-hidden="true"></i></a>
+								</li>
+								<li>
+									<span>김영오 kairos123</span>
+									<a href="javascript:void(0)" onclick="gis.del(this)"><i class="fa fa-times" aria-hidden="true"></i></a>
+								</li>
+							</ul>
+							<a href="javascript:void(0)" class="btnType04">검색</a>
+						</td> 
+					</tr>  
+				</table>
+
+			</div>
+			<div class="btnBox"> 
+				<div class="fr">
+					<a href="javascript:void(0)" class="btnType01">등록</a>
+					<a href="javascript:void(0)" class="btnType02" onclick="popCloseTarget('dialogResult')">취소</a>
+				</div>
+				
+			</div>
+		</div>
+	</div> 
+</div>
+
+</body>
+</html>

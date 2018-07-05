@@ -1,0 +1,163 @@
+<!-- 
+* 메인화면 HTML입니다.
+* 
+* history : 네이버시스템(주), 1.0, 2014/08/07  초기 작성
+* author : 김성현
+* version : 1.0
+* see : 
+*
+//-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>메인 | 통계청SGIS 오픈플랫폼</title>
+    <link href="/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+    
+    <!-- *신규* --> 
+	<link rel="stylesheet" type="text/css" href="/sample/include/css/interativeFunc.css" />
+  	<!-- *신규* -->
+  
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/plugins/EasyTree/skin-lion/ui.easytree_new.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/colorpicker/css/colpick.css">
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+    <script type="text/javascript" src="/js/plugins/jquery.mCustomScrollbar.concat.min.js"></script>  
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/colpick.js"></script>
+    <script type="text/javascript" src="/js/plugins/colorpicker/js/jquery.xcolor.js"></script>
+    <script type="text/javascript" src="/js/plugins/EasyTree/jquery.easytree.min.js"></script>
+    
+    <script type="text/javascript" src="/sample/include/js/interactiveEtc.js"></script><!-- *신규* -->
+</head>
+
+<body>  
+	<div id="wrap">   
+		
+		<!----------------------레이어---------------------- -->
+		<div class="popBox hangjungArea" style="top:0%">
+			<a href="javascript:void(0)" class="hanClose">close</a>
+			<div class="rela">
+				<p>행정구역통계 세부조건설정</p>
+				<ul> 
+					<li>
+						<label for="hangOption01">세부항목</label>
+						<select id="hangOption01"><option>항목을 필수로 선택하세요</option></select>
+					</li>
+					<li>
+						<label for="hangOption01">주기</label>
+						<select id="hangOption01"><option>부정기</option></select>
+					</li>
+					<li>
+						<label for="hangOption01">년도</label>
+						<select id="hangOption01"><option>2010</option></select>
+					</li>
+					<li>
+						<label for="hangOption01">가구주와의 관계</label>
+						<select id="hangOption01"><option>합계</option></select>
+					</li>
+					<li>
+						<label for="hangOption01">성별</label>
+						<select id="hangOption01"><option>합계</option></select>
+					</li> 
+				</ul>
+				<a href="javascript:void(0)" class="btnStyle01">버튼 생성</a>
+				<a href="javascript:void(0)" class="resizeIcon">창축소</a>
+			</div>
+		</div>
+		
+		
+		<div class="popBox" style="left:20%">
+			<div class="topbar">
+				<span>조회한 통계결과  URL공유하기</span>
+				<a href="javascript:void(0)">닫기</a>
+			</div>
+			<div class="popContents">
+				<ul class="listFormPop">
+					<li>
+						<label for="urlsubj" class="label">URL 내용 :</label>
+						<input type="text" id="urlsubj" class="inp" />
+					</li>
+					<li>
+						<span class="label">&nbsp;</span>
+						<a href="javascript:void(0)"><img src="/img/ico/ico_facebook.png" alt="페이스북"/></a>
+						<a href="javascript:void(0)"><img src="/img/ico/ico_twitter.png" alt="트위터"/></a>
+						<a href="javascript:void(0)"><img src="/img/ico/ico_cacao.png" alt="카카오톡"/></a>
+					</li>
+					<!-- 
+					<li>
+						<span class="label">공개여부</span>
+						<input type="checkbox" id="ckbigong01" />
+						<label for="ckbigong01" class="mr20">비공개</label>
+						<input type="checkbox" id="ckgong01" />
+						<label for="ckgong01">공개</label>
+					</li>
+					 -->
+				</ul>
+				<p class="txt">조회한 결과 내용을 활용사례로 공유하시면 SGIS+plus 사용자간<br />통계조회 결과의 자유로운 열람이 가능합니다</p>
+				<p class="txt">우수 공유사례에 대해서는 경품을 지급합니다</p>
+				<div class="btnBox">
+					<a href="javascript:void(0)" class="btnStyle01">URL 복사하기</a>
+					<a href="javascript:void(0)" class="btnStyle01">닫기</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="popBox">
+			<div class="topbar">
+				<span>조회한 통계결과 즐겨찾기</span>
+				<a href="javascript:void(0)">닫기</a>
+			</div>
+			<div class="popContents">
+				<ul class="listFormPop">
+					<li>
+						<label for="savasubj" class="label">저장제목 :</label>
+						<input type="text" id="savasubj" class="inp" />
+					</li>
+					<li>
+						<label for="savadate" class="label">저장일시 :</label>
+						<input type="text" id="savadate" class="inp" />
+					</li>
+					<li>
+						<span class="label">공개여부</span>
+						<input type="checkbox" id="ckbigong" />
+						<label for="ckbigong" class="mr20">SGIS+plus 활용사례 공유</label> 
+					</li>
+				</ul>
+				<p class="txt">조회결과 저장기간은 2개월 까지며, 조회결과 공개여부에 따라 <br />SGIS+plus 사용자간 데이터의 자유로운 열람이 가능합니다.<br />저장된 내용을 활용사례로 공유시 저장기간을 연장할 수 있습니다.</p>
+				<div class="btnBox">
+					<a href="javascript:void(0)" class="btnStyle01">My Page 저장</a>
+					<a href="javascript:void(0)" class="btnStyle01">닫기</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="popBox" style="top:55%;">
+			<div class="topbar">
+				<span>데이터 공개기간 설정</span>
+				<a href="javascript:void(0)">닫기</a>
+			</div>
+			<div class="popContents">
+				<ul class="listFormPop">
+					<li>
+						<span class="label">저장제목 :</span>
+						<input type="text" class="date" />
+						<input type="text" class="date" />
+					</li> 
+				</ul>
+				<p class="txt">데이터 공개허용기간은 2개월까지 가능하며, 개별 요청시<br />관리자 승인에 따라 최장 6개월간 연장가능합니다.</p>
+				<div class="btnBox">
+					<a href="javascript:void(0)" class="btnStyle01">적용</a>
+					<a href="javascript:void(0)" class="btnStyle01">닫기</a>
+				</div>
+			</div>
+		</div>
+		<!----------------------레이어---------------------- -->
+
+
+	</div>
+</body>
+</html>

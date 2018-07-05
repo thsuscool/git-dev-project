@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="sub"> 
+<head>
+<meta charset="utf-8" />  
+<meta name="format-detection" content="telephone=no" /> 
+<title>SGIS PLUS 개발지원센터</title>         
+<link rel="stylesheet" href="../../css/developer/common.css" type="text/css" /> 
+<script type="text/javascript" src="../../js/plugins/jquery.min.js"></script> 
+<script type="text/javascript" src="../../js/plugins/jquery-ui-1.10.3.custom.js"></script>  
+<script type="text/javascript" src="../../js/plugins/jquery.highlight.js"></script> 
+<script type="text/javascript" src="../../js/developer/common.js"></script>  
+</head> 
+<body>      
+ 
+<div class="wrapper sub">
+	
+	<div class="header"><!-- cls:header -->
+		<h1><a href="javascript:void(0)"><img src="../../img/developer/etc_logo.png" alt="SGIS PLUS 개발지원센터"  /></a></h1>
+		<ul>
+			<li><a href="javascript:void(0)"><img src="../../img/developer/btn_mypage.png" alt="마이페이지" /></a></li>
+			<li><a href="javascript:void(0)"><img src="../../img/developer/btn_login.png" alt="로그인" /></a></li>
+		</ul>
+	</div><!-- end cls:header -->
+	
+	<div class="container"><!-- cls:container -->
+		<div class="lnb">
+			<ul class="sideMenu">
+				<li><a href="javascript:void(0)" class="m01">오픈API소개</a></li>
+				<li><a href="javascript:void(0)" class="m02 on">지도API</a></li>
+				<li><a href="javascript:void(0)" class="m03">데이터API</a></li>
+				<li><a href="javascript:void(0)" class="m04">모바일SDK</a></li>
+				<li><a href="javascript:void(0)" class="m05">체험하기</a></li>
+				<li><a href="javascript:void(0)" class="m06">알림마당</a></li>
+				<li><a href="javascript:void(0)" class="m07">인증키발급센터</a></li>
+			</ul>
+		</div>
+
+		<div class="guideMenu">
+			<div class="topItem">
+				<div class="searchBox">
+					<input type="text" name="" placeholder="검색어를 입력하세요" />
+					<a href="javascript:void(0)"><img src="../../img/developer/ico_search.png" alt="검색" /></a>
+				</div>
+			</div>
+			
+			<ul class="guideList">
+				<li><a href="#contStart">준비하기</a></li>
+				<li><a href="javascript:void(0)">주요기능 소개</a></li>
+				<li>
+					<a href="javascript:void(0)">기능별 사용예제 보기</a>
+					<ul class="etcList">
+						<li><a href="javascript:void(0)">시작하기</a></li>
+						<li><a href="javascript:void(0)">HTML5앱으로 선언하기</a></li>
+						<li><a href="javascript:void(0)">SOP JavaScript 로딩하기</a></li>
+						<li><a href="javascript:void(0)">맵 DOM 엘리먼트</a></li>
+						<li><a href="javascript:void(0)">지도객체(Map Object) 생성및 옵션</a></li>
+						<li><a href="javascript:void(0)">지도의 확대/축소</a></li>
+						<li><a href="javascript:void(0)">지도이벤트</a></li>
+						<li><a href="javascript:void(0)">기본 컨트롤</a></li>
+						<li><a href="javascript:void(0)">컨트롤 추가 및 삭제 옵션</a></li>
+						<li><a href="#contMaker" class="on">마커생성</a></li>
+						<li><a href="javascript:void(0)">마커아이콘 변경하기</a></li>
+						<li><a href="javascript:void(0)">폴리라인</a></li>
+						<li><a href="javascript:void(0)">폴리곤</a></li>
+						<li><a href="javascript:void(0)">폴리곤옵션</a></li>
+						<li><a href="javascript:void(0)">원</a></li>
+						<li><a href="javascript:void(0)">사각형</a></li>
+						<li><a href="javascript:void(0)">인포윈도우</a></li>
+						<li><a href="javascript:void(0)">GeoJSON</a></li>
+						<li><a href="javascript:void(0)">KML</a></li>
+						<li><a href="javascript:void(0)">히트맵</a></li> 
+					</ul>
+				</li>
+			</ul> 
+		</div>
+
+		<div class="article">
+			<div class="rela">
+				<div class="openMark"><img src="../../img/developer/etc_open.png" /></div>
+			  
+				<dl class="itemList"  id="contStart">
+					<dt>준비하기</dt>
+					<dd> SGIS 지도 API는 인증키 발급을 받아야 사용할 수 있습니다. 사용자가 발급받은 키로 트래픽을 관리하여 모든 사용자에게 원활한 서비스를 제공하기 위함입니다. 열쇠모양의 버튼 을 클릭하면 인증키 생성 관리 페이지 로 
+					이동합니다. 아직 발급받은 키가 없다면 해당 페이지에 접속하여 키를 발급 받으세요.
+					</dd>
+				</dl>  
+	 
+				<div class="normalBox"> 
+					<a href="javascript:void(0)"><img src="../../img/developer/btn_api.png" alt="API 정의서 보기" /></a> 
+				</div> 
+				<div class="normalBox"> 
+					<div class="btnbox"><a href="javascript:void(0)"><img src="../../img/developer/btn_auth.png" alt="인증키 발급 신청" /></a></div>
+					<div class="txtbox">
+						<p class="t01">테스트키 신청방법  <p>
+						</p class="t02">약관동의 → 정보입력 → 테스트키 신청 → 즉시발급</p>
+					</div>
+					<div class="txtbox">
+						<p class="t01">사용키 신청방법  <p>
+						</p class="t02">마이페이지 → 테스트키정보수정 → 신청 → 승인 → 사용 </p>
+					</div>
+
+				</div> 
+
+				<dl class="itemList t01"  id="contMaker">
+					<dt>마커생성</dt>
+					<dd>마커는 지도위에 특정 지점을 표시하기 위한 요소입니다. 
+					<br />기본적으로 마커를 생성하기 위해서는 생성될 위치가 지정되어야 합니다</dd>
+				</dl>  
+	 
+				<div class="itemSet">
+					<h3>예제소스</h3>
+					<a href="javascript:void(0)"><strong>&#60;/&#62;</strong> 소스 예제 실행</a>
+				</div> 
+				<div class="exmpMaker"></div>
+			</div>
+			
+		</div> 
+		 
+	</div><!-- end cls:container -->
+	
+	<div class="footer"><!-- cls:footer -->
+		<div class="rela">
+			<div class="pic"><img src="../../img/developer/etc_bottomLogo.png" alt="통계청" /></div>
+			<ul>
+				<li>(35208)대전광역시 서구 청사로 189</li>
+				<li>통계청콜센터 : 02)2012-9114 SGIS담당자 : 042)481-2342 자료제공담당자 : 042)481-2438</li>
+				<li>COPYRIGHT STATISTICS KOREA ALL RIGHTS RESERVED SINCE 1996</li>
+			</ul>
+		</div>
+	</div><!-- end cls:footer -->
+	
+	
+	<script>
+	$(function(){
+		var _firstHeight = $(".wrapper.sub .container .article").height();
+		$(".wrapper.sub .container .article").scroll(function(){
+			var _h = $(this).height();
+			var _st = $(this).scrollTop() + _h;
+			var _pst = $(this).prop("scrollHeight");
+			if(_st == _pst){
+				$("html.sub .container").stop().animate({"height": (_firstHeight-106) +"px"},300);
+			}else{
+				$("html.sub .container").stop().animate({"height": _firstHeight +"px"},300);
+			}
+		});
+		
+	});
+	</script>
+	 
+</div> 
+ 
+</body>
+</html> 

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="/mobile/js/plugins/sop-mobile/sop.css" />
+		<script src="/mobile/js/plugins/sop-mobile/sop-mobile.js"></script>
+		<script src="/mobile/js/common/includeHead.js"></script>
+		<script src="/mobile/js/common/common.js"></script>
+		<script src="/js/plugins/libs/jquery-ui.js"></script>
+		<script src="/mobile/js/common/sgis-mobile.js"></script>
+		<script src="/mobile/js/thematicMap/common-thematic.js"></script>
+		<script src="/mobile/js/thematicMap/thematicMap_api.js"></script>
+		<script src="/mobile/js/thematicMap/thematicMapMain.js"></script>
+		<script src="/mobile/js/common/mapNavigation.js"></script>
+		<link rel="stylesheet"href="/mobile/css/im.css" />
+		<title>통계주제도</title>
+		<meta name="title" content="통계주제도"/>
+		<script>
+			$(document).ready(function(){
+				if($sgisMobile.ui.parameters.stat_thema_map_id==undefined){
+					$(".Wrap>.Content").children().remove();
+					$(".Wrap>.Content").append($("<div/>",{id:"thematicSubmenu"}));
+					$sgisMobileThematic.ui.setSubmenu();
+				}else{
+					$sgisMobileThematic.ui.setSubmenu(1);
+					$("#openSubject").click(function(){
+						$("#thematicSubmenu .Open_Type1").show();
+						$("#thematicSubmenu .Open_Type1").height(Math.max(($(".SubjectList").outerHeight(true)+$(".Open_Type1>h3").outerHeight(true)+$(".Subject").outerHeight(true)),$(window).height()-35));
+						$(".Subject > nav > a").removeClass("M_on");
+						var id = $sgisMobileThematic.ui.currentCategory;
+						$(".Subject > nav > a").each(function(){
+							if(id == $(this).attr("id")){
+								$(this).addClass("M_on");
+								return false;
+							}
+						});
+						return false;
+					});
+					$("#closeSubject").click(function(){
+						$("#thematicSubmenu .Open_Type1").hide();
+					});
+				}
+				$sgisMobileThematic.ui.getThematicMapList(0);
+			});
+		</script>
+	</head>
+	<body>
+		<div class="Wrap">
+			<div class="Content">
+				<div class="Btn_Top">
+					<nav><a href="#" class="Btn_Top1" id="openSubject">통계목록</a><a href="#" class="Btn_Top2 M_on">지도</a><a href="#" class="Btn_Top3 NoneAction">범례</a><a href="#" class="Btn_Top4 NoneAction">차트</a><a href="#" class="Btn_Top5 NoneAction">표</a></nav>
+				</div>
+				<div id="thematicSubmenu"></div>
+				<p class="SelectArea"> 
+					<select name="" id="sidoSelect_mapNavi_1" data-id="sidoSelect_mapNavi_1"></select>
+					<select name="" id="sggSelect_mapNavi_1" data-id="sggSelect_mapNavi_1"></select>
+					<select name="" id="admSelect_mapNavi_1" data-id="admSelect_mapNavi_1"></select>
+					<button class="Btn_Search" type="button" id="navi-confirm" data-id="navi-confirm">조회</button>
+				</p>
+				<div class="MapArea">
+					<div class="MapTitle">
+						<h3></h3>
+						<span class="MapTitleBg">&nbsp;</span>
+					</div>
+					<div class="Map">
+						<iframe class="map_dummy" frameborder="0" src="" id="themeticFrame"></iframe>
+					</div>
+					<div id="chart-area" style="margin-top:38px;display: none;">
+		            	<div id="barchart-area"  style="width:100%;"></div>
+	            	</div>
+					
+				</div>
+			</div>
+		</div>
+		<script src="/mobile/js/common/includeBottom.js"></script>
+	</body>
+</html>

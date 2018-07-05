@@ -1,0 +1,40 @@
+@import url("/css/common.css");
+@import url("/css/default.css");
+
+.containerBox{width:970px;height:auto;overflow:hidden;margin:0 auto;}
+.thematicGuide{font-size:15px;margin:30px 0 50px 0;color:#273c50;width:100%;height:auto;overflow:hidden;}
+.thematicSubTitle{width:100%;height:auto;overflow:hidden;position:relative;}
+.thematicSubTitle h3{font-size:28px;color:#273c50;}
+.thematicSubTitle p{color:#575757;font-size:14px;margin-top:10px;}
+.thematicSubTitle a{color:#727272;font-size:14px;background:url(/img/bg/bg_thematicLink.png);width:203px;height:39px;line-height:39px;text-align:left;text-indent:45px;display:block;position:absolute;right:0;top:0;}
+.thematicForm{margin-top:35px;text-align:center;width:100%;height:34px;padding:25px 0;overflow:hidden;border-top:2px solid #00498f;border-bottom:2px solid #00498f;}
+.thematicForm input{width:314px;height:32px;line-height:32px;padding:0 10px;font-size:13px;border:1px solid #e4e4e4;}
+.thematicForm a{margin:0 10px;display:inline-block;width:93px;height:34px;line-height:34px;text-align:center;overflow:hidden;color:#fff;font-size:13px;background:#21b69a;}
+.thematicForm input, .thematicForm a{vertical-align:middle}
+.searchReslutBox{width:100%;height:auto;overflow:hidden;}
+.searchReslutBox .fl{float:left;width:403px;height:500px;overflow:hidden;border-right:1px solid #d6d6d6;border-bottom:1px solid #d6d6d6}
+.searchReslutBox .fl.icon01{background:url(/img/ico/ico_thematicSearch01.png) no-repeat left 40px;}
+.searchReslutBox .fl .tit{font-size:30px;color:#273c50;margin:40px 0 0 120px}
+.searchReslutBox .fl .txt01{margin:5px 0 0 120px;font-size:14px;color:#273c50;}
+.searchReslutBox .fl .txt02{margin:20px 0 0 120px;font-size:14px;color:#727272;}
+.searchReslutBox .fr{float:left;width:566px;height:500px;overflow:hidden;border-bottom:1px solid #d6d6d6}
+.thematicSearchList{margin:45px;display:block;height:auto;overflow:hidden;}
+.thematicSearchList li{width:100%;height:auto;margin-bottom:30px;overflow:hidden;}
+.thematicSearchList li .thematicLink{width:100%;height:auto;overflow:hidden;}
+.thematicSearchList li .thematicLink a{font-size:17px;color:#3b3b3b;}
+.thematicSearchList li .thematicLink a, .thematicSearchList li .thematicLink img{vertical-align:middle}
+.thematicSearchList li .thematicEtc{margin:5px 0;color:#727272;font-size:13px;width:100%;height:auto;overflow:hidden;}
+.thematicSearchList li .thematicSpan{width:100%;height:auto;overflow:hidden;}
+.searchReslutBox .fc{width:100%;height:auto;overflow:hidden;}
+.searchReslutBox .fc .thematicSearchList{margin:0;}
+.searchReslutBox .fc .thematicSearchList li{margin-bottom:0;border-bottom:1px solid #d6d6d6;width:auto;display:block;padding:20px;}
+.spbox{display:inline-block;min-width:40px;text-align:center;margin:0 5px 0 0;padding:5px;color:#fff;font-size:11px;border-radius:5px;}
+.spbox.type01{background:#597188;}
+
+.spbox.type02{background:#619bb6;}
+.spbox.type03{background:#2f4d6a;}
+.rstxt{color:#606060;font-size:15px;display:block;padding:10px 20px;border-bottom:1px solid #d6d6d6;}
+.spbox.type04{background:#ffaa50;}
+.spbox.type05{background:#e8c43d;}
+.spbox.type06{background:#a6bd55;}
+.spbox.type07{background:#fb6554;}

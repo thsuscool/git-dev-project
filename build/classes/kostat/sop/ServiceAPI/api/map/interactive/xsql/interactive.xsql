@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="interactive">
+
+	<!-- 시도 조회 -->
+	<select id="getStatBaseYear" parameterType="hashmap" resultType="String">
+		SELECT  MIN(base_year) as base_year
+		FROM    srv_dt_statbaseyearinfo
+		WHERE   api_id = #{api_id}
+		AND     param_info IN
+		<foreach  collection="param_info" item="param" open="(" separator="," close=")">
+			#{param}
+		</foreach>
+	</select>
+	
+	<select id="bdarea" parameterType="hashmap" resultType="hashmap">
+			Select sufid, bd_nm, bd_naddr, to_char(lowest_flr) as lowest_flr, highest_flr, st_asbinary(bord) geometry
+			from srv_nat_bas_bldg_pg
+			where 
+				ST_INTERSECTS(ST_RECTFROMTEXT('RECTANGLE(${minx} ${miny}, ${maxx} ${maxy})',0),bord) = 1
+	</select>
+	
+	<select id="outputAreaSearch" parameterType="hashmap" resultType="hashmap">
+				SELECT X_COOR, Y_COOR
+				FROM SRV_PG_TOTREGBORD
+				WHERE TOT_REG_CD = #{tot_reg_cd}
+	</select>
+	
+</mapper>

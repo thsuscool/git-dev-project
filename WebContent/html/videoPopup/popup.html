@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>SGIS+ 홍보동영상</title>
+  <link rel="stylesheet" type="text/css" href="master.css"/>
+  <script type='text/javascript' src='/js/plugins/jquery.min.js'></script>
+  <script type="text/javascript">
+  //mng_s  웹접근성 적용 자동재생시 esc로 멈추기 기능 추가 20170808 이경현
+	  $(document).ready(function(){
+		  $("body").keypress(function (e){
+			  if(e.which == 27){
+				  $("#video1")[0].pause();
+			  }
+		  });
+
+		});
+  //mng_e  웹접근성 적용 자동재생시 esc로 멈추기 기능 추가
+  
+  
+  
+  
+  function apiLogCall_video(api_type, api_id,api_parameter){
+		//운영 반영시 주석 해지
+		jQuery.ajax({
+	 		type:"POST",
+//	 		url: "http://dev.kostat.go.kr/ServiceAPI/common/APILogWrite.json",
+ 	 		url: "https://sgis.kostat.go.kr/ServiceAPI/common/APILogWrite.json",
+	 		data:{	
+	 			"type": api_type,
+	 			"api_id" : api_id,
+	 			"title" : "홍보동영상",
+	 			"parameter" : api_parameter,
+	 			"zoomLevel" : "00",
+	 			"adm_nm" : "없음"
+	 		},
+			async: true,
+	 		success:function(data){ 
+// 	 			alert("success");
+	 		},
+	 		error:function(data) {
+// 	 			alert(data);
+	 		}
+		});
+	}
+	
+  	function videoOnload(){		
+  		apiLogCall_video("P0","P01","short version 저화질");
+  		$("#video1")[0].play();
+		$(".left_1").attr("play_id","dis1");
+		$("#video1_low_btn").attr("src","image/button1_1.png");  				
+		$(".left_1").append(
+							"<video id='video2' width='579' height='328' controls loop>"+
+							"<source src='/play/fullVer_low.mp4' type='video/mp4'>"+
+							"</video>"+
+							"<video id='video3' width='579' height='328' controls loop>"+
+							"<source src='/play/howUse.mp4' type='video/mp4'>"+
+							"</video>");
+  		$("#video2").hide();
+  		$("#video3").hide();
+  	}
+  	
+  	function videoMain(){
+  		$("#video1_low_btn").attr("src","image/button1_1.png");
+		$("#video2_low_btn").attr("src","image/button1.png");
+		$("#video3_btn").attr("src","image/button3.png");
+		$("video:not(#video1)").trigger("pause");
+		$("#video1").show();
+		$("#video1")[0].play();
+  	}
+  	function videoClick_btn(chk){
+  		if(chk == 'dis2'){
+  			apiLogCall_video("P0","P01","short version 고화질 다운로드");
+  		}else if(chk == 'dis4'){
+  			apiLogCall_video("P0","P01","full version 고화질 다운로드");
+  		}
+  		switch(chk){
+  		case "dis2" :
+  			if($("#video1_high_btn").attr("src") == "image/button2_2.png"){
+  				$("#video1_high_btn").attr("src","image/button2.png");
+  			}else{
+  				$("#video1_high_btn").attr("src","image/button2_2.png");
+  				setInterval(function(){
+  					$("#video1_high_btn").attr("src","image/button2.png");
+  				},300);
+  			}
+  			break;
+  		case "dis4" :
+  			if($("#video2_high_btn").attr("src") == "image/button2_2.png"){
+  				$("#video2_high_btn").attr("src","image/button2.png");
+  			}else{
+  				$("#video2_high_btn").attr("src","image/button2_2.png");
+  				setInterval(function(){
+  					$("#video2_high_btn").attr("src","image/button2.png");
+  				},300);
+  			}
+  			break;
+  		}
+  	}
+  	function videoClick(chk){
+  		if(chk == 'dis1'){
+  			apiLogCall_video("P0","P01","short version 저화질");
+  		}else if(chk == 'dis3'){
+  			apiLogCall_video("P0","P01","full version 저화질");
+  		}else if(chk == 'dis5'){
+  			apiLogCall_video("P0","P01","이용법설명 영상");
+  		}
+  			$("video").hide();
+  		switch(chk){
+  		case "dis1" :
+  			videoMain();
+  			break;		
+  		case "dis3" : 
+  			if($("#video2")[0].readyState != 4){
+  				$("#video1").trigger("pause");
+  				alert("동영상 로딩중입니다. 잠시만 기다려주십시오.");
+  				videoMain();
+  				return false;
+  			}
+  			$("#video1_low_btn").attr("src","image/button1.png");
+  			$("#video2_low_btn").attr("src","image/button1_1.png");
+  			$("#video3_btn").attr("src","image/button3.png");
+  			$("video:not(#video2)").trigger("pause");
+  			$("#video2").show();
+			$("#video2")[0].play();
+			break;
+  		case "dis5" : 
+  			if($("#video3")[0].readyState != 4){
+  				$("#video1").trigger("pause");
+  				alert("동영상 로딩중입니다. 잠시만 기다려주십시오.");
+  				videoMain();
+  				return false;
+  			}
+  			$("#video1_low_btn").attr("src","image/button1.png");
+  			$("#video2_low_btn").attr("src","image/button1.png");
+  			$("#video3_btn").attr("src","image/button4.png");
+  			$("video:not(#video3)").trigger("pause");
+  			$("#video3").show();
+			$("#video3")[0].play();
+			break;
+				
+  		}
+  	}
+
+  </script>
+ </head>
+<body onload="javascript:videoOnload();">
+   <div class="wrapper">
+		<div class="content">
+
+			<div class="left_1">
+				<video id="video1" width="579" height="328" controls loop>
+					<source src="/play/zipVer_low.mp4" type="video/mp4">
+				</video>
+			</div>
+
+			<div class="right_1">
+			   <div class="right"> 
+
+					<div class="title_1">
+						<p class="title" style="vertical-align:middle;"><img src="image/logo.png" alt="로고"/></p>
+						<div class="title_2" style="margin-top:28px;">
+						  <p style="vertical-align:middle;"><img src="image/player1.png" alt="타이틀"/></p>
+							<div class="button">
+								<p>
+									<a id="dis1" href="javascript:void(0);" onclick="javascript:videoClick(this.id);"><img id="video1_low_btn" src="image/button1.png" alt="저화질"/></a>
+									<a id="dis2" href="../../../upload/zipVersion.zip" onclick="javascript:videoClick_btn(this.id);" download><img id="video1_high_btn" src="image/button2.png" alt="고화질" style="float:right;"/></a>
+								</p>
+							</div>
+						 <div class="title_2" style="margin-top:18px;">
+						  <p style="vertical-align:middle;"><img src="image/player2.png" alt="타이틀"/></p>
+							<div class="button">
+								<p>
+									<a id="dis3" href="javascript:void(0);" onclick="javascript:videoClick(this.id);"><img id="video2_low_btn" src="image/button1.png" alt="저화질"/></a>
+									<a id="dis4" href="../../../upload/fullVersion.zip" onclick="javascript:videoClick_btn(this.id);" download><img id="video2_high_btn" src="image/button2.png" alt="고화질" style="float:right;"/></a>
+								</p>
+							</div>
+						 </div>
+						<br/>
+						 <p class="button_on"><a id="dis5" href="javascript:void(0);" onclick="javascript:videoClick(this.id);"><img id="video3_btn" src="image/button3.png" alt="버튼"/></a></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+  </div>
+</body>
+</html>
+ 
