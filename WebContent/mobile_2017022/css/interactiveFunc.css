@@ -1,6 +1,0 @@
-.compareBox .tables table{width: 100%;table-layout:fixed;border-collapse: collapse;border-spacing: 0}
-.compareBox .tables .scrolls{width: 100%;border-bottom:1px solid #dcdcdc;overflow: scroll;}
-.compareBox .tables table caption{display:none}
-.compareBox .tables table th{font-size:11px;font-weight:normal;height:30px;border:1px solid #dcdcdc;background:#f1f1f1;}
-.compareBox .tables table td{font-size:11px;background:#fff;border:1px solid #dcdcdc;height:30px;text-align:right;padding:0 5px;}
-.compareBox .tables table td.al{text-align:left}
